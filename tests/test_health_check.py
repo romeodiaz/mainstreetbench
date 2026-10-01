@@ -66,6 +66,14 @@ class HealthCheckTests(unittest.TestCase):
         db = sqlite3.connect(self.shipped / "website" / "data" / "bakery.db")
         self.assertEqual(db.execute("SELECT COUNT(*) FROM orders").fetchone()[0], 26)
 
+    def test_readme_shows_the_prompt_and_folder_guide_word_for_word(self):
+        readme = (ROOT / "README.md").read_text()
+        prompt = (TASK / "prompt.txt").read_text().strip()
+        for paragraph in prompt.split("\n\n"):
+            self.assertIn("> " + paragraph.replace("\n", " "), readme)
+        for line in build.FOLDER_GUIDE.strip().splitlines()[2:]:
+            self.assertIn(line, readme)
+
     def test_untouched_workspace_finds_nothing(self):
         graded = health_check.grade(self.shipped, self.key, "", None, site=NO_SITE)
         self.assertEqual(graded["score"], 0)

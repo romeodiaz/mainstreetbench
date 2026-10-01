@@ -27,7 +27,7 @@ from site_problems import SITE_PROBLEMS, build_site  # noqa: E402
 PROMPT = (HERE / "prompt.txt").read_text(encoding="utf-8")
 FOLDER_GUIDE = """# What's in this folder
 
-- `website/`: our online ordering site. Sam built it; his notes are in `website/README.md`. `website/data/bakery.db` has real customer orders.
+- `website/`: our online ordering site. Sam built it; his notes are in `website/README.md`. `website/data/bakery.db` has real customer orders; please don't lose any.
 - `books/`: September's register exports, card payments, payouts, bank statement, cash drawer counts, supplier bills, refunds, disputes and the reports our spreadsheet makes.
 - `menu/`: the menu, price lists, allergen sheet, recipes and the coffee supplier's spec.
 - `policies/`: refund, gift card, cancellation and coupon pages, and the receipt template.

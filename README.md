@@ -6,13 +6,27 @@ Can an expensive model planning and reviewing a cheaper model's work deliver sim
 
 An AI gets everything for Corner Loaf Bakery and this message from the owner, word for word:
 
-> I run Corner Loaf Bakery, a small bakery in the US. Today is Thursday, October 8, 2026.
+> Hi! I own Corner Loaf Bakery, a small neighborhood bakery. Today is Thursday, October 8, 2026.
 >
-> Something feels off with the business and I can't put my finger on it. This folder has everything: our ordering website, September's books, the menu and allergen sheet, our policies, our online listing and the shop inbox. FOLDER-GUIDE.md says what's where.
+> Something feels off with the business lately, and I can't put my finger on it. I've put everything in this folder: our ordering website, September's books, the menu and allergen sheet, our policies, our online listing and the shop's emails. There's a note in there called FOLDER-GUIDE that says what's where.
 >
-> Please go through all of it. Fix whatever you can fix, and keep everything that already works working; customers have real orders in website/data/bakery.db, so don't lose any. For anything you can't fix from here, like money that needs chasing, tell me exactly what's wrong and which order, payment or invoice numbers to look at.
+> Could you go through all of it? Please fix whatever you can, but don't break anything that's working. Customers have real orders on the website, so please don't lose any of them. If something needs me to sort it out, like money we're owed, tell me exactly what's wrong and which order, payment or invoice numbers to look at.
 >
-> When you're done, give me a plain-English report: what you found, what you fixed, and what I need to do.
+> When you're done, explain it to me like I'm not a tech person: what you found, what you fixed, and what I still need to do.
+
+<details>
+<summary>FOLDER-GUIDE, the note in the bakery's folder</summary>
+
+- `website/`: our online ordering site. Sam built it; his notes are in `website/README.md`. `website/data/bakery.db` has real customer orders; please don't lose any.
+- `books/`: September's register exports, card payments, payouts, bank statement, cash drawer counts, supplier bills, refunds, disputes and the reports our spreadsheet makes.
+- `menu/`: the menu, price lists, allergen sheet, recipes and the coffee supplier's spec.
+- `policies/`: refund, gift card, cancellation and coupon pages, and the receipt template.
+- `signs/`: the sign on the front door.
+- `listing/`: our online business listing and recent reviews.
+- `admin/`: staff list, promotions calendar, accounts and services, newsletter list.
+- `inbox/`: emails from the last few weeks. `drafts/` has replies we haven't sent.
+
+</details>
 
 **100 problems** are planted across those files, and nothing lists them. They range from "the baguette is marked gluten-free" to "anyone can cancel anyone's order by typing an order number" to "a payout never reached the bank". [See all 100 in plain English.](docs/health-check-problems.md)
 
