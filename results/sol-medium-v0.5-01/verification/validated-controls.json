@@ -1,0 +1,72 @@
+{
+  "source_commit": "bee5fa06f3c15cba120e75271470f89911ba818f",
+  "controls": {
+    "reference": {
+      "score": 100.0,
+      "scale": "0-100",
+      "groups": {
+        "regression": "7/7",
+        "ticket_1_tax_and_coupons": "5/5",
+        "ticket_2_pickup_times": "8/8",
+        "ticket_3_daily_limits": "6/6",
+        "ticket_4_gift_cards": "10/10",
+        "ticket_5_online_cancellation": "8/8",
+        "ticket_6_sold_out_on_menu": "4/4",
+        "ticket_7_change_the_cart": "4/4",
+        "ticket_8_total_before_ordering": "5/5"
+      },
+      "test_methods": 57,
+      "status_counts": {
+        "pass": 57
+      },
+      "elapsed_seconds": 337.155,
+      "server_launches": 60,
+      "site_servers": 57,
+      "trusted_starter_legacy_builders": 3,
+      "browser_event_counts": {
+        "browser_launch": 12,
+        "browser_context": 139
+      },
+      "site_bytes_unchanged": true,
+      "stderr_empty": true
+    },
+    "starter": {
+      "score": 0.0,
+      "scale": "0-100",
+      "groups": {
+        "regression": "7/7",
+        "ticket_1_tax_and_coupons": "0/5",
+        "ticket_2_pickup_times": "0/8",
+        "ticket_3_daily_limits": "0/6",
+        "ticket_4_gift_cards": "0/10",
+        "ticket_5_online_cancellation": "0/8",
+        "ticket_6_sold_out_on_menu": "0/4",
+        "ticket_7_change_the_cart": "0/4",
+        "ticket_8_total_before_ordering": "0/5"
+      },
+      "test_methods": 57,
+      "status_counts": {
+        "pass": 7,
+        "fail": 50
+      },
+      "elapsed_seconds": 305.225,
+      "server_launches": 60,
+      "site_servers": 57,
+      "trusted_starter_legacy_builders": 3,
+      "browser_event_counts": {
+        "browser_launch": 12,
+        "browser_context": 88
+      },
+      "site_bytes_unchanged": true,
+      "stderr_empty": true
+    }
+  },
+  "sources_unchanged": true,
+  "source_snapshot_files": 46,
+  "unit_snapshot_unchanged": true,
+  "server_env_clean": true,
+  "browser_sandbox_enabled": true,
+  "persistent_browser_state": false,
+  "infrastructure_unchanged_from_v04": true,
+  "scope": "Trusted evaluator/hidden suite outside Seatbelt; all bakery.server children deny-default sandboxed; browsers fresh built-in Chromium sandbox, networking otherwise unchanged."
+}

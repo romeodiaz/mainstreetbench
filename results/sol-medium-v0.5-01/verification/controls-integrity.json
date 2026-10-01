@@ -1,0 +1,97 @@
+{
+  "reference": {
+    "unchanged_trusted_source_files": 28,
+    "source_hashes_match_recorded_git_commit": true,
+    "site_before_equals_after": true,
+    "sandbox_sha256": "0d1dd68cc58d2d8a4aa76b1660727098a124c06c4dc80adc162ea9122e81754d",
+    "server_hook_sha256": "2f2b17ad81f1511eebb34eed2a5a95467ed8f7d60cd55ca1981a67e09fdf4921",
+    "server_env_keys": [
+      "ADMIN_PASSWORD",
+      "CORNERLOAF_NOW",
+      "PATH",
+      "PYTHONDONTWRITEBYTECODE",
+      "PYTHONNOUSERSITE",
+      "TMPDIR"
+    ],
+    "preflight": {
+      "blocked_reads": [
+        "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/validated-reference/trusted/evaluators/ordering_site.py",
+        "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/validated-reference/trusted/tasks/ordering-site/hidden_tests/harness.py",
+        "/Users/romeodiaz/.codex/auth.json",
+        "/Users/romeodiaz/Code/mainstreetbench/README.md",
+        "/System/Volumes/Data/Users/romeodiaz/.codex/auth.json",
+        "/System/Volumes/Data/Users/romeodiaz/Code/mainstreetbench/README.md"
+      ],
+      "loopback": "allowed",
+      "external_network": "denied"
+    },
+    "grading_environment_keys": [
+      "CHROMIUM_PATH",
+      "MSB_BROWSER_LOG",
+      "MSB_LAUNCH_LOG",
+      "MSB_SITE_SANDBOX",
+      "PATH",
+      "PLAYWRIGHT_BROWSERS_PATH",
+      "PYTHONDONTWRITEBYTECODE",
+      "PYTHONNOUSERSITE",
+      "PYTHONPATH",
+      "TMPDIR"
+    ],
+    "grade_command": [
+      "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-grader-preflight/runtime/bin/python",
+      "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/validated-reference/trusted/evaluators/ordering_site.py",
+      "--site",
+      "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/trusted/tasks/ordering-site/reference",
+      "--report",
+      "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/validated-reference/report.json"
+    ]
+  },
+  "starter": {
+    "unchanged_trusted_source_files": 28,
+    "source_hashes_match_recorded_git_commit": true,
+    "site_before_equals_after": true,
+    "sandbox_sha256": "05b116fa8faf1a72a5150b352724551dbe9aeeda05a1da929f04fa98c4ec48b3",
+    "server_hook_sha256": "2f2b17ad81f1511eebb34eed2a5a95467ed8f7d60cd55ca1981a67e09fdf4921",
+    "server_env_keys": [
+      "ADMIN_PASSWORD",
+      "CORNERLOAF_NOW",
+      "PATH",
+      "PYTHONDONTWRITEBYTECODE",
+      "PYTHONNOUSERSITE",
+      "TMPDIR"
+    ],
+    "preflight": {
+      "blocked_reads": [
+        "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/validated-starter/trusted/evaluators/ordering_site.py",
+        "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/validated-starter/trusted/tasks/ordering-site/hidden_tests/harness.py",
+        "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/trusted/tasks/ordering-site/reference/bakery/server.py",
+        "/Users/romeodiaz/.codex/auth.json",
+        "/Users/romeodiaz/Code/mainstreetbench/README.md",
+        "/System/Volumes/Data/Users/romeodiaz/.codex/auth.json",
+        "/System/Volumes/Data/Users/romeodiaz/Code/mainstreetbench/README.md"
+      ],
+      "loopback": "allowed",
+      "external_network": "denied"
+    },
+    "grading_environment_keys": [
+      "CHROMIUM_PATH",
+      "MSB_BROWSER_LOG",
+      "MSB_LAUNCH_LOG",
+      "MSB_SITE_SANDBOX",
+      "PATH",
+      "PLAYWRIGHT_BROWSERS_PATH",
+      "PYTHONDONTWRITEBYTECODE",
+      "PYTHONNOUSERSITE",
+      "PYTHONPATH",
+      "TMPDIR"
+    ],
+    "grade_command": [
+      "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-grader-preflight/runtime/bin/python",
+      "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/validated-starter/trusted/evaluators/ordering_site.py",
+      "--site",
+      "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/trusted/tasks/ordering-site/starter",
+      "--report",
+      "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/validated-starter/report.json"
+    ]
+  }
+}

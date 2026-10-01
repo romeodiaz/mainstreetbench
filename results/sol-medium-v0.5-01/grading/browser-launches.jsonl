@@ -1,0 +1,76 @@
+{"type": "browser_launch", "browser": "chromium", "version": "153.0.8010.12", "chromium_sandbox": true, "executable_path": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-grader-preflight/browsers/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing", "profile": "new disposable Playwright launch profile", "time_ns": 1790838743647804000}
+{"type": "browser_launch", "browser": "chromium", "version": "153.0.8010.12", "chromium_sandbox": true, "executable_path": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-grader-preflight/browsers/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing", "profile": "new disposable Playwright launch profile", "time_ns": 1790838744122559000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:58853", "storage_state_supplied": false, "time_ns": 1790838744194941000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:58871", "storage_state_supplied": false, "time_ns": 1790838744609687000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:58884", "storage_state_supplied": false, "time_ns": 1790838744796068000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:58894", "storage_state_supplied": false, "time_ns": 1790838744970486000}
+{"type": "browser_launch", "browser": "chromium", "version": "153.0.8010.12", "chromium_sandbox": true, "executable_path": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-grader-preflight/browsers/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing", "profile": "new disposable Playwright launch profile", "time_ns": 1790838745493197000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:58918", "storage_state_supplied": false, "time_ns": 1790838745553947000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:58934", "storage_state_supplied": false, "time_ns": 1790838745803531000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:58945", "storage_state_supplied": false, "time_ns": 1790838745987971000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:58953", "storage_state_supplied": false, "time_ns": 1790838746166771000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:58964", "storage_state_supplied": false, "time_ns": 1790838746341762000}
+{"type": "browser_launch", "browser": "chromium", "version": "153.0.8010.12", "chromium_sandbox": true, "executable_path": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-grader-preflight/browsers/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing", "profile": "new disposable Playwright launch profile", "time_ns": 1790838746753379000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:58985", "storage_state_supplied": false, "time_ns": 1790838746879015000}
+{"type": "browser_launch", "browser": "chromium", "version": "153.0.8010.12", "chromium_sandbox": true, "executable_path": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-grader-preflight/browsers/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing", "profile": "new disposable Playwright launch profile", "time_ns": 1790838747364068000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59002", "storage_state_supplied": false, "time_ns": 1790838747426851000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59002", "storage_state_supplied": false, "time_ns": 1790838747618212000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59002", "storage_state_supplied": false, "time_ns": 1790838747747347000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59002", "storage_state_supplied": false, "time_ns": 1790838747875599000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59002", "storage_state_supplied": false, "time_ns": 1790838747997128000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59002", "storage_state_supplied": false, "time_ns": 1790838748113256000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59002", "storage_state_supplied": false, "time_ns": 1790838748230109000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59060", "storage_state_supplied": false, "time_ns": 1790838748526074000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59060", "storage_state_supplied": false, "time_ns": 1790838748641872000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59077", "storage_state_supplied": false, "time_ns": 1790838748826035000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59087", "storage_state_supplied": false, "time_ns": 1790838749002612000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59097", "storage_state_supplied": false, "time_ns": 1790838749166940000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59108", "storage_state_supplied": false, "time_ns": 1790838749341760000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59118", "storage_state_supplied": false, "time_ns": 1790838749515477000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59118", "storage_state_supplied": false, "time_ns": 1790838749620125000}
+{"type": "browser_launch", "browser": "chromium", "version": "153.0.8010.12", "chromium_sandbox": true, "executable_path": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-grader-preflight/browsers/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing", "profile": "new disposable Playwright launch profile", "time_ns": 1790838750088447000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59135", "storage_state_supplied": false, "time_ns": 1790838750151406000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59153", "storage_state_supplied": false, "time_ns": 1790838750416853000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59164", "storage_state_supplied": false, "time_ns": 1790838750607304000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59174", "storage_state_supplied": false, "time_ns": 1790838750783721000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59184", "storage_state_supplied": false, "time_ns": 1790838750953467000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59184", "storage_state_supplied": false, "time_ns": 1790838751060562000}
+{"type": "browser_launch", "browser": "chromium", "version": "153.0.8010.12", "chromium_sandbox": true, "executable_path": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-grader-preflight/browsers/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing", "profile": "new disposable Playwright launch profile", "time_ns": 1790838751487942000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59214", "storage_state_supplied": false, "time_ns": 1790838751611226000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59214", "storage_state_supplied": false, "time_ns": 1790838751823177000}
+{"type": "browser_launch", "browser": "chromium", "version": "153.0.8010.12", "chromium_sandbox": true, "executable_path": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-grader-preflight/browsers/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing", "profile": "new disposable Playwright launch profile", "time_ns": 1790838752243945000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59236", "storage_state_supplied": false, "time_ns": 1790838752311006000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59253", "storage_state_supplied": false, "time_ns": 1790838752586172000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59263", "storage_state_supplied": false, "time_ns": 1790838752777679000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59273", "storage_state_supplied": false, "time_ns": 1790838752965759000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59284", "storage_state_supplied": false, "time_ns": 1790838753183999000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59296", "storage_state_supplied": false, "time_ns": 1790838753375274000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59307", "storage_state_supplied": false, "time_ns": 1790838753592283000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59318", "storage_state_supplied": false, "time_ns": 1790838753796132000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59328", "storage_state_supplied": false, "time_ns": 1790838753983678000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59338", "storage_state_supplied": false, "time_ns": 1790838754150324000}
+{"type": "browser_launch", "browser": "chromium", "version": "153.0.8010.12", "chromium_sandbox": true, "executable_path": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-grader-preflight/browsers/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing", "profile": "new disposable Playwright launch profile", "time_ns": 1790838754562397000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59349", "storage_state_supplied": false, "time_ns": 1790838754620781000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59365", "storage_state_supplied": false, "time_ns": 1790838754875321000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59375", "storage_state_supplied": false, "time_ns": 1790838755050232000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59386", "storage_state_supplied": false, "time_ns": 1790838755233849000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59396", "storage_state_supplied": false, "time_ns": 1790838755408662000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59406", "storage_state_supplied": false, "time_ns": 1790838755575279000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59416", "storage_state_supplied": false, "time_ns": 1790838755742075000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59426", "storage_state_supplied": false, "time_ns": 1790838755916706000}
+{"type": "browser_launch", "browser": "chromium", "version": "153.0.8010.12", "chromium_sandbox": true, "executable_path": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-grader-preflight/browsers/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing", "profile": "new disposable Playwright launch profile", "time_ns": 1790838756335731000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59437", "storage_state_supplied": false, "time_ns": 1790838756399184000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59454", "storage_state_supplied": false, "time_ns": 1790838756652372000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59464", "storage_state_supplied": false, "time_ns": 1790838756825252000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59474", "storage_state_supplied": false, "time_ns": 1790838757000167000}
+{"type": "browser_launch", "browser": "chromium", "version": "153.0.8010.12", "chromium_sandbox": true, "executable_path": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-grader-preflight/browsers/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing", "profile": "new disposable Playwright launch profile", "time_ns": 1790838757421542000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59485", "storage_state_supplied": false, "time_ns": 1790838757478535000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59502", "storage_state_supplied": false, "time_ns": 1790838757750363000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59513", "storage_state_supplied": false, "time_ns": 1790838757933622000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59523", "storage_state_supplied": false, "time_ns": 1790838758108933000}
+{"type": "browser_launch", "browser": "chromium", "version": "153.0.8010.12", "chromium_sandbox": true, "executable_path": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-grader-preflight/browsers/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing", "profile": "new disposable Playwright launch profile", "time_ns": 1790838758502235000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59534", "storage_state_supplied": false, "time_ns": 1790838758569777000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59551", "storage_state_supplied": false, "time_ns": 1790838758831190000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59562", "storage_state_supplied": false, "time_ns": 1790838759019256000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59575", "storage_state_supplied": false, "time_ns": 1790838759233292000}
+{"type": "browser_context", "timezone_id": "UTC", "base_url": "http://127.0.0.1:59585", "storage_state_supplied": false, "time_ns": 1790838759411842000}

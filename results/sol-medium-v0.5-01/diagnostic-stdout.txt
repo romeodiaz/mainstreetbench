@@ -1,0 +1,70 @@
+{
+  "purpose": "Observe the normal menu-date-first flow independently of the completed raw acceptance grade.",
+  "site": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-sol-medium-20261001T070225Z/frozen",
+  "requested_date": "2026-10-10",
+  "requested_time": "10:00",
+  "database": "new throwaway database in existing sandbox scratch",
+  "server_sandbox": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-sol-medium-20261001T070225Z/grading/site.sb",
+  "source_commit": "bee5fa06f3c15cba120e75271470f89911ba818f",
+  "page_errors": [],
+  "request_failures": [],
+  "api_responses": [
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:59883/api/menu?date=2026-10-10",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:59883/api/menu?date=2026-10-10",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:59883/api/pickup-slots?date=2026-10-10&skus=BREAD9",
+      "status": 200
+    }
+  ],
+  "screenshots": [
+    "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-sol-medium-20261001T070225Z/control/diagnostic-menu-before.png",
+    "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-sol-medium-20261001T070225Z/control/diagnostic-menu-after.png"
+  ],
+  "grade_rerun": false,
+  "submission_modified": false,
+  "initial_menu": {
+    "date_value": "",
+    "bread_add_disabled": true,
+    "all_add_buttons_disabled": true,
+    "instructions": "Choose your pickup day, then add items. We'll have them boxed and waiting.",
+    "cart_count": "0"
+  },
+  "after_menu_date": {
+    "date_value": "2026-10-10",
+    "bread_add_enabled": true,
+    "menu_error": ""
+  },
+  "after_adding_bread": {
+    "cart_count": "2",
+    "cart": [
+      {
+        "sku": "BREAD9",
+        "name": "Sourdough Loaf",
+        "price": 9,
+        "qty": 2
+      }
+    ]
+  },
+  "checkout_initial": {
+    "url": "http://127.0.0.1:59883/checkout",
+    "inherited_menu_date": "2026-10-10",
+    "pickup_options": []
+  },
+  "diagnostic_error": {
+    "type": "TimeoutError",
+    "message": "Locator.select_option: Timeout 5000ms exceeded.\nCall log:\n  - waiting for get_by_label(\"Pickup time\", exact=True)\n"
+  },
+  "elapsed_seconds": 7.083,
+  "frozen_hashes_unchanged": true,
+  "trusted_hashes_unchanged": true,
+  "original_grading_evidence_unchanged": true
+}

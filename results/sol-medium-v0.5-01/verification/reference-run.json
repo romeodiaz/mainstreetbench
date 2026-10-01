@@ -1,0 +1,34 @@
+{
+  "argv": [
+    "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-grader-preflight/runtime/bin/python",
+    "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/validated-reference/trusted/evaluators/ordering_site.py",
+    "--site",
+    "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/trusted/tasks/ordering-site/reference",
+    "--report",
+    "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/validated-reference/report.json"
+  ],
+  "started_epoch": 1790838182.845174,
+  "elapsed_seconds": 337.155,
+  "returncode": 0,
+  "server_launch_count": 60,
+  "site_bytes_unchanged": true,
+  "clean_environment_keys": [
+    "CHROMIUM_PATH",
+    "MSB_BROWSER_LOG",
+    "MSB_LAUNCH_LOG",
+    "MSB_SITE_SANDBOX",
+    "PATH",
+    "PLAYWRIGHT_BROWSERS_PATH",
+    "PYTHONDONTWRITEBYTECODE",
+    "PYTHONNOUSERSITE",
+    "PYTHONPATH",
+    "TMPDIR"
+  ],
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "server_sandbox_sha256": "0d1dd68cc58d2d8a4aa76b1660727098a124c06c4dc80adc162ea9122e81754d",
+  "chromium_path": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-grader-preflight/browsers/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+  "chromium_sha256": "8319963f6625accf51c0dd4f55091ceaf9f09ed39e7a52fed4fae12b2a6b668a",
+  "browser_policy": "Fresh Playwright contexts and temporary profiles; Chromium built-in sandbox explicitly enabled; clean environment; browser behavior/network otherwise unchanged.",
+  "hook_sha256": "2f2b17ad81f1511eebb34eed2a5a95467ed8f7d60cd55ca1981a67e09fdf4921",
+  "scope": "Trusted evaluator and hidden suite outside sandbox; every bakery.server subprocess in deny-default Seatbelt sandbox."
+}

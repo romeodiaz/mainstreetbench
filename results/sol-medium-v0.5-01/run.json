@@ -1,0 +1,211 @@
+{
+  "run_id": "sol-v0.5-01",
+  "task_version": "0.5",
+  "configuration": "Sol solo",
+  "repository": "/Users/romeodiaz/Code/mainstreetbench",
+  "commit": "bee5fa06f3c15cba120e75271470f89911ba818f",
+  "workspace": "/private/tmp/mainstreetbench-sol-v0.5-01-20261001T070225Z/workspace",
+  "packaged_workspace": "/Users/romeodiaz/Code/mainstreetbench/runs/sol-v0.5-01",
+  "control": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-sol-medium-20261001T070225Z/control",
+  "root": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-sol-medium-20261001T070225Z",
+  "model_requested": "gpt-6.1-sol",
+  "reasoning_requested": "medium",
+  "cli_version": "codex-cli 0.159.0",
+  "packaging_python": "3.12.14",
+  "fixture_seed": 20261008,
+  "initial_files": 25,
+  "prompt_sha256": "41f93d5501f98fc9c409f3d2e49678b7ca78021e41ccb13c9ce5c51f4eb68972",
+  "time_limit_seconds": 2700,
+  "task_agents": 1,
+  "retries": 0,
+  "human_task_interventions": 0,
+  "tools": "Same Codex CLI shell/file-editing harness as v0.3/v0.4; agents, web, apps, plugins, memories, hooks, fast mode and host skill discovery disabled",
+  "isolation": "Outer macOS sandbox denies whole Code/checkout and Documents/controller directories, selected private directories, prior sessions, memories, skills/plugins. Same-byte packaged copy outside checkout. Inner tool sandbox disabled to avoid unsupported nesting. Other host reads and network remain possible; not a full container.",
+  "prior_temporary_workspaces_held_out_before_launch": [
+    {
+      "original": "/private/tmp/mainstreetbench-sol-v0.4-01-20261001T053309Z",
+      "held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-sol-medium-20261001T070225Z/held-out-temporary-workspaces/mainstreetbench-sol-v0.4-01-20261001T053309Z"
+    }
+  ],
+  "status": "completed",
+  "argv": [
+    "/usr/bin/sandbox-exec",
+    "-f",
+    "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-sol-medium-20261001T070225Z/control/solver.sb",
+    "codex",
+    "--no-daemon",
+    "exec",
+    "--ignore-user-config",
+    "--ignore-rules",
+    "--ephemeral",
+    "--skip-git-repo-check",
+    "-C",
+    "/private/tmp/mainstreetbench-sol-v0.5-01-20261001T070225Z/workspace",
+    "-m",
+    "gpt-6.1-sol",
+    "-c",
+    "model_reasoning_effort=\"medium\"",
+    "-c",
+    "web_search=\"disabled\"",
+    "--sandbox",
+    "danger-full-access",
+    "--disable",
+    "multi_agent",
+    "--disable",
+    "multi_agent_v2",
+    "--disable",
+    "memories",
+    "--disable",
+    "chronicle",
+    "--disable",
+    "apps",
+    "--disable",
+    "plugins",
+    "--disable",
+    "hooks",
+    "--enable",
+    "skip_host_skill_discovery",
+    "--disable",
+    "fast_mode",
+    "--json",
+    "--color",
+    "never",
+    "-"
+  ],
+  "started_at": "2026-10-01T07:02:28.570474+00:00",
+  "environment_variable_names": [
+    "HOME",
+    "LANG",
+    "LC_ALL",
+    "LOGNAME",
+    "PATH",
+    "PYTHONDONTWRITEBYTECODE",
+    "TERM",
+    "TMPDIR",
+    "USER"
+  ],
+  "pid": 3025,
+  "exit_code": 0,
+  "elapsed_seconds": 562.044,
+  "finished_at": "2026-10-01T07:11:50.612959+00:00",
+  "usage": [
+    {
+      "input_tokens": 478745,
+      "cached_input_tokens": 419968,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 15111,
+      "reasoning_output_tokens": 1298
+    }
+  ],
+  "frozen": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-sol-medium-20261001T070225Z/frozen",
+  "frozen_at": "2026-10-01T07:12:22.883470+00:00",
+  "freeze_exclusions": [
+    "__pycache__",
+    "*.pyc",
+    ".venv"
+  ],
+  "frozen_file_count": 29,
+  "frozen_manifest_sha256": "6cd134f1f59096cf0812bd2466187a2bdf75fd800a5e6636a7defd151ad2cfef",
+  "cost": {
+    "api_equivalent_usd": 0.310661,
+    "actual_api_charges": null,
+    "billing_route": "ChatGPT subscription",
+    "source": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+    "assumptions": "Standard short-context estimate, no fast/regional uplift; full input includes cache reads/writes; output includes reasoning. CLI exposes turn totals but not per-request context counters."
+  },
+  "no_task_feedback_or_retry": true,
+  "live_database_byte_preservation": true,
+  "task_shell_python_observed": "3.9 (library paths in completed task trace)",
+  "post_completion_temporary_browser_script_held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-sol-medium-20261001T070225Z/held-out-temporary-workspaces/cornerloaf-browser-check.cjs",
+  "grade_summary": {
+    "score": 1.3,
+    "quality": {
+      "score": 1.3,
+      "ticket_mean": 3.1,
+      "regression": 42.9,
+      "definition": "0\u2013100: mean of the eight ticket pass rates \u00d7 regression pass rate \u00d7 100."
+    },
+    "groups": {
+      "regression": {
+        "passed": 3,
+        "total": 7,
+        "rate": 0.4286,
+        "score": 42.9
+      },
+      "ticket_1_tax_and_coupons": {
+        "passed": 0,
+        "total": 5,
+        "rate": 0.0,
+        "score": 0.0
+      },
+      "ticket_2_pickup_times": {
+        "passed": 0,
+        "total": 8,
+        "rate": 0.0,
+        "score": 0.0
+      },
+      "ticket_3_daily_limits": {
+        "passed": 0,
+        "total": 6,
+        "rate": 0.0,
+        "score": 0.0
+      },
+      "ticket_4_gift_cards": {
+        "passed": 0,
+        "total": 10,
+        "rate": 0.0,
+        "score": 0.0
+      },
+      "ticket_5_online_cancellation": {
+        "passed": 0,
+        "total": 8,
+        "rate": 0.0,
+        "score": 0.0
+      },
+      "ticket_6_sold_out_on_menu": {
+        "passed": 0,
+        "total": 4,
+        "rate": 0.0,
+        "score": 0.0
+      },
+      "ticket_7_change_the_cart": {
+        "passed": 1,
+        "total": 4,
+        "rate": 0.25,
+        "score": 25.0
+      },
+      "ticket_8_total_before_ordering": {
+        "passed": 0,
+        "total": 5,
+        "rate": 0.0,
+        "score": 0.0
+      }
+    }
+  },
+  "grading": {
+    "run": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-sol-medium-20261001T070225Z/grading/run.json",
+    "report": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-sol-medium-20261001T070225Z/grading/report.json",
+    "elapsed_seconds": 16.609,
+    "model_calls": 0,
+    "scope": "Unchanged trusted evaluator/hidden suite with clean environment; submitted servers deny-default sandboxed; fresh Playwright browsers/contexts and Chromium built-in sandbox enabled."
+  },
+  "interpretation": {
+    "raw_score_retained": true,
+    "classification": "shared menu-date workflow mismatch confirmed by independent browser diagnostic",
+    "model_ranking_supported_by_this_score": false,
+    "reason": "Submitted menu requires selecting pickup day before adding; Shopper.order attempts Add before choosing day, causing52could-not-add failures plus one downstream missing-promo assertion. Features generally unreached. No submission repair or patched regrade.",
+    "diagnostic_order_placed": true,
+    "diagnostic_quote_and_confirmed_total": 19.44,
+    "diagnostic_page_errors": [],
+    "counterfactual_grade_available": false,
+    "submission_repairs": 0,
+    "acceptance_regrades": 0,
+    "sole_ticket_pass_is_false_positive": true,
+    "sole_ticket_pass_limitation": "Empty-cart check accepts unplacedorder after earlycould-not-add return; cart removal was never reached."
+  },
+  "diagnostics": {
+    "initial": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-sol-medium-20261001T070225Z/control/menu-flow-diagnostic.json",
+    "continuation": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-sol-medium-20261001T070225Z/control/menu-flow-continuation.json",
+    "scope": "Two short fresh-DB/browser observations; first stopped at diagnostic exact-label mismatch, continuation completedone normal order with flexiblelabel. Both preservefrozen/trusted/originalgrade evidence. They do not replace full acceptance score."
+  }
+}

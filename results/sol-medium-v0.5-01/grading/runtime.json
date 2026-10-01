@@ -1,0 +1,13 @@
+{
+  "source_commit": "bee5fa06f3c15cba120e75271470f89911ba818f",
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "python_executable": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-grader-preflight/runtime/bin/python",
+  "base_prefix": "/Users/romeodiaz/.cache/codex-runtimes/codex-primary-runtime/dependencies/python",
+  "playwright": "1.63.0",
+  "chromium_path": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-grader-preflight/browsers/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+  "chromium_sha256": "8319963f6625accf51c0dd4f55091ceaf9f09ed39e7a52fed4fae12b2a6b668a",
+  "browser_version": "Google Chrome for Testing 153.0.8010.12",
+  "browsers_path": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-grader-preflight/browsers",
+  "runtime_reused_from": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-grader-preflight",
+  "installation": "existing controller-only venv/browser cache; fresh v0.5 source snapshot; no repository changes"
+}

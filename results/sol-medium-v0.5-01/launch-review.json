@@ -1,0 +1,19 @@
+{
+  "checked_at": "2026-10-01T07:05:22.462914+00:00",
+  "reviewer": "controller-side independent_review agent",
+  "scope": "Read-only launch/config/package/probe/early-trace audit; no implementation help or submitted-code execution",
+  "result": "pass with isolation limits",
+  "explicit_requested_model": "gpt-6.1-sol",
+  "explicit_requested_effort": "medium",
+  "actual_process_argv_matches_record": true,
+  "one_thread_one_turn_at_snapshot": true,
+  "delegation_or_prior_context_observed": false,
+  "prompt_matches_committed_owner_prompt": true,
+  "initial_file_count": 25,
+  "initial_manifest_matches_preserved_initial_and_packaged_copies": true,
+  "forbidden_read_probes_pass": true,
+  "earlier_temporary_workspace_held_out_before_launch": true,
+  "material_contamination_observed": false,
+  "provider_independent_model_resolution_available": false,
+  "limitations": "Outer sandbox denies benchmark/controller/prior-session/selected private paths; network and other host reads remain possible. CLI attempted host skill discovery but reads were denied. Early trace audit is a snapshot; final trace requires separate review."
+}

@@ -1,0 +1,90 @@
+{
+  "run_id": "sol-v0.5-01",
+  "reviewed_at_utc": "2026-10-01T07:14:07.123819+00:00",
+  "source_commit": "bee5fa06f3c15cba120e75271470f89911ba818f",
+  "frozen_manifest_verified": true,
+  "frozen_file_count": 29,
+  "frozen_manifest_sha256": "6cd134f1f59096cf0812bd2466187a2bdf75fd800a5e6636a7defd151ad2cfef",
+  "event_type_counts": {
+    "thread.started": 1,
+    "item.completed": 22,
+    "turn.started": 1,
+    "item.started": 16,
+    "turn.completed": 1
+  },
+  "completed_item_type_counts": {
+    "error": 1,
+    "agent_message": 5,
+    "command_execution": 16
+  },
+  "thread_ids": [
+    "01a0f645-8e07-7b01-9b3f-655694cf7c3d"
+  ],
+  "task_command_count": 16,
+  "usage": {
+    "input_tokens": 478745,
+    "cached_input_tokens": 419968,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 15111,
+    "reasoning_output_tokens": 1298
+  },
+  "api_equivalent_cost_components_usd": {
+    "uncached_input": "0.117554",
+    "cached_input": "0.0419968",
+    "cache_write_input": "0.0",
+    "output_including_reasoning": "0.15111"
+  },
+  "api_equivalent_cost_usd_exact": "0.3106608",
+  "actual_api_charges": null,
+  "billing_route": "ChatGPT subscription",
+  "no_observed_hidden_reference_or_delegation_command_hits": true,
+  "examined_command_terms": {
+    "hidden_tests": [],
+    "tasks/ordering-site/reference": [],
+    "evaluators/ordering_site": [],
+    "Documents/BenchRuns": [],
+    "mainstreetbench-sol-v0.4": [],
+    "answer-key": [],
+    "claude": [],
+    "opus": [],
+    "spawn_agent": [],
+    "subagent": [],
+    "codex exec": []
+  },
+  "self_verification": {
+    "final_command_item": "item_18",
+    "exit_code": 0,
+    "automated_tests_run": 13,
+    "automated_test_claim_evidenced": true,
+    "browser_claim_evidenced": true,
+    "browser_script_copy_sha256": "b2fe6aa68afcf765932898a4fd05e400782420f0aae4140e4b32f6b9004bf51c",
+    "browser_script_copy_equals_held_out_original": true,
+    "browser_runtime": "Installed Playwright from host cache; explicit Chromium headless shell1223 from Library/Caches after initial missing-browser launch failure",
+    "python_observed": "Python3.9 from /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py in item_8 failure trace",
+    "not_independently_rerun": true
+  },
+  "observed_access_outside_workspace": [
+    {
+      "event": "item_14",
+      "action": "Enumerated matching Playwright/Chromium file paths under /tmp,/private/tmp,.cache,Library/Caches; printed20matches",
+      "content_read": "Recorded output contains runtime/tool file names, including Playwright package agent-prompt names; no prompt contents or benchmark reference/key read observed."
+    },
+    {
+      "events": [
+        "item_16",
+        "item_17",
+        "item_18"
+      ],
+      "action": "Wrote/read/executed own /tmp/cornerloaf-browser-check.cjs; loaded installed host Playwright/Chromium; checked local loopback server."
+    }
+  ],
+  "limitations": [
+    "Read-only post-run event audit found no coaching/delegation/reference access; this is not a complete OS-level filesystem/network audit.",
+    "Requested model and effort are explicit in controller argv; provider-resolved model/effort are not independently exposed in this event trace.",
+    "Network and nonblocked host reads remain possible; host skill-discovery attempts were denied by sandbox at startup.",
+    "Self-authored automated/browser test passes are solver verification evidence, not an independent benchmark grade.",
+    "API-equivalent estimate uses recorded standard short-context rates. Actual subscription/API charge is unknown; per-request context counters are unavailable.",
+    "Reasoning output1298 is included within output15111 and not added again."
+  ],
+  "database_review": "database-preservation.json"
+}

@@ -1,0 +1,84 @@
+{
+  "run_id": "sol-v0.5-01",
+  "reviewed_at_utc": "2026-10-01T07:14:07.122488+00:00",
+  "method": "Independent sqlite3 read-only immutable connections; no submitted application code executed. All initial tables, schemas, columns and rowid-ordered complete rows compared.",
+  "initial_database_sha256": "0394e7e9e716e92003ce7a81b900f6421d6400edf8e3b68c71c543ffcea6ad9d",
+  "frozen_database_sha256": "0394e7e9e716e92003ce7a81b900f6421d6400edf8e3b68c71c543ffcea6ad9d",
+  "byte_identical": true,
+  "schema_identical": true,
+  "tables": [
+    {
+      "table": "order_items",
+      "original_columns": [
+        "order_id",
+        "sku",
+        "name",
+        "qty",
+        "unit_price",
+        "line_total"
+      ],
+      "original_row_count": 60,
+      "frozen_row_count": 60,
+      "original_rows_in_same_order_preserved": true,
+      "backup_rows_equal_original": true
+    },
+    {
+      "table": "orders",
+      "original_columns": [
+        "id",
+        "created_at",
+        "customer_name",
+        "customer_email",
+        "customer_phone",
+        "pickup_date",
+        "promo_code",
+        "subtotal",
+        "discount",
+        "tax",
+        "total",
+        "status"
+      ],
+      "original_row_count": 30,
+      "frozen_row_count": 30,
+      "original_rows_in_same_order_preserved": true,
+      "backup_rows_equal_original": true
+    },
+    {
+      "table": "products",
+      "original_columns": [
+        "sku",
+        "name",
+        "price",
+        "category",
+        "active",
+        "sort_order"
+      ],
+      "original_row_count": 12,
+      "frozen_row_count": 12,
+      "original_rows_in_same_order_preserved": true,
+      "backup_rows_equal_original": true
+    },
+    {
+      "table": "promo_codes",
+      "original_columns": [
+        "code",
+        "percent_off",
+        "amount_off",
+        "active"
+      ],
+      "original_row_count": 3,
+      "frozen_row_count": 3,
+      "original_rows_in_same_order_preserved": true,
+      "backup_rows_equal_original": true
+    }
+  ],
+  "initial_integrity_check": "ok",
+  "frozen_integrity_check": "ok",
+  "backup_sha256": "8702e917cda64bff52cb418faa3e9f17e0294331aba6646bc5b3bf89f7863588",
+  "backup_byte_identical_to_initial": false,
+  "backup_schema_identical_to_initial": true,
+  "limitations": [
+    "This verifies the frozen original database. It does not independently validate submitted startup migration logic.",
+    "Backup bytes differ from the original database; its schema and existing table rows are logically equal."
+  ]
+}

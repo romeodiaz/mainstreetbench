@@ -1,0 +1,17 @@
+<h1>Thanks, $name!</h1>
+<p>Your order <strong>#$order_id</strong> is <span class="status">$status</span> for pickup on <strong class="pickup-date">$pickup_date at $pickup_time</strong>.</p>
+<table class="lines">
+$items
+<tr class="subtotal"><td>Subtotal</td><td>$subtotal</td></tr>
+<tr class="discount"><td>Discount</td><td>−$discount</td></tr>
+<tr class="tax"><td>Sales tax</td><td>$tax</td></tr>
+<tr class="total"><td>Total</td><td>$total</td></tr>
+<tr><td>Gift card payment</td><td>−$gift_card_applied</td></tr>
+<tr><td>Gift card remaining after payment</td><td>$gift_card_balance</td></tr>
+<tr><td>Due at pickup</td><td>$amount_due</td></tr>
+</table>
+$gift_cards
+<button id="cancel-order" data-id="$order_id" data-token="$cancel_token" data-status="$status" data-date="$pickup_date">Cancel order</button>
+<p id="cancel-error" class="error" role="alert"></p>
+<script src="/static/confirmation.js"></script>
+<p>Pay when you pick up. Questions? Call us at 555-010-0000.</p>

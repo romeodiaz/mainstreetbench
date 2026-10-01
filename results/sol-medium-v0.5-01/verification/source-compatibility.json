@@ -1,0 +1,23 @@
+{
+  "source_commit": "bee5fa06f3c15cba120e75271470f89911ba818f",
+  "unchanged_hook_compatible": true,
+  "submission_python_path": "All submitted Python is launched by sitectl.Site as [sys.executable, -m, bakery.server, ...], intercepted by Popen hook. Hidden suite imports no submission modules.",
+  "submission_javascript_path": "All browser launches use BrowserType.launch; all customer/staff sessions use Browser.new_context, intercepted by Chromium sandbox/fresh-context hooks.",
+  "expected_test_methods": 57,
+  "expected_server_launches": 60,
+  "expected_browser_launches": 12,
+  "group_totals": {
+    "regression": 7,
+    "ticket_1_tax_and_coupons": 5,
+    "ticket_2_pickup_times": 8,
+    "ticket_3_daily_limits": 6,
+    "ticket_4_gift_cards": 10,
+    "ticket_5_online_cancellation": 8,
+    "ticket_6_sold_out_on_menu": 4,
+    "ticket_7_change_the_cart": 4,
+    "ticket_8_total_before_ordering": 5
+  },
+  "score_scale": "0-100: mean equally weighted eight ticket pass rates * regression pass rate * 100",
+  "scope": "Trusted evaluator/hidden outside server sandbox; every bakery.server child deny-default Seatbelt; Chromium built-in sandbox, fresh profiles/contexts, browser networking otherwise unchanged.",
+  "source_modified": false
+}

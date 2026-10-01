@@ -1,0 +1,22 @@
+{
+  "argv": [
+    "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-grader-preflight/runtime/bin/python",
+    "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-sol-medium-20261001T070225Z/control/diagnose_menu_flow.py"
+  ],
+  "clean_environment_keys": [
+    "CHROMIUM_PATH",
+    "MSB_BROWSER_LOG",
+    "MSB_LAUNCH_LOG",
+    "MSB_SITE_SANDBOX",
+    "PATH",
+    "PLAYWRIGHT_BROWSERS_PATH",
+    "PYTHONDONTWRITEBYTECODE",
+    "PYTHONNOUSERSITE",
+    "PYTHONPATH",
+    "TMPDIR"
+  ],
+  "started_epoch": 1790838948.560048,
+  "elapsed_seconds": 7.153,
+  "returncode": 0,
+  "purpose": "One authorized observation of menu-date-first flow, no full regrade."
+}

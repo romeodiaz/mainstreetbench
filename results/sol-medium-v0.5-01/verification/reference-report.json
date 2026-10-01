@@ -1,0 +1,312 @@
+{
+  "site": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/trusted/tasks/ordering-site/reference",
+  "score": 100.0,
+  "quality": {
+    "score": 100.0,
+    "ticket_mean": 100.0,
+    "regression": 100.0,
+    "definition": "0\u2013100: mean of the eight ticket pass rates \u00d7 regression pass rate \u00d7 100."
+  },
+  "groups": {
+    "regression": {
+      "passed": 7,
+      "total": 7,
+      "tests": {
+        "PastOrdersKeepTheirTotals.test_existing_orders_are_not_repriced": {
+          "status": "pass",
+          "detail": ""
+        },
+        "Regression.test_admin_needs_password_and_can_cancel": {
+          "status": "pass",
+          "detail": ""
+        },
+        "Regression.test_bad_promo_code_is_refused": {
+          "status": "pass",
+          "detail": ""
+        },
+        "Regression.test_customer_can_order_and_see_confirmation": {
+          "status": "pass",
+          "detail": ""
+        },
+        "Regression.test_customer_names_are_shown_as_text": {
+          "status": "pass",
+          "detail": ""
+        },
+        "Regression.test_menu_lists_every_product": {
+          "status": "pass",
+          "detail": ""
+        },
+        "Regression.test_pages_and_missing_things": {
+          "status": "pass",
+          "detail": ""
+        }
+      },
+      "rate": 1.0,
+      "score": 100.0
+    },
+    "ticket_1_tax_and_coupons": {
+      "passed": 5,
+      "total": 5,
+      "tests": {
+        "TaxAndCoupons.test_coupons_do_not_discount_gift_cards": {
+          "status": "pass",
+          "detail": ""
+        },
+        "TaxAndCoupons.test_dollar_coupon_taxes_the_discounted_price": {
+          "status": "pass",
+          "detail": ""
+        },
+        "TaxAndCoupons.test_gift_cards_are_not_taxed": {
+          "status": "pass",
+          "detail": ""
+        },
+        "TaxAndCoupons.test_half_cents_round_up": {
+          "status": "pass",
+          "detail": ""
+        },
+        "TaxAndCoupons.test_percent_coupon_taxes_the_discounted_price": {
+          "status": "pass",
+          "detail": ""
+        }
+      },
+      "rate": 1.0,
+      "score": 100.0
+    },
+    "ticket_2_pickup_times": {
+      "passed": 8,
+      "total": 8,
+      "tests": {
+        "ExistingOrdersKeepWorking.test_existing_orders_survive_and_new_ones_work": {
+          "status": "pass",
+          "detail": ""
+        },
+        "PickupTimes.test_cakes_and_catering_need_two_days": {
+          "status": "pass",
+          "detail": ""
+        },
+        "PickupTimes.test_closed_on_mondays": {
+          "status": "pass",
+          "detail": ""
+        },
+        "PickupTimes.test_confirmation_shows_the_pickup_time": {
+          "status": "pass",
+          "detail": ""
+        },
+        "PickupTimes.test_four_orders_per_half_hour": {
+          "status": "pass",
+          "detail": ""
+        },
+        "PickupTimes.test_orders_page_lists_pickup_order_with_times": {
+          "status": "pass",
+          "detail": ""
+        },
+        "PickupTimes.test_times_cover_opening_hours_only": {
+          "status": "pass",
+          "detail": ""
+        },
+        "PickupTimes.test_two_hours_notice": {
+          "status": "pass",
+          "detail": ""
+        }
+      },
+      "rate": 1.0,
+      "score": 100.0
+    },
+    "ticket_3_daily_limits": {
+      "passed": 6,
+      "total": 6,
+      "tests": {
+        "DailyLimits.test_limits_are_per_pickup_day": {
+          "status": "pass",
+          "detail": ""
+        },
+        "DailyLimits.test_over_limit_order_is_refused_whole": {
+          "status": "pass",
+          "detail": ""
+        },
+        "DailyLimits.test_refused_order_does_not_take_a_pickup_time": {
+          "status": "pass",
+          "detail": ""
+        },
+        "DailyLimits.test_six_cakes_a_day": {
+          "status": "pass",
+          "detail": ""
+        },
+        "DailyLimits.test_trays_and_pies": {
+          "status": "pass",
+          "detail": ""
+        },
+        "LimitsWithExistingOrders.test_existing_orders_count_toward_the_day": {
+          "status": "pass",
+          "detail": ""
+        }
+      },
+      "rate": 1.0,
+      "score": 100.0
+    },
+    "ticket_4_gift_cards": {
+      "passed": 10,
+      "total": 10,
+      "tests": {
+        "GiftCards.test_code_pays_and_shows_what_is_left": {
+          "status": "pass",
+          "detail": ""
+        },
+        "GiftCards.test_coupon_comes_off_before_the_card": {
+          "status": "pass",
+          "detail": ""
+        },
+        "GiftCards.test_each_card_gets_its_own_hard_to_guess_code": {
+          "status": "pass",
+          "detail": ""
+        },
+        "GiftCards.test_leftover_balance_is_kept_then_runs_out": {
+          "status": "pass",
+          "detail": ""
+        },
+        "GiftCards.test_paying_with_a_gift_card_does_not_change_tax": {
+          "status": "pass",
+          "detail": ""
+        },
+        "GiftCards.test_refused_order_does_not_use_the_card": {
+          "status": "pass",
+          "detail": ""
+        },
+        "GiftCards.test_staff_see_what_is_left_to_pay": {
+          "status": "pass",
+          "detail": ""
+        },
+        "GiftCards.test_strangers_cannot_see_gift_codes": {
+          "status": "pass",
+          "detail": ""
+        },
+        "GiftCards.test_two_cards_in_one_order_are_worth_fifty": {
+          "status": "pass",
+          "detail": ""
+        },
+        "GiftCards.test_unknown_codes_are_refused": {
+          "status": "pass",
+          "detail": ""
+        }
+      },
+      "rate": 1.0,
+      "score": 100.0
+    },
+    "ticket_5_online_cancellation": {
+      "passed": 8,
+      "total": 8,
+      "tests": {
+        "OnlineCancellation.test_cancelling_a_gift_card_purchase_voids_the_card": {
+          "status": "pass",
+          "detail": ""
+        },
+        "OnlineCancellation.test_cancelling_frees_the_cakes": {
+          "status": "pass",
+          "detail": ""
+        },
+        "OnlineCancellation.test_cancelling_frees_the_pickup_time": {
+          "status": "pass",
+          "detail": ""
+        },
+        "OnlineCancellation.test_cancelling_puts_money_back_on_the_gift_card": {
+          "status": "pass",
+          "detail": ""
+        },
+        "OnlineCancellation.test_customer_can_cancel_from_their_order_page": {
+          "status": "pass",
+          "detail": ""
+        },
+        "OnlineCancellation.test_not_on_the_day_of_pickup": {
+          "status": "pass",
+          "detail": ""
+        },
+        "OnlineCancellation.test_staff_cancelling_also_refunds_the_card": {
+          "status": "pass",
+          "detail": ""
+        },
+        "OnlineCancellation.test_strangers_cannot_cancel_by_order_number": {
+          "status": "pass",
+          "detail": ""
+        }
+      },
+      "rate": 1.0,
+      "score": 100.0
+    },
+    "ticket_6_sold_out_on_menu": {
+      "passed": 4,
+      "total": 4,
+      "tests": {
+        "SoldOutOnMenu.test_a_cancelled_order_brings_it_back": {
+          "status": "pass",
+          "detail": ""
+        },
+        "SoldOutOnMenu.test_other_days_are_not_affected": {
+          "status": "pass",
+          "detail": ""
+        },
+        "SoldOutOnMenu.test_sold_out_cakes_are_marked_for_that_day": {
+          "status": "pass",
+          "detail": ""
+        },
+        "SoldOutOnMenu.test_trays_and_pies_too": {
+          "status": "pass",
+          "detail": ""
+        }
+      },
+      "rate": 1.0,
+      "score": 100.0
+    },
+    "ticket_7_change_the_cart": {
+      "passed": 4,
+      "total": 4,
+      "tests": {
+        "ChangeTheCart.test_emptied_cart_cannot_be_ordered": {
+          "status": "pass",
+          "detail": ""
+        },
+        "ChangeTheCart.test_lower_a_quantity": {
+          "status": "pass",
+          "detail": ""
+        },
+        "ChangeTheCart.test_raise_a_quantity": {
+          "status": "pass",
+          "detail": ""
+        },
+        "ChangeTheCart.test_take_something_out": {
+          "status": "pass",
+          "detail": ""
+        }
+      },
+      "rate": 1.0,
+      "score": 100.0
+    },
+    "ticket_8_total_before_ordering": {
+      "passed": 5,
+      "total": 5,
+      "tests": {
+        "TotalBeforeOrdering.test_coupon_never_touches_gift_cards": {
+          "status": "pass",
+          "detail": ""
+        },
+        "TotalBeforeOrdering.test_coupon_with_half_cent_rounding": {
+          "status": "pass",
+          "detail": ""
+        },
+        "TotalBeforeOrdering.test_gift_card_shows_what_is_still_owed": {
+          "status": "pass",
+          "detail": ""
+        },
+        "TotalBeforeOrdering.test_plain_total": {
+          "status": "pass",
+          "detail": ""
+        },
+        "TotalBeforeOrdering.test_total_follows_cart_changes": {
+          "status": "pass",
+          "detail": ""
+        }
+      },
+      "rate": 1.0,
+      "score": 100.0
+    }
+  }
+}

@@ -5,6 +5,7 @@ Can an expensive model planning and reviewing a cheaper model's work deliver sim
 The current task (v0.5) gives an AI the code for a bakery's online ordering site and the owner's to-do list for the month: eight tickets written only in the owner's words. Hidden tests use the finished site in a real browser, as customers, staff and a nosy stranger would. Scores run from 0 to 100.
 
 **Status: recalibrating.**
+- **[First fresh v0.5 Sol Medium run](results/sol-medium-v0.5-01.md):** raw score **1.3/100**, **9m 22s**, estimated **$0.3107**. The driver tries Add before selecting a menu pickup day; Sol's date-first menu requires that choice. This shared flow assumption prevents meaningful feature scoring and needs correcting before model comparisons.
 - **[v0.4](results/sol-medium-v0.4-01.md), five tickets:** Sol solo scored 0. A script-order bug inherited from the starter broke checkout once Sol edited it.
   - v0.5 fixes that bug, accepts both gift-card policies (live at once, or activated by staff after payment), and fixes a harness bug with greyed-out times.
   - Graded under v0.5, Sol's v0.4 code with only the inherited bug fixed scores **62.5**: tickets 1–5 perfect, tickets 6–8 not attempted then. A fresh run will differ.
@@ -92,7 +93,7 @@ For video, the moments to capture are visual ones: checkout offering pickup time
 
 1. Run Sol solo and Opus solo, 3 fresh attempts each.
 2. The task is useful if Sol solo lands well below Opus solo with a spread smaller than the gap. Per-ticket results show which kinds of judgment separate them.
-3. If Sol still scores near 1.0, treat that as the finding: for jobs like this, the cheap model alone is enough.
+3. If Sol still scores near 100, treat that as the finding: for jobs like this, the cheap model alone is enough.
 4. Track the size of each run, too. The split saves money only when building and debugging make up most of the tokens.
 
 ## Check the benchmark

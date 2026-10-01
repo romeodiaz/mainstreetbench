@@ -1,0 +1,87 @@
+{
+  "time_epoch": 1790838211.960795,
+  "browser_processes": [
+    {
+      "pid": 3587,
+      "ppid": 3586,
+      "profile": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/validated-starter/scratch/tmp/playwright_chromiumdev_profile-Qp3WpT",
+      "no_sandbox_flag": false,
+      "controller_temp_profile": true
+    },
+    {
+      "pid": 3593,
+      "ppid": 3587,
+      "profile": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/validated-starter/scratch/tmp/playwright_chromiumdev_profile-Qp3WpT",
+      "no_sandbox_flag": false,
+      "controller_temp_profile": true
+    },
+    {
+      "pid": 3594,
+      "ppid": 3587,
+      "profile": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/validated-starter/scratch/tmp/playwright_chromiumdev_profile-Qp3WpT",
+      "no_sandbox_flag": false,
+      "controller_temp_profile": true
+    },
+    {
+      "pid": 3595,
+      "ppid": 3587,
+      "profile": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/validated-starter/scratch/tmp/playwright_chromiumdev_profile-Qp3WpT",
+      "no_sandbox_flag": false,
+      "controller_temp_profile": true
+    },
+    {
+      "pid": 3603,
+      "ppid": 3598,
+      "profile": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/validated-reference/scratch/tmp/playwright_chromiumdev_profile-mJYcOo",
+      "no_sandbox_flag": false,
+      "controller_temp_profile": true
+    },
+    {
+      "pid": 3609,
+      "ppid": 3603,
+      "profile": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/validated-reference/scratch/tmp/playwright_chromiumdev_profile-mJYcOo",
+      "no_sandbox_flag": false,
+      "controller_temp_profile": true
+    },
+    {
+      "pid": 3610,
+      "ppid": 3603,
+      "profile": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/validated-reference/scratch/tmp/playwright_chromiumdev_profile-mJYcOo",
+      "no_sandbox_flag": false,
+      "controller_temp_profile": true
+    },
+    {
+      "pid": 3611,
+      "ppid": 3603,
+      "profile": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/validated-reference/scratch/tmp/playwright_chromiumdev_profile-mJYcOo",
+      "no_sandbox_flag": false,
+      "controller_temp_profile": true
+    },
+    {
+      "pid": 3615,
+      "ppid": 3603,
+      "profile": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/validated-reference/scratch/tmp/playwright_chromiumdev_profile-mJYcOo",
+      "no_sandbox_flag": false,
+      "controller_temp_profile": true
+    },
+    {
+      "pid": 3617,
+      "ppid": 3603,
+      "profile": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/validated-reference/scratch/tmp/playwright_chromiumdev_profile-mJYcOo",
+      "no_sandbox_flag": false,
+      "controller_temp_profile": true
+    },
+    {
+      "pid": 3618,
+      "ppid": 3603,
+      "profile": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-grader-preflight/validated-reference/scratch/tmp/playwright_chromiumdev_profile-mJYcOo",
+      "no_sandbox_flag": false,
+      "controller_temp_profile": true
+    }
+  ],
+  "no_sandbox_flag_present": false,
+  "all_profiles_controller_scratch": true,
+  "scope": "Current reference/starter Chromium browser and child processes only; no solver process inspected.",
+  "matched_processes": 11,
+  "unique_disposable_profiles": 2
+}

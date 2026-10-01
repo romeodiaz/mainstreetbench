@@ -1,0 +1,20 @@
+{
+  "before_launch": true,
+  "probe": {
+    "blocked": [
+      "/Users/romeodiaz/Code/mainstreetbench/tasks/ordering-site/hidden_tests/harness.py",
+      "/Users/romeodiaz/Code/mainstreetbench/tasks/ordering-site/reference/bakery/server.py",
+      "/Users/romeodiaz/Code/mainstreetbench/evaluators/ordering_site.py",
+      "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-sol-medium-20261001T070225Z/control/run.json",
+      "/System/Volumes/Data/Users/romeodiaz/Code/mainstreetbench/README.md"
+    ],
+    "loopback": "allowed"
+  },
+  "stderr": "",
+  "held_out": [
+    {
+      "original": "/private/tmp/mainstreetbench-sol-v0.4-01-20261001T053309Z",
+      "held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-sol-medium-20261001T070225Z/held-out-temporary-workspaces/mainstreetbench-sol-v0.4-01-20261001T053309Z"
+    }
+  ]
+}

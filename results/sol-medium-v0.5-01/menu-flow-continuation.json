@@ -1,0 +1,176 @@
+{
+  "purpose": "Authorized short continuation: correct only the helper pickup-time label locator and observe one normal date-first order in a fresh database/context; not a counterfactual grade.",
+  "site": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-sol-medium-20261001T070225Z/frozen",
+  "requested_date": "2026-10-10",
+  "requested_time": "10:00",
+  "database": "new throwaway database in existing sandbox scratch",
+  "server_sandbox": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-sol-medium-20261001T070225Z/grading/site.sb",
+  "source_commit": "bee5fa06f3c15cba120e75271470f89911ba818f",
+  "page_errors": [],
+  "request_failures": [],
+  "api_responses": [
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:60000/api/menu?date=2026-10-10",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:60000/api/menu?date=2026-10-10",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:60000/api/pickup-slots?date=2026-10-10&skus=BREAD9",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:60000/api/quote",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:60000/api/orders",
+      "status": 201
+    }
+  ],
+  "screenshots": [
+    "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-sol-medium-20261001T070225Z/control/diagnostic-continuation-menu-before.png",
+    "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-sol-medium-20261001T070225Z/control/diagnostic-continuation-menu-after.png",
+    "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.5-sol-medium-20261001T070225Z/control/diagnostic-continuation-order-confirmation.png"
+  ],
+  "grade_rerun": false,
+  "submission_modified": false,
+  "initial_menu": {
+    "date_value": "",
+    "bread_add_disabled": true,
+    "all_add_buttons_disabled": true,
+    "instructions": "Choose your pickup day, then add items. We'll have them boxed and waiting.",
+    "cart_count": "0"
+  },
+  "after_menu_date": {
+    "date_value": "2026-10-10",
+    "bread_add_enabled": true,
+    "menu_error": ""
+  },
+  "after_adding_bread": {
+    "cart_count": "2",
+    "cart": [
+      {
+        "sku": "BREAD9",
+        "name": "Sourdough Loaf",
+        "price": 9,
+        "qty": 2
+      }
+    ]
+  },
+  "checkout_initial": {
+    "url": "http://127.0.0.1:60000/checkout",
+    "inherited_menu_date": "2026-10-10",
+    "pickup_options": [
+      {
+        "value": "",
+        "label": "Choose a pickup time",
+        "disabled": false
+      },
+      {
+        "value": "07:00",
+        "label": "07:00",
+        "disabled": false
+      },
+      {
+        "value": "07:30",
+        "label": "07:30",
+        "disabled": false
+      },
+      {
+        "value": "08:00",
+        "label": "08:00",
+        "disabled": false
+      },
+      {
+        "value": "08:30",
+        "label": "08:30",
+        "disabled": false
+      },
+      {
+        "value": "09:00",
+        "label": "09:00",
+        "disabled": false
+      },
+      {
+        "value": "09:30",
+        "label": "09:30",
+        "disabled": false
+      },
+      {
+        "value": "10:00",
+        "label": "10:00",
+        "disabled": false
+      },
+      {
+        "value": "10:30",
+        "label": "10:30",
+        "disabled": false
+      },
+      {
+        "value": "11:00",
+        "label": "11:00",
+        "disabled": false
+      },
+      {
+        "value": "11:30",
+        "label": "11:30",
+        "disabled": false
+      },
+      {
+        "value": "12:00",
+        "label": "12:00",
+        "disabled": false
+      },
+      {
+        "value": "12:30",
+        "label": "12:30",
+        "disabled": false
+      },
+      {
+        "value": "13:00",
+        "label": "13:00",
+        "disabled": false
+      },
+      {
+        "value": "13:30",
+        "label": "13:30",
+        "disabled": false
+      },
+      {
+        "value": "14:00",
+        "label": "14:00",
+        "disabled": false
+      },
+      {
+        "value": "14:30",
+        "label": "14:30",
+        "disabled": false
+      }
+    ]
+  },
+  "checkout_before_submit": {
+    "date": "2026-10-10",
+    "time": "10:00",
+    "quote": "Subtotal: $18.00\n\nCoupon discount: $0.00\n\nSales tax: $1.44\n\nTotal: $19.44\n\nGift card payment: $0.00\n\nDue at pickup: $19.44",
+    "error": "",
+    "submit_enabled": true
+  },
+  "confirmation": {
+    "url": "http://127.0.0.1:60000/order/1",
+    "body": "Corner Loaf Bakery\nCart (0)\nThanks, Diagnostic Customer!\n\nYour order #1 is placed for pickup on 2026-10-10 at 10:00.\n\n2 \u00d7 Sourdough Loaf\t$18.00\nSubtotal\t$18.00\nDiscount\t\u2212$0.00\nSales tax\t$1.44\nTotal\t$19.44\nGift card payment\t\u2212$0.00\nGift card remaining after payment\t\u2014\nDue at pickup\t$19.44\nCancel order\n\nPay when you pick up. Questions? Call us at 555-010-0000.\n\nOpen Tuesday\u2013Sunday, 7am\u20133pm \u00b7 12 Main Street"
+  },
+  "order_placed": true,
+  "browser_version": "153.0.8010.12",
+  "elapsed_seconds": 2.709,
+  "frozen_hashes_unchanged": true,
+  "trusted_hashes_unchanged": true,
+  "original_grading_evidence_unchanged": true
+}
