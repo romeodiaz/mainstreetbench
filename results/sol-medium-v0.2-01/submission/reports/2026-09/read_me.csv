@@ -1,0 +1,12 @@
+topic,rule
+Basis,"2026-09; USD; store-local dates. Month determined independently by order, payment, completion and settlement date."
+Sales,Quantity × charged unit price less line discount; merchandise only. Catalog prices never replace historical prices.
+Returns,Only succeeded refunds with completion in month reduce sales; includes returns of earlier orders. Approved amounts retained.
+Payments,"Only captured transactions count. Each payment_id counted once. Explicit order ID, then exact order: reference; no amount-only matching."
+Duplicates,Latest record_version per line_id. Exact repeated payment_id/refund_id rows removed. Conflicting same-ID records stop the run for review.
+Customers,Known ID or loyalty reference authoritative; otherwise exact normalized contact/name evidence must resolve to one person. Conflicting/shared contacts stay unresolved. No fuzzy name merging.
+Rankings,"Net merchandise sales by SKU and resolved customer; monthly sold orders count once. Returned prior-month orders reported separately. WALK-IN and UNRESOLVED are pools, not customers."
+Fees,Card charge fees by payment date shown separately from refund fee credits and fees by settlement date.
+Receipt vs deposit,Net external receipts exclude gift redemption and fees. Expected payout uses settlement dates and includes earlier-month charges. Neither confirms bank deposits.
+Missing,Bank statement/deposit export; terminal receipts linking unmatched charges; corrected contact/loyalty evidence; confirmation of unresolved refunds; opening gift-card liability; cash deposit/till records.
+Refresh,Use run_month.command or python reconcile.py --input INPUT_FOLDER --month YYYY-MM. See README.md. Regenerate rather than editing output totals.

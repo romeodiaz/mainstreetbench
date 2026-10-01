@@ -4,7 +4,7 @@ Can an expensive model planning and reviewing a cheaper model's work deliver sim
 
 This benchmark asks AI to close September 2026 for a fictional bakery. It must reconcile orders, payments, refunds and customers, then deliver a spreadsheet, dashboard and actionable exception list.
 
-**No model runs or measured costs have been recorded yet. v0.2 difficulty is uncalibrated; see [Calibrate first](#calibrate-first).**
+**One [Sol solo medium attempt](results/sol-medium-v0.2-01.md) scored 0.7635. All business checks and planted instances passed; walk-in flags reduced the score. Calibration still needs repeated solo baselines. See [Calibrate first](#calibrate-first).**
 
 ## Three configurations
 

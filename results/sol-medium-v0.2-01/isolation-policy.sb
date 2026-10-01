@@ -1,0 +1,8 @@
+(version 1)
+(allow default)
+(deny file-read* file-write* (subpath "/Users/romeodiaz/Code/mainstreetbench"))
+(deny file-read* file-write* (subpath "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.2-sol-medium-20261001T025950Z/control"))
+(deny file-read* file-write* (subpath "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.2-sol-medium-20261001T025820Z"))
+(deny file-read* file-write* (subpath "/Users/romeodiaz/.codex/memories"))
+(deny file-read* file-write* (subpath "/Users/romeodiaz/.codex/sessions"))
+(deny file-read* file-write* (regex "^/private/tmp/mainstreetbench[^/]*"))

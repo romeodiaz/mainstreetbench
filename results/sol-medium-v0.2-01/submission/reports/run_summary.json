@@ -1,0 +1,53 @@
+{
+  "month": "2026-09",
+  "metrics": {
+    "Gross merchandise sales": 112273.7,
+    "Merchandise discounts": 4123.2,
+    "Sales after discounts": 108150.5,
+    "Completed merchandise returns": 799.75,
+    "Returns of prior-month orders (merchandise)": 552.0,
+    "Successful requests completing after month (incl tax)": 31.11,
+    "Net sales": 107350.75,
+    "Sales tax charged": 8651.96,
+    "Gift cards sold (liability)": 400.0,
+    "Order total including tax and gift cards": 117202.46,
+    "Card receipts by payment date": 90454.54,
+    "Cash receipts by payment date": 26784.3,
+    "Gift-card redemptions (not new money)": 85.0,
+    "Card processing fees by payment date": 2852.74,
+    "Completed card refunds incl tax": 719.44,
+    "Completed cash refunds incl tax": 144.29,
+    "Completed refunds incl tax": 863.73,
+    "Refunded sales tax": 63.98,
+    "Refund fee credits by completion date": 0.3,
+    "Net external receipts before fees": 116375.11,
+    "Net external receipts after fees and credits": 113522.67,
+    "Card charges settled this month": 87562.2,
+    "Fees on card charges settled this month": 2762.54,
+    "Card refunds settled this month": 691.9,
+    "Refund fee credits settled this month": 0.3,
+    "Expected card payout": 84108.06,
+    "Net cash receipts": 26640.01,
+    "Gift-card liability movement": 315.0,
+    "Unmatched receipts by payment date": 266.81,
+    "Month orders unpaid / underpaid": 738.14,
+    "Month orders overpaid": 592.71
+  },
+  "issue_counts": {
+    "Unidentified customer": 179,
+    "Customer needs review": 5,
+    "Unmatched accepted payment": 5,
+    "Unpaid order": 6,
+    "Overpaid / possible duplicate charge": 4,
+    "Underpaid order": 3,
+    "Declined payment attempt": 8,
+    "Refund failed": 3,
+    "Refund pending": 2
+  },
+  "dedup_counts": {
+    "orders / older version superseded": 12,
+    "orders / exact repeat removed": 9,
+    "payments / exact repeat removed": 6,
+    "refunds / exact repeat removed": 2
+  }
+}

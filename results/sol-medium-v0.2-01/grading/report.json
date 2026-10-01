@@ -1,0 +1,2784 @@
+{
+  "quality": {
+    "score": 0.7635,
+    "components": {
+      "business_figures": 1.0,
+      "instances": 1.0,
+      "exception_f1": 0.2905
+    },
+    "definition": "Unweighted mean of the business-figure pass rate, the instance pass rate averaged across instance types, and the exception-list F1."
+  },
+  "business_outcomes": {
+    "passed": 31,
+    "total": 31,
+    "checks": [
+      {
+        "check": "metrics.merchandise_sales_before_refunds",
+        "status": "pass",
+        "actual": "108150.50",
+        "expected": 108150.5
+      },
+      {
+        "check": "metrics.successful_refund_sales",
+        "status": "pass",
+        "actual": "799.75",
+        "expected": 799.75
+      },
+      {
+        "check": "metrics.net_sales",
+        "status": "pass",
+        "actual": "107350.75",
+        "expected": 107350.75
+      },
+      {
+        "check": "metrics.total_successful_refunds",
+        "status": "pass",
+        "actual": "863.73",
+        "expected": 863.73
+      },
+      {
+        "check": "metrics.card_processing_fees",
+        "status": "pass",
+        "actual": "2852.74",
+        "expected": 2852.74
+      },
+      {
+        "check": "metrics.expected_card_payout",
+        "status": "pass",
+        "actual": "84108.06",
+        "expected": 84108.06
+      },
+      {
+        "check": "metrics.net_external_receipts",
+        "status": "pass",
+        "actual": "116375.11",
+        "expected": 116375.11
+      },
+      {
+        "check": "products.CATER120.net_units",
+        "status": "pass",
+        "actual": "313",
+        "expected": 313
+      },
+      {
+        "check": "products.CATER120.net_sales",
+        "status": "pass",
+        "actual": "36012.00",
+        "expected": 36012.0
+      },
+      {
+        "check": "products.CAKE48.net_units",
+        "status": "pass",
+        "actual": "323",
+        "expected": 323
+      },
+      {
+        "check": "products.CAKE48.net_sales",
+        "status": "pass",
+        "actual": "14923.20",
+        "expected": 14923.2
+      },
+      {
+        "check": "products.CROISSANT21.net_units",
+        "status": "pass",
+        "actual": "511",
+        "expected": 511
+      },
+      {
+        "check": "products.CROISSANT21.net_sales",
+        "status": "pass",
+        "actual": "10330.95",
+        "expected": 10330.95
+      },
+      {
+        "check": "products.PIE32.net_units",
+        "status": "pass",
+        "actual": "311",
+        "expected": 311
+      },
+      {
+        "check": "products.PIE32.net_sales",
+        "status": "pass",
+        "actual": "9667.20",
+        "expected": 9667.2
+      },
+      {
+        "check": "products.COFFEE18.net_units",
+        "status": "pass",
+        "actual": "503",
+        "expected": 503
+      },
+      {
+        "check": "products.COFFEE18.net_sales",
+        "status": "pass",
+        "actual": "8770.50",
+        "expected": 8770.5
+      },
+      {
+        "check": "products.MUFFIN15.net_units",
+        "status": "pass",
+        "actual": "514",
+        "expected": 514
+      },
+      {
+        "check": "products.MUFFIN15.net_sales",
+        "status": "pass",
+        "actual": "7441.50",
+        "expected": 7441.5
+      },
+      {
+        "check": "products.COOKIE12.net_units",
+        "status": "pass",
+        "actual": "576",
+        "expected": 576
+      },
+      {
+        "check": "products.COOKIE12.net_sales",
+        "status": "pass",
+        "actual": "6609.60",
+        "expected": 6609.6
+      },
+      {
+        "check": "products.GRANOLA11.net_units",
+        "status": "pass",
+        "actual": "523",
+        "expected": 523
+      },
+      {
+        "check": "products.GRANOLA11.net_sales",
+        "status": "pass",
+        "actual": "5557.20",
+        "expected": 5557.2
+      },
+      {
+        "check": "products.BREAD9.net_units",
+        "status": "pass",
+        "actual": "617",
+        "expected": 617
+      },
+      {
+        "check": "products.BREAD9.net_sales",
+        "status": "pass",
+        "actual": "5378.85",
+        "expected": 5378.85
+      },
+      {
+        "check": "products.BAGUETTE5.net_units",
+        "status": "pass",
+        "actual": "551",
+        "expected": 551
+      },
+      {
+        "check": "products.BAGUETTE5.net_sales",
+        "status": "pass",
+        "actual": "2659.75",
+        "expected": 2659.75
+      },
+      {
+        "check": "products.membership",
+        "status": "pass",
+        "missing": [],
+        "unexpected": []
+      },
+      {
+        "check": "top_customers.present",
+        "status": "pass",
+        "count": 80
+      },
+      {
+        "check": "top_customers.values",
+        "status": "pass",
+        "details": [
+          {
+            "check": "top_customers.C002.net_sales",
+            "status": "pass",
+            "actual": "6061.50",
+            "expected": 6061.5
+          },
+          {
+            "check": "top_customers.C003.net_sales",
+            "status": "pass",
+            "actual": "5971.80",
+            "expected": 5971.8
+          },
+          {
+            "check": "top_customers.C004.net_sales",
+            "status": "pass",
+            "actual": "5749.70",
+            "expected": 5749.7
+          },
+          {
+            "check": "top_customers.C005.net_sales",
+            "status": "pass",
+            "actual": "5132.05",
+            "expected": 5132.05
+          },
+          {
+            "check": "top_customers.C009.net_sales",
+            "status": "pass",
+            "actual": "3805.65",
+            "expected": 3805.65
+          },
+          {
+            "check": "top_customers.C001.net_sales",
+            "status": "pass",
+            "actual": "3788.25",
+            "expected": 3788.25
+          },
+          {
+            "check": "top_customers.C006.net_sales",
+            "status": "pass",
+            "actual": "3356.10",
+            "expected": 3356.1
+          },
+          {
+            "check": "top_customers.C013.net_sales",
+            "status": "pass",
+            "actual": "3044.05",
+            "expected": 3044.05
+          },
+          {
+            "check": "top_customers.C011.net_sales",
+            "status": "pass",
+            "actual": "2635.90",
+            "expected": 2635.9
+          },
+          {
+            "check": "top_customers.C010.net_sales",
+            "status": "pass",
+            "actual": "2490.35",
+            "expected": 2490.35
+          },
+          {
+            "check": "top_customers.C007.net_sales",
+            "status": "pass",
+            "actual": "2484.35",
+            "expected": 2484.35
+          },
+          {
+            "check": "top_customers.C012.net_sales",
+            "status": "pass",
+            "actual": "2410.10",
+            "expected": 2410.1
+          },
+          {
+            "check": "top_customers.C032.net_sales",
+            "status": "pass",
+            "actual": "1863.90",
+            "expected": 1863.9
+          },
+          {
+            "check": "top_customers.C008.net_sales",
+            "status": "pass",
+            "actual": "1807.00",
+            "expected": 1807.0
+          },
+          {
+            "check": "top_customers.C036.net_sales",
+            "status": "pass",
+            "actual": "1577.45",
+            "expected": 1577.45
+          },
+          {
+            "check": "top_customers.C029.net_sales",
+            "status": "pass",
+            "actual": "1268.15",
+            "expected": 1268.15
+          },
+          {
+            "check": "top_customers.C055.net_sales",
+            "status": "pass",
+            "actual": "1222.20",
+            "expected": 1222.2
+          },
+          {
+            "check": "top_customers.C050.net_sales",
+            "status": "pass",
+            "actual": "1212.90",
+            "expected": 1212.9
+          },
+          {
+            "check": "top_customers.C078.net_sales",
+            "status": "pass",
+            "actual": "1065.50",
+            "expected": 1065.5
+          },
+          {
+            "check": "top_customers.C053.net_sales",
+            "status": "pass",
+            "actual": "1047.10",
+            "expected": 1047.1
+          },
+          {
+            "check": "top_customers.C026.net_sales",
+            "status": "pass",
+            "actual": "1007.80",
+            "expected": 1007.8
+          },
+          {
+            "check": "top_customers.C031.net_sales",
+            "status": "pass",
+            "actual": "1007.20",
+            "expected": 1007.2
+          },
+          {
+            "check": "top_customers.C025.net_sales",
+            "status": "pass",
+            "actual": "978.85",
+            "expected": 978.85
+          },
+          {
+            "check": "top_customers.C074.net_sales",
+            "status": "pass",
+            "actual": "972.00",
+            "expected": 972.0
+          },
+          {
+            "check": "top_customers.C079.net_sales",
+            "status": "pass",
+            "actual": "960.10",
+            "expected": 960.1
+          },
+          {
+            "check": "top_customers.C069.net_sales",
+            "status": "pass",
+            "actual": "943.75",
+            "expected": 943.75
+          },
+          {
+            "check": "top_customers.C059.net_sales",
+            "status": "pass",
+            "actual": "907.45",
+            "expected": 907.45
+          },
+          {
+            "check": "top_customers.C045.net_sales",
+            "status": "pass",
+            "actual": "905.35",
+            "expected": 905.35
+          },
+          {
+            "check": "top_customers.C052.net_sales",
+            "status": "pass",
+            "actual": "851.10",
+            "expected": 851.1
+          },
+          {
+            "check": "top_customers.C017.net_sales",
+            "status": "pass",
+            "actual": "848.65",
+            "expected": 848.65
+          },
+          {
+            "check": "top_customers.C016.net_sales",
+            "status": "pass",
+            "actual": "744.65",
+            "expected": 744.65
+          },
+          {
+            "check": "top_customers.C034.net_sales",
+            "status": "pass",
+            "actual": "741.90",
+            "expected": 741.9
+          },
+          {
+            "check": "top_customers.C019.net_sales",
+            "status": "pass",
+            "actual": "736.90",
+            "expected": 736.9
+          },
+          {
+            "check": "top_customers.C077.net_sales",
+            "status": "pass",
+            "actual": "679.70",
+            "expected": 679.7
+          },
+          {
+            "check": "top_customers.C047.net_sales",
+            "status": "pass",
+            "actual": "679.30",
+            "expected": 679.3
+          },
+          {
+            "check": "top_customers.C046.net_sales",
+            "status": "pass",
+            "actual": "633.15",
+            "expected": 633.15
+          },
+          {
+            "check": "top_customers.C065.net_sales",
+            "status": "pass",
+            "actual": "613.70",
+            "expected": 613.7
+          },
+          {
+            "check": "top_customers.C061.net_sales",
+            "status": "pass",
+            "actual": "598.60",
+            "expected": 598.6
+          },
+          {
+            "check": "top_customers.C018.net_sales",
+            "status": "pass",
+            "actual": "598.25",
+            "expected": 598.25
+          },
+          {
+            "check": "top_customers.C070.net_sales",
+            "status": "pass",
+            "actual": "597.45",
+            "expected": 597.45
+          },
+          {
+            "check": "top_customers.C038.net_sales",
+            "status": "pass",
+            "actual": "592.25",
+            "expected": 592.25
+          },
+          {
+            "check": "top_customers.C037.net_sales",
+            "status": "pass",
+            "actual": "590.60",
+            "expected": 590.6
+          },
+          {
+            "check": "top_customers.C043.net_sales",
+            "status": "pass",
+            "actual": "582.45",
+            "expected": 582.45
+          },
+          {
+            "check": "top_customers.C021.net_sales",
+            "status": "pass",
+            "actual": "562.00",
+            "expected": 562.0
+          },
+          {
+            "check": "top_customers.C051.net_sales",
+            "status": "pass",
+            "actual": "553.20",
+            "expected": 553.2
+          },
+          {
+            "check": "top_customers.C030.net_sales",
+            "status": "pass",
+            "actual": "547.10",
+            "expected": 547.1
+          },
+          {
+            "check": "top_customers.C048.net_sales",
+            "status": "pass",
+            "actual": "512.05",
+            "expected": 512.05
+          },
+          {
+            "check": "top_customers.C068.net_sales",
+            "status": "pass",
+            "actual": "482.40",
+            "expected": 482.4
+          },
+          {
+            "check": "top_customers.C062.net_sales",
+            "status": "pass",
+            "actual": "481.20",
+            "expected": 481.2
+          },
+          {
+            "check": "top_customers.C067.net_sales",
+            "status": "pass",
+            "actual": "455.20",
+            "expected": 455.2
+          },
+          {
+            "check": "top_customers.C073.net_sales",
+            "status": "pass",
+            "actual": "452.80",
+            "expected": 452.8
+          },
+          {
+            "check": "top_customers.C035.net_sales",
+            "status": "pass",
+            "actual": "435.95",
+            "expected": 435.95
+          },
+          {
+            "check": "top_customers.C023.net_sales",
+            "status": "pass",
+            "actual": "434.00",
+            "expected": 434.0
+          },
+          {
+            "check": "top_customers.C044.net_sales",
+            "status": "pass",
+            "actual": "432.50",
+            "expected": 432.5
+          },
+          {
+            "check": "top_customers.C056.net_sales",
+            "status": "pass",
+            "actual": "426.70",
+            "expected": 426.7
+          },
+          {
+            "check": "top_customers.C054.net_sales",
+            "status": "pass",
+            "actual": "404.75",
+            "expected": 404.75
+          },
+          {
+            "check": "top_customers.C040.net_sales",
+            "status": "pass",
+            "actual": "401.20",
+            "expected": 401.2
+          },
+          {
+            "check": "top_customers.C066.net_sales",
+            "status": "pass",
+            "actual": "387.30",
+            "expected": 387.3
+          },
+          {
+            "check": "top_customers.C072.net_sales",
+            "status": "pass",
+            "actual": "379.80",
+            "expected": 379.8
+          },
+          {
+            "check": "top_customers.C024.net_sales",
+            "status": "pass",
+            "actual": "348.25",
+            "expected": 348.25
+          },
+          {
+            "check": "top_customers.C057.net_sales",
+            "status": "pass",
+            "actual": "341.00",
+            "expected": 341.0
+          },
+          {
+            "check": "top_customers.C020.net_sales",
+            "status": "pass",
+            "actual": "322.50",
+            "expected": 322.5
+          },
+          {
+            "check": "top_customers.C039.net_sales",
+            "status": "pass",
+            "actual": "286.50",
+            "expected": 286.5
+          },
+          {
+            "check": "top_customers.C080.net_sales",
+            "status": "pass",
+            "actual": "253.90",
+            "expected": 253.9
+          },
+          {
+            "check": "top_customers.C071.net_sales",
+            "status": "pass",
+            "actual": "247.25",
+            "expected": 247.25
+          },
+          {
+            "check": "top_customers.C060.net_sales",
+            "status": "pass",
+            "actual": "240.70",
+            "expected": 240.7
+          },
+          {
+            "check": "top_customers.C049.net_sales",
+            "status": "pass",
+            "actual": "239.70",
+            "expected": 239.7
+          },
+          {
+            "check": "top_customers.C027.net_sales",
+            "status": "pass",
+            "actual": "178.00",
+            "expected": 178.0
+          },
+          {
+            "check": "top_customers.C014.net_sales",
+            "status": "pass",
+            "actual": "147.60",
+            "expected": 147.6
+          },
+          {
+            "check": "top_customers.C028.net_sales",
+            "status": "pass",
+            "actual": "146.45",
+            "expected": 146.45
+          },
+          {
+            "check": "top_customers.C042.net_sales",
+            "status": "pass",
+            "actual": "129.00",
+            "expected": 129.0
+          },
+          {
+            "check": "top_customers.C075.net_sales",
+            "status": "pass",
+            "actual": "122.00",
+            "expected": 122.0
+          },
+          {
+            "check": "top_customers.C041.net_sales",
+            "status": "pass",
+            "actual": "90.40",
+            "expected": 90.4
+          },
+          {
+            "check": "top_customers.C033.net_sales",
+            "status": "pass",
+            "actual": "71.50",
+            "expected": 71.5
+          },
+          {
+            "check": "top_customers.C063.net_sales",
+            "status": "pass",
+            "actual": "69.60",
+            "expected": 69.6
+          },
+          {
+            "check": "top_customers.C022.net_sales",
+            "status": "pass",
+            "actual": "52.00",
+            "expected": 52.0
+          },
+          {
+            "check": "top_customers.C015.net_sales",
+            "status": "pass",
+            "actual": "50.90",
+            "expected": 50.9
+          },
+          {
+            "check": "top_customers.C076.net_sales",
+            "status": "pass",
+            "actual": "47.00",
+            "expected": 47.0
+          },
+          {
+            "check": "top_customers.C064.net_sales",
+            "status": "pass",
+            "actual": "31.35",
+            "expected": 31.35
+          },
+          {
+            "check": "top_customers.C058.net_sales",
+            "status": "pass",
+            "actual": "18.00",
+            "expected": 18.0
+          }
+        ]
+      },
+      {
+        "check": "top_customers.ranking",
+        "status": "pass",
+        "reason": "Check the largest N shown, with equal-value ties allowed; no display count is required"
+      }
+    ]
+  },
+  "instances": {
+    "passed": 118,
+    "total": 118,
+    "checks": [
+      {
+        "check": "instances.line-edit-01",
+        "status": "pass",
+        "type": "line-edit",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.line-edit-02",
+        "status": "pass",
+        "type": "line-edit",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.line-edit-03",
+        "status": "pass",
+        "type": "line-edit",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.line-edit-04",
+        "status": "pass",
+        "type": "line-edit",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.line-edit-05",
+        "status": "pass",
+        "type": "line-edit",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.line-edit-06",
+        "status": "pass",
+        "type": "line-edit",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.line-edit-07",
+        "status": "pass",
+        "type": "line-edit",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.line-edit-08",
+        "status": "pass",
+        "type": "line-edit",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.label-variant-01",
+        "status": "pass",
+        "type": "label-variant",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.label-variant-02",
+        "status": "pass",
+        "type": "label-variant",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.label-variant-03",
+        "status": "pass",
+        "type": "label-variant",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.label-variant-04",
+        "status": "pass",
+        "type": "label-variant",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.label-variant-05",
+        "status": "pass",
+        "type": "label-variant",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.promotional-price-01",
+        "status": "pass",
+        "type": "promotional-price",
+        "kind": "preserve",
+        "failures": []
+      },
+      {
+        "check": "instances.promotional-price-02",
+        "status": "pass",
+        "type": "promotional-price",
+        "kind": "preserve",
+        "failures": []
+      },
+      {
+        "check": "instances.promotional-price-03",
+        "status": "pass",
+        "type": "promotional-price",
+        "kind": "preserve",
+        "failures": []
+      },
+      {
+        "check": "instances.promotional-price-04",
+        "status": "pass",
+        "type": "promotional-price",
+        "kind": "preserve",
+        "failures": []
+      },
+      {
+        "check": "instances.promotional-price-05",
+        "status": "pass",
+        "type": "promotional-price",
+        "kind": "preserve",
+        "failures": []
+      },
+      {
+        "check": "instances.gift-card-sale-01",
+        "status": "pass",
+        "type": "gift-card-sale",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.gift-card-sale-02",
+        "status": "pass",
+        "type": "gift-card-sale",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.gift-card-sale-03",
+        "status": "pass",
+        "type": "gift-card-sale",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.gift-card-sale-04",
+        "status": "pass",
+        "type": "gift-card-sale",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.gift-card-sale-05",
+        "status": "pass",
+        "type": "gift-card-sale",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.gift-card-sale-06",
+        "status": "pass",
+        "type": "gift-card-sale",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.gift-card-redemption-01",
+        "status": "pass",
+        "type": "gift-card-redemption",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.gift-card-redemption-02",
+        "status": "pass",
+        "type": "gift-card-redemption",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.gift-card-redemption-03",
+        "status": "pass",
+        "type": "gift-card-redemption",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.gift-card-redemption-04",
+        "status": "pass",
+        "type": "gift-card-redemption",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.gift-card-redemption-05",
+        "status": "pass",
+        "type": "gift-card-redemption",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.declined-then-captured-01",
+        "status": "pass",
+        "type": "declined-then-captured",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.declined-then-captured-02",
+        "status": "pass",
+        "type": "declined-then-captured",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.declined-then-captured-03",
+        "status": "pass",
+        "type": "declined-then-captured",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.declined-then-captured-04",
+        "status": "pass",
+        "type": "declined-then-captured",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.declined-then-captured-05",
+        "status": "pass",
+        "type": "declined-then-captured",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.double-charge-01",
+        "status": "pass",
+        "type": "double-charge",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.double-charge-02",
+        "status": "pass",
+        "type": "double-charge",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.double-charge-03",
+        "status": "pass",
+        "type": "double-charge",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.double-charge-04",
+        "status": "pass",
+        "type": "double-charge",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.two-card-split-01",
+        "status": "pass",
+        "type": "two-card-split",
+        "kind": "preserve",
+        "failures": []
+      },
+      {
+        "check": "instances.two-card-split-02",
+        "status": "pass",
+        "type": "two-card-split",
+        "kind": "preserve",
+        "failures": []
+      },
+      {
+        "check": "instances.two-card-split-03",
+        "status": "pass",
+        "type": "two-card-split",
+        "kind": "preserve",
+        "failures": []
+      },
+      {
+        "check": "instances.missing-payment-01",
+        "status": "pass",
+        "type": "missing-payment",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.missing-payment-02",
+        "status": "pass",
+        "type": "missing-payment",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.missing-payment-03",
+        "status": "pass",
+        "type": "missing-payment",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.missing-payment-04",
+        "status": "pass",
+        "type": "missing-payment",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.short-payment-01",
+        "status": "pass",
+        "type": "short-payment",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.short-payment-02",
+        "status": "pass",
+        "type": "short-payment",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.short-payment-03",
+        "status": "pass",
+        "type": "short-payment",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.reference-link-01",
+        "status": "pass",
+        "type": "reference-link",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.reference-link-02",
+        "status": "pass",
+        "type": "reference-link",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.reference-link-03",
+        "status": "pass",
+        "type": "reference-link",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.reference-link-04",
+        "status": "pass",
+        "type": "reference-link",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.reference-link-05",
+        "status": "pass",
+        "type": "reference-link",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.unlinked-charge-01",
+        "status": "pass",
+        "type": "unlinked-charge",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.unlinked-charge-02",
+        "status": "pass",
+        "type": "unlinked-charge",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.unlinked-charge-03",
+        "status": "pass",
+        "type": "unlinked-charge",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.coincidental-amount-01",
+        "status": "pass",
+        "type": "coincidental-amount",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.coincidental-amount-02",
+        "status": "pass",
+        "type": "coincidental-amount",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.partial-refund-01",
+        "status": "pass",
+        "type": "partial-refund",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.partial-refund-02",
+        "status": "pass",
+        "type": "partial-refund",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.partial-refund-03",
+        "status": "pass",
+        "type": "partial-refund",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.partial-refund-04",
+        "status": "pass",
+        "type": "partial-refund",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.partial-refund-05",
+        "status": "pass",
+        "type": "partial-refund",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.cash-refund-01",
+        "status": "pass",
+        "type": "cash-refund",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.cash-refund-02",
+        "status": "pass",
+        "type": "cash-refund",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.cash-refund-03",
+        "status": "pass",
+        "type": "cash-refund",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.refund-not-paid-01",
+        "status": "pass",
+        "type": "refund-not-paid",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.refund-not-paid-02",
+        "status": "pass",
+        "type": "refund-not-paid",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.refund-not-paid-03",
+        "status": "pass",
+        "type": "refund-not-paid",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.refund-not-paid-04",
+        "status": "pass",
+        "type": "refund-not-paid",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.refund-not-paid-05",
+        "status": "pass",
+        "type": "refund-not-paid",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.refund-timing-01",
+        "status": "pass",
+        "type": "refund-timing",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.refund-timing-02",
+        "status": "pass",
+        "type": "refund-timing",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.refund-timing-03",
+        "status": "pass",
+        "type": "refund-timing",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.refund-timing-04",
+        "status": "pass",
+        "type": "refund-timing",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.prior-month-return-01",
+        "status": "pass",
+        "type": "prior-month-return",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.prior-month-return-02",
+        "status": "pass",
+        "type": "prior-month-return",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.prior-month-return-03",
+        "status": "pass",
+        "type": "prior-month-return",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.refund-on-edited-line-01",
+        "status": "pass",
+        "type": "refund-on-edited-line",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.refund-on-edited-line-02",
+        "status": "pass",
+        "type": "refund-on-edited-line",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.duplicate-export-01",
+        "status": "pass",
+        "type": "duplicate-export",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.duplicate-export-02",
+        "status": "pass",
+        "type": "duplicate-export",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.id-from-email-01",
+        "status": "pass",
+        "type": "id-from-email",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.id-from-email-02",
+        "status": "pass",
+        "type": "id-from-email",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.id-from-email-03",
+        "status": "pass",
+        "type": "id-from-email",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.id-from-email-04",
+        "status": "pass",
+        "type": "id-from-email",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.id-from-loyalty-card-01",
+        "status": "pass",
+        "type": "id-from-loyalty-card",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.id-from-loyalty-card-02",
+        "status": "pass",
+        "type": "id-from-loyalty-card",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.id-from-loyalty-card-03",
+        "status": "pass",
+        "type": "id-from-loyalty-card",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.id-from-phone-01",
+        "status": "pass",
+        "type": "id-from-phone",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.id-from-phone-02",
+        "status": "pass",
+        "type": "id-from-phone",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.ambiguous-household-01",
+        "status": "pass",
+        "type": "ambiguous-household",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.ambiguous-household-02",
+        "status": "pass",
+        "type": "ambiguous-household",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.ambiguous-household-03",
+        "status": "pass",
+        "type": "ambiguous-household",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.conflicting-contacts-01",
+        "status": "pass",
+        "type": "conflicting-contacts",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.conflicting-contacts-02",
+        "status": "pass",
+        "type": "conflicting-contacts",
+        "kind": "review",
+        "failures": []
+      },
+      {
+        "check": "instances.household-members-01",
+        "status": "pass",
+        "type": "household-members",
+        "kind": "preserve",
+        "failures": []
+      },
+      {
+        "check": "instances.household-members-02",
+        "status": "pass",
+        "type": "household-members",
+        "kind": "preserve",
+        "failures": []
+      },
+      {
+        "check": "instances.household-members-03",
+        "status": "pass",
+        "type": "household-members",
+        "kind": "preserve",
+        "failures": []
+      },
+      {
+        "check": "instances.same-name-01",
+        "status": "pass",
+        "type": "same-name",
+        "kind": "preserve",
+        "failures": []
+      },
+      {
+        "check": "instances.repeat-purchase-01",
+        "status": "pass",
+        "type": "repeat-purchase",
+        "kind": "preserve",
+        "failures": []
+      },
+      {
+        "check": "instances.repeat-purchase-02",
+        "status": "pass",
+        "type": "repeat-purchase",
+        "kind": "preserve",
+        "failures": []
+      },
+      {
+        "check": "instances.repeat-purchase-03",
+        "status": "pass",
+        "type": "repeat-purchase",
+        "kind": "preserve",
+        "failures": []
+      },
+      {
+        "check": "instances.repeat-purchase-04",
+        "status": "pass",
+        "type": "repeat-purchase",
+        "kind": "preserve",
+        "failures": []
+      },
+      {
+        "check": "instances.duplicate-export-03",
+        "status": "pass",
+        "type": "duplicate-export",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.duplicate-export-04",
+        "status": "pass",
+        "type": "duplicate-export",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.duplicate-export-05",
+        "status": "pass",
+        "type": "duplicate-export",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.duplicate-export-06",
+        "status": "pass",
+        "type": "duplicate-export",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.duplicate-export-07",
+        "status": "pass",
+        "type": "duplicate-export",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.duplicate-export-08",
+        "status": "pass",
+        "type": "duplicate-export",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.duplicate-export-09",
+        "status": "pass",
+        "type": "duplicate-export",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.duplicate-export-10",
+        "status": "pass",
+        "type": "duplicate-export",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.duplicate-export-11",
+        "status": "pass",
+        "type": "duplicate-export",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.duplicate-export-12",
+        "status": "pass",
+        "type": "duplicate-export",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.duplicate-export-13",
+        "status": "pass",
+        "type": "duplicate-export",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.duplicate-export-14",
+        "status": "pass",
+        "type": "duplicate-export",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.duplicate-export-15",
+        "status": "pass",
+        "type": "duplicate-export",
+        "kind": "resolve",
+        "failures": []
+      },
+      {
+        "check": "instances.duplicate-export-16",
+        "status": "pass",
+        "type": "duplicate-export",
+        "kind": "resolve",
+        "failures": []
+      }
+    ],
+    "by_type": {
+      "ambiguous-household": {
+        "passed": 3,
+        "total": 3
+      },
+      "cash-refund": {
+        "passed": 3,
+        "total": 3
+      },
+      "coincidental-amount": {
+        "passed": 2,
+        "total": 2
+      },
+      "conflicting-contacts": {
+        "passed": 2,
+        "total": 2
+      },
+      "declined-then-captured": {
+        "passed": 5,
+        "total": 5
+      },
+      "double-charge": {
+        "passed": 4,
+        "total": 4
+      },
+      "duplicate-export": {
+        "passed": 16,
+        "total": 16
+      },
+      "gift-card-redemption": {
+        "passed": 5,
+        "total": 5
+      },
+      "gift-card-sale": {
+        "passed": 6,
+        "total": 6
+      },
+      "household-members": {
+        "passed": 3,
+        "total": 3
+      },
+      "id-from-email": {
+        "passed": 4,
+        "total": 4
+      },
+      "id-from-loyalty-card": {
+        "passed": 3,
+        "total": 3
+      },
+      "id-from-phone": {
+        "passed": 2,
+        "total": 2
+      },
+      "label-variant": {
+        "passed": 5,
+        "total": 5
+      },
+      "line-edit": {
+        "passed": 8,
+        "total": 8
+      },
+      "missing-payment": {
+        "passed": 4,
+        "total": 4
+      },
+      "partial-refund": {
+        "passed": 5,
+        "total": 5
+      },
+      "prior-month-return": {
+        "passed": 3,
+        "total": 3
+      },
+      "promotional-price": {
+        "passed": 5,
+        "total": 5
+      },
+      "reference-link": {
+        "passed": 5,
+        "total": 5
+      },
+      "refund-not-paid": {
+        "passed": 5,
+        "total": 5
+      },
+      "refund-on-edited-line": {
+        "passed": 2,
+        "total": 2
+      },
+      "refund-timing": {
+        "passed": 4,
+        "total": 4
+      },
+      "repeat-purchase": {
+        "passed": 4,
+        "total": 4
+      },
+      "same-name": {
+        "passed": 1,
+        "total": 1
+      },
+      "short-payment": {
+        "passed": 3,
+        "total": 3
+      },
+      "two-card-split": {
+        "passed": 3,
+        "total": 3
+      },
+      "unlinked-charge": {
+        "passed": 3,
+        "total": 3
+      }
+    },
+    "macro_rate": 1.0
+  },
+  "exceptions": {
+    "submitted_entries": 215,
+    "entries_naming_review_items": 35,
+    "unnecessary_entries": 171,
+    "unnecessary_examples": [
+      [
+        "O-202609-0003"
+      ],
+      [
+        "O-202609-0007"
+      ],
+      [
+        "O-202609-0018"
+      ],
+      [
+        "O-202609-0023"
+      ],
+      [
+        "O-202609-0030"
+      ],
+      [
+        "O-202609-0041"
+      ],
+      [
+        "O-202609-0046"
+      ],
+      [
+        "O-202609-0048"
+      ],
+      [
+        "O-202609-0054"
+      ],
+      [
+        "O-202609-0079"
+      ],
+      [
+        "O-202609-0086"
+      ],
+      [
+        "O-202609-0102"
+      ],
+      [
+        "O-202609-0107"
+      ],
+      [
+        "O-202609-0140"
+      ],
+      [
+        "O-202609-0141"
+      ],
+      [
+        "O-202609-0143"
+      ],
+      [
+        "O-202609-0147"
+      ],
+      [
+        "O-202609-0150"
+      ],
+      [
+        "O-202609-0154"
+      ],
+      [
+        "O-202609-0162"
+      ]
+    ],
+    "review_instances_detected": 26,
+    "review_instances": 26,
+    "precision": 0.1699,
+    "recall": 1.0,
+    "f1": 0.2905
+  },
+  "diagnostics": {
+    "passed": 162,
+    "total": 167,
+    "checks": [
+      {
+        "check": "customers.WALK_IN.order_count",
+        "status": "missing",
+        "expected": 179
+      },
+      {
+        "check": "customers.WALK_IN.net_sales",
+        "status": "missing",
+        "expected": 20163.55
+      },
+      {
+        "check": "customers.C002.order_count",
+        "status": "pass",
+        "actual": 55,
+        "expected": 55
+      },
+      {
+        "check": "customers.C002.net_sales",
+        "status": "pass",
+        "actual": "6061.50",
+        "expected": 6061.5
+      },
+      {
+        "check": "customers.C003.order_count",
+        "status": "pass",
+        "actual": 55,
+        "expected": 55
+      },
+      {
+        "check": "customers.C003.net_sales",
+        "status": "pass",
+        "actual": "5971.80",
+        "expected": 5971.8
+      },
+      {
+        "check": "customers.C004.order_count",
+        "status": "pass",
+        "actual": 50,
+        "expected": 50
+      },
+      {
+        "check": "customers.C004.net_sales",
+        "status": "pass",
+        "actual": "5749.70",
+        "expected": 5749.7
+      },
+      {
+        "check": "customers.C005.order_count",
+        "status": "pass",
+        "actual": 49,
+        "expected": 49
+      },
+      {
+        "check": "customers.C005.net_sales",
+        "status": "pass",
+        "actual": "5132.05",
+        "expected": 5132.05
+      },
+      {
+        "check": "customers.C009.order_count",
+        "status": "pass",
+        "actual": 33,
+        "expected": 33
+      },
+      {
+        "check": "customers.C009.net_sales",
+        "status": "pass",
+        "actual": "3805.65",
+        "expected": 3805.65
+      },
+      {
+        "check": "customers.C001.order_count",
+        "status": "pass",
+        "actual": 41,
+        "expected": 41
+      },
+      {
+        "check": "customers.C001.net_sales",
+        "status": "pass",
+        "actual": "3788.25",
+        "expected": 3788.25
+      },
+      {
+        "check": "customers.C006.order_count",
+        "status": "pass",
+        "actual": 21,
+        "expected": 21
+      },
+      {
+        "check": "customers.C006.net_sales",
+        "status": "pass",
+        "actual": "3356.10",
+        "expected": 3356.1
+      },
+      {
+        "check": "customers.C013.order_count",
+        "status": "pass",
+        "actual": 25,
+        "expected": 25
+      },
+      {
+        "check": "customers.C013.net_sales",
+        "status": "pass",
+        "actual": "3044.05",
+        "expected": 3044.05
+      },
+      {
+        "check": "customers.C011.order_count",
+        "status": "pass",
+        "actual": 30,
+        "expected": 30
+      },
+      {
+        "check": "customers.C011.net_sales",
+        "status": "pass",
+        "actual": "2635.90",
+        "expected": 2635.9
+      },
+      {
+        "check": "customers.C010.order_count",
+        "status": "pass",
+        "actual": 27,
+        "expected": 27
+      },
+      {
+        "check": "customers.C010.net_sales",
+        "status": "pass",
+        "actual": "2490.35",
+        "expected": 2490.35
+      },
+      {
+        "check": "customers.C007.order_count",
+        "status": "pass",
+        "actual": 24,
+        "expected": 24
+      },
+      {
+        "check": "customers.C007.net_sales",
+        "status": "pass",
+        "actual": "2484.35",
+        "expected": 2484.35
+      },
+      {
+        "check": "customers.C012.order_count",
+        "status": "pass",
+        "actual": 26,
+        "expected": 26
+      },
+      {
+        "check": "customers.C012.net_sales",
+        "status": "pass",
+        "actual": "2410.10",
+        "expected": 2410.1
+      },
+      {
+        "check": "customers.C032.order_count",
+        "status": "pass",
+        "actual": 11,
+        "expected": 11
+      },
+      {
+        "check": "customers.C032.net_sales",
+        "status": "pass",
+        "actual": "1863.90",
+        "expected": 1863.9
+      },
+      {
+        "check": "customers.C008.order_count",
+        "status": "pass",
+        "actual": 18,
+        "expected": 18
+      },
+      {
+        "check": "customers.C008.net_sales",
+        "status": "pass",
+        "actual": "1807.00",
+        "expected": 1807.0
+      },
+      {
+        "check": "customers.C036.order_count",
+        "status": "pass",
+        "actual": 11,
+        "expected": 11
+      },
+      {
+        "check": "customers.C036.net_sales",
+        "status": "pass",
+        "actual": "1577.45",
+        "expected": 1577.45
+      },
+      {
+        "check": "customers.C029.order_count",
+        "status": "pass",
+        "actual": 12,
+        "expected": 12
+      },
+      {
+        "check": "customers.C029.net_sales",
+        "status": "pass",
+        "actual": "1268.15",
+        "expected": 1268.15
+      },
+      {
+        "check": "customers.C055.order_count",
+        "status": "pass",
+        "actual": 7,
+        "expected": 7
+      },
+      {
+        "check": "customers.C055.net_sales",
+        "status": "pass",
+        "actual": "1222.20",
+        "expected": 1222.2
+      },
+      {
+        "check": "customers.C050.order_count",
+        "status": "pass",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "check": "customers.C050.net_sales",
+        "status": "pass",
+        "actual": "1212.90",
+        "expected": 1212.9
+      },
+      {
+        "check": "customers.C078.order_count",
+        "status": "pass",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "check": "customers.C078.net_sales",
+        "status": "pass",
+        "actual": "1065.50",
+        "expected": 1065.5
+      },
+      {
+        "check": "customers.C053.order_count",
+        "status": "pass",
+        "actual": 9,
+        "expected": 9
+      },
+      {
+        "check": "customers.C053.net_sales",
+        "status": "pass",
+        "actual": "1047.10",
+        "expected": 1047.1
+      },
+      {
+        "check": "customers.C026.order_count",
+        "status": "pass",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "check": "customers.C026.net_sales",
+        "status": "pass",
+        "actual": "1007.80",
+        "expected": 1007.8
+      },
+      {
+        "check": "customers.C031.order_count",
+        "status": "pass",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "check": "customers.C031.net_sales",
+        "status": "pass",
+        "actual": "1007.20",
+        "expected": 1007.2
+      },
+      {
+        "check": "customers.C025.order_count",
+        "status": "pass",
+        "actual": 6,
+        "expected": 6
+      },
+      {
+        "check": "customers.C025.net_sales",
+        "status": "pass",
+        "actual": "978.85",
+        "expected": 978.85
+      },
+      {
+        "check": "customers.C074.order_count",
+        "status": "pass",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "check": "customers.C074.net_sales",
+        "status": "pass",
+        "actual": "972.00",
+        "expected": 972.0
+      },
+      {
+        "check": "customers.C079.order_count",
+        "status": "pass",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "check": "customers.C079.net_sales",
+        "status": "pass",
+        "actual": "960.10",
+        "expected": 960.1
+      },
+      {
+        "check": "customers.C069.order_count",
+        "status": "pass",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "check": "customers.C069.net_sales",
+        "status": "pass",
+        "actual": "943.75",
+        "expected": 943.75
+      },
+      {
+        "check": "customers.C059.order_count",
+        "status": "pass",
+        "actual": 7,
+        "expected": 7
+      },
+      {
+        "check": "customers.C059.net_sales",
+        "status": "pass",
+        "actual": "907.45",
+        "expected": 907.45
+      },
+      {
+        "check": "customers.C045.order_count",
+        "status": "pass",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "check": "customers.C045.net_sales",
+        "status": "pass",
+        "actual": "905.35",
+        "expected": 905.35
+      },
+      {
+        "check": "customers.C052.order_count",
+        "status": "pass",
+        "actual": 9,
+        "expected": 9
+      },
+      {
+        "check": "customers.C052.net_sales",
+        "status": "pass",
+        "actual": "851.10",
+        "expected": 851.1
+      },
+      {
+        "check": "customers.C017.order_count",
+        "status": "pass",
+        "actual": 9,
+        "expected": 9
+      },
+      {
+        "check": "customers.C017.net_sales",
+        "status": "pass",
+        "actual": "848.65",
+        "expected": 848.65
+      },
+      {
+        "check": "customers.C016.order_count",
+        "status": "pass",
+        "actual": 9,
+        "expected": 9
+      },
+      {
+        "check": "customers.C016.net_sales",
+        "status": "pass",
+        "actual": "744.65",
+        "expected": 744.65
+      },
+      {
+        "check": "customers.C034.order_count",
+        "status": "pass",
+        "actual": 6,
+        "expected": 6
+      },
+      {
+        "check": "customers.C034.net_sales",
+        "status": "pass",
+        "actual": "741.90",
+        "expected": 741.9
+      },
+      {
+        "check": "customers.C019.order_count",
+        "status": "pass",
+        "actual": 10,
+        "expected": 10
+      },
+      {
+        "check": "customers.C019.net_sales",
+        "status": "pass",
+        "actual": "736.90",
+        "expected": 736.9
+      },
+      {
+        "check": "customers.C077.order_count",
+        "status": "pass",
+        "actual": 5,
+        "expected": 5
+      },
+      {
+        "check": "customers.C077.net_sales",
+        "status": "pass",
+        "actual": "679.70",
+        "expected": 679.7
+      },
+      {
+        "check": "customers.C047.order_count",
+        "status": "pass",
+        "actual": 6,
+        "expected": 6
+      },
+      {
+        "check": "customers.C047.net_sales",
+        "status": "pass",
+        "actual": "679.30",
+        "expected": 679.3
+      },
+      {
+        "check": "customers.UNASSIGNED.order_count",
+        "status": "missing",
+        "expected": 5
+      },
+      {
+        "check": "customers.UNASSIGNED.net_sales",
+        "status": "missing",
+        "expected": 640.3
+      },
+      {
+        "check": "customers.C046.order_count",
+        "status": "pass",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "check": "customers.C046.net_sales",
+        "status": "pass",
+        "actual": "633.15",
+        "expected": 633.15
+      },
+      {
+        "check": "customers.C065.order_count",
+        "status": "pass",
+        "actual": 5,
+        "expected": 5
+      },
+      {
+        "check": "customers.C065.net_sales",
+        "status": "pass",
+        "actual": "613.70",
+        "expected": 613.7
+      },
+      {
+        "check": "customers.C061.order_count",
+        "status": "pass",
+        "actual": 5,
+        "expected": 5
+      },
+      {
+        "check": "customers.C061.net_sales",
+        "status": "pass",
+        "actual": "598.60",
+        "expected": 598.6
+      },
+      {
+        "check": "customers.C018.order_count",
+        "status": "pass",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "check": "customers.C018.net_sales",
+        "status": "pass",
+        "actual": "598.25",
+        "expected": 598.25
+      },
+      {
+        "check": "customers.C070.order_count",
+        "status": "pass",
+        "actual": 6,
+        "expected": 6
+      },
+      {
+        "check": "customers.C070.net_sales",
+        "status": "pass",
+        "actual": "597.45",
+        "expected": 597.45
+      },
+      {
+        "check": "customers.C038.order_count",
+        "status": "pass",
+        "actual": 7,
+        "expected": 7
+      },
+      {
+        "check": "customers.C038.net_sales",
+        "status": "pass",
+        "actual": "592.25",
+        "expected": 592.25
+      },
+      {
+        "check": "customers.C037.order_count",
+        "status": "pass",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "check": "customers.C037.net_sales",
+        "status": "pass",
+        "actual": "590.60",
+        "expected": 590.6
+      },
+      {
+        "check": "customers.C043.order_count",
+        "status": "pass",
+        "actual": 6,
+        "expected": 6
+      },
+      {
+        "check": "customers.C043.net_sales",
+        "status": "pass",
+        "actual": "582.45",
+        "expected": 582.45
+      },
+      {
+        "check": "customers.C021.order_count",
+        "status": "pass",
+        "actual": 5,
+        "expected": 5
+      },
+      {
+        "check": "customers.C021.net_sales",
+        "status": "pass",
+        "actual": "562.00",
+        "expected": 562.0
+      },
+      {
+        "check": "customers.C051.order_count",
+        "status": "pass",
+        "actual": 3,
+        "expected": 3
+      },
+      {
+        "check": "customers.C051.net_sales",
+        "status": "pass",
+        "actual": "553.20",
+        "expected": 553.2
+      },
+      {
+        "check": "customers.C030.order_count",
+        "status": "pass",
+        "actual": 6,
+        "expected": 6
+      },
+      {
+        "check": "customers.C030.net_sales",
+        "status": "pass",
+        "actual": "547.10",
+        "expected": 547.1
+      },
+      {
+        "check": "customers.C048.order_count",
+        "status": "pass",
+        "actual": 5,
+        "expected": 5
+      },
+      {
+        "check": "customers.C048.net_sales",
+        "status": "pass",
+        "actual": "512.05",
+        "expected": 512.05
+      },
+      {
+        "check": "customers.C068.order_count",
+        "status": "pass",
+        "actual": 8,
+        "expected": 8
+      },
+      {
+        "check": "customers.C068.net_sales",
+        "status": "pass",
+        "actual": "482.40",
+        "expected": 482.4
+      },
+      {
+        "check": "customers.C062.order_count",
+        "status": "pass",
+        "actual": 6,
+        "expected": 6
+      },
+      {
+        "check": "customers.C062.net_sales",
+        "status": "pass",
+        "actual": "481.20",
+        "expected": 481.2
+      },
+      {
+        "check": "customers.C067.order_count",
+        "status": "pass",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "check": "customers.C067.net_sales",
+        "status": "pass",
+        "actual": "455.20",
+        "expected": 455.2
+      },
+      {
+        "check": "customers.C073.order_count",
+        "status": "pass",
+        "actual": 7,
+        "expected": 7
+      },
+      {
+        "check": "customers.C073.net_sales",
+        "status": "pass",
+        "actual": "452.80",
+        "expected": 452.8
+      },
+      {
+        "check": "customers.C035.order_count",
+        "status": "pass",
+        "actual": 5,
+        "expected": 5
+      },
+      {
+        "check": "customers.C035.net_sales",
+        "status": "pass",
+        "actual": "435.95",
+        "expected": 435.95
+      },
+      {
+        "check": "customers.C023.order_count",
+        "status": "pass",
+        "actual": 5,
+        "expected": 5
+      },
+      {
+        "check": "customers.C023.net_sales",
+        "status": "pass",
+        "actual": "434.00",
+        "expected": 434.0
+      },
+      {
+        "check": "customers.C044.order_count",
+        "status": "pass",
+        "actual": 7,
+        "expected": 7
+      },
+      {
+        "check": "customers.C044.net_sales",
+        "status": "pass",
+        "actual": "432.50",
+        "expected": 432.5
+      },
+      {
+        "check": "customers.C056.order_count",
+        "status": "pass",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "check": "customers.C056.net_sales",
+        "status": "pass",
+        "actual": "426.70",
+        "expected": 426.7
+      },
+      {
+        "check": "customers.C054.order_count",
+        "status": "pass",
+        "actual": 6,
+        "expected": 6
+      },
+      {
+        "check": "customers.C054.net_sales",
+        "status": "pass",
+        "actual": "404.75",
+        "expected": 404.75
+      },
+      {
+        "check": "customers.C040.order_count",
+        "status": "pass",
+        "actual": 5,
+        "expected": 5
+      },
+      {
+        "check": "customers.C040.net_sales",
+        "status": "pass",
+        "actual": "401.20",
+        "expected": 401.2
+      },
+      {
+        "check": "customers.C066.order_count",
+        "status": "pass",
+        "actual": 5,
+        "expected": 5
+      },
+      {
+        "check": "customers.C066.net_sales",
+        "status": "pass",
+        "actual": "387.30",
+        "expected": 387.3
+      },
+      {
+        "check": "customers.C072.order_count",
+        "status": "pass",
+        "actual": 3,
+        "expected": 3
+      },
+      {
+        "check": "customers.C072.net_sales",
+        "status": "pass",
+        "actual": "379.80",
+        "expected": 379.8
+      },
+      {
+        "check": "customers.C024.order_count",
+        "status": "pass",
+        "actual": 5,
+        "expected": 5
+      },
+      {
+        "check": "customers.C024.net_sales",
+        "status": "pass",
+        "actual": "348.25",
+        "expected": 348.25
+      },
+      {
+        "check": "customers.C057.order_count",
+        "status": "pass",
+        "actual": 3,
+        "expected": 3
+      },
+      {
+        "check": "customers.C057.net_sales",
+        "status": "pass",
+        "actual": "341.00",
+        "expected": 341.0
+      },
+      {
+        "check": "customers.C020.order_count",
+        "status": "pass",
+        "actual": 5,
+        "expected": 5
+      },
+      {
+        "check": "customers.C020.net_sales",
+        "status": "pass",
+        "actual": "322.50",
+        "expected": 322.5
+      },
+      {
+        "check": "customers.C039.order_count",
+        "status": "pass",
+        "actual": 3,
+        "expected": 3
+      },
+      {
+        "check": "customers.C039.net_sales",
+        "status": "pass",
+        "actual": "286.50",
+        "expected": 286.5
+      },
+      {
+        "check": "customers.C080.order_count",
+        "status": "pass",
+        "actual": 3,
+        "expected": 3
+      },
+      {
+        "check": "customers.C080.net_sales",
+        "status": "pass",
+        "actual": "253.90",
+        "expected": 253.9
+      },
+      {
+        "check": "customers.C071.order_count",
+        "status": "pass",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "check": "customers.C071.net_sales",
+        "status": "pass",
+        "actual": "247.25",
+        "expected": 247.25
+      },
+      {
+        "check": "customers.C060.order_count",
+        "status": "pass",
+        "actual": 4,
+        "expected": 4
+      },
+      {
+        "check": "customers.C060.net_sales",
+        "status": "pass",
+        "actual": "240.70",
+        "expected": 240.7
+      },
+      {
+        "check": "customers.C049.order_count",
+        "status": "pass",
+        "actual": 5,
+        "expected": 5
+      },
+      {
+        "check": "customers.C049.net_sales",
+        "status": "pass",
+        "actual": "239.70",
+        "expected": 239.7
+      },
+      {
+        "check": "customers.C027.order_count",
+        "status": "pass",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "check": "customers.C027.net_sales",
+        "status": "pass",
+        "actual": "178.00",
+        "expected": 178.0
+      },
+      {
+        "check": "customers.C014.order_count",
+        "status": "pass",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "check": "customers.C014.net_sales",
+        "status": "pass",
+        "actual": "147.60",
+        "expected": 147.6
+      },
+      {
+        "check": "customers.C028.order_count",
+        "status": "pass",
+        "actual": 2,
+        "expected": 2
+      },
+      {
+        "check": "customers.C028.net_sales",
+        "status": "pass",
+        "actual": "146.45",
+        "expected": 146.45
+      },
+      {
+        "check": "customers.C042.order_count",
+        "status": "pass",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "check": "customers.C042.net_sales",
+        "status": "pass",
+        "actual": "129.00",
+        "expected": 129.0
+      },
+      {
+        "check": "customers.C075.order_count",
+        "status": "pass",
+        "actual": 2,
+        "expected": 2
+      },
+      {
+        "check": "customers.C075.net_sales",
+        "status": "pass",
+        "actual": "122.00",
+        "expected": 122.0
+      },
+      {
+        "check": "customers.C041.order_count",
+        "status": "pass",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "check": "customers.C041.net_sales",
+        "status": "pass",
+        "actual": "90.40",
+        "expected": 90.4
+      },
+      {
+        "check": "customers.C033.order_count",
+        "status": "pass",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "check": "customers.C033.net_sales",
+        "status": "pass",
+        "actual": "71.50",
+        "expected": 71.5
+      },
+      {
+        "check": "customers.C063.order_count",
+        "status": "pass",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "check": "customers.C063.net_sales",
+        "status": "pass",
+        "actual": "69.60",
+        "expected": 69.6
+      },
+      {
+        "check": "customers.C022.order_count",
+        "status": "pass",
+        "actual": 2,
+        "expected": 2
+      },
+      {
+        "check": "customers.C022.net_sales",
+        "status": "pass",
+        "actual": "52.00",
+        "expected": 52.0
+      },
+      {
+        "check": "customers.C015.order_count",
+        "status": "pass",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "check": "customers.C015.net_sales",
+        "status": "pass",
+        "actual": "50.90",
+        "expected": 50.9
+      },
+      {
+        "check": "customers.C076.order_count",
+        "status": "pass",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "check": "customers.C076.net_sales",
+        "status": "pass",
+        "actual": "47.00",
+        "expected": 47.0
+      },
+      {
+        "check": "customers.C064.order_count",
+        "status": "pass",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "check": "customers.C064.net_sales",
+        "status": "pass",
+        "actual": "31.35",
+        "expected": 31.35
+      },
+      {
+        "check": "customers.C058.order_count",
+        "status": "pass",
+        "actual": 1,
+        "expected": 1
+      },
+      {
+        "check": "customers.C058.net_sales",
+        "status": "pass",
+        "actual": "18.00",
+        "expected": 18.0
+      },
+      {
+        "check": "customers.membership",
+        "status": "fail",
+        "missing": [
+          "UNASSIGNED",
+          "WALK_IN"
+        ],
+        "unexpected": [
+          "UNRESOLVED",
+          "WALK-IN"
+        ]
+      },
+      {
+        "check": "orders.all_rows",
+        "status": "pass",
+        "matched": 1000,
+        "total": 1000
+      },
+      {
+        "check": "refunds.all_rows",
+        "status": "pass",
+        "matched": 24,
+        "total": 24
+      }
+    ]
+  },
+  "artifacts": {
+    "passed": 3,
+    "total": 4,
+    "checks": [
+      {
+        "check": "artifacts.spreadsheet",
+        "status": "pass",
+        "evidence": "frozen/reports/2026-09/Corner_Loaf_2026-09.xlsx: 15 named sheets with autofilters and order/payment/refund IDs. grade/frozen-extraction/extraction-notes.md verifies all emitted CSV cells against stored workbook values; sub-nanodollar binary storage differences do not change displayed cents."
+      },
+      {
+        "check": "artifacts.dashboard",
+        "status": "pass",
+        "evidence": "frozen/reports/2026-09/dashboard.html independently rendered by control/review_dashboard.py. control/dashboard-review.json confirms six totals, 28 priority entries, 215 all-check entries, working ID search, workbook link, no JavaScript errors and no mobile horizontal overflow. Numeric snapshot agrees with workbook/CSV."
+      },
+      {
+        "check": "artifacts.source_preservation",
+        "status": "pass",
+        "evidence": "grade/grading-report.json input_preservation: all six frozen input SHA-256 hashes match the committed reference and pre-run control/run.json hashes."
+      },
+      {
+        "check": "scope_review",
+        "status": "unverified",
+        "evidence": "All keyed instances passed and separate customer pools are preserved in Customers ranked and customer_matching.csv. However 171 action entries are deemed unnecessary by the scorer; 179 WALK-IN rows are presented as optional checks. Solver-visible bookkeeping_notes.md lines 62-66 broadly request flags for unidentified sales, while evaluator instructions penalize ordinary walk-in flags. Scope judgment is ambiguous; no post-submission corrections made."
+      }
+    ]
+  },
+  "input_preservation": {
+    "passed": 6,
+    "total": 6,
+    "checks": [
+      {
+        "check": "input.bookkeeping_notes.md",
+        "status": "pass",
+        "actual": "149e6975d642f128ebec8bd3fb9cc48f42cd9b860a4e15aeb32124e6c35e5c40",
+        "expected": "149e6975d642f128ebec8bd3fb9cc48f42cd9b860a4e15aeb32124e6c35e5c40"
+      },
+      {
+        "check": "input.customers.csv",
+        "status": "pass",
+        "actual": "c29b3a434627e34fa50c01d646f4fec86d8475bd45b3bccc95266aa43ec1a474",
+        "expected": "c29b3a434627e34fa50c01d646f4fec86d8475bd45b3bccc95266aa43ec1a474"
+      },
+      {
+        "check": "input.orders.csv",
+        "status": "pass",
+        "actual": "830151f24f0eaee7596895199ad6e081a01fa54dcd2c8c113851a5cc9f042d16",
+        "expected": "830151f24f0eaee7596895199ad6e081a01fa54dcd2c8c113851a5cc9f042d16"
+      },
+      {
+        "check": "input.payments.csv",
+        "status": "pass",
+        "actual": "a2892d6a8a7ba3948aca175bbd547d69f87ac499358a66429ca81f8207ef4121",
+        "expected": "a2892d6a8a7ba3948aca175bbd547d69f87ac499358a66429ca81f8207ef4121"
+      },
+      {
+        "check": "input.products.csv",
+        "status": "pass",
+        "actual": "ad4b4491b044ec7dece004cd5368893f31734e7cd459171b8528982a1c3fcdf3",
+        "expected": "ad4b4491b044ec7dece004cd5368893f31734e7cd459171b8528982a1c3fcdf3"
+      },
+      {
+        "check": "input.refunds.csv",
+        "status": "pass",
+        "actual": "373cfce83928031286d478379e22aebd495c51294b16a443bcdb7e887458cac8",
+        "expected": "373cfce83928031286d478379e22aebd495c51294b16a443bcdb7e887458cac8"
+      }
+    ]
+  },
+  "limitations": [
+    "Numeric checks rely on a grader's faithful extraction from frozen submitted outputs.",
+    "Usability and false changes outside keyed instances are reviewer verdicts, not automated certification.",
+    "The quality score excludes artifacts, input preservation and cost; report those alongside it."
+  ],
+  "reporting_period": "2026-09"
+}

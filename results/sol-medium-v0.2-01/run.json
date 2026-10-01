@@ -1,0 +1,209 @@
+{
+  "run_id": "v0.2-sol-medium-20261001T025950Z",
+  "repository": "/Users/romeodiaz/Code/mainstreetbench",
+  "commit": "068dd07d411105bd7dec086a9595bb5765b0cc1f",
+  "model_requested": "gpt-6.1-sol",
+  "reasoning_requested": "medium",
+  "configuration": "Sol solo",
+  "cli_version": "codex-cli 0.159.0",
+  "time_limit_seconds": 2700,
+  "retries": 0,
+  "human_task_interventions": 0,
+  "input_hashes": {
+    "bookkeeping_notes.md": "149e6975d642f128ebec8bd3fb9cc48f42cd9b860a4e15aeb32124e6c35e5c40",
+    "customers.csv": "c29b3a434627e34fa50c01d646f4fec86d8475bd45b3bccc95266aa43ec1a474",
+    "orders.csv": "830151f24f0eaee7596895199ad6e081a01fa54dcd2c8c113851a5cc9f042d16",
+    "payments.csv": "a2892d6a8a7ba3948aca175bbd547d69f87ac499358a66429ca81f8207ef4121",
+    "products.csv": "ad4b4491b044ec7dece004cd5368893f31734e7cd459171b8528982a1c3fcdf3",
+    "refunds.csv": "373cfce83928031286d478379e22aebd495c51294b16a443bcdb7e887458cac8"
+  },
+  "prompt_sha256": "7a515fcd3d04f30e9d80d85b7685da38ca002bbcc8727e0dacddc915cbeda40c",
+  "root": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.2-sol-medium-20261001T025950Z",
+  "workspace": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.2-sol-medium-20261001T025950Z/workspace",
+  "control": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.2-sol-medium-20261001T025950Z/control",
+  "isolation": "Outer macOS sandbox denies repository, controller, prior run, memories and previous session files; internal Codex tool sandbox disabled to avoid unsupported nesting. Other host reads remain possible; no full container boundary.",
+  "task_agents": 1,
+  "controller_agents_are_not_task_solvers": true,
+  "counts_as_benchmark_attempt": true,
+  "infrastructure_launch_before_this": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.2-sol-medium-20261001T025820Z",
+  "argv": [
+    "/usr/bin/sandbox-exec",
+    "-f",
+    "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.2-sol-medium-20261001T025950Z/control/solver.sb",
+    "codex",
+    "exec",
+    "--ignore-user-config",
+    "--ignore-rules",
+    "--ephemeral",
+    "--skip-git-repo-check",
+    "-C",
+    "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.2-sol-medium-20261001T025950Z/workspace",
+    "-m",
+    "gpt-6.1-sol",
+    "-c",
+    "model_reasoning_effort=\"medium\"",
+    "-c",
+    "web_search=\"disabled\"",
+    "--sandbox",
+    "danger-full-access",
+    "--disable",
+    "multi_agent",
+    "--disable",
+    "memories",
+    "--disable",
+    "chronicle",
+    "--disable",
+    "apps",
+    "--disable",
+    "plugins",
+    "--disable",
+    "hooks",
+    "--json",
+    "--color",
+    "never",
+    "-"
+  ],
+  "started_at": "2026-10-01T02:59:50.264903+00:00",
+  "tools": "Codex CLI shell, file editing and built-in local artifact tools; web, apps, plugins, memories, hooks and task subagents disabled",
+  "pid": 90765,
+  "status": "completed",
+  "exit_code": 0,
+  "elapsed_seconds": 614.652,
+  "finished_at": "2026-10-01T03:10:04.914306+00:00",
+  "usage": [
+    {
+      "input_tokens": 547653,
+      "cached_input_tokens": 481536,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 18152,
+      "reasoning_output_tokens": 1543
+    }
+  ],
+  "frozen_at": "2026-10-01T03:10:59.154462+00:00",
+  "frozen": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.2-sol-medium-20261001T025950Z/frozen",
+  "input_preservation": {
+    "bookkeeping_notes.md": true,
+    "customers.csv": true,
+    "orders.csv": true,
+    "payments.csv": true,
+    "products.csv": true,
+    "refunds.csv": true
+  },
+  "freeze_exclusions": [
+    ".venv (installed runtime dependencies)",
+    "__pycache__ (bytecode cache)"
+  ],
+  "frozen_manifest_sha256": "e1d9aa12d91bbf954d1acd4e1c23fcd0754a5661fbc97bb1200c9636e229c52e",
+  "cost": {
+    "api_equivalent_usd": 0.361908,
+    "actual_api_charges": null,
+    "billing_route": "ChatGPT subscription",
+    "pricing_source": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+    "assumptions": "Standard short-context rates, no fast/regional uplift; full input includes cached tokens; output includes reasoning; no priced tool calls used. No per-request context counters available in JSON events, so this is an estimate."
+  },
+  "fixture_seed": 20260930,
+  "task_version": "0.2",
+  "grade_summary": {
+    "quality": {
+      "score": 0.7635,
+      "components": {
+        "business_figures": 1.0,
+        "instances": 1.0,
+        "exception_f1": 0.2905
+      },
+      "definition": "Unweighted mean of the business-figure pass rate, the instance pass rate averaged across instance types, and the exception-list F1."
+    },
+    "exceptions": {
+      "submitted_entries": 215,
+      "entries_naming_review_items": 35,
+      "unnecessary_entries": 171,
+      "unnecessary_examples": [
+        [
+          "O-202609-0003"
+        ],
+        [
+          "O-202609-0007"
+        ],
+        [
+          "O-202609-0018"
+        ],
+        [
+          "O-202609-0023"
+        ],
+        [
+          "O-202609-0030"
+        ],
+        [
+          "O-202609-0041"
+        ],
+        [
+          "O-202609-0046"
+        ],
+        [
+          "O-202609-0048"
+        ],
+        [
+          "O-202609-0054"
+        ],
+        [
+          "O-202609-0079"
+        ],
+        [
+          "O-202609-0086"
+        ],
+        [
+          "O-202609-0102"
+        ],
+        [
+          "O-202609-0107"
+        ],
+        [
+          "O-202609-0140"
+        ],
+        [
+          "O-202609-0141"
+        ],
+        [
+          "O-202609-0143"
+        ],
+        [
+          "O-202609-0147"
+        ],
+        [
+          "O-202609-0150"
+        ],
+        [
+          "O-202609-0154"
+        ],
+        [
+          "O-202609-0162"
+        ]
+      ],
+      "review_instances_detected": 26,
+      "review_instances": 26,
+      "precision": 0.1699,
+      "recall": 1.0,
+      "f1": 0.2905
+    },
+    "business": {
+      "passed": 31,
+      "total": 31
+    },
+    "instances": {
+      "passed": 118,
+      "total": 118
+    }
+  },
+  "skill_reads": [
+    "/bin/zsh -lc 'cat /Users/romeodiaz/.codex/skills/taste-skill/SKILL.md'",
+    "/bin/zsh -lc 'cat /Users/romeodiaz/.codex/skills/taste-skill/SKILL.md'"
+  ],
+  "task_model_delegations_detected": false,
+  "dependencies": [
+    "Python 3.9 system interpreter",
+    "XlsxWriter 3.2.9 (installed by solver)",
+    "Playwright 1.60.0 and Chromium 148 (installed by solver for self-checks)"
+  ],
+  "grade_cost_api_equivalent_usd": 0.17198,
+  "invalid_startup_api_equivalent_usd": 0.053908
+}

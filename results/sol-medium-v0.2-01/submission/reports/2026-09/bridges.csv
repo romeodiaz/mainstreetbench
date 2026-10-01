@@ -1,0 +1,19 @@
+section,component,amount
+Sales to external receipts,Sales after discounts,108150.50
+Sales to external receipts,Add sales tax,8651.96
+Sales to external receipts,Add gift-card sales,400.00
+Sales to external receipts,Subtract shortages on month orders,-738.14
+Sales to external receipts,Add excess payments on month orders,592.71
+Sales to external receipts,Subtract payments outside month on month orders,0
+Sales to external receipts,Add month receipts for other-month orders,0
+Sales to external receipts,Add unmatched month receipts,266.81
+Sales to external receipts,Subtract gift-card redemption tender,-85.00
+Sales to external receipts,Subtract completed card/cash refunds,-863.73
+Sales to external receipts,Net external receipts before fees,116375.11
+Card receipts to payout,Card receipts by payment date,90454.54
+Card receipts to payout,Add earlier charges settling this month,909.03
+Card receipts to payout,Subtract month charges settling outside month,-3801.37
+Card receipts to payout,Subtract settlement fees,-2762.54
+Card receipts to payout,Subtract card refunds settled this month,-691.90
+Card receipts to payout,Add settlement refund fee credits,0.30
+Card receipts to payout,Expected card payout,84108.06

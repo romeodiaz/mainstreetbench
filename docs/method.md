@@ -59,4 +59,4 @@ A solo agent also uses a harness. To isolate a harness effect, compare the same 
 
 Plot each configuration's mean quality score against its mean total cost. The split is worth it when it closes most of the solo-Sol to solo-Opus quality gap at a cost much closer to solo Sol.
 
-Run the solo baselines first (see [Calibrate first](../README.md#calibrate-first)). If they don't separate, the split comparison can't show anything. This fixture has no model results yet and cannot establish a general ranking by itself.
+Run the solo baselines first (see [Calibrate first](../README.md#calibrate-first)). If they don't separate, the split comparison can't show anything. One [Sol solo medium attempt](../results/sol-medium-v0.2-01.md) is recorded; repeated solo baselines are still needed to calibrate difficulty or establish a ranking.

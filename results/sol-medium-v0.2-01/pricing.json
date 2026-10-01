@@ -1,0 +1,20 @@
+{
+  "source": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+  "retrieved_at": "2026-10-01T03:00:07.606423+00:00",
+  "currency": "USD",
+  "basis": "Standard API-equivalent estimate; ChatGPT subscription run, not actual API invoice",
+  "per_million": {
+    "input": 2.0,
+    "cached_input": 0.1,
+    "cache_write_input": 2.5,
+    "output": 10.0
+  },
+  "long_context_threshold_input_tokens_per_request": 272000,
+  "long_context_multiplier": {
+    "input": 2,
+    "cached_input": 2,
+    "cache_write_input": 2,
+    "output": 1.5
+  },
+  "other_adjustments": "Fast mode, batch/flex and regional adjustments excluded; CLI uses its default service tier."
+}

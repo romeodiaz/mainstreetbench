@@ -1,0 +1,216 @@
+type,order_id,payment_id,refund_id,amount,detail,action
+Unidentified customer,O-202609-0003,,,314.75,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0007,,,142.95,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0018,,,30.60,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0023,,,40.80,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Customer needs review,O-202609-0027,,,235.65,Conflicting contacts; candidates C055; C065,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0030,,,321.10,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0041,,,63.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0046,,,146.25,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0048,,,179.60,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0054,,,60.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0079,,,286.50,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0086,,,48.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0102,,,162.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0107,,,24.75,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0140,,,11.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0141,,,95.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0143,,,263.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0147,,,207.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0150,,,53.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0154,,,5.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0162,,,10.45,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Customer needs review,O-202609-0174,,,74.20,Shared household contact; person ambiguous; candidates C014; C015,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0178,,,15.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Customer needs review,O-202609-0180,,,108.00,Shared household contact; person ambiguous; candidates C063; C064,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0183,,,181.60,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0187,,,30.30,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0188,,,106.40,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0190,,,104.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0191,,,30.60,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0198,,,47.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0199,,,60.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0202,,,78.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0203,,,172.80,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0207,,,27.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0208,,,32.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0209,,,89.60,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0220,,,88.20,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0224,,,96.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0227,,,93.15,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0229,,,20.30,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0231,,,156.50,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0233,,,63.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0240,,,81.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0242,,,117.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0246,,,258.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0249,,,20.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0258,,,52.75,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0259,,,155.20,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0263,,,59.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0264,,,215.55,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0275,,,177.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0284,,,324.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0286,,,64.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0290,,,120.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0296,,,108.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0298,,,63.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0299,,,51.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0306,,,102.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0315,,,122.40,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0340,,,40.80,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0344,,,255.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0347,,,145.60,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0351,,,10.20,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0353,,,104.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0355,,,58.20,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0362,,,22.10,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0367,,,77.80,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0368,,,29.90,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0376,,,40.80,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0377,,,90.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0378,,,276.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0379,,,61.50,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0384,,,113.85,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0389,,,29.70,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0977,,,303.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0408,,,40.50,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0409,,,135.60,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0415,,,134.25,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0417,,,196.10,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0432,,,15.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0437,,,36.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0441,,,142.95,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0445,,,33.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0448,,,102.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0449,,,135.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0454,,,183.60,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0461,,,79.80,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0475,,,183.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0477,,,5.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0481,,,165.20,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0482,,,126.60,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0493,,,174.20,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0501,,,115.80,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0504,,,51.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0507,,,72.95,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0509,,,276.35,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0510,,,248.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0514,,,174.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0516,,,324.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0517,,,28.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0542,,,150.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0549,,,120.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0551,,,48.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0557,,,74.40,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0558,,,32.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Customer needs review,O-202609-0560,,,96.00,Conflicting contacts; candidates C003; C070,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0563,,,161.45,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0569,,,68.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0572,,,248.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0575,,,38.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0576,,,11.40,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0578,,,25.50,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0586,,,66.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0599,,,131.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0608,,,160.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0621,,,49.65,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0630,,,273.90,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0636,,,71.60,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0645,,,49.05,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0650,,,42.75,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0653,,,82.80,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0660,,,61.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0662,,,87.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0668,,,118.90,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0672,,,232.60,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0675,,,102.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0679,,,43.40,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0684,,,264.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0685,,,84.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0695,,,118.20,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0712,,,288.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0719,,,20.20,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0722,,,76.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0725,,,100.80,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0739,,,11.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0751,,,93.40,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0752,,,72.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0759,,,74.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0760,,,78.40,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0765,,,104.40,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0766,,,12.75,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0767,,,122.20,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0775,,,15.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0776,,,50.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0783,,,240.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0797,,,76.80,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0801,,,140.40,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0803,,,282.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0822,,,126.50,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0827,,,39.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0828,,,89.20,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0829,,,42.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0838,,,84.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0839,,,108.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Customer needs review,O-202609-0841,,,126.45,Shared household contact; person ambiguous; candidates C041; C042,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0851,,,155.55,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0854,,,210.50,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0876,,,352.50,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0882,,,314.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0900,,,80.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0903,,,86.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0904,,,47.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0927,,,45.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0935,,,264.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0940,,,108.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0941,,,304.40,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0945,,,127.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0946,,,88.40,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0953,,,112.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0957,,,292.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0958,,,10.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0959,,,183.50,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0961,,,160.20,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0962,,,65.40,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0965,,,47.70,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0969,,,20.90,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0976,,,64.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0978,,,96.90,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0980,,,35.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0984,,,66.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0989,,,261.00,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0990,,,120.80,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-0996,,,102.50,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unidentified customer,O-202609-1000,,,100.20,No identifying evidence; candidates ,Add a loyalty ID if available; do not merge household members by shared contacts.
+Unmatched accepted payment,,P-202609-0052,,37.97,terminal:1dc2cd,Find terminal receipt / order number. Amount retained in receipts and payout; no guessed match.
+Unmatched accepted payment,,P-202609-0249,,38.43,terminal:38c628,Find terminal receipt / order number. Amount retained in receipts and payout; no guessed match.
+Unmatched accepted payment,,P-202609-0292,,68.04,terminal:6c474e,Find terminal receipt / order number. Amount retained in receipts and payout; no guessed match.
+Unmatched accepted payment,,P-202609-0376,,55.08,terminal:2a11a2,Find terminal receipt / order number. Amount retained in receipts and payout; no guessed match.
+Unmatched accepted payment,,P-202609-0452,,67.29,terminal:d6e8fc,Find terminal receipt / order number. Amount retained in receipts and payout; no guessed match.
+Unpaid order,O-202609-0101,,,68.04,Order due 68.04; accepted tenders 0.,Check receipt and tender history; standalone charges remain unmatched until confirmed.
+Overpaid / possible duplicate charge,O-202609-0142,P-202609-0145; P-202609-0185,,121.18,Order due 121.18; accepted tenders 242.36.,Check receipt and tender history; standalone charges remain unmatched until confirmed.
+Unpaid order,O-202609-0230,,,90.72,Order due 90.72; accepted tenders 0.,Check receipt and tender history; standalone charges remain unmatched until confirmed.
+Unpaid order,O-202609-0244,,,61.56,Order due 61.56; accepted tenders 0.,Check receipt and tender history; standalone charges remain unmatched until confirmed.
+Unpaid order,O-202609-0299,,,55.08,Order due 55.08; accepted tenders 0.,Check receipt and tender history; standalone charges remain unmatched until confirmed.
+Underpaid order,O-202609-0409,P-202609-0414,,5.00,Order due 146.45; accepted tenders 141.45.,Check receipt and tender history; standalone charges remain unmatched until confirmed.
+Overpaid / possible duplicate charge,O-202609-0424,P-202609-0430; P-202609-0431,,31.75,Order due 31.75; accepted tenders 63.50.,Check receipt and tender history; standalone charges remain unmatched until confirmed.
+Underpaid order,O-202609-0493,P-202609-0501,,5.00,Order due 188.14; accepted tenders 183.14.,Check receipt and tender history; standalone charges remain unmatched until confirmed.
+Unpaid order,O-202609-0510,,,267.84,Order due 267.84; accepted tenders 0.,Check receipt and tender history; standalone charges remain unmatched until confirmed.
+Unpaid order,O-202609-0527,,,176.90,Order due 176.90; accepted tenders 0.,Check receipt and tender history; standalone charges remain unmatched until confirmed.
+Overpaid / possible duplicate charge,O-202609-0813,P-202609-0828; P-202609-0829,,96.12,Order due 96.12; accepted tenders 192.24.,Check receipt and tender history; standalone charges remain unmatched until confirmed.
+Underpaid order,O-202609-0851,P-202609-0868,,8.00,Order due 167.99; accepted tenders 159.99.,Check receipt and tender history; standalone charges remain unmatched until confirmed.
+Overpaid / possible duplicate charge,O-202609-0928,P-202609-0946; P-202609-0947,,343.66,Order due 343.66; accepted tenders 687.32.,Check receipt and tender history; standalone charges remain unmatched until confirmed.
+Declined payment attempt,O-202609-0072,P-202609-0073,,11.29,Card expired,Check replacement tender in order reconciliation; declined amount excluded.
+Declined payment attempt,O-202609-0098,P-202609-0100,,61.29,Do not honor,Check replacement tender in order reconciliation; declined amount excluded.
+Declined payment attempt,O-202609-0098,P-202609-0101,,61.29,Insufficient funds,Check replacement tender in order reconciliation; declined amount excluded.
+Declined payment attempt,O-202609-0435,P-202609-0441,,107.57,Do not honor,Check replacement tender in order reconciliation; declined amount excluded.
+Declined payment attempt,O-202609-0510,P-202609-0519,,267.84,Card expired,Check replacement tender in order reconciliation; declined amount excluded.
+Declined payment attempt,O-202609-0527,P-202609-0536,,176.90,Insufficient funds,Check replacement tender in order reconciliation; declined amount excluded.
+Declined payment attempt,O-202609-0625,P-202609-0635,,55.08,Do not honor,Check replacement tender in order reconciliation; declined amount excluded.
+Declined payment attempt,O-202609-0690,P-202609-0703,,246.24,Card expired,Check replacement tender in order reconciliation; declined amount excluded.
+Refund failed,O-202609-0074,,R-202609-005,40.82,Excluded from completed refunds.,Check processor status; retry or complete only after confirming no successful refund.
+Refund failed,O-202609-0144,,R-202609-007,38.55,Excluded from completed refunds.,Check processor status; retry or complete only after confirming no successful refund.
+Refund pending,O-202609-0311,,R-202609-011,11.66,Excluded from completed refunds.,Check processor status; retry or complete only after confirming no successful refund.
+Refund pending,O-202609-0601,,R-202609-016,19.44,Excluded from completed refunds.,Check processor status; retry or complete only after confirming no successful refund.
+Refund failed,O-202609-0665,,R-202609-020,11.88,Excluded from completed refunds.,Check processor status; retry or complete only after confirming no successful refund.

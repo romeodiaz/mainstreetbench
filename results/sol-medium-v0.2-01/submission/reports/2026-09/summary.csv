@@ -1,0 +1,32 @@
+metric,amount
+Gross merchandise sales,112273.70
+Merchandise discounts,4123.20
+Sales after discounts,108150.50
+Completed merchandise returns,799.75
+Returns of prior-month orders (merchandise),552.00
+Successful requests completing after month (incl tax),31.11
+Net sales,107350.75
+Sales tax charged,8651.96
+Gift cards sold (liability),400.00
+Order total including tax and gift cards,117202.46
+Card receipts by payment date,90454.54
+Cash receipts by payment date,26784.30
+Gift-card redemptions (not new money),85.00
+Card processing fees by payment date,2852.74
+Completed card refunds incl tax,719.44
+Completed cash refunds incl tax,144.29
+Completed refunds incl tax,863.73
+Refunded sales tax,63.98
+Refund fee credits by completion date,0.30
+Net external receipts before fees,116375.11
+Net external receipts after fees and credits,113522.67
+Card charges settled this month,87562.20
+Fees on card charges settled this month,2762.54
+Card refunds settled this month,691.90
+Refund fee credits settled this month,0.30
+Expected card payout,84108.06
+Net cash receipts,26640.01
+Gift-card liability movement,315.00
+Unmatched receipts by payment date,266.81
+Month orders unpaid / underpaid,738.14
+Month orders overpaid,592.71

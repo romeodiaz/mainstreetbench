@@ -1,0 +1,35 @@
+{
+  "source_run": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.2-sol-medium-20261001T025950Z",
+  "repository_artifacts": "results/sol-medium-v0.2-01",
+  "maps": {
+    "frozen/": "submission/",
+    "control/final-response.md": "submission/assistant-response.md",
+    "control/run.json": "run.json",
+    "control/prompt.txt": "prompt.txt",
+    "control/events.jsonl": "events.jsonl",
+    "control/frozen-manifest.json": "frozen-manifest.json",
+    "control/solver.sb": "isolation-policy.sb",
+    "grade/frozen-extraction/evidence.json": "grading/evidence.json",
+    "grade/frozen-extraction/extract.py": "grading/extract.py",
+    "grade/frozen-extraction/extraction-notes.md": "grading/extraction-notes.md",
+    "grade/extraction-manifest.json": "grading/extraction-manifest.json",
+    "grade/reviewed-evidence.json": "grading/reviewed-evidence.json",
+    "grade/reviewed-grading-report.json": "grading/report.json",
+    "grade/grading-report.json": "grading/extraction-only-report.json",
+    "grade/reference-reveal.json": "grading/reference-reveal.json",
+    "grade/control/events.jsonl": "grading/extraction-events.jsonl",
+    "grade/control/run.json": "grading/extractor-run.json",
+    "grade/control/frozen-reference.json": "grading/reference.json",
+    "control/dashboard-review.json": "verification/dashboard-checks.json",
+    "control/dashboard-review-desktop.png": "verification/desktop.png",
+    "control/dashboard-review-mobile.png": "verification/mobile.png",
+    "control/review_dashboard.py": "verification/review_dashboard.py",
+    "control/pricing.json": "pricing.json"
+  },
+  "note": "Recorded absolute paths describe the original execution machine. Frozen bytes and original extraction are unchanged. Runtime environments and duplicate grader submission copies are excluded. verification/review_dashboard.py is a historical script, not a portable rerun command.",
+  "preparation_source_run": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.2-sol-medium-20261001T025820Z",
+  "preparation_maps": {
+    "control/run.json": "preparation/invalid-startup.json",
+    "control/events.jsonl": "preparation/invalid-startup-events.jsonl"
+  }
+}

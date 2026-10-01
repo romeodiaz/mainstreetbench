@@ -1,2 +1,7 @@
 # Preserve benchmark CSV inputs byte for byte.
 *.csv -text
+
+# Preserve recorded run artifacts and evidence byte for byte.
+results/sol-medium-v0.2-01/** -text
+# Submitted files retain their original line endings and whitespace.
+results/sol-medium-v0.2-01/submission/** -whitespace

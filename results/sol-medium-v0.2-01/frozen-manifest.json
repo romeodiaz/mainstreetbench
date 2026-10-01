@@ -1,0 +1,142 @@
+{
+  "README.md": {
+    "sha256": "e7a34db23c62c623b800e2968786dd6f19f1d14311a81aa2f0062db84374402a",
+    "bytes": 5801
+  },
+  "bookkeeping_notes.md": {
+    "sha256": "149e6975d642f128ebec8bd3fb9cc48f42cd9b860a4e15aeb32124e6c35e5c40",
+    "bytes": 3866
+  },
+  "customers.csv": {
+    "sha256": "c29b3a434627e34fa50c01d646f4fec86d8475bd45b3bccc95266aa43ec1a474",
+    "bytes": 5114
+  },
+  "dashboard_template.html": {
+    "sha256": "d80b8d0944f219d88cc9df6285f6c309ddd266f0076347f0b47152a5cea34737",
+    "bytes": 9654
+  },
+  "orders.csv": {
+    "sha256": "830151f24f0eaee7596895199ad6e081a01fa54dcd2c8c113851a5cc9f042d16",
+    "bytes": 336903
+  },
+  "payments.csv": {
+    "sha256": "a2892d6a8a7ba3948aca175bbd547d69f87ac499358a66429ca81f8207ef4121",
+    "bytes": 111424
+  },
+  "products.csv": {
+    "sha256": "ad4b4491b044ec7dece004cd5368893f31734e7cd459171b8528982a1c3fcdf3",
+    "bytes": 551
+  },
+  "reconcile.py": {
+    "sha256": "53c65d4fcae21d5fd802cbe3f8d47a6054860c33da09d59cf86af0795bbe045f",
+    "bytes": 29832
+  },
+  "refunds.csv": {
+    "sha256": "373cfce83928031286d478379e22aebd495c51294b16a443bcdb7e887458cac8",
+    "bytes": 3852
+  },
+  "reports/2026-09/Corner_Loaf_2026-09.xlsx": {
+    "sha256": "fda6ba7582be3c7cd13d74a0c58c7fc6702df59dd94930cc5829cce60ffd090a",
+    "bytes": 454820
+  },
+  "reports/2026-09/action_items.csv": {
+    "sha256": "a09f8cc7e7ed06505fbc3c1746de6c6715c05a98a98cf6ea40222d16a8266fe7",
+    "bytes": 35664
+  },
+  "reports/2026-09/bridges.csv": {
+    "sha256": "ce226c728a14191379468a930e5cb9cad7e98288e4f74ab03eaafe8a2aca8598",
+    "bytes": 1232
+  },
+  "reports/2026-09/close_notes.md": {
+    "sha256": "6887de331ceea4954ed18074e3eb6e9534af8bfb1599ab72507ca27745a2bb87",
+    "bytes": 6545
+  },
+  "reports/2026-09/counts.csv": {
+    "sha256": "9dce3a050f3f232c36ae0edf53bcce307e8cc3c87df419be912258e66ed52bc1",
+    "bytes": 157
+  },
+  "reports/2026-09/customer_matching.csv": {
+    "sha256": "5af3b4060cb098f617510d9138f27536a912fe6693ea9be82f2593735f88534c",
+    "bytes": 115906
+  },
+  "reports/2026-09/customers_ranked.csv": {
+    "sha256": "ce250454111e6269fced37d0a83ef7d21bef6e7a5fe95eafdd5a47787d0d3baf",
+    "bytes": 3279
+  },
+  "reports/2026-09/dashboard.html": {
+    "sha256": "fb2f75d6b1677cbb265127e85aa38dc223f86aaa52c0ef1bd496b851f6edfc95",
+    "bytes": 84730
+  },
+  "reports/2026-09/dashboard_desktop.png": {
+    "sha256": "bb530c86317ed9ea86365090ca37f0081ed360ec8620672b297229850a7897f3",
+    "bytes": 875465
+  },
+  "reports/2026-09/dashboard_mobile.png": {
+    "sha256": "c985084ab63ac023a5a4a7f1bb78ce9d4e2ec9efdd5a93f3ec2e68476ec610b5",
+    "bytes": 593344
+  },
+  "reports/2026-09/dedup_audit.csv": {
+    "sha256": "5703137f827dc36cad1886b8cb75a3b4ad3c82cf40adfdc75c2bd2507716b73c",
+    "bytes": 2136
+  },
+  "reports/2026-09/order_lines.csv": {
+    "sha256": "504255e625504e5ad539fce5c1f49dbf296faa3cfcf8aa84d9a95bcfdacbc22b",
+    "bytes": 487954
+  },
+  "reports/2026-09/order_reconciliation.csv": {
+    "sha256": "d3ae4d7521704998cb1461c78e99cfa92e33e491bf0c203b12915cd1a230e254",
+    "bytes": 116532
+  },
+  "reports/2026-09/payment_ledger.csv": {
+    "sha256": "9c11357e6584f0654854044b07e68f0617ec5d3d564158dcd4feb6e3a67bbbb1",
+    "bytes": 152088
+  },
+  "reports/2026-09/products_ranked.csv": {
+    "sha256": "050cf4b79e36ff93d63eebeeb2e39111c870994b6dae5124c68c92648527bcf0",
+    "bytes": 865
+  },
+  "reports/2026-09/read_me.csv": {
+    "sha256": "0206756c2738ac8ab89767fb4795945fb300566aa1abae4ccf9eb860c7f97174",
+    "bytes": 1745
+  },
+  "reports/2026-09/refund_ledger.csv": {
+    "sha256": "9085ae9e45bc92feb2e4e0347ba87c0a2972959e230cc43efe4fdc6011b1c2b4",
+    "bytes": 4246
+  },
+  "reports/2026-09/results.json": {
+    "sha256": "a3a53a0df1a44af13ae1d500a969300cb1c3ecc8df195e8ca4c93d913c31c639",
+    "bytes": 92044
+  },
+  "reports/2026-09/source_files.csv": {
+    "sha256": "0d0dadcc9ddbaf38f347c73adb3817e5869d2356b01bd8e253d9b57741a81d66",
+    "bytes": 440
+  },
+  "reports/2026-09/summary.csv": {
+    "sha256": "52818a222d2d6f6deb6a36160aac2a5a6389326d69483ccfe6d24ea838cd58b9",
+    "bytes": 1242
+  },
+  "reports/2026-09/timing_differences.csv": {
+    "sha256": "92c82d56307203c4a6e9e3c861ae5f1a5c36419c839d74d550a47d0b5a815c5e",
+    "bytes": 4580
+  },
+  "reports/run_summary.json": {
+    "sha256": "d5a0e8b24c11dabfd125b043e7086b7fbd51ba2c16e8562cf637c3f3df049ba9",
+    "bytes": 1975
+  },
+  "requirements.txt": {
+    "sha256": "aa432adcb61d69d44e22a849f21abf8135c7aca4734fa367ab43c6e14b5e2fde",
+    "bytes": 18
+  },
+  "run_month.command": {
+    "sha256": "7ce00fc2e0b0ab52b16ae5e58a406d6d85228ceec7b90a8ec880504c70470044",
+    "bytes": 572
+  },
+  "verify_report.py": {
+    "sha256": "5977b3318c7ba4ef4f139022940e9579a162e5b6b80bf08dd99ce797f91da422",
+    "bytes": 5080
+  },
+  "__assistant_final_response__": {
+    "sha256": "667e67181b8c9427a1ade1f581825d727461f0de793c3d479e92d8e82319afe7",
+    "source": "control/events.jsonl last agent_message"
+  }
+}

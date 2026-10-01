@@ -1,0 +1,8 @@
+{
+  "frozen_at": "2026-10-01T03:15:56.907826+00:00",
+  "sha256": {
+    "evidence.json": "f03f932491efcb6f8293e59eb78103d9374bd264170f40c73032712c452b95d9",
+    "extraction-notes.md": "2404b831dd6a856bbc5ca24659f87e7400a454204a51cf4e003140e0a6123c01",
+    "extract.py": "a705342508831fa18e9cfecae8404eefe741ee1b5f30bcf21d63cda27e17ba0b"
+  }
+}
