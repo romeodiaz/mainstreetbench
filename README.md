@@ -47,17 +47,32 @@ Your assistant sets things up, starts **XYZ** in its own folder with the bakery 
 
 Your assistant only referees. It doesn't help or take the test itself, because it can see the answers. Results you run yourself are labelled **self-run**.
 
-## Three configurations
+## What you need
 
-| Configuration | Work | Reasoning |
-|---|---|---|
-| GPT-6.1 Sol solo | Sol does the whole job | Medium |
-| Claude Opus 5.5 solo | Opus does the whole job | Medium |
-| Opus + Sol | Opus plans and reviews; Sol implements | Medium for both |
+**An assistant that can run commands on your computer.** A regular chat window can't run the test; it needs the assistant's coding mode.
 
-Record the actual model identifiers and settings. Compare quality, time and the total cost of every task agent. The results can show that Sol already handles the job well, or that delegation adds more cost than value.
+| App | What to use |
+|---|---|
+| Claude desktop | The **Code** tab. Choose an empty folder to work in, then paste the sentence. |
+| ChatGPT desktop | **Codex**, OpenAI's coding agent, working on your computer rather than in the cloud. Open an empty folder, then paste the sentence. |
 
-A health check suits the split: deciding what's wrong is the judgment part, and fixing many separate problems is the execution part. Single runs vary, so run each configuration more than once and treat differences of a couple of problems as a tie.
+**The tool for the model you're testing, installed and signed in on the same computer.** The test starts the model through its command-line tool:
+- **Claude models** (Opus, Sonnet and others): Claude Code.
+- **OpenAI models** (GPT and others): Codex CLI.
+
+Your assistant can install either one. You'll need to sign in once, with the account whose plan you want the test to use.
+
+**A paid plan with room for one long job.** A run can take up to 45 minutes of the tested model's work, and it counts against that plan's usage limits. If you ask for a judge model, that uses a little more.
+
+**The basics, which your assistant checks and can install:**
+- Python 3.10 or newer;
+- git;
+- about 1 GB of free disk space for the grading browser and the run folders;
+- an internet connection while setting up.
+
+**About an hour with the computer awake.** Your assistant will ask permission to run commands, so approve them. Leave it alone while the tested model works; it reports back when grading is done.
+
+The test is checked on Linux and should work on a Mac. On Windows, if it fails, ask your assistant to run it in WSL.
 
 ## Earlier rounds
 
