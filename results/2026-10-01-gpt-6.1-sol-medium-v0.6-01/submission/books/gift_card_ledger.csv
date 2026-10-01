@@ -1,0 +1,2 @@
+month,opening_balance,sold,redeemed,closing_balance,note
+2026-09,1240.00,425.00,180.00,1485.00,"opening + sold - redeemed; $425 issuance is a liability, not sales"

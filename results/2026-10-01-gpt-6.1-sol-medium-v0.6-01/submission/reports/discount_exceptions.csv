@@ -1,0 +1,6 @@
+order_id,date,channel,customer_email,items,subtotal,promo_code,discount,tax,total,tender,cash_received,total_using_recorded_discount,tax_if_discount_honored,reason
+CL-0049,2026-09-03,online,customer128@example.com,2 x Baguette @ 5.00; 1 x Birthday Cake @ 48.00; 1 x Seasonal Pie @ 32.00,90.00,STAFF50,45.00,7.20,97.20,card,,52.20,3.60,Recorded discount not reflected in charge; eligibility also needs review
+CL-0138,2026-09-08,online,customer008@example.com,3 x Sourdough Loaf @ 9.00; 2 x Cookie Box (12) @ 12.00,51.00,FALL15,7.65,4.08,55.08,card,,47.43,3.47,Recorded discount not reflected in charge; eligibility also needs review
+CL-0321,2026-09-19,online,customer039@example.com,3 x Coffee Beans @ 18.00,54.00,STAFF50,27.00,4.32,58.32,card,,31.32,2.16,Recorded discount not reflected in charge; eligibility also needs review
+CL-0323,2026-09-19,counter,,1 x Cinnamon Roll @ 3.25; 3 x Cookie Box (12) @ 12.00,39.25,FALL15,5.89,3.14,42.39,card,,36.50,2.67,Recorded discount not reflected in charge; eligibility also needs review
+CL-0367,2026-09-23,online,customer015@example.com,3 x Coffee Beans @ 16.50,49.50,STAFF50,24.75,3.96,53.46,card,,28.71,1.98,Recorded discount not reflected in charge; eligibility also needs review

@@ -1,0 +1,11 @@
+item,contains,may_contain,gluten_free,vegan,notes
+Sourdough Loaf,wheat,,no,yes,
+Baguette,wheat,,yes,yes,
+Everything Bagel,wheat,,no,yes,
+Croissant Box (6),"wheat, milk",,no,no,
+Cinnamon Roll,"wheat, milk, egg",,no,yes,
+Blueberry Scone,"wheat, milk, egg",,no,no,nut-free
+Cookie Box (12),"wheat, egg",,no,no,
+Baker's Dozen Cookies,"wheat, milk, egg",,no,no,
+Birthday Cake,"wheat, milk",,no,no,
+Coffee Beans,,,yes,yes,

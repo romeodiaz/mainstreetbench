@@ -1,0 +1,8 @@
+CORNER LOAF BAKERY
+12 Main Street · 555-010-0000
+{items}
+Subtotal {subtotal}
+Tax {tax}
+Total {total}
+Returns accepted within 14 days with this receipt.
+Thank you!

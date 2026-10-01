@@ -1,0 +1,11 @@
+item,contains,may_contain,gluten_free,vegan,notes
+Sourdough Loaf,wheat,,no,yes,
+Baguette,wheat,,no,yes,
+Everything Bagel,"wheat, sesame",,no,yes,
+Croissant Box (6),"wheat, milk",tree nuts (shared almond line),no,no,
+Cinnamon Roll,"wheat, milk, egg",,no,no,
+Blueberry Scone,"wheat, milk, egg, almond",tree nuts (shared almond line),no,no,Contains almond flour; not safe for a tree nut allergy.
+Cookie Box (12),"wheat, milk, egg",tree nuts (shared almond line),no,no,
+Baker's Dozen Cookies,"wheat, milk, egg",tree nuts (shared almond line),no,no,
+Birthday Cake,"wheat, milk, egg",,no,no,
+Coffee Beans,,,yes,yes,

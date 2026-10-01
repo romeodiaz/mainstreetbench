@@ -1,0 +1,2 @@
+order_id,date,channel,customer_email,items,subtotal,promo_code,discount,tax,total,tender,cash_received
+CL-0831-0107,2026-08-31,counter,,1 x Birthday Cake @ 48.00; 2 x Croissant Box (6) @ 21.00,90.00,,0.00,7.20,97.20,card,

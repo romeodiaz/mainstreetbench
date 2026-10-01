@@ -1,0 +1,6 @@
+invoice_id,supplier,date,amount,detail,paid
+INV-FL-0907,Prairie Flour Co,2026-09-07,412.00,40 x 25kg flour @ $10.30,2026-09-10
+INV-FL-0921,Prairie Flour Co,2026-09-21,515.00,40 x 25kg flour @ $12.875 (new price from Sept 15),2026-09-24
+INV-DY-0903,Valley Dairy,2026-09-03,288.40,"butter, milk, cream",2026-09-05
+INV-DY-0917,Valley Dairy,2026-09-17,301.15,"butter, milk, cream",2026-09-19
+INV-PK-0911,BoxRight Packaging,2026-09-11,164.00,"cake boxes, bags",2026-09-14

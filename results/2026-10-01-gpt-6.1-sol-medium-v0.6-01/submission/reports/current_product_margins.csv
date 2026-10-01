@@ -1,0 +1,6 @@
+item,flour_kg,flour_cost_per_kg,other_ingredients,labor,price,total_cost,contribution,margin_percent
+Sourdough Loaf,0.55,0.515,0.85,2.10,9.00,3.23,5.77,64.08
+Baguette,0.30,0.515,0.25,1.20,5.00,1.60,3.40,67.91
+Croissant Box (6),0.45,0.515,4.60,6.50,21.00,11.33,9.67,46.04
+Birthday Cake,0.60,0.515,11.80,14.00,48.00,26.11,21.89,45.61
+Catering Tray,1.80,0.515,64.00,67.26,120.00,132.19,-12.19,-10.16

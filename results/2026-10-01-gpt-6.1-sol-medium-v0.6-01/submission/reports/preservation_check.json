@@ -1,0 +1,16 @@
+{
+  "orders": {
+    "rows": 26,
+    "unchanged": true
+  },
+  "order_items": {
+    "rows": 53,
+    "unchanged": true
+  },
+  "gift_cards": {
+    "rows": 0,
+    "unchanged": true
+  },
+  "integrity_check": "ok",
+  "financial_transaction_sources_unchanged": true
+}

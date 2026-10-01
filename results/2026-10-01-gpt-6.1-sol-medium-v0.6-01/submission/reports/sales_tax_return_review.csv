@@ -1,0 +1,7 @@
+line,amount,note
+Rate,8%,September only; 8.25% starts October 1
+Tax collected before refunds,1921.34,deduplicated September rows
+Estimated successful-refund tax adjustment,35.58,"8/108 of each refund, rounded; confirm actual tax reversals"
+Estimated tax after refund adjustment,1885.76,not filing advice; coupon inconsistencies and processor records need review
+Existing draft taxable sales,23426.13,unsupported by source reconstruction; do not submit unchanged
+Existing draft tax,1802.94,does not match reconstructed tax

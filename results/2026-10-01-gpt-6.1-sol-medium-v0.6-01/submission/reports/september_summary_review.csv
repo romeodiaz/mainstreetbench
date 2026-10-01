@@ -1,0 +1,15 @@
+line,amount,note
+Unique September orders,490,6 identical duplicates removed; August CL-0831-0107 excluded
+Gross food sales,24086.00,before recorded discounts
+Recorded discounts,179.54,Includes $110.29 recorded but not reflected in order totals; review exceptions
+Food receipts before refunds excluding tax,24016.75,actual recorded total less recorded tax; do not count gift issuance as sales
+Successful refunds including tax,480.33,"RF-001 through RF-009, RF-012 and RF-013; failed/pending excluded"
+Estimated refund tax,35.58,assumes all refunds taxable at 8%; confirm item-level tax treatment
+Food receipts after successful refunds excluding tax,23572.00,provisional; missing and unmatched payments still require resolution
+Gift cards sold (liability),425.00,separate ledger; not earned revenue
+Gift cards redeemed,180.00,payment of previous liability; tie to orders before booking further sales
+Closing gift card liability,1485.00,1240 + 425 - 180; original understated by 180
+September recorded tax before refunds,1921.34,unique in-month register rows
+September tax after estimated refund adjustment,1885.76,"review only, not a filed return"
+September implied taxable base before refunds,24016.75,recorded receipts basis; disputed coupon rows may require adjustment
+September implied taxable base after refunds,23572.00,do not force rate multiplication to equal per-order rounded tax

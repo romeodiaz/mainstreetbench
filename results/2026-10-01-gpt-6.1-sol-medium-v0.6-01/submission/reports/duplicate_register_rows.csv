@@ -1,0 +1,7 @@
+order_id,date,channel,customer_email,items,subtotal,promo_code,discount,tax,total,tender,cash_received
+CL-0149,2026-09-09,counter,,1 x Cookie Box (12) @ 12.00; 3 x Baguette @ 5.00,27.00,,0.00,2.16,29.16,card,
+CL-0461,2026-09-29,counter,,3 x Coffee Beans @ 16.50; 1 x Birthday Cake @ 48.00; 1 x Blueberry Scone @ 3.75,101.25,,0.00,8.10,109.35,cash,
+CL-0335,2026-09-20,online,,1 x Croissant Box (6) @ 21.00; 1 x Baguette @ 5.00,26.00,,0.00,2.08,28.08,card,
+CL-0337,2026-09-20,counter,,1 x Seasonal Pie @ 32.00; 3 x Coffee Beans @ 16.50,81.50,,0.00,6.52,88.02,card,
+CL-0021,2026-09-02,online,,2 x Cinnamon Roll @ 3.25,6.50,,0.00,0.52,7.02,card,
+CL-0374,2026-09-23,counter,customer035@example.com,2 x Coffee Beans @ 16.50; 3 x Croissant Box (6) @ 21.00; 2 x Blueberry Scone @ 3.75,103.50,,0.00,8.28,111.78,card,

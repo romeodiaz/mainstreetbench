@@ -1,0 +1,35 @@
+{
+  "name": "Corner Loaf Bakery",
+  "address": "12 Main Street",
+  "phone": "555-010-0199",
+  "website": "https://cornerloafbakery.example",
+  "hours": {
+    "Monday": "closed",
+    "Tuesday": "07:00-16:00",
+    "Wednesday": "07:00-16:00",
+    "Thursday": "07:00-16:00",
+    "Friday": "07:00-16:00",
+    "Saturday": "07:00-16:00",
+    "Sunday": "07:00-16:00"
+  },
+  "special_hours": [],
+  "services": {
+    "pickup": true,
+    "delivery": true,
+    "dine_in": false
+  },
+  "menu_highlights": [
+    {
+      "item": "Sourdough Loaf",
+      "price": "9.00"
+    },
+    {
+      "item": "Birthday Cake",
+      "price": "4.80"
+    },
+    {
+      "item": "Croissant Box (6)",
+      "price": "21.00"
+    }
+  ]
+}

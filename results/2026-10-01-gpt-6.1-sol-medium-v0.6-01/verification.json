@@ -1,0 +1,17 @@
+{
+  "actual_session_model": "gpt-6.1-sol",
+  "actual_session_effort": "medium",
+  "session_id": "01a0f983-0064-7fd1-813b-a5335fd54bff",
+  "web_search": "disabled",
+  "completed_command_events": 27,
+  "token_usage": {
+    "input_tokens": 1478822,
+    "cached_input_tokens": 1385088,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 31098,
+    "reasoning_output_tokens": 6308
+  },
+  "source_commit": "62dc1b41d8962b879c48e008f7ef85dd1a0595a7",
+  "note": "Original scorecard is unchanged. Custom-command mode does not extract model or command metadata; session turn_context independently confirms model and effort, and JSONL contains command events. Integrity scanner reports no copied answers or held-out path mentions. Self-run does not enforce read isolation.",
+  "evidence_directory": "~/Documents/Codex/2026-10-01/clone-https-github-com-romeodiaz-mainstreetbench/work/MainStreetBench-runs/evidence/2026-10-01-gpt-6.1-sol-medium-v0.6-01"
+}
