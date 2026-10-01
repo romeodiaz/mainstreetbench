@@ -2,7 +2,7 @@
 
 Run ID: [ ] · Date: [ ] · Configuration: [Sol solo / Opus solo / Opus + Sol]
 
-Prompt/input hashes: [ ] · Frozen submission and hashes: [ ]
+Fixture seed: [ ] · Prompt/input hashes: [ ] · Frozen submission and hashes: [ ]
 
 | Configuration | Recorded value |
 |---|---|
@@ -18,15 +18,22 @@ Prompt/input hashes: [ ] · Frozen submission and hashes: [ ]
 
 Extract actual submitted values before revealing the key. Use the [grader](../evaluators/README.md) and retain evidence locations. September only; monthly reuse is not scored.
 
-| Check | Passed / checked | Failures or evidence |
+| Check | Result | Failures or evidence |
 |---|---|---|
+| **Quality score** (mean of the next three) | | |
+| Business figures pass rate | | |
+| Instance pass rate (averaged across types) | | |
+| Exception list F1 (recall / precision) | | |
 | Seven primary business figures | | |
 | Product net units and net sales | | |
 | Biggest-customer values and ranking | | |
-| Resolved cases | | |
-| Correct requests for owner review | | |
-| Preservation cases | | |
+| Resolve instances passed | | |
+| Review instances passed (values and flag) | | |
+| Preserve instances passed | | |
+| Unnecessary exception entries | | |
 | Spreadsheet, dashboard and unchanged inputs | | |
+
+Weakest instance types: [ ]
 
 False matches/merges, valid records removed, unsupported changes or unnecessary flags: [ ]
 
@@ -58,4 +65,4 @@ Usage logs, grading report and manual-review evidence: [ ]
 
 Unknowns and comparison limits: [ ]
 
-Report the dimensions separately; there is no combined weighted score.
+Report the quality score together with artifacts, resources and limits; it does not include them.

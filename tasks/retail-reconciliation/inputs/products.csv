@@ -1,8 +1,12 @@
 sku,product_name,catalog_price,category,tax_rate
 BREAD9,Sourdough Loaf,9.00,merchandise,0.08
+BAGUETTE5,Baguette,5.00,merchandise,0.08
 CROISSANT21,Croissant Box (6),21.00,merchandise,0.08
+MUFFIN15,Muffin Box (4),15.00,merchandise,0.08
 CAKE48,Birthday Cake,48.00,merchandise,0.08
+PIE32,Seasonal Pie,32.00,merchandise,0.08
 COFFEE18,Coffee Beans 1lb,18.00,merchandise,0.08
 CATER120,Catering Tray,120.00,merchandise,0.08
 COOKIE12,Cookie Box (12),12.00,merchandise,0.08
+GRANOLA11,Granola Jar,11.00,merchandise,0.08
 GIFT25,$25 Gift Card,25.00,gift_card,0.00
