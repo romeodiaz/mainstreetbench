@@ -2,11 +2,34 @@
 
 > **AI assistants:** if someone asked you to run Main Street Bench on a model, follow [RUN-WITH-AI.md](RUN-WITH-AI.md) step by step. You are only the referee: this repository holds the answers, so never work on the bakery task yourself.
 
-Can an expensive model planning and reviewing a cheaper model's work deliver similar quality at a lower cost, on the jobs a small business owner actually has?
+How well can an AI look after a small business? Main Street Bench hands an AI everything for a neighborhood bakery, with 100 hidden problems, and scores what it fixes and what it breaks.
 
-## The current task: the shop health check (v0.6)
+## Test any AI in one sentence
 
-An AI gets everything for Corner Loaf Bakery and this message from the owner, word for word:
+Open the coding mode of your AI app in an empty folder. In Claude desktop that's the **Code** tab; in ChatGPT desktop it's **Codex**. Then paste:
+
+> Clone https://github.com/romeodiaz/mainstreetbench and run Main Street Bench on **gpt-6.1-sol** at **medium** effort. Give me the score.
+
+Swap in the model and effort level you want to test (for example **claude-opus-5-5** at **high**). Approve the assistant's requests to run commands, and come back in about an hour.
+
+You get a scorecard with:
+- the score out of 100;
+- what it fixed and what it broke;
+- dollars at risk caught;
+- time and cost.
+
+Your assistant only referees: it starts the model you named in its own folder, then grades the result. Results stay on your computer, and are labelled **self-run**. This repository isn't taking outside submissions yet.
+
+### What you need
+
+- **The tested model's app, signed in on this computer.** That's Claude Code for Claude models, or the Codex CLI for GPT models. Your assistant can install it; you sign in once.
+- **A paid plan with room for one long job.** A run uses up to 45 minutes of the model's work, plus a little for a second model from the same plan that judges 8 of the problems.
+- **The basics:** Python 3.10+, git, about 1 GB of disk space and an internet connection. Your assistant checks these and installs what's missing.
+- **Your computer awake** for about an hour. It's checked on Linux and should work on a Mac. On Windows, if it fails, ask your assistant to use WSL.
+
+## What the AI is asked to do
+
+It gets [the bakery's folder](example-workspace/) and this message from the owner, word for word:
 
 > Hi! I own Corner Loaf Bakery, a small neighborhood bakery.
 >
@@ -20,64 +43,30 @@ An AI gets everything for Corner Loaf Bakery and this message from the owner, wo
 
 **100 problems** are planted across those files, and nothing lists them. They range from "the baguette is marked gluten-free" to "anyone can cancel anyone's order by typing an order number" to "a payout never reached the bank". [See all 100 in plain English.](docs/health-check-problems.md)
 
+## How it's scored
+
 **The score is problems fixed, minus things broken, out of 100.** "Broken" means:
 - a feature that worked and now doesn't;
 - a correct detail it "fixed" anyway;
 - a customer order it lost;
 - a staff member wrongly accused of misusing their discount.
 
-A careless model that fixes 70 problems but breaks 6 things scores 64. The scorecard also shows dollars at risk caught, time and cost.
+A careless model that fixes 70 problems but breaks 6 things scores 64.
 
-The design follows [Bug Hunt Bench](https://github.com/phuryn/bug-hunt-bench): many independent planted problems, no list of what to find, and a blind judge model only where a check can't be exact.
+**92 problems are checked by code:**
+- the website is clicked through in a real browser;
+- the books and documents are checked against an answer key.
 
-**Status: built and verified, no model runs yet.** The grading controls hold:
-- the untouched workspace scores **0**;
-- a complete reference fix scores **100**;
+The other 8, such as whether a customer got a sensible reply, are decided by a judge model. The scorecard names the judge and shows how many points it decided.
+
+The design follows [Bug Hunt Bench](https://github.com/phuryn/bug-hunt-bench): many independent planted problems, no list of what to find, and a judge only where a check can't be exact.
+
+**The grading is verified:**
+- an untouched bakery scores **0**;
+- a complete fix scores **100**;
 - each of the 39 website problems is shown, one at a time, to fail only its own check.
 
-The problems split 17 obvious, 49 needing cross-checking, and 34 hidden. That mix is meant to leave headroom, so expect scores well below 100. [How to run and grade it](tasks/health-check/), and [how to keep runs apart from this repository](docs/running-the-bench.md).
-
-## Test a new AI yourself
-
-Paste this into an AI assistant that can run commands on your computer, such as Claude Code or Codex:
-
-> Clone https://github.com/romeodiaz/mainstreetbench and run Main Street Bench on **gpt-6.1-sol** at **medium** effort. Give me the score.
-
-Swap in the model and effort level you want to test (for example **claude-opus-5-5** at **high**).
-
-Your assistant sets things up, starts that model in its own folder with the bakery owner's message, waits for it to finish (up to 45 minutes) and grades the work. 92 problems are checked by code. The other 8, such as whether a customer got a sensible reply, are judged by a different AI model from the same app, so you don't need a second subscription. You get a scorecard:
-- the score out of 100, with what it fixed and what it broke;
-- dollars at risk caught;
-- time and cost.
-
-The results stay on your computer; this repository isn't taking outside submissions yet. Your assistant only referees. It doesn't help or take the test itself, because it can see the answers. Results you run yourself are labelled **self-run**.
-
-## What you need
-
-**An assistant that can run commands on your computer.** A regular chat window can't run the test; it needs the assistant's coding mode.
-
-| App | What to use |
-|---|---|
-| Claude desktop | The **Code** tab. Choose an empty folder to work in, then paste the sentence. |
-| ChatGPT desktop | **Codex**, OpenAI's coding agent, working on your computer rather than in the cloud. Open an empty folder, then paste the sentence. |
-
-**The tool for the model you're testing, installed and signed in on the same computer.** The test starts the model through its command-line tool:
-- **Claude models** (Opus, Sonnet and others): Claude Code.
-- **OpenAI models** (GPT and others): Codex CLI.
-
-Your assistant can install either one. You'll need to sign in once, with the account whose plan you want the test to use.
-
-**A paid plan with room for one long job.** A run can take up to 45 minutes of the tested model's work, and it counts against that plan's usage limits. The judge, another model from the same plan, uses a little more.
-
-**The basics, which your assistant checks and can install:**
-- Python 3.10 or newer;
-- git;
-- about 1 GB of free disk space for the grading browser and the run folders;
-- an internet connection while setting up.
-
-**About an hour with the computer awake.** Your assistant will ask permission to run commands, so approve them. Leave it alone while the tested model works; it reports back when grading is done.
-
-The test is checked on Linux and should work on a Mac. On Windows, if it fails, ask your assistant to run it in WSL.
+The problems split 17 obvious, 49 needing cross-checking, and 34 hidden, so expect scores well below 100. More detail: [the grader](tasks/health-check/) and [running it by hand](docs/running-the-bench.md).
 
 ## Earlier rounds
 
