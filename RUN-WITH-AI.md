@@ -24,7 +24,7 @@ python3 tools/run_bench.py --install --agent claude --model MODEL_ID [--effort m
 
 **Reasoning effort:** if the person names one ("gpt-6.1-sol medium", "Opus on high"), add `--effort medium` (or whatever they said). Never drop it: the same model at a different effort is a different result. If the tool rejects the setting, tell the person rather than running without it. If they don't name one, leave it out and tell the person the tool's default effort was used.
 
-Add a judge for the 8 problems that need reading, ideally a different model from the one being tested:
+**Judge:** add one only if the person asks for it. It grades the 8 problems that need reading. Use a model from a **different company** than the one being tested, such as a Claude model judging a GPT run or the reverse, and never the tested model itself (the script refuses that). If the person names a judge, use exactly that one.
 
 ```sh
   --judge claude --judge-model claude-sonnet-5-5

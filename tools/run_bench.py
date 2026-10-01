@@ -181,6 +181,10 @@ def main() -> None:
     parser.add_argument("--save-results", action="store_true",
                         help="Maintainer only: also copy the scorecard, report, grade, logs and submission into results/")
     args = parser.parse_args()
+    if args.judge and not args.judge_model and args.judge != "custom":
+        raise SystemExit("--judge needs --judge-model: name a model from a different company than the one being tested")
+    if args.judge_model and args.judge_model == args.model:
+        raise SystemExit("The judge can't be the model being tested")
 
     need_playwright(args.install)
     import health_check
@@ -200,7 +204,7 @@ def main() -> None:
     bundle = health_check.judge_bundle(evidence / "frozen", run["key"], report, graded)
     (evidence / "judge.json").write_text(json.dumps(bundle, indent=1) + "\n")
     if args.judge:
-        verdicts = judge(args.judge, args.judge_model or args.model, bundle, args.judge_command, 900, evidence / "judge-log.txt")
+        verdicts = judge(args.judge, args.judge_model or "", bundle, args.judge_command, 900, evidence / "judge-log.txt")
         if verdicts:
             (evidence / "verdicts.json").write_text(json.dumps(verdicts, indent=1) + "\n")
             graded = health_check.grade(evidence / "frozen", run["key"], report, verdicts)
