@@ -23,5 +23,7 @@ class ChangeTheCart(SiteCase):
     def test_emptied_cart_cannot_be_ordered(self):
         attempt = self.order([("BREAD9", 1)], edits=[("Sourdough Loaf", 0)])
         self.assertFalse(attempt.placed)
+        # Only a real removal counts: the bread must have been added and then taken out.
+        self.assertNotIn("could not add", attempt.reason)
         self.assertNotIn("could not change", attempt.reason)
         self.assertEqual(self.admin_orders(), [])

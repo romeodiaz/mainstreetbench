@@ -187,6 +187,15 @@ class Shopper:
         box = page.get_by_role("spinbutton", name=name)
         rows = page.locator("tr, li, [role=row], .line, .cart-line").filter(has_text=name)
         row = rows.last if rows.count() else None
+        if qty == 0:
+            scope = row if row is not None else page
+            remove = scope.get_by_role("button", name=re.compile(r"remove|delete|×|✕|trash", re.I))
+            if row is None:
+                remove = remove.filter(has_text=name)
+            if remove.count():
+                remove.first.click()
+                self.settle(page)
+                return True
         if not box.count() and row is not None:
             box = row.get_by_role("spinbutton")
         if box.count():
@@ -238,6 +247,11 @@ class Shopper:
         checkout; with `inspect`, the checkout page text just before ordering is kept."""
         context, page = self.new_page()
         page.goto("/")
+        self.settle(page, 300)
+        # Some menus ask for the pickup day before anything can be added; choose it there first.
+        first = page.locator(f'[data-sku="{items[0][0]}"]').first.get_by_role("button", name=re.compile(r"add", re.I))
+        if not (first.count() and first.first.is_enabled()) and self.choose_date(page, date):
+            self.settle(page)
         for sku, qty in items:
             row = page.locator(f'[data-sku="{sku}"]').first
             button = row.get_by_role("button", name=re.compile(r"add", re.I))
@@ -283,6 +297,10 @@ class Shopper:
         submit = page.get_by_role("button", name=re.compile(r"place|order|submit|checkout|pay|confirm", re.I))
         if not submit.count():
             return Attempt(False, reason="no submit button", context=context, page=page)
+        self.settle(page, 300)
+        if not submit.last.is_enabled():
+            return Attempt(False, reason="order button disabled", context=context, page=page,
+                           text=page.inner_text("body"), checkout_text=checkout_text)
         submit.last.click()
         try:
             page.wait_for_url(re.compile(r"/order/\d+"), timeout=WAIT_MS)
@@ -429,6 +447,11 @@ class SiteCase(unittest.TestCase):
             if round_ == 0 and not self.staff_activate(bought.order_id):
                 break
         return None, attempt
+
+    def sold(self, sku: str, date: str) -> int:
+        """How many of an item are booked for a day across orders that aren't cancelled."""
+        return sum(i["qty"] for o in self.admin_orders() if o["pickup_date"] == date and o["status"] != "cancelled"
+                   for i in o["items"] if i["sku"] == sku)
 
     def admin_orders(self) -> list:
         status, data = self.call("GET", "/admin/api/orders", admin=True)
