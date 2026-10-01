@@ -4,7 +4,7 @@ Compare Sol solo, Opus solo, and Opus planning/review with Sol implementing. Use
 
 ## Prepare
 
-Give each configuration the exact [owner's prompt](../tasks/retail-reconciliation/prompt.md) and the same [input files](../tasks/retail-reconciliation/inputs/). Start a fresh chat and clean workspace for each attempt. Keep the repository, answer keys, generator and evaluator outside the task agents' accessible workspace. Record any access boundary that cannot be enforced.
+Give each configuration the exact [owner's prompt](../README.md#the-task) and the same [input files](../tasks/retail-reconciliation/inputs/). Start a fresh chat and clean workspace for each attempt. Keep the repository, answer keys, generator and evaluator outside the task agents' accessible workspace. Record any access boundary that cannot be enforced.
 
 Record prompt/input hashes, actual model identifiers, confirmed reasoning settings, app versions, tools, instructions and skills in the [scorecard](../results/scorecard-template.md). Keep tool access, libraries, time limits, retries and permitted human help consistent. Record settings that cannot be verified.
 

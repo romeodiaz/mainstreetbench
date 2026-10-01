@@ -4,7 +4,7 @@ The evaluator compares values extracted from a frozen submission. It does not ru
 
 ## Review workflow
 
-1. **Extract without the answer key.** Give a separate grader the owner's prompt, bookkeeping notes and frozen outputs. Record submitted figures and their file/location. Product and customer summaries may be derived from the submitted reconciliation table; document that derivation. Do not calculate missing results from the original inputs. Record conflicting dashboard/workbook values. Freeze the extraction and provenance before revealing the key.
+1. **Extract without the answer key.** Give a separate grader the [owner's prompt](../README.md#the-task), bookkeeping notes and frozen outputs. Record submitted figures and their file/location. Product and customer summaries may be derived from the submitted reconciliation table; document that derivation. Do not calculate missing results from the original inputs. Record conflicting dashboard/workbook values. Freeze the extraction and provenance before revealing the key.
 2. **Compare and review.** Reveal the key, run the comparator and review the keyed cases against the submission. Put verdicts in a separate copy of the extraction, preserving its original values and hashes. Give file/location and affected transaction/customer IDs for each verdict. Do not repair the submission or replace extracted values with reference values.
 
 ## Evidence format
