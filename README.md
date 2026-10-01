@@ -2,9 +2,9 @@
 
 Can an expensive model planning and reviewing a cheaper model's work deliver similar quality at a lower cost?
 
-This benchmark asks AI to close September 2026 for a fictional bakery. It must reconcile orders, payments, refunds and customers, then deliver a spreadsheet, dashboard and actionable exception list.
+The current task (v0.3) gives an AI the code for a bakery's online ordering site and the owner's to-do list for the month: fix the tax on coupon orders, let customers choose pickup times, and stop selling more cakes than the kitchen can bake. Hidden tests act like customers and staff using the finished site. The owner never has to read code, and neither do viewers. The question is simply whether the site works.
 
-**One [Sol solo medium attempt](results/sol-medium-v0.2-01.md) scored 0.7635. All business checks and planted instances passed; walk-in flags reduced the score. Calibration still needs repeated solo baselines. See [Calibrate first](#calibrate-first).**
+**Status: pilot.** Three tickets are ready, but no model has run them yet. Calibrate with the solo baselines before running the split. The previous task, [retail reconciliation (v0.2)](tasks/retail-reconciliation/), turned out too easy: Sol solo passed every check.
 
 ## Three configurations
 
@@ -18,77 +18,66 @@ Record the actual model identifiers and settings. Compare quality, time and the 
 
 ## The task
 
-Copy this prompt unchanged and attach the [inputs](tasks/retail-reconciliation/inputs/):
+Build a fresh workspace and send the owner's prompt unchanged:
 
-> *I run Corner Loaf Bakery and I’m trying to close out September. I’ve attached our register orders, card payments, refunds, and customer list. I also included our price list and some notes from our bookkeeper.*
->
-> *The numbers don’t seem to line up. Can you put this together and help me understand what happened?*
->
-> *I want to know how much we sold, how much we refunded, what we paid in card fees, and how much money we should have received. Please show those separately so I can see why the totals differ.*
->
-> *Please look for orders that weren’t paid, payments that don’t match an order, refunds that weren’t processed correctly, and anything that looks like it was counted twice. The customer names sometimes look different between systems, so please check those too.*
->
-> *Give me a spreadsheet I can review and a simple dashboard showing the totals, our best-selling products, and our biggest customers. Include a short list of anything I need to check, with the order or payment numbers so I can find it. If something can’t be worked out from these files, tell me what’s missing.*
->
-> *Please leave the original files alone. I’d like to do this every month, so give me an easy way to add next month’s exports and update the results.*
+```sh
+python3 tasks/ordering-site/package.py --out /path/to/runs/attempt-01
+```
 
-| File | Contents |
+That creates `attempt-01/`, which is the solver's whole workspace, and `attempt-01-prompt.txt`:
+
+> *I run Corner Loaf Bakery. This folder is our online ordering site. My nephew Sam built it last year and he's away at college now, so I can't ask him to change it.*
+>
+> *There are three things I need done this month. They're in the tickets folder, with the notes Sam left me about how the site works.*
+>
+> *Please make the changes and keep everything that already works working. Customers have already placed orders that are saved in data/bakery.db, so please don't lose any of those.*
+>
+> *When you're done, tell me what you changed and anything I should check before I put it live.*
+
+| In the workspace | Contents |
 |---|---|
-| [orders.csv](tasks/retail-reconciliation/inputs/orders.csv) | ~2,260 register line rows for 1,000 September orders, with edits, overlapping exports and late-August supporting orders |
-| [payments.csv](tasks/retail-reconciliation/inputs/payments.csv) | ~1,060 tenders and terminal attempts, fees and settlement dates |
-| [refunds.csv](tasks/retail-reconciliation/inputs/refunds.csv) | Refund requests and processing outcomes |
-| [customers.csv](tasks/retail-reconciliation/inputs/customers.csv) | 80-member loyalty register, including shared households |
-| [products.csv](tasks/retail-reconciliation/inputs/products.csv) | Current catalog and product categories |
-| [bookkeeping_notes.md](tasks/retail-reconciliation/inputs/bookkeeping_notes.md) | What each export means and how the bakery reports a month |
+| `bakery/` | The site: Python standard library only (`http.server`, `sqlite3`), about 700 lines |
+| `tests/` | Sam's smoke tests |
+| `tickets/` | [Tax and coupons](tasks/ordering-site/tickets/01-tax-and-coupons.md) · [Pickup times](tasks/ordering-site/tickets/02-pickup-times.md) · [Daily limits](tasks/ordering-site/tickets/03-daily-limits.md) |
+| `data/bakery.db` | The live database: 30 customer orders created by the old version of the site |
 
-Each run evaluates September only. The owner's request for easy future updates stays in the prompt; monthly reuse is not tested or scored.
+Each ticket is the owner's request in plain language, followed by "Notes from Sam" that pin down the details the tests rely on (field names, status codes, rounding). The notes don't say how to build anything.
 
 ## What makes it hard
 
-v0.1 had about 20 traps, one of each, all within the first 21 order numbers. The bookkeeper's notes spelled out a rule for each, and the `notes` column labelled several of them. A capable mid-tier model could translate the rules into a short script and score near the ceiling. That left no room to measure what a stronger planner adds.
+- **The tickets interact.** Pickup times and daily limits both change order creation, the database schema, the admin page and the menu. A rejected over-limit order must not use up a pickup slot, and cancelling must free both. A plan that treats the tickets separately pays for it later.
+- **Existing data must survive.** The live database has the old schema and orders priced under the old tax rules. The site has to upgrade it in place, keep those orders and their recorded totals, and count them toward today's limits.
+- **Subtle correctness.** Half-cent rounding that floating point gets wrong, the 2-hour vs 48-hour notice boundary, Monday closures, the same item on two lines, and all-or-nothing orders.
+- **Black-box grading.** The 32 hidden tests start the submitted site and use it over HTTP: the API, pages, admin and restarts. They don't care how the code is organised.
 
-v0.2 changes the task so that judgment, not rule transcription, decides the score:
-
-- **The notes describe, they don't prescribe.** They explain each export and define the reported figures. They don't list the edge cases or say how to treat them. The solver has to recognise that a declined attempt, an edited line or a household email needs special handling.
-- **Edge cases repeat, vary and are scattered.** There are 118 keyed instances across 28 types among 1,000 orders, placed by timestamp so they don't cluster by ID. Most types come in variants: a voided line, a three-version edit, a declined-only "payment", a double charge on the next day, a refund on an edited line, a mistyped email with a reformatted phone.
-- **Decoys punish over-correction.** Identical repeat purchases, two-card splits, promotional prices, household members with explicit IDs and two different Chris Lees must be left alone. An unlinked charge exactly equal to an unpaid order must not be matched on amount alone.
-- **No row labels the answer.** The `notes` columns carry only harmless register noise, such as pickup instructions and card entry mode. About 18% of orders are walk-ins with no customer details, so flagging every order without an ID costs precision.
-- **Timing matters at scale.** Card charges settle the next business day, skipping weekends and Labor Day. Late-August charges land in September's payout and late-September charges land in October's. Some refunds complete or settle after month end.
-
-Every instance is scored on its own, so results form a gradient instead of a handful of pass/fail checks. The test suite includes an independent reference solver that reads only the inputs and scores 1.0, which shows the key is derivable from the packet. A naive solver that skips de-duplication, version handling and settlement dates scores below 0.5.
+The [reference solution](tasks/ordering-site/reference/) passes every hidden test and the untouched starter passes none of the ticket tests. The repository tests check both.
 
 ## Run and grade
 
-1. Use a fresh chat and workspace containing only the prompt and inputs. Keep the key, generator and evaluator inaccessible to task agents.
-2. Record the configuration in a [scorecard](results/scorecard-template.md), use medium throughout, and keep tools and limits consistent.
-3. Save the finished work and usage/cost records, then freeze the submission before grading.
-4. Have a separate grader extract the submitted results before seeing the [answer key](answer-keys/retail-reconciliation.md): headline figures, per-order and per-refund values, and the exception list. Check usable artifacts separately.
+1. Package a fresh workspace per attempt and give the solver only that folder and the prompt. Keep `hidden_tests/`, `reference/` and `evaluators/` out of reach.
+2. Record the configuration, workspace hashes and limits in a [scorecard](results/scorecard-ordering-site.md). Use medium throughout and keep tools, time limits and permitted help the same. In the split, Opus writes briefs and reviews; Sol makes every code change.
+3. When the solver finishes, freeze the workspace and record usage and cost for every task-agent call.
+4. Grade the frozen copy in a sandbox, because the tests run the submitted code:
 
-The evaluator reports a **quality score** from 0 to 1. It is the unweighted mean of three parts:
-- the business-figure pass rate;
-- the keyed-instance pass rate, averaged across instance types;
-- the exception-list F1.
+```sh
+python3 evaluators/ordering_site.py --site /path/to/frozen/attempt-01 --report /path/to/report.json
+```
 
-Those weights are fixed in advance so configurations can be placed on a cost/quality plot. Report artifacts, input preservation, time and cost alongside the score.
+The **quality score** is the mean of the three ticket pass rates, multiplied by the regression pass rate (existing behavior still working). It ranges from 0 to 1. Report per-ticket results, time and cost alongside it.
 
-See the [method](docs/method.md) and [grader instructions](evaluators/README.md).
+For video, the moments to capture are visual ones: checkout offering pickup times, a full slot disappearing, "Sold out" on the menu, and a coupon receipt with the right tax. Run the graded site with `python3 -m bakery.server` and record the browser.
 
 ## Calibrate first
 
-Before comparing harnesses, confirm the task separates the baselines:
-
-1. Run Sol solo and Opus solo, at least 3 fresh attempts each, on the same fixtures. To get fixture variety without changing difficulty, generate alternate seeds with `--seed N --output-root DIR`, and use the same seed set for every configuration.
-2. The task is useful for the split comparison if Sol solo lands well below Opus solo, roughly 0.3–0.6 against 0.75–0.9, with attempt-to-attempt spread smaller than the gap.
-3. If Sol is still near the ceiling, raise difficulty before spending on the split: more orders (`--orders`), more variants per instance type, or new evidence such as a bank statement to match deposits against.
+1. Run Sol solo and Opus solo, 3 fresh attempts each.
+2. The pilot is useful if Sol solo lands well below Opus solo with a spread smaller than the gap. If Sol scores near 1.0, extend the backlog toward 8–12 tickets before spending on the split: gift-card balances, loyalty points reversed on refunds, holiday hours, a bookkeeper's export. Prefer tickets that cut across the code, since those reward planning.
+3. Track the size of each run, too. The split saves money only when building and debugging make up most of the tokens.
 
 ## Check the benchmark
 
-The fixture generator and evaluator use Python's standard library. From the repository root:
+Python 3.10+ standard library only. From the repository root:
 
 ```sh
 python3 -m unittest discover -s tests -v
-python3 tasks/retail-reconciliation/generate.py --output-root /tmp/mainstreetbench-reproduction
-python3 tasks/retail-reconciliation/generate.py --seed 7 --output-root /tmp/mainstreetbench-seed-7
+python3 evaluators/ordering_site.py --site tasks/ordering-site/reference
 ```
-
-The second command reproduces the committed inputs and key byte for byte in a separate directory. The third builds an alternate fixture with its own key.

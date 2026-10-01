@@ -1,0 +1,22 @@
+:root { --ink: #2b2118; --crust: #b5651d; --paper: #fffaf3; --line: #e8dccb; }
+* { box-sizing: border-box; }
+body { margin: 0; font: 16px/1.5 Georgia, serif; color: var(--ink); background: var(--paper); }
+header, footer { display: flex; justify-content: space-between; padding: 12px 16px; background: var(--ink); color: var(--paper); }
+header a { color: var(--paper); text-decoration: none; }
+.brand { font-weight: bold; }
+main { max-width: 720px; margin: 0 auto; padding: 16px; }
+footer { font-size: 14px; justify-content: center; }
+.menu { list-style: none; padding: 0; }
+.item { display: flex; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.item .name { flex: 1; }
+button { background: var(--crust); color: white; border: 0; padding: 6px 14px; border-radius: 4px; cursor: pointer; }
+form label { display: block; margin: 8px 0; }
+input { display: block; width: 100%; padding: 6px; border: 1px solid var(--line); }
+.lines, .admin { width: 100%; border-collapse: collapse; }
+.lines td, .admin td, .admin th { padding: 6px; border-bottom: 1px solid var(--line); text-align: left; }
+.total td { font-weight: bold; }
+.error { color: #a00; }
+.cancelled { color: #999; text-decoration: line-through; }
+.sold-out { color: #a00; font-style: italic; }
+button:disabled { background: #ccc; cursor: not-allowed; }
+select { display: block; width: 100%; padding: 6px; }

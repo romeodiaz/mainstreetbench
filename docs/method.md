@@ -1,10 +1,12 @@
-# Run a fair comparison
+# Run a fair comparison (retail reconciliation, v0.2)
+
+The current ordering-site task uses the [main README](../README.md#run-and-grade); the run controls and cost accounting below apply to it too.
 
 Compare Sol solo, Opus solo, and Opus planning/review with Sol implementing. Use **medium for every task agent**. This measures complete configurations, including their apps, tools and orchestration.
 
 ## Prepare
 
-Give each configuration the exact [owner's prompt](../README.md#the-task) and the same [input files](../tasks/retail-reconciliation/inputs/). Start a fresh chat and clean workspace for each attempt. Keep the repository, answer keys, generator, evaluator and test solvers outside the task agents' accessible workspace. Record any access boundary that cannot be enforced.
+Give each configuration the exact [owner's prompt](../tasks/retail-reconciliation/README.md#the-task) and the same [input files](../tasks/retail-reconciliation/inputs/). Start a fresh chat and clean workspace for each attempt. Keep the repository, answer keys, generator, evaluator and test solvers outside the task agents' accessible workspace. Record any access boundary that cannot be enforced.
 
 For repeated attempts, either reuse the committed fixture or generate a fixed set of alternate seeds (`generate.py --seed N --output-root DIR`). Give every configuration the same seeds, and record the seed in the scorecard.
 
@@ -59,4 +61,4 @@ A solo agent also uses a harness. To isolate a harness effect, compare the same 
 
 Plot each configuration's mean quality score against its mean total cost. The split is worth it when it closes most of the solo-Sol to solo-Opus quality gap at a cost much closer to solo Sol.
 
-Run the solo baselines first (see [Calibrate first](../README.md#calibrate-first)). If they don't separate, the split comparison can't show anything. One [Sol solo medium attempt](../results/sol-medium-v0.2-01.md) is recorded; repeated solo baselines are still needed to calibrate difficulty or establish a ranking.
+Run the solo baselines first (see [Calibrate first](../tasks/retail-reconciliation/README.md#calibrate-first)). If they don't separate, the split comparison can't show anything. One [Sol solo medium attempt](../results/sol-medium-v0.2-01.md) is recorded; repeated solo baselines are still needed to calibrate difficulty or establish a ranking.
