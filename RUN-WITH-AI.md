@@ -45,7 +45,7 @@ By default, nothing is saved to the repository. The results stay on this compute
 
 The repository's owner saves runs while calibrating. Do this only when the person explicitly asks to save or push the results **and** this computer's git can push to `romeodiaz/mainstreetbench` (`git push --dry-run origin main` succeeds):
 
-1. Add `--save-results` to the command. After grading, it copies the scorecard, the owner report, the grade, the logs and the tested model's finished folder into `results/<run>/`, plus the scorecard as `results/<run>.md`. Paths in the home folder are shortened to `~`.
+1. Add `--save-results` to the command. For a run that already finished, use `python3 tools/save_result.py ../MainStreetBench-runs/evidence/<run>` instead. After grading, it copies the scorecard, the owner report, the grade, the logs and the tested model's finished folder into `results/<run>/`, plus the scorecard as `results/<run>.md`. Paths in the home folder are shortened to `~`.
 2. Skim `results/<run>/agent-log.txt` for anything private, such as keys, tokens or email addresses, and tell the person if you find any. Don't commit until they say so.
 3. Commit only those new files, with the message `Add result <run>`, and push to `main`. If the push is refused, stop and say so; don't try another route.
 
