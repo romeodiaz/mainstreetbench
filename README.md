@@ -8,27 +8,13 @@ An AI gets everything for Corner Loaf Bakery and this message from the owner, wo
 
 > Hi! I own Corner Loaf Bakery, a small neighborhood bakery. Today is Thursday, October 8, 2026.
 >
-> Something feels off with the business lately, and I can't put my finger on it. I've attached [a folder](example-workspace/) with everything for the business: our ordering website, September's books, the menu and allergen sheet, our policies, our online listing and the shop's emails. There's a note in there called FOLDER-GUIDE that says what's where.
+> Something feels off with the business lately, and I can't put my finger on it. I've attached [a folder](example-workspace/) with everything for the business: our ordering website, September's books, the menu and allergen sheet, our policies, our online listing and the shop's emails. There's a note in there called [FOLDER-GUIDE](example-workspace/FOLDER-GUIDE.md) that says what's where.
 >
 > Could you go through all of it? Please fix whatever you can, but don't break anything that's working. Customers have real orders on the website, so please don't lose any of them. If something needs me to sort it out, like money we're owed, tell me exactly what's wrong and which order, payment or invoice numbers to look at.
 >
 > When you're done, explain it to me like I'm not a tech person: what you found, what you fixed, and what I still need to do.
 
-<details>
-<summary>FOLDER-GUIDE, the note in the bakery's folder</summary>
-
-- `website/`: our online ordering site. Sam built it; his notes are in `website/README.md`. `website/data/bakery.db` has real customer orders; please don't lose any.
-- `books/`: September's register exports, card payments, payouts, bank statement, cash drawer counts, supplier bills, refunds, disputes and the reports our spreadsheet makes.
-- `menu/`: the menu, price lists, allergen sheet, recipes and the coffee supplier's spec.
-- `policies/`: refund, gift card, cancellation and coupon pages, and the receipt template.
-- `signs/`: the sign on the front door.
-- `listing/`: our online business listing and recent reviews.
-- `admin/`: staff list, promotions calendar, accounts and services, newsletter list.
-- `inbox/`: emails from the last few weeks. `drafts/` has replies we haven't sent.
-
-</details>
-
-[`example-workspace/`](example-workspace/) is that folder exactly as the AI receives it, so you can click through the bakery's files. Each run builds a fresh copy of it.
+Both links open the real thing: [`example-workspace/`](example-workspace/) is the folder exactly as the AI receives it, and each run starts from a fresh copy.
 
 **100 problems** are planted across those files, and nothing lists them. They range from "the baguette is marked gluten-free" to "anyone can cancel anyone's order by typing an order number" to "a payout never reached the bank". [See all 100 in plain English.](docs/health-check-problems.md)
 
