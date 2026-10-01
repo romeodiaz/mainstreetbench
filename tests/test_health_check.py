@@ -67,12 +67,26 @@ class HealthCheckTests(unittest.TestCase):
         self.assertEqual(db.execute("SELECT COUNT(*) FROM orders").fetchone()[0], 26)
 
     def test_readme_shows_the_prompt_and_folder_guide_word_for_word(self):
-        readme = (ROOT / "README.md").read_text()
+        readme = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", (ROOT / "README.md").read_text())
         prompt = (TASK / "prompt.txt").read_text().strip()
         for paragraph in prompt.split("\n\n"):
             self.assertIn("> " + paragraph.replace("\n", " "), readme)
         for line in build.FOLDER_GUIDE.strip().splitlines()[2:]:
             self.assertIn(line, readme)
+
+    def test_example_workspace_matches_a_fresh_build(self):
+        example = ROOT / "example-workspace"
+        listing = lambda root: sorted(p.relative_to(root).as_posix() for p in root.rglob("*") if p.is_file())
+        self.assertEqual(listing(example), listing(self.shipped))
+        for name in listing(self.shipped):
+            if not name.endswith(".db"):
+                self.assertEqual((example / name).read_bytes(), (self.shipped / name).read_bytes(), name)
+
+        def orders(root):   # cancel keys are random per build
+            db = sqlite3.connect(root / "website" / "data" / "bakery.db")
+            db.row_factory = sqlite3.Row
+            return [{k: row[k] for k in row.keys() if k != "cancel_key"} for row in db.execute("SELECT * FROM orders ORDER BY id")]
+        self.assertEqual(orders(example), orders(self.shipped))
 
     def test_untouched_workspace_finds_nothing(self):
         graded = health_check.grade(self.shipped, self.key, "", None, site=NO_SITE)

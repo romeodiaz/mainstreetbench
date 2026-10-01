@@ -58,6 +58,14 @@ python3 -m unittest tests.test_health_check -v           # catalog, keys, untouc
 python3 tasks/health-check/grading/isolation_check.py   # about 10 minutes
 ```
 
+After changing the problems or the files the AI receives, refresh the browsable copy at the repository root. Build it outside the repository, because the build also writes the answer key next to it:
+
+```sh
+python3 tasks/health-check/build.py --out /tmp/bakery && rm -rf example-workspace && cp -r /tmp/bakery example-workspace
+```
+
+The unit tests fail if `example-workspace/` no longer matches a fresh build.
+
 The isolation check proves that each website problem is measured on its own:
 - the fixed shop passes all checks;
 - the shipped shop fails every problem check and no regression or decoy check;
