@@ -67,7 +67,7 @@ The results stay on your computer; this repository isn't taking outside submissi
 
 Your assistant can install either one. You'll need to sign in once, with the account whose plan you want the test to use.
 
-**A paid plan with room for one long job.** A run can take up to 45 minutes of the tested model's work, and it counts against that plan's usage limits. If you ask for a judge model, that uses a little more.
+**A paid plan with room for one long job.** A run can take up to 45 minutes of the tested model's work, and it counts against that plan's usage limits. The judge, another model from the same plan, uses a little more.
 
 **The basics, which your assistant checks and can install:**
 - Python 3.10 or newer;
