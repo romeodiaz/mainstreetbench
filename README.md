@@ -4,11 +4,17 @@ Can an expensive model planning and reviewing a cheaper model's work deliver sim
 
 ## The current task: the shop health check (v0.6)
 
-An AI gets everything for Corner Loaf Bakery and one message from the owner:
+An AI gets everything for Corner Loaf Bakery and this message from the owner, word for word:
 
-> *Something feels off with the business and I can't put my finger on it. [...] Please go through all of it. Fix whatever you can fix [...] When you're done, give me a plain-English report: what you found, what you fixed, and what I need to do.*
+> I run Corner Loaf Bakery, a small bakery in the US. Today is Thursday, October 8, 2026.
+>
+> Something feels off with the business and I can't put my finger on it. This folder has everything: our ordering website, September's books, the menu and allergen sheet, our policies, our online listing and the shop inbox. FOLDER-GUIDE.md says what's where.
+>
+> Please go through all of it. Fix whatever you can fix, and keep everything that already works working; customers have real orders in website/data/bakery.db, so don't lose any. For anything you can't fix from here, like money that needs chasing, tell me exactly what's wrong and which order, payment or invoice numbers to look at.
+>
+> When you're done, give me a plain-English report: what you found, what you fixed, and what I need to do.
 
-It receives the ordering website, September's books, the menu and allergen sheet, the policies, the door sign, the online listing and the shop inbox. **100 problems** are planted across them, and nothing lists them. They range from "the baguette is marked gluten-free" to "anyone can cancel anyone's order by typing an order number" to "a payout never reached the bank". [See all 100 in plain English.](docs/health-check-problems.md)
+**100 problems** are planted across those files, and nothing lists them. They range from "the baguette is marked gluten-free" to "anyone can cancel anyone's order by typing an order number" to "a payout never reached the bank". [See all 100 in plain English.](docs/health-check-problems.md)
 
 The score is **problems fixed out of 100**, alongside:
 - **"Said it fixed it, but didn't"**
