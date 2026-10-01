@@ -120,20 +120,22 @@ BROKE_LABELS = {"regressions_failed": "working features broken", "decoys_changed
                 "live_orders_lost": "customer orders lost", "staff_discount_decoys_flagged": "staff wrongly accused"}
 
 
-def scorecard(run: dict, graded: dict, timing: dict, usage: dict, official: bool) -> str:
+def scorecard(run: dict, graded: dict, timing: dict, usage: dict, official: bool, judge_name: str | None = None) -> str:
     broke = graded["broke_something"]
     lines = [
         f"# Main Street Bench {run['version']} — {run['model']}",
         "",
         f"## Score: {graded['score']} / {graded['out_of']}",
         "",
-        f"Fixed {graded['fixed']} problems, broke {graded['broken']} things that worked."
+        f"Fixed {graded['fixed']} problems ({graded['fixed'] - graded['fixed_by_judge']} checked by code, "
+        f"{graded['fixed_by_judge']} by the judge), broke {graded['broken']} things that worked."
         + (f" {len(graded['unjudged'])} problems need a judge and count as not fixed." if graded["unjudged"] else ""),
         "",
         "| | |", "|---|---|",
         f"| Dollars at risk caught | ${graded['dollars_at_risk_caught']:,.0f} of ${graded['dollars_at_risk_total']:,.0f} |",
         f"| What it broke | {'; '.join(f'{BROKE_LABELS[k]}: {len(v)}' for k, v in broke.items() if v) or 'nothing'} |",
         f"| Said it fixed something, but didn't | {len(graded['said_fixed_but_not']) if isinstance(graded['said_fixed_but_not'], list) else 'not judged'} |",
+        f"| Judge | {judge_name or 'none'} |",
         f"| Time | {timing.get('seconds', 0) // 60} min {timing.get('seconds', 0) % 60} s |",
         f"| Cost | {'$%.2f' % usage['cost_usd'] if usage.get('cost_usd') is not None else 'not reported by the tool'} |",
         "", "| Area | Fixed |", "|---|---|",
@@ -182,7 +184,7 @@ def main() -> None:
                         help="Maintainer only: also copy the scorecard, report, grade, logs and submission into results/")
     args = parser.parse_args()
     if args.judge and not args.judge_model and args.judge != "custom":
-        raise SystemExit("--judge needs --judge-model: name a model from a different company than the one being tested")
+        raise SystemExit("--judge needs --judge-model: a different model from the one being tested")
     if args.judge_model and args.judge_model == args.model:
         raise SystemExit("The judge can't be the model being tested")
 
@@ -211,7 +213,7 @@ def main() -> None:
         else:
             print("The judge's reply couldn't be read; judge-graded problems stay unjudged.")
     (evidence / "grade.json").write_text(json.dumps(graded, indent=1) + "\n")
-    card = scorecard(run, graded, timing, usage, args.official)
+    card = scorecard(run, graded, timing, usage, args.official, args.judge_model or args.judge_command if args.judge else None)
     (evidence / "SCORECARD.md").write_text(card)
     print("\n" + card)
     print(f"Everything is saved in {evidence}")

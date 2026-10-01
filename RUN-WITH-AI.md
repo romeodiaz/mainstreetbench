@@ -24,13 +24,19 @@ python3 tools/run_bench.py --install --agent claude --model MODEL_ID [--effort m
 
 **Reasoning effort:** if the person names one ("gpt-6.1-sol medium", "Opus on high"), add `--effort medium` (or whatever they said). Never drop it: the same model at a different effort is a different result. If the tool rejects the setting, tell the person rather than running without it. If they don't name one, leave it out and tell the person the tool's default effort was used.
 
-**Judge:** add one only if the person asks for it. It grades the 8 problems that need reading. Use a model from a **different company** than the one being tested, such as a Claude model judging a GPT run or the reverse, and never the tested model itself (the script refuses that). If the person names a judge, use exactly that one.
+**Judge:** always add one. It grades the 8 problems that need reading, such as whether a customer got a sensible reply. Pick it in this order:
+1. The judge the person names, if any.
+2. Otherwise, a model from a different company than the tested one, if this computer has that company's tool signed in.
+3. Otherwise, a different model from the same tool, e.g. `claude-sonnet-5-5` when testing `claude-opus-5-5`, or another GPT model when testing a GPT model.
+
+Never use the tested model itself; the script refuses it. Keep the same judge when comparing runs. The scorecard names the judge and shows how many fixes it decided.
 
 ```sh
   --judge claude --judge-model claude-sonnet-5-5
+  --judge codex  --judge-model ANOTHER_GPT_MODEL
 ```
 
-Without a judge, those 8 count as not fixed and the scorecard says so.
+If no judge can run, those 8 count as not fixed and the scorecard says so.
 
 The run takes up to 45 minutes (`--minutes` changes it). It builds a fresh copy of the bakery in `../MainStreetBench-runs/runs/`, starts the tested model there with the owner's message, waits, grades the result and prints a scorecard. Leave it alone while it runs.
 

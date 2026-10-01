@@ -45,7 +45,7 @@ Paste this into an AI assistant that can run commands on your computer, such as 
 
 Swap in the model and effort level you want to test (for example **claude-opus-5-5** at **high**).
 
-Your assistant sets things up, starts that model in its own folder with the bakery owner's message, waits for it to finish (up to 45 minutes) and grades the work. You get a scorecard:
+Your assistant sets things up, starts that model in its own folder with the bakery owner's message, waits for it to finish (up to 45 minutes) and grades the work. 92 problems are checked by code. The other 8, such as whether a customer got a sensible reply, are judged by a different AI model from the same app, so you don't need a second subscription. You get a scorecard:
 - the score out of 100, with what it fixed and what it broke;
 - dollars at risk caught;
 - time and cost.

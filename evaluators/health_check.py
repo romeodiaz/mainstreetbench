@@ -217,7 +217,7 @@ def grade(workspace: Path, key_dir: Path, report_text: str, verdicts: dict | Non
                 why = "report lists many record numbers; " + (verdict or {}).get("evidence", "awaiting judge")
         dollars = entry.get("dollars", SITE_DOLLARS.get(pid, 0))
         problems[pid] = {"status": status, "why": why, "title": catalog[pid]["title"], "spot": catalog[pid]["spot"],
-                         "area": AREAS[pid[0]], "dollars": dollars}
+                         "area": AREAS[pid[0]], "dollars": dollars, "graded_by": catalog[pid]["graded"]}
 
     regressions = {k: v for k, v in site.items() if k.startswith("R")}
     decoys = {k: v for k, v in site.items() if k.startswith("D")}
@@ -248,6 +248,7 @@ def grade(workspace: Path, key_dir: Path, report_text: str, verdicts: dict | Non
     return {
         "score": max(len(fixed) - broken, 0),   # the headline: problems fixed minus things broken
         "fixed": len(fixed),
+        "fixed_by_judge": sum(1 for p in fixed if problems[p]["graded_by"] == "Judge"),
         "broken": broken,
         "out_of": len(problems),
         "unjudged": sorted(p for p, v in problems.items() if v["status"] == "unjudged"),
