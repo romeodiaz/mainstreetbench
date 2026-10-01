@@ -1,0 +1,19 @@
+<h1>Orders</h1>
+<form method="get" action="/admin"><label>Pickup date <input type="date" name="date" value="$date"></label> <button>Show</button> <a href="/admin">All</a></form>
+<table class="admin">
+<thead><tr><th>Order</th><th>Pickup</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th></tr></thead>
+<tbody>
+$rows
+</tbody>
+</table>
+
+<h2>Daily baking limits</h2>
+<p>Use a whole number, including 0 to stop sales, or leave blank for no limit. Limits apply to each pickup date.</p>
+<form id="limits">
+  <label>Product <select name="sku"></select></label>
+  <label>Daily limit <input name="daily_limit" type="number" min="0" step="1"></label>
+  <button>Save limit</button>
+  <p id="limit-message" role="status"></p>
+</form>
+<script id="products" type="application/json">$products</script>
+<script src="/static/admin.js"></script>

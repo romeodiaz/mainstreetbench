@@ -1,0 +1,22 @@
+{
+  "README.md": "6e0885a84b1362aa9118f7e62ef8c9a4732dd3087457b61d2982f27cbbd412e4",
+  "bakery/__init__.py": "852ff7c930299c56cd39bea1804a44ee20554987f5c20e86f3c3160608fef728",
+  "bakery/clock.py": "b9c829702215ebb33949b7c2a61c0c11779e3799224b9f31244738adb080adba",
+  "bakery/db.py": "cfcca8995aa1c110ce5e8478a104490e4817bf00c90393cb3e0698d6200c9a60",
+  "bakery/pricing.py": "bbc7ee6893899083c5b8830d2a9e4f76b7833f613a8b09fc86d6da680c58289f",
+  "bakery/server.py": "bd7c7b179684564a76225fe38b2e32134ae0b99cb0d6a0a3bc515d143f06b5aa",
+  "bakery/static/cart.js": "46902058111acf052e407df91a3f92e309de1ea9b656fd37e8e042035832daf0",
+  "bakery/static/checkout.js": "6c4462790e82939f811c742dc9574da367be9bff1b11c7303c5d53a211a0d6f1",
+  "bakery/static/style.css": "f7afa1380d798d1815e67054979128c3b3b104405ec7dca0829f39a4a99ba2af",
+  "bakery/templates/admin.html": "a2465c556d650b32a374bb137aea345a1fdfa1bd57bbc62c26d663cc02522cbf",
+  "bakery/templates/checkout.html": "09860dbef1942857bf0a3db759223391fe9de5472077e0433d48a69e7dea127d",
+  "bakery/templates/confirmation.html": "406e297a240bb33e1abd63e96ed45a314109dc06ff3a3bb3203c5004c244f5e8",
+  "bakery/templates/layout.html": "4c678c2feae7123b2820d453bda637b0b7fd39958eff084848cd0d70932b2cc1",
+  "bakery/templates/menu.html": "409471ea520dbfd0ce2d3408366ed7feaca65748dd64edde83c62cbf43e7cc47",
+  "bakery/templates/message.html": "65c48ff0191d11ccd8299ee5ba683ae306abb673504b2a6448b00c1964a7ab64",
+  "data/bakery.db": "0394e7e9e716e92003ce7a81b900f6421d6400edf8e3b68c71c543ffcea6ad9d",
+  "tests/test_site.py": "58b3fe25ceab76af2136f27a6bff20abb2c280efc615f97cb4911948b8e0b8e5",
+  "tickets/01-tax-and-coupons.md": "f092631b0e3b170496b3b635287b12cefcce52c734a5129123d87195554a390b",
+  "tickets/02-pickup-times.md": "9fa3c47da182f729312b876444fe4f687dcfc568c875a07ee791eb1a0e35e46e",
+  "tickets/03-daily-limits.md": "a8ba589dc928d52d59218ccd63f33a1d02f579da13365bbbb3768707730bf9fc"
+}

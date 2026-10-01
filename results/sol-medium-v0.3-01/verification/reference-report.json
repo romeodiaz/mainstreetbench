@@ -1,0 +1,167 @@
+{
+  "site": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/trusted/tasks/ordering-site/reference",
+  "quality": {
+    "score": 1.0,
+    "ticket_mean": 1.0,
+    "regression_rate": 1.0,
+    "definition": "Mean of the three ticket pass rates, multiplied by the regression pass rate."
+  },
+  "groups": {
+    "regression": {
+      "passed": 5,
+      "total": 5,
+      "tests": {
+        "Regression.test_admin_requires_auth_and_can_cancel": {
+          "status": "pass",
+          "detail": ""
+        },
+        "Regression.test_invalid_orders_are_rejected": {
+          "status": "pass",
+          "detail": ""
+        },
+        "Regression.test_menu_api_and_page": {
+          "status": "pass",
+          "detail": ""
+        },
+        "Regression.test_simple_order_is_priced_and_saved": {
+          "status": "pass",
+          "detail": ""
+        },
+        "Regression.test_unknown_routes_and_pages": {
+          "status": "pass",
+          "detail": ""
+        }
+      },
+      "rate": 1.0
+    },
+    "ticket_1_tax_and_coupons": {
+      "passed": 7,
+      "total": 7,
+      "tests": {
+        "TaxAndCoupons.test_corrected_amounts_are_stored_and_shown": {
+          "status": "pass",
+          "detail": ""
+        },
+        "TaxAndCoupons.test_coupon_does_not_discount_gift_cards": {
+          "status": "pass",
+          "detail": ""
+        },
+        "TaxAndCoupons.test_dollar_coupon_capped_at_food_subtotal": {
+          "status": "pass",
+          "detail": ""
+        },
+        "TaxAndCoupons.test_dollar_coupon_taxes_the_discounted_price": {
+          "status": "pass",
+          "detail": ""
+        },
+        "TaxAndCoupons.test_gift_card_alone_is_not_taxed": {
+          "status": "pass",
+          "detail": ""
+        },
+        "TaxAndCoupons.test_half_cent_discount_rounds_up": {
+          "status": "pass",
+          "detail": ""
+        },
+        "TaxAndCoupons.test_percent_coupon_taxes_the_discounted_price": {
+          "status": "pass",
+          "detail": ""
+        }
+      },
+      "rate": 1.0
+    },
+    "ticket_2_pickup_times": {
+      "passed": 11,
+      "total": 11,
+      "tests": {
+        "ExistingOrdersKeepWorking.test_existing_orders_survive_the_upgrade": {
+          "status": "pass",
+          "detail": ""
+        },
+        "ExistingOrdersKeepWorking.test_new_orders_work_alongside_existing_ones": {
+          "status": "pass",
+          "detail": ""
+        },
+        "PickupTimes.test_admin_lists_orders_in_pickup_order": {
+          "status": "pass",
+          "detail": ""
+        },
+        "PickupTimes.test_cakes_and_catering_need_two_days": {
+          "status": "pass",
+          "detail": ""
+        },
+        "PickupTimes.test_checkout_has_pickup_time_picker": {
+          "status": "pass",
+          "detail": ""
+        },
+        "PickupTimes.test_closed_monday": {
+          "status": "pass",
+          "detail": ""
+        },
+        "PickupTimes.test_four_orders_per_slot_and_cancelling_frees_one": {
+          "status": "pass",
+          "detail": ""
+        },
+        "PickupTimes.test_slot_is_required_and_must_be_a_real_slot": {
+          "status": "pass",
+          "detail": ""
+        },
+        "PickupTimes.test_slot_is_saved_on_the_order": {
+          "status": "pass",
+          "detail": ""
+        },
+        "PickupTimes.test_slots_for_an_open_day": {
+          "status": "pass",
+          "detail": ""
+        },
+        "PickupTimes.test_today_respects_two_hours_notice": {
+          "status": "pass",
+          "detail": ""
+        }
+      },
+      "rate": 1.0
+    },
+    "ticket_3_daily_limits": {
+      "passed": 9,
+      "total": 9,
+      "tests": {
+        "DailyLimits.test_cancelling_makes_it_available_again": {
+          "status": "pass",
+          "detail": ""
+        },
+        "DailyLimits.test_default_limits": {
+          "status": "pass",
+          "detail": ""
+        },
+        "DailyLimits.test_menu_page_shows_sold_out_for_that_date": {
+          "status": "pass",
+          "detail": ""
+        },
+        "DailyLimits.test_orders_use_up_the_day_and_other_days_are_separate": {
+          "status": "pass",
+          "detail": ""
+        },
+        "DailyLimits.test_over_limit_order_is_rejected_whole": {
+          "status": "pass",
+          "detail": ""
+        },
+        "DailyLimits.test_owner_can_change_limits": {
+          "status": "pass",
+          "detail": ""
+        },
+        "DailyLimits.test_rejected_order_does_not_take_a_pickup_slot": {
+          "status": "pass",
+          "detail": ""
+        },
+        "DailyLimits.test_same_item_on_two_lines_counts_together": {
+          "status": "pass",
+          "detail": ""
+        },
+        "LimitsWithExistingOrders.test_existing_orders_count_toward_limits": {
+          "status": "pass",
+          "detail": ""
+        }
+      },
+      "rate": 1.0
+    }
+  }
+}

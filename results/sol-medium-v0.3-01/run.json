@@ -1,0 +1,153 @@
+{
+  "run_id": "sol-v0.3-01",
+  "task_version": "0.3",
+  "configuration": "Sol solo",
+  "repository": "/Users/romeodiaz/Code/mainstreetbench",
+  "commit": "f962bb5094fc040b91cefcbb669fb4fd66e4636d",
+  "workspace": "/private/tmp/mainstreetbench-sol-v0.3-01-20261001T043802Z/workspace",
+  "packaged_workspace": "/Users/romeodiaz/Code/mainstreetbench/runs/sol-v0.3-01",
+  "control": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-sol-medium-20261001T043802Z/control",
+  "root": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-sol-medium-20261001T043802Z",
+  "model_requested": "gpt-6.1-sol",
+  "reasoning_requested": "medium",
+  "cli_version": "codex-cli 0.159.0",
+  "python_version": "3.12.14",
+  "fixture_seed": 20261008,
+  "initial_files": 20,
+  "prompt_sha256": "39db609a7572dab46c1f6d66964c5ee5a02860d212fd864faa99e009618eb927",
+  "time_limit_seconds": 2700,
+  "task_agents": 1,
+  "retries": 0,
+  "human_task_interventions": 0,
+  "tools": "Codex CLI shell and file editing; subagents, web, apps, plugins, memories, hooks and host skill discovery disabled",
+  "isolation": "Outer macOS sandbox blocks checkout (whole Code directory), controller/evidence (whole Documents directory), prior sessions, memories, skills/plugins and selected private directories. Same-byte packaged copy runs outside checkout. Inner tool sandbox disabled to avoid unsupported nesting. Other host reads and network remain possible; not a container boundary.",
+  "status": "completed",
+  "argv": [
+    "/usr/bin/sandbox-exec",
+    "-f",
+    "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-sol-medium-20261001T043802Z/control/solver.sb",
+    "codex",
+    "--no-daemon",
+    "exec",
+    "--ignore-user-config",
+    "--ignore-rules",
+    "--ephemeral",
+    "--skip-git-repo-check",
+    "-C",
+    "/private/tmp/mainstreetbench-sol-v0.3-01-20261001T043802Z/workspace",
+    "-m",
+    "gpt-6.1-sol",
+    "-c",
+    "model_reasoning_effort=\"medium\"",
+    "-c",
+    "web_search=\"disabled\"",
+    "--sandbox",
+    "danger-full-access",
+    "--disable",
+    "multi_agent",
+    "--disable",
+    "multi_agent_v2",
+    "--disable",
+    "memories",
+    "--disable",
+    "chronicle",
+    "--disable",
+    "apps",
+    "--disable",
+    "plugins",
+    "--disable",
+    "hooks",
+    "--enable",
+    "skip_host_skill_discovery",
+    "--disable",
+    "fast_mode",
+    "--json",
+    "--color",
+    "never",
+    "-"
+  ],
+  "started_at": "2026-10-01T04:38:32.550578+00:00",
+  "environment_variable_names": [
+    "HOME",
+    "LANG",
+    "LC_ALL",
+    "LOGNAME",
+    "PATH",
+    "PYTHONDONTWRITEBYTECODE",
+    "TERM",
+    "TMPDIR",
+    "USER"
+  ],
+  "pid": 95587,
+  "exit_code": 0,
+  "elapsed_seconds": 396.252,
+  "finished_at": "2026-10-01T04:45:08.801925+00:00",
+  "usage": [
+    {
+      "input_tokens": 379803,
+      "cached_input_tokens": 344576,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 11489,
+      "reasoning_output_tokens": 1001
+    }
+  ],
+  "cost": {
+    "api_equivalent_usd": 0.219802,
+    "actual_api_charges": null,
+    "billing_route": "ChatGPT subscription",
+    "source": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+    "assumptions": "Standard short-context estimate, no fast/regional uplift; full input includes cache reads/writes, output includes reasoning. JSON events expose turn totals but not per-request context counters."
+  },
+  "frozen": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-sol-medium-20261001T043802Z/frozen",
+  "frozen_at": "2026-10-01T04:46:14.491775+00:00",
+  "freeze_exclusions": [
+    "__pycache__",
+    "*.pyc",
+    ".venv"
+  ],
+  "frozen_manifest_sha256": "bee9557655701e2d71ce49dc936a4f9bd9a9ea4b5eb35e5d885cb498c1e89d2a",
+  "packaging_and_grading_python": "3.12.14",
+  "task_shell_python_observed": "3.9.6 (traceback paths; CLI login shell overrides requested PATH)",
+  "no_task_feedback_or_retry": true,
+  "grade_summary": {
+    "quality": {
+      "score": 1.0,
+      "ticket_mean": 1.0,
+      "regression_rate": 1.0,
+      "definition": "Mean of the three ticket pass rates, multiplied by the regression pass rate."
+    },
+    "groups": {
+      "regression": {
+        "passed": 5,
+        "total": 5,
+        "rate": 1.0
+      },
+      "ticket_1_tax_and_coupons": {
+        "passed": 7,
+        "total": 7,
+        "rate": 1.0
+      },
+      "ticket_2_pickup_times": {
+        "passed": 11,
+        "total": 11,
+        "rate": 1.0
+      },
+      "ticket_3_daily_limits": {
+        "passed": 9,
+        "total": 9,
+        "rate": 1.0
+      }
+    }
+  },
+  "grading": {
+    "run": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-sol-medium-20261001T043802Z/grading/run.json",
+    "report": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-sol-medium-20261001T043802Z/grading/report.json",
+    "scope": "Trusted unchanged evaluator/hidden suite runs with clean environment; submitted bakery.server processes run in deny-default macOS sandbox, with no host secrets or external network access.",
+    "model_calls": 0
+  },
+  "database_preservation": {
+    "all_30_orders_and_60_items_preserved": true,
+    "all_original_tables_rows_and_columns_preserved": true,
+    "report": "database-preservation.json"
+  }
+}

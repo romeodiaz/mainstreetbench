@@ -4,7 +4,7 @@ Can an expensive model planning and reviewing a cheaper model's work deliver sim
 
 The current task (v0.3) gives an AI the code for a bakery's online ordering site and the owner's to-do list for the month: fix the tax on coupon orders, let customers choose pickup times, and stop selling more cakes than the kitchen can bake. Hidden tests act like customers and staff using the finished site. The owner never has to read code, and neither do viewers. The question is simply whether the site works.
 
-**Status: pilot.** Three tickets are ready, but no model has run them yet. Calibrate with the solo baselines before running the split. The previous task, [retail reconciliation (v0.2)](tasks/retail-reconciliation/), turned out too easy: Sol solo passed every check.
+**Status: pilot.** One [Sol solo medium attempt](results/sol-medium-v0.3-01.md) passed all 32 hidden tests, scoring **1.000** in 6m 36s at an estimated **$0.2198** API-equivalent cost. This attempt leaves no quality headroom for the split. Calibrate further before running it. The previous task, [retail reconciliation (v0.2)](tasks/retail-reconciliation/), also reached the ceiling on accounting and planted-instance checks.
 
 ## Three configurations
 

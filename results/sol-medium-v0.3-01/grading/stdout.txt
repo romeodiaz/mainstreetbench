@@ -1,0 +1,5 @@
+quality score: 1.000 (ticket mean 1.000 × regression 1.000)
+regression: 5/5
+ticket_1_tax_and_coupons: 7/7
+ticket_2_pickup_times: 11/11
+ticket_3_daily_limits: 9/9

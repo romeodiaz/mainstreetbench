@@ -1,0 +1,47 @@
+{
+  "before": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-sol-medium-20261001T043802Z/initial/data/bakery.db",
+  "after": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-sol-medium-20261001T043802Z/frozen/data/bakery.db.backup",
+  "before_integrity_check": [
+    "ok"
+  ],
+  "after_integrity_check": [
+    "ok"
+  ],
+  "all_original_rows_and_columns_preserved": true,
+  "tables": {
+    "order_items": {
+      "preserved": true,
+      "original_rows": 60,
+      "after_rows": 60,
+      "original_rows_missing_or_changed": 0,
+      "additional_or_changed_rows": 0,
+      "added_columns": []
+    },
+    "orders": {
+      "preserved": true,
+      "original_rows": 30,
+      "after_rows": 30,
+      "original_rows_missing_or_changed": 0,
+      "additional_or_changed_rows": 0,
+      "added_columns": []
+    },
+    "products": {
+      "preserved": true,
+      "original_rows": 12,
+      "after_rows": 12,
+      "original_rows_missing_or_changed": 0,
+      "additional_or_changed_rows": 0,
+      "added_columns": []
+    },
+    "promo_codes": {
+      "preserved": true,
+      "original_rows": 3,
+      "after_rows": 3,
+      "original_rows_missing_or_changed": 0,
+      "additional_or_changed_rows": 0,
+      "added_columns": []
+    }
+  },
+  "added_tables": [],
+  "scope": "Read-only diagnostic; submitted code was not executed; added rows/columns/tables allowed; quality score unchanged."
+}

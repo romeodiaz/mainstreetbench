@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "/Users/romeodiaz/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-sol-medium-20261001T043802Z/grading/trusted/evaluators/ordering_site.py",
+    "--site",
+    "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-sol-medium-20261001T043802Z/frozen",
+    "--report",
+    "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-sol-medium-20261001T043802Z/grading/report.json"
+  ],
+  "started_epoch": 1790829974.58907,
+  "elapsed_seconds": 2.25,
+  "returncode": 0,
+  "server_launch_count": 36,
+  "site_bytes_unchanged": true,
+  "clean_environment_keys": [
+    "MSB_LAUNCH_LOG",
+    "MSB_SITE_SANDBOX",
+    "PATH",
+    "PYTHONDONTWRITEBYTECODE",
+    "PYTHONNOUSERSITE",
+    "PYTHONPATH",
+    "TMPDIR"
+  ],
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "server_sandbox_sha256": "7cd255593c9ce92fd6be810e1d00ce12a6df034be7a6641a532ce638ef8f746f",
+  "hook_sha256": "546e4666a7b3e1d6709b9a4cdef37f877750be307be85b9fa03d7402dd738717",
+  "scope": "Trusted evaluator and hidden suite outside sandbox; every bakery.server subprocess in deny-default Seatbelt sandbox."
+}

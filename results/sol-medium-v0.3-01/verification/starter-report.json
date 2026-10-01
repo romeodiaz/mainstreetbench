@@ -1,0 +1,167 @@
+{
+  "site": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/trusted/tasks/ordering-site/starter",
+  "quality": {
+    "score": 0.0,
+    "ticket_mean": 0.0,
+    "regression_rate": 1.0,
+    "definition": "Mean of the three ticket pass rates, multiplied by the regression pass rate."
+  },
+  "groups": {
+    "regression": {
+      "passed": 5,
+      "total": 5,
+      "tests": {
+        "Regression.test_admin_requires_auth_and_can_cancel": {
+          "status": "pass",
+          "detail": ""
+        },
+        "Regression.test_invalid_orders_are_rejected": {
+          "status": "pass",
+          "detail": ""
+        },
+        "Regression.test_menu_api_and_page": {
+          "status": "pass",
+          "detail": ""
+        },
+        "Regression.test_simple_order_is_priced_and_saved": {
+          "status": "pass",
+          "detail": ""
+        },
+        "Regression.test_unknown_routes_and_pages": {
+          "status": "pass",
+          "detail": ""
+        }
+      },
+      "rate": 1.0
+    },
+    "ticket_1_tax_and_coupons": {
+      "passed": 0,
+      "total": 7,
+      "tests": {
+        "TaxAndCoupons.test_corrected_amounts_are_stored_and_shown": {
+          "status": "fail",
+          "detail": "Traceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t1_tax_and_coupons.py\", line 34, in test_corrected_amounts_are_stored_and_shown\n    order = self.check([(\"GIFT25\", 1), (\"BREAD9\", 1)], \"WELCOME10\", \"34.00\", \"0.90\", \"0.65\", \"33.75\")\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t1_tax_and_coupons.py\", line 11, in check\n    self.assertMoney(order[field], expected, field)\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/harness.py\", line 142, in assertMoney\n    self.assertEqual(Decimal(str(actual)), Decimal(expected), label)\nAssertionError: Decimal('3.4') != Decimal('0.90') : discount\n"
+        },
+        "TaxAndCoupons.test_coupon_does_not_discount_gift_cards": {
+          "status": "fail",
+          "detail": "Traceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t1_tax_and_coupons.py\", line 24, in test_coupon_does_not_discount_gift_cards\n    self.check([(\"GIFT25\", 1), (\"BREAD9\", 1)], \"WELCOME10\", \"34.00\", \"0.90\", \"0.65\", \"33.75\")\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t1_tax_and_coupons.py\", line 11, in check\n    self.assertMoney(order[field], expected, field)\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/harness.py\", line 142, in assertMoney\n    self.assertEqual(Decimal(str(actual)), Decimal(expected), label)\nAssertionError: Decimal('3.4') != Decimal('0.90') : discount\n"
+        },
+        "TaxAndCoupons.test_dollar_coupon_capped_at_food_subtotal": {
+          "status": "fail",
+          "detail": "Traceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t1_tax_and_coupons.py\", line 27, in test_dollar_coupon_capped_at_food_subtotal\n    self.check([(\"GIFT25\", 1), (\"BAGEL225\", 1)], \"FIVEOFF\", \"27.25\", \"2.25\", \"0\", \"25.00\")\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t1_tax_and_coupons.py\", line 11, in check\n    self.assertMoney(order[field], expected, field)\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/harness.py\", line 142, in assertMoney\n    self.assertEqual(Decimal(str(actual)), Decimal(expected), label)\nAssertionError: Decimal('5.0') != Decimal('2.25') : discount\n"
+        },
+        "TaxAndCoupons.test_dollar_coupon_taxes_the_discounted_price": {
+          "status": "fail",
+          "detail": "Traceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t1_tax_and_coupons.py\", line 18, in test_dollar_coupon_taxes_the_discounted_price\n    self.check([(\"BREAD9\", 2)], \"FIVEOFF\", \"18.00\", \"5.00\", \"1.04\", \"14.04\")\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t1_tax_and_coupons.py\", line 11, in check\n    self.assertMoney(order[field], expected, field)\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/harness.py\", line 142, in assertMoney\n    self.assertEqual(Decimal(str(actual)), Decimal(expected), label)\nAssertionError: Decimal('1.44') != Decimal('1.04') : tax\n"
+        },
+        "TaxAndCoupons.test_gift_card_alone_is_not_taxed": {
+          "status": "fail",
+          "detail": "Traceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t1_tax_and_coupons.py\", line 21, in test_gift_card_alone_is_not_taxed\n    self.check([(\"GIFT25\", 2)], None, \"50.00\", \"0\", \"0\", \"50.00\")\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t1_tax_and_coupons.py\", line 11, in check\n    self.assertMoney(order[field], expected, field)\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/harness.py\", line 142, in assertMoney\n    self.assertEqual(Decimal(str(actual)), Decimal(expected), label)\nAssertionError: Decimal('4.0') != Decimal('0') : tax\n"
+        },
+        "TaxAndCoupons.test_half_cent_discount_rounds_up": {
+          "status": "fail",
+          "detail": "Traceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t1_tax_and_coupons.py\", line 30, in test_half_cent_discount_rounds_up\n    self.check([(\"BREAD9\", 2), (\"SCONE375\", 1), (\"BAGUETTE5\", 1)], \"WELCOME10\", \"26.75\", \"2.68\", \"1.93\", \"26.00\")\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t1_tax_and_coupons.py\", line 11, in check\n    self.assertMoney(order[field], expected, field)\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/harness.py\", line 142, in assertMoney\n    self.assertEqual(Decimal(str(actual)), Decimal(expected), label)\nAssertionError: Decimal('2.67') != Decimal('2.68') : discount\n"
+        },
+        "TaxAndCoupons.test_percent_coupon_taxes_the_discounted_price": {
+          "status": "fail",
+          "detail": "Traceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t1_tax_and_coupons.py\", line 15, in test_percent_coupon_taxes_the_discounted_price\n    self.check([(\"BREAD9\", 2), (\"CROISSANT21\", 1)], \"WELCOME10\", \"39.00\", \"3.90\", \"2.81\", \"37.91\")\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t1_tax_and_coupons.py\", line 11, in check\n    self.assertMoney(order[field], expected, field)\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/harness.py\", line 142, in assertMoney\n    self.assertEqual(Decimal(str(actual)), Decimal(expected), label)\nAssertionError: Decimal('3.12') != Decimal('2.81') : tax\n"
+        }
+      },
+      "rate": 0.0
+    },
+    "ticket_2_pickup_times": {
+      "passed": 0,
+      "total": 11,
+      "tests": {
+        "ExistingOrdersKeepWorking.test_existing_orders_survive_the_upgrade": {
+          "status": "fail",
+          "detail": "(order=1)\nTraceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t2_pickup_times.py\", line 98, in test_existing_orders_survive_the_upgrade\n    self.assertIsNone(now.get(\"pickup_slot\", \"missing\"))\nAssertionError: 'missing' is not None\n"
+        },
+        "ExistingOrdersKeepWorking.test_new_orders_work_alongside_existing_ones": {
+          "status": "fail",
+          "detail": "Traceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t2_pickup_times.py\", line 107, in test_new_orders_work_alongside_existing_ones\n    self.assertEqual((status, order.get(\"pickup_slot\")), (201, \"07:00\"), order)\nAssertionError: Tuples differ: (201, None) != (201, '07:00')\n\nFirst differing element 1:\nNone\n'07:00'\n\n- (201, None)\n+ (201, '07:00') : {'id': 5, 'status': 'placed', 'created_at': '2026-10-08T09:10:00', 'customer': {'name': 'Ana Lopez', 'email': 'ana@example.com', 'phone': '555-0100'}, 'pickup_date': '2026-10-10', 'items': [{'sku': 'BREAD9', 'name': 'Sourdough Loaf', 'qty': 1, 'unit_price': 9.0, 'line_total': 9.0}], 'promo_code': None, 'subtotal': 9.0, 'discount': 0.0, 'tax': 0.72, 'total': 9.72}\n"
+        },
+        "PickupTimes.test_admin_lists_orders_in_pickup_order": {
+          "status": "fail",
+          "detail": "Traceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t2_pickup_times.py\", line 77, in test_admin_lists_orders_in_pickup_order\n    self.assertEqual([o[\"id\"] for o in listed], expected)\nAssertionError: Lists differ: [2, 3, 4, 1, 5] != [3, 2, 4, 5, 1]\n\nFirst differing element 0:\n2\n3\n\n- [2, 3, 4, 1, 5]\n+ [3, 2, 4, 5, 1]\n"
+        },
+        "PickupTimes.test_cakes_and_catering_need_two_days": {
+          "status": "fail",
+          "detail": "(sku='CAKE48')\nTraceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t2_pickup_times.py\", line 66, in test_cakes_and_catering_need_two_days\n    self.assertEqual(self.place([(sku, 1)], slot=\"09:00\")[0], 400)\nAssertionError: 201 != 400\n"
+        },
+        "PickupTimes.test_checkout_has_pickup_time_picker": {
+          "status": "fail",
+          "detail": "t):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t2_pickup_times.py\", line 88, in test_checkout_has_pickup_time_picker\n    self.assertRegex(page, re.compile(r\"<select[^>]*name=[\\\"']pickup_slot[\\\"']\", re.I))\nAssertionError: Regex didn't match: '<select[^>]*name=[\\\\\"\\']pickup_slot[\\\\\"\\']' not found in '<!doctype html>\\n<html lang=\"en\">\\n<head>\\n<meta charset=\"utf-8\">\\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\\n<title>Checkout \u00b7 Corner Loaf Bakery</title>\\n<link rel=\"stylesheet\" href=\"/static/style.css\">\\n</head>\\n<body>\\n<header><a href=\"/\" class=\"brand\">Corner Loaf Bakery</a><a href=\"/checkout\" class=\"cart-link\">Cart (<span id=\"cart-count\">0</span>)</a></header>\\n<main>\\n<h1>Checkout</h1>\\n<table id=\"cart-lines\" class=\"lines\"></table>\\n<form id=\"checkout\">\\n  <label>Name <input name=\"name\" required></label>\\n  <label>Email <input name=\"email\" type=\"email\" required></label>\\n  <label>Phone <input name=\"phone\" type=\"tel\"></label>\\n  <label>Pickup date <input name=\"pickup_date\" type=\"date\" required></label>\\n  <label>Promo code <input name=\"promo_code\"></label>\\n  <p id=\"checkout-error\" class=\"error\" role=\"alert\"></p>\\n  <button type=\"submit\">Place order</button>\\n</form>\\n<script src=\"/static/checkout.js\"></script>\\n\\n</main>\\n<footer>Open Tuesday\u2013Sunday, 7am\u20133pm \u00b7 12 Main Street</footer>\\n<script src=\"/static/cart.js\"></script>\\n</body>\\n</html>\\n'\n"
+        },
+        "PickupTimes.test_closed_monday": {
+          "status": "fail",
+          "detail": "Traceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t2_pickup_times.py\", line 23, in test_closed_monday\n    self.assertEqual(self.slots(MONDAY), {\"date\": MONDAY, \"open\": False, \"slots\": []})\n                     ^^^^^^^^^^^^^^^^^^\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t2_pickup_times.py\", line 13, in slots\n    self.assertEqual(status, 200, data)\nAssertionError: 404 != 200 : {'error': 'Not found'}\n"
+        },
+        "PickupTimes.test_four_orders_per_slot_and_cancelling_frees_one": {
+          "status": "fail",
+          "detail": "Traceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t2_pickup_times.py\", line 53, in test_four_orders_per_slot_and_cancelling_frees_one\n    self.assertEqual(status, 409, data)\nAssertionError: 201 != 409 : {'id': 5, 'status': 'placed', 'created_at': '2026-10-08T09:10:00', 'customer': {'name': 'Ana Lopez', 'email': 'ana@example.com', 'phone': '555-0100'}, 'pickup_date': '2026-10-10', 'items': [{'sku': 'BREAD9', 'name': 'Sourdough Loaf', 'qty': 2, 'unit_price': 9.0, 'line_total': 18.0}], 'promo_code': None, 'subtotal': 18.0, 'discount': 0.0, 'tax': 1.44, 'total': 19.44}\n"
+        },
+        "PickupTimes.test_slot_is_required_and_must_be_a_real_slot": {
+          "status": "fail",
+          "detail": "Traceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t2_pickup_times.py\", line 38, in test_slot_is_required_and_must_be_a_real_slot\n    self.assertEqual(self.call(\"POST\", \"/api/orders\", body)[0], 400)\nAssertionError: 201 != 400\n"
+        },
+        "PickupTimes.test_slot_is_saved_on_the_order": {
+          "status": "error",
+          "detail": "Traceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t2_pickup_times.py\", line 46, in test_slot_is_saved_on_the_order\n    self.assertEqual((status, order[\"pickup_slot\"]), (201, \"14:30\"))\n                              ~~~~~^^^^^^^^^^^^^^^\nKeyError: 'pickup_slot'\n"
+        },
+        "PickupTimes.test_slots_for_an_open_day": {
+          "status": "fail",
+          "detail": "Traceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t2_pickup_times.py\", line 17, in test_slots_for_an_open_day\n    data = self.slots(SATURDAY)\n           ^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t2_pickup_times.py\", line 13, in slots\n    self.assertEqual(status, 200, data)\nAssertionError: 404 != 200 : {'error': 'Not found'}\n"
+        },
+        "PickupTimes.test_today_respects_two_hours_notice": {
+          "status": "fail",
+          "detail": "Traceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t2_pickup_times.py\", line 29, in test_today_respects_two_hours_notice\n    available = {s[\"time\"]: s[\"available\"] for s in self.slots(TODAY)[\"slots\"]}\n                                                    ^^^^^^^^^^^^^^^^^\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t2_pickup_times.py\", line 13, in slots\n    self.assertEqual(status, 200, data)\nAssertionError: 404 != 200 : {'error': 'Not found'}\n"
+        }
+      },
+      "rate": 0.0
+    },
+    "ticket_3_daily_limits": {
+      "passed": 0,
+      "total": 9,
+      "tests": {
+        "DailyLimits.test_cancelling_makes_it_available_again": {
+          "status": "error",
+          "detail": "Traceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t3_daily_limits.py\", line 61, in test_cancelling_makes_it_available_again\n    self.assertTrue(self.menu(SATURDAY)[\"CATER120\"][\"sold_out\"])\n                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^\nKeyError: 'sold_out'\n"
+        },
+        "DailyLimits.test_default_limits": {
+          "status": "error",
+          "detail": "Traceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t3_daily_limits.py\", line 19, in test_default_limits\n    self.assertEqual({s: menu[s][\"daily_limit\"] for s in (\"CAKE48\", \"CATER120\", \"PIE32\", \"BREAD9\", \"GIFT25\")},\n                         ~~~~~~~^^^^^^^^^^^^^^^\nKeyError: 'daily_limit'\n"
+        },
+        "DailyLimits.test_menu_page_shows_sold_out_for_that_date": {
+          "status": "fail",
+          "detail": "Traceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t3_daily_limits.py\", line 72, in test_menu_page_shows_sold_out_for_that_date\n    self.assertIn('data-sold-out=\"true\"', row.group(0))\nAssertionError: 'data-sold-out=\"true\"' not found in '<li class=\"item\" data-sku=\"CATER120\">'\n"
+        },
+        "DailyLimits.test_orders_use_up_the_day_and_other_days_are_separate": {
+          "status": "error",
+          "detail": "Traceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t3_daily_limits.py\", line 29, in test_orders_use_up_the_day_and_other_days_are_separate\n    self.assertEqual((saturday[\"remaining\"], saturday[\"sold_out\"]), (0, True))\n                      ~~~~~~~~^^^^^^^^^^^^^\nKeyError: 'remaining'\n"
+        },
+        "DailyLimits.test_over_limit_order_is_rejected_whole": {
+          "status": "fail",
+          "detail": "Traceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t3_daily_limits.py\", line 40, in test_over_limit_order_is_rejected_whole\n    self.assertEqual(status, 409, data)\nAssertionError: 201 != 409 : {'id': 2, 'status': 'placed', 'created_at': '2026-10-08T09:10:00', 'customer': {'name': 'Ana Lopez', 'email': 'ana@example.com', 'phone': '555-0100'}, 'pickup_date': '2026-10-10', 'items': [{'sku': 'BREAD9', 'name': 'Sourdough Loaf', 'qty': 3, 'unit_price': 9.0, 'line_total': 27.0}, {'sku': 'PIE32', 'name': 'Seasonal Pie', 'qty': 4, 'unit_price': 32.0, 'line_total': 128.0}], 'promo_code': None, 'subtotal': 155.0, 'discount': 0.0, 'tax': 12.4, 'total': 167.4}\n"
+        },
+        "DailyLimits.test_owner_can_change_limits": {
+          "status": "fail",
+          "detail": "Traceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t3_daily_limits.py\", line 80, in test_owner_can_change_limits\n    self.assertEqual(self.set_limit(\"CAKE48\", 2, admin=False)[0], 401)\nAssertionError: 501 != 401\n"
+        },
+        "DailyLimits.test_rejected_order_does_not_take_a_pickup_slot": {
+          "status": "fail",
+          "detail": "Traceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t3_daily_limits.py\", line 56, in test_rejected_order_does_not_take_a_pickup_slot\n    self.assertEqual(self.place([(\"CAKE48\", 2)], slot=\"10:00\")[0], 409)\nAssertionError: 201 != 409\n"
+        },
+        "DailyLimits.test_same_item_on_two_lines_counts_together": {
+          "status": "fail",
+          "detail": "Traceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t3_daily_limits.py\", line 47, in test_same_item_on_two_lines_counts_together\n    self.assertEqual(self.set_limit(\"CAKE48\", 1)[0], 200)\nAssertionError: 501 != 200\n"
+        },
+        "LimitsWithExistingOrders.test_existing_orders_count_toward_limits": {
+          "status": "error",
+          "detail": "Traceback (most recent call last):\n  File \"/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-grader-preflight/final-starter-tight/trusted/tasks/ordering-site/hidden_tests/test_t3_daily_limits.py\", line 104, in test_existing_orders_count_toward_limits\n    self.assertEqual((cake[\"daily_limit\"], cake[\"remaining\"]), (6, 1))\n                      ~~~~^^^^^^^^^^^^^^^\nKeyError: 'daily_limit'\n"
+        }
+      },
+      "rate": 0.0
+    }
+  }
+}

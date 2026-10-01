@@ -1,0 +1,7 @@
+{
+  "recorded_source_commit": "f962bb5094fc040b91cefcbb669fb4fd66e4636d",
+  "source_run": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.3-sol-medium-20261001T043802Z",
+  "submission": "submission/",
+  "initial_live_database": "initial-bakery.db",
+  "note": "Original machine paths in saved metadata, event logs, final response and sandbox profiles are historical provenance. Frozen submission bytes are unchanged; installed runtimes and bytecode caches are omitted. grading/grade_sandbox.py plus sibling sitecustomize.py can regrade on macOS with Python >=3.10 and --source pointing to this source commit. Profiles are regenerated for the new paths. runs/sol-v0.3-01 is a separate editable copy, excluded from Git."
+}

@@ -5,3 +5,5 @@
 results/sol-medium-v0.2-01/** -text
 # Submitted files retain their original line endings and whitespace.
 results/sol-medium-v0.2-01/submission/** -whitespace
+results/sol-medium-v0.3-01/** -text
+results/sol-medium-v0.3-01/submission/** -whitespace
