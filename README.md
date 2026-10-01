@@ -1,40 +1,52 @@
 # Main Street Bench
 
-A personal test of AI tools on everyday small-business work. I share the task, prompt, answer key and results so you can check my work or try it yourself.
+Can an expensive model planning and reviewing a cheaper model's work deliver similar quality at a lower cost?
+
+This benchmark asks AI to close September 2026 for a fictional bakery. It must reconcile orders, payments, refunds and customers, then deliver a spreadsheet, dashboard and actionable exception list.
+
+**No model runs or measured costs have been recorded yet. Task difficulty is uncalibrated.**
+
+## Three configurations
+
+| Configuration | Work | Reasoning |
+|---|---|---|
+| GPT-6.1 Sol solo | Sol does the whole job | Medium |
+| Claude Opus 5.5 solo | Opus does the whole job | Medium |
+| Opus + Sol | Opus plans and reviews; Sol implements | Medium for both |
+
+Record the actual model identifiers and settings. Compare quality, time and the total cost of every task agent. The results can show that Sol already handles the job well, or that delegation adds more cost than value.
 
 ## The task
 
-A fictional bakery has 300 order records with 12 types of problems. Can AI clean them up, organize the customers and build a useful sales dashboard?
+Paste the [owner's prompt](tasks/retail-reconciliation/prompt.md) unchanged and attach these [inputs](tasks/retail-reconciliation/inputs/):
 
-[See the spreadsheet](tasks/01-messy-spreadsheet/customer_orders.csv) · [Read the prompt](tasks/01-messy-spreadsheet/prompt.md) · [Check the answer key](answer-keys/01-messy-spreadsheet.md)
+| File | Contents |
+|---|---|
+| [orders.csv](tasks/retail-reconciliation/inputs/orders.csv) | Register line items and export revisions |
+| [payments.csv](tasks/retail-reconciliation/inputs/payments.csv) | Tenders, fees and settlement dates |
+| [refunds.csv](tasks/retail-reconciliation/inputs/refunds.csv) | Refund requests and processing outcomes |
+| [customers.csv](tasks/retail-reconciliation/inputs/customers.csv) | Customer records and contact details |
+| [products.csv](tasks/retail-reconciliation/inputs/products.csv) | Price list and product categories |
+| [bookkeeping_notes.md](tasks/retail-reconciliation/inputs/bookkeeping_notes.md) | Reporting rules and source roles |
 
-## Results so far
+Each run evaluates September only. The owner's request for easy future updates stays in the prompt; monthly reuse is not tested or scored.
 
-Both runs used GPT-6.1 Sol at medium reasoning.
+## Run and grade
 
-| Run | How it was tested | Time | Problems fixed or flagged | Money totals match? |
-|---|---|---|---|---|
-| [1](results/codex-sol-medium-01.md) | AI saw the problem list before starting and graded its own work | About 4 minutes | 12/12 | No: $27 too high |
-| [2](results/codex-sol-medium-02.md) | Fresh AI chat, then a separate GPT-6 Astra/high grader | 4 min 41 sec | 12/12 | No: $27 too high |
+1. Use a fresh chat and workspace containing only the prompt and inputs. Keep the key, generator and evaluator inaccessible to task agents.
+2. Record the configuration in a [scorecard](results/scorecard-template.md), use medium throughout, and keep tools and limits consistent.
+3. Save the finished work and usage/cost records, then freeze the submission before grading.
+4. Have a separate grader extract the submitted results before seeing the [answer key](answer-keys/retail-reconciliation.md). Check business figures, decisions and usable artifacts separately.
 
-Catching every problem does not mean every number is correct. Each report links to the actual outputs and grading details.
+See the [method](docs/method.md) and [grader instructions](evaluators/README.md).
 
-## Try it yourself
+## Check the benchmark
 
-1. Start a fresh AI chat with only the spreadsheet attached.
-2. Paste the prompt exactly as written and start a timer.
-3. Let the AI finish. Record any help you give it.
-4. Save its work before sharing the answer key with a separate grader.
-5. Record the time, problems fixed or flagged, and whether the money totals match.
+The fixture generator and evaluator use Python's standard library. From the repository root:
 
-Use the [scorecard](results/scorecard-template.md) to keep track. [See the full process](docs/blind-evaluation.md).
+```sh
+python3 -m unittest discover -s tests -v
+python3 tasks/retail-reconciliation/generate.py --output-root /tmp/mainstreetbench-reproduction
+```
 
-**Current prompt: v0.2.** The two completed runs used the [older prompt](docs/prompt-history/task01-v0.1.md). Keep runs with different prompts separate when comparing them.
-
-## Check the work
-
-[Outputs and evidence](docs/transparency.md) · [How the test data was made](tasks/01-messy-spreadsheet/generate.py) · [AI setups](docs/harness-options.md)
-
-This is one example of building a useful personal test. It does not show which AI is best at every task.
-
-Inspired by Pawel Huryn’s [Bug Hunt Bench](https://github.com/phuryn/bug-hunt-bench).
+The second command reproduces the synthetic inputs and reference answers in a separate directory.

@@ -1,41 +1,61 @@
-# Test scorecard
+# Retail reconciliation scorecard
 
-Date: [ ] · Prompt version: [ ] · App/version: [ ]
+Run ID: [ ] · Date: [ ] · Configuration: [Sol solo / Opus solo / Opus + Sol]
 
-Task model and reasoning setting: [ ]
-Grader model and reasoning setting: [ ]
+Prompt/input hashes: [ ] · Frozen submission and hashes: [ ]
 
-| Measure | Result |
+| Configuration | Recorded value |
 |---|---|
-| Setup time | |
-| Task time | |
-| Times you helped the AI | |
-| Problems fixed or flagged, out of 12 | |
-| Money totals match the key? | |
-| Dashboard works offline? | |
-| Dashboard readable on a phone? | |
-| AI usage or cost, if measured | |
-| Did the task AI see the key or previous results? | |
+| App/version and actual model identifiers | |
+| Solo/lead reasoning: verified medium | |
+| Sol worker reasoning: verified medium, if used | |
+| AI grader model and verified medium setting, if used | |
+| Tools, instructions and enabled skills | |
+| Time, retry and review limits | |
+| Isolation limits or unverified settings | |
 
-## Check each problem
+## Results
 
-Give one point when every affected order is fixed or correctly flagged. Otherwise give zero. Check money totals separately.
+Extract actual submitted values before revealing the key. Use the [grader](../evaluators/README.md) and retain evidence locations. September only; monthly reuse is not scored.
 
-| # | Problem | 0 or 1 | Evidence or notes |
-|---|---|---|---|
-| 01 | Different names for the same customer | | |
-| 02 | Extra spaces in names | | |
-| 03 | Mixed date formats | | |
-| 04 | Prices written with currency symbols | | |
-| 05 | Missing emails: recover or flag | | |
-| 06 | Product spelling differences | | |
-| 07 | Totals that do not match quantity × price | | |
-| 08 | Mixed phone formats | | |
-| 09 | Refunds reduce the total | | |
-| 10 | Future dates corrected or flagged | | |
-| 11 | Test orders removed or correctly flagged | | |
-| 12 | Duplicate rows removed | | |
+| Check | Passed / checked | Failures or evidence |
+|---|---|---|
+| Seven primary business figures | | |
+| Product net units and net sales | | |
+| Biggest-customer values and ranking | | |
+| Resolved cases | | |
+| Correct requests for owner review | | |
+| Preservation cases | | |
+| Spreadsheet, dashboard and unchanged inputs | | |
 
-Tessa Park and Lena Park are different customers. Check that they remain separate.
+False matches/merges, valid records removed, unsupported changes or unnecessary flags: [ ]
 
-Link the submitted files and grading notes: [ ]
+Workbook/dashboard differences, missing evidence or incomplete work: [ ]
+
+## Time and cost
+
+Include every planning, building, review, correction and retry call. Missing usage or cost is unknown. Keep grading cost separate.
+
+| Agent | Input tokens | Cache reads/writes | Output tokens | API charges | Usage source |
+|---|---|---|---|---|---|
+| Solo or Opus lead | | | | | |
+| Sol worker, if used | | | | | |
+| External grader, if used | | | | | |
+
+| Measure | Recorded value |
+|---|---|
+| Task elapsed time | |
+| Human help: actions and minutes | |
+| Review rounds and retries | |
+| Total task API charges | |
+| Estimated task API-equivalent cost, if needed | |
+| Subscription spending, separately labeled | |
+| External grading cost | |
+
+Dated price source, estimate method and cache-counter treatment: [ ]
+
+Usage logs, grading report and manual-review evidence: [ ]
+
+Unknowns and comparison limits: [ ]
+
+Report the dimensions separately; there is no combined weighted score.

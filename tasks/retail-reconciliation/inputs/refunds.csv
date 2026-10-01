@@ -1,0 +1,8 @@
+refund_id,order_id,line_id,requested_at,completed_at,status,quantity,refund_sales,refund_tax,refund_total,tender,fee_adjustment,settled_at,notes
+R-202609-003,O-202609-010,O-202609-010-L02,2026-09-15T15:00:00,,pending,1,48.00,3.84,51.84,card,0.00,,Item return
+R-202609-002,O-202609-010,O-202609-010-L01,2026-09-14T15:00:00,,failed,1,9.00,0.72,9.72,card,0.00,,Partial item return
+R-202609-006,O-202609-000,O-202609-000-L01,2026-09-08T15:00:00,2026-09-08T16:00:00,succeeded,1,43.20,3.46,46.66,card,0.00,2026-09-08,Item return
+R-202609-004,O-202609-017,O-202609-017-L01,2026-09-22T15:00:00,2026-09-22T16:00:00,succeeded,1,12.00,0.96,12.96,cash,0.00,2026-09-22,Partial item return
+R-202609-001,O-202609-009,O-202609-009-L01,2026-09-14T15:00:00,2026-09-14T16:00:00,succeeded,1,18.90,1.51,20.41,card,0.30,2026-09-14,Partial item return
+R-202609-005,O-202609-020,O-202609-020-L01,2026-09-30T15:00:00,2026-09-30T16:00:00,succeeded,1,18.00,1.44,19.44,card,0.00,2026-10-02,Partial item return
+R-202609-001,O-202609-009,O-202609-009-L01,2026-09-14T15:00:00,2026-09-14T16:00:00,succeeded,1,18.90,1.51,20.41,card,0.30,2026-09-14,Partial item return

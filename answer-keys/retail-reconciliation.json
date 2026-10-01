@@ -1,0 +1,572 @@
+{
+  "task_id": "retail-reconciliation",
+  "version": "0.1",
+  "fixture_seed": 20260930,
+  "currency": "USD",
+  "reporting_period": "2026-09",
+  "status": "authored_not_calibrated",
+  "input_hashes": {
+    "bookkeeping_notes.md": "aaf82ebb71b4f4c09e134fe8129371000203f3db3bbf94229af981713fa52e65",
+    "customers.csv": "3e6a224b1e8f88e682eb1c345a88c99d837387eb5838c876fdad4b5e17bc90f8",
+    "orders.csv": "0fe7a973ec3a575beb176f0f851fd0b2ac17e7a31182a56dcd7c77b5a54731d5",
+    "payments.csv": "e515d8c8261f4929297e97b3fc01efdbcb47ccfb8028a0ce0e117f73d57e0595",
+    "products.csv": "0b7c4d37782aa5621c92880127fe1e57bd4c13c1a3291251eb1048bf81e917ca",
+    "refunds.csv": "bd07a786e522f50cae8ce68ddf345ef9ab7c5b7d7bc1066f69763dd4146c0b12"
+  },
+  "metrics": {
+    "merchandise_gross_sales": 9039.0,
+    "discounts": 330.3,
+    "merchandise_sales_before_refunds": 8708.7,
+    "successful_refund_sales": 92.1,
+    "net_sales": 8616.6,
+    "sales_tax_charged": 696.73,
+    "successful_refund_tax": 7.37,
+    "net_sales_tax": 689.36,
+    "gift_card_issued": 200.0,
+    "gift_card_redeemed": 109.72,
+    "gift_card_liability_change": 90.28,
+    "customer_amount_due": 9605.43,
+    "captured_card_payments": 8454.59,
+    "captured_cash_payments": 1169.64,
+    "captured_gift_card_payments": 109.72,
+    "total_captured_payments": 9733.95,
+    "successful_card_refunds": 86.51,
+    "successful_cash_refunds": 12.96,
+    "total_successful_refunds": 99.47,
+    "card_processing_fees": 271.31,
+    "refund_fee_adjustments": 0.3,
+    "expected_card_payout": 8060.18,
+    "card_captures_settling_later": 58.32,
+    "card_refunds_settling_later": 19.44,
+    "unpaid_order_balance": 48.6,
+    "overpaid_order_balance": 139.32,
+    "unmatched_card_payments": 37.8,
+    "unassigned_customer_net_sales": 33.0,
+    "cash_after_refunds": 1156.68,
+    "net_external_receipts": 9524.76,
+    "net_receipts_after_fees": 9253.75,
+    "order_count": 100
+  },
+  "products": [
+    {
+      "sku": "CATER120",
+      "product_name": "Catering Tray",
+      "net_units": 29,
+      "net_sales": 3336.0
+    },
+    {
+      "sku": "CAKE48",
+      "product_name": "Birthday Cake",
+      "net_units": 28,
+      "net_sales": 1322.4
+    },
+    {
+      "sku": "CROISSANT21",
+      "product_name": "Croissant Box (6)",
+      "net_units": 63,
+      "net_sales": 1257.9
+    },
+    {
+      "sku": "COFFEE18",
+      "product_name": "Coffee Beans 1lb",
+      "net_units": 64,
+      "net_sales": 1103.1
+    },
+    {
+      "sku": "COOKIE12",
+      "product_name": "Cookie Box (12)",
+      "net_units": 77,
+      "net_sales": 891.6
+    },
+    {
+      "sku": "BREAD9",
+      "product_name": "Sourdough Loaf",
+      "net_units": 80,
+      "net_sales": 705.6
+    }
+  ],
+  "customers": [
+    {
+      "customer_id": "C002",
+      "customer_name": "James Chen",
+      "order_count": 15,
+      "net_sales": 1310.7
+    },
+    {
+      "customer_id": "C023",
+      "customer_name": "Ivy Reed",
+      "order_count": 8,
+      "net_sales": 997.2
+    },
+    {
+      "customer_id": "C001",
+      "customer_name": "Maria Lopez",
+      "order_count": 9,
+      "net_sales": 819.75
+    },
+    {
+      "customer_id": "C014",
+      "customer_name": "Alex Morgan",
+      "order_count": 5,
+      "net_sales": 489.0
+    },
+    {
+      "customer_id": "C006",
+      "customer_name": "Tom Walsh",
+      "order_count": 5,
+      "net_sales": 434.25
+    },
+    {
+      "customer_id": "C003",
+      "customer_name": "Priya Patel",
+      "order_count": 5,
+      "net_sales": 383.7
+    },
+    {
+      "customer_id": "C011",
+      "customer_name": "Hannah Brooks",
+      "order_count": 4,
+      "net_sales": 320.55
+    },
+    {
+      "customer_id": "C012",
+      "customer_name": "Victor Nguyen",
+      "order_count": 4,
+      "net_sales": 316.8
+    },
+    {
+      "customer_id": "C027",
+      "customer_name": "Zara Khan",
+      "order_count": 3,
+      "net_sales": 306.6
+    },
+    {
+      "customer_id": "C018",
+      "customer_name": "Marcus Bell",
+      "order_count": 3,
+      "net_sales": 257.7
+    },
+    {
+      "customer_id": "C007",
+      "customer_name": "Keiko Tanaka",
+      "order_count": 2,
+      "net_sales": 246.0
+    },
+    {
+      "customer_id": "C020",
+      "customer_name": "Ben Fischer",
+      "order_count": 4,
+      "net_sales": 222.3
+    },
+    {
+      "customer_id": "C008",
+      "customer_name": "Luis Garcia",
+      "order_count": 3,
+      "net_sales": 222.0
+    },
+    {
+      "customer_id": "C004",
+      "customer_name": "Daniel Okafor",
+      "order_count": 3,
+      "net_sales": 214.2
+    },
+    {
+      "customer_id": "C017",
+      "customer_name": "Elena Rossi",
+      "order_count": 3,
+      "net_sales": 203.7
+    },
+    {
+      "customer_id": "C009",
+      "customer_name": "Grace Kim",
+      "order_count": 2,
+      "net_sales": 191.25
+    },
+    {
+      "customer_id": "C028",
+      "customer_name": "Noah Evans",
+      "order_count": 3,
+      "net_sales": 188.55
+    },
+    {
+      "customer_id": "C026",
+      "customer_name": "Theo Park",
+      "order_count": 1,
+      "net_sales": 168.6
+    },
+    {
+      "customer_id": "C021",
+      "customer_name": "Fatima Ali",
+      "order_count": 2,
+      "net_sales": 154.35
+    },
+    {
+      "customer_id": "C030",
+      "customer_name": "Jonah Grant",
+      "order_count": 1,
+      "net_sales": 154.2
+    },
+    {
+      "customer_id": "C022",
+      "customer_name": "Leo Moreau",
+      "order_count": 2,
+      "net_sales": 149.7
+    },
+    {
+      "customer_id": "C025",
+      "customer_name": "Megan Hughes",
+      "order_count": 1,
+      "net_sales": 146.4
+    },
+    {
+      "customer_id": "C029",
+      "customer_name": "Lily Dubois",
+      "order_count": 2,
+      "net_sales": 139.8
+    },
+    {
+      "customer_id": "C019",
+      "customer_name": "Sofia Costa",
+      "order_count": 2,
+      "net_sales": 125.85
+    },
+    {
+      "customer_id": "C016",
+      "customer_name": "Ravi Iyer",
+      "order_count": 1,
+      "net_sales": 114.9
+    },
+    {
+      "customer_id": "C010",
+      "customer_name": "Omar Haddad",
+      "order_count": 2,
+      "net_sales": 102.0
+    },
+    {
+      "customer_id": "C005",
+      "customer_name": "Aisha Rahman",
+      "order_count": 2,
+      "net_sales": 88.5
+    },
+    {
+      "customer_id": "C013",
+      "customer_name": "Nina Petrov",
+      "order_count": 1,
+      "net_sales": 58.05
+    },
+    {
+      "customer_id": "C015",
+      "customer_name": "Alex Morgan",
+      "order_count": 1,
+      "net_sales": 57.0
+    },
+    {
+      "customer_id": "UNASSIGNED",
+      "customer_name": "Unassigned customer",
+      "order_count": 1,
+      "net_sales": 33.0
+    },
+    {
+      "customer_id": "C024",
+      "customer_name": "Carlos Silva",
+      "order_count": 0,
+      "net_sales": 0.0
+    }
+  ],
+  "top_customers": [
+    {
+      "customer_id": "C002",
+      "customer_name": "James Chen",
+      "order_count": 15,
+      "net_sales": 1310.7
+    },
+    {
+      "customer_id": "C023",
+      "customer_name": "Ivy Reed",
+      "order_count": 8,
+      "net_sales": 997.2
+    },
+    {
+      "customer_id": "C001",
+      "customer_name": "Maria Lopez",
+      "order_count": 9,
+      "net_sales": 819.75
+    },
+    {
+      "customer_id": "C014",
+      "customer_name": "Alex Morgan",
+      "order_count": 5,
+      "net_sales": 489.0
+    },
+    {
+      "customer_id": "C006",
+      "customer_name": "Tom Walsh",
+      "order_count": 5,
+      "net_sales": 434.25
+    },
+    {
+      "customer_id": "C003",
+      "customer_name": "Priya Patel",
+      "order_count": 5,
+      "net_sales": 383.7
+    },
+    {
+      "customer_id": "C011",
+      "customer_name": "Hannah Brooks",
+      "order_count": 4,
+      "net_sales": 320.55
+    },
+    {
+      "customer_id": "C012",
+      "customer_name": "Victor Nguyen",
+      "order_count": 4,
+      "net_sales": 316.8
+    },
+    {
+      "customer_id": "C027",
+      "customer_name": "Zara Khan",
+      "order_count": 3,
+      "net_sales": 306.6
+    },
+    {
+      "customer_id": "C018",
+      "customer_name": "Marcus Bell",
+      "order_count": 3,
+      "net_sales": 257.7
+    }
+  ],
+  "cases": [
+    {
+      "id": "latest-line-version",
+      "title": "Amended order line",
+      "kind": "resolve",
+      "record_ids": [
+        "O-202609-001-L01"
+      ],
+      "expected_behavior": "Use version 2 (two loaves) once; discard version 1, which has one loaf."
+    },
+    {
+      "id": "legitimate-repeat",
+      "title": "Similar repeat purchases",
+      "kind": "preserve",
+      "record_ids": [
+        "O-202609-002",
+        "O-202609-003"
+      ],
+      "expected_behavior": "Retain both order IDs, each with its own captured payment; these are two real purchases."
+    },
+    {
+      "id": "failed-authorization",
+      "title": "Declined attempt followed by payment",
+      "kind": "resolve",
+      "record_ids": [
+        "O-202609-004",
+        "P-202609-004",
+        "P-202609-005"
+      ],
+      "expected_behavior": "Count the captured payment and its fee once; do not count the declined attempt as receipts or an overpayment."
+    },
+    {
+      "id": "split-tender",
+      "title": "Gift-card and card split tender",
+      "kind": "resolve",
+      "record_ids": [
+        "O-202609-005",
+        "P-202609-006",
+        "P-202609-007"
+      ],
+      "expected_behavior": "Keep merchandise sales of $66.00; the $25.00 gift-card redemption is a tender, not additional external receipts or sales.",
+      "expected_amount": 25.0
+    },
+    {
+      "id": "gift-card-issuance",
+      "title": "Selling stored value",
+      "kind": "resolve",
+      "record_ids": [
+        "O-202609-006"
+      ],
+      "expected_behavior": "Record $50.00 as gift-card issuance and accepted card receipts, with zero earned sales and zero tax.",
+      "expected_amount": 50.0
+    },
+    {
+      "id": "actual-double-charge",
+      "title": "Two actual captured transactions",
+      "kind": "review",
+      "record_ids": [
+        "O-202609-007",
+        "P-202609-009",
+        "P-202609-010"
+      ],
+      "expected_behavior": "Retain both distinct captured payment IDs in cash and payout totals, count the sale once, and flag the $139.32 excess charge. Do not silently delete or refund it.",
+      "expected_amount": 139.32
+    },
+    {
+      "id": "missing-payment",
+      "title": "Fulfilled order without a payment",
+      "kind": "review",
+      "record_ids": [
+        "O-202609-008"
+      ],
+      "expected_behavior": "Keep $45.00 earned sales and flag the $48.60 amount due as unsupported by a captured tender. Do not invent a payment or remove the sale.",
+      "expected_amount": 48.6
+    },
+    {
+      "id": "partial-refund",
+      "title": "Discounted partial line return",
+      "kind": "resolve",
+      "record_ids": [
+        "O-202609-009",
+        "O-202609-009-L01",
+        "R-202609-001"
+      ],
+      "expected_behavior": "Deduct one croissant box, $18.90 sales and $1.51 tax; the other two boxes and cake remain sold. The $0.30 fee adjustment is an explicit processor credit.",
+      "expected_amount": 20.41
+    },
+    {
+      "id": "unpaid-refund-requests",
+      "title": "Failed and pending returns",
+      "kind": "review",
+      "record_ids": [
+        "O-202609-010",
+        "R-202609-002",
+        "R-202609-003"
+      ],
+      "expected_behavior": "Flag the failed $9.72 and pending $51.84 refund requests for follow-up; neither changes units, sales, receipts, or payout until succeeded.",
+      "expected_amount": 61.56
+    },
+    {
+      "id": "settlement-cutoff",
+      "title": "Month-end charge settles next month",
+      "kind": "resolve",
+      "record_ids": [
+        "O-202609-011",
+        "P-202609-013"
+      ],
+      "expected_behavior": "Count $54.00 sales and $58.32 accepted card receipts in 2026-09, but exclude this charge and its $1.99 fee from that month's payout; settlement is 2026-10-02.",
+      "expected_amount": 58.32
+    },
+    {
+      "id": "shared-household",
+      "title": "Two people share a name and contacts",
+      "kind": "preserve",
+      "record_ids": [
+        "C014",
+        "C015",
+        "O-202609-012",
+        "O-202609-013"
+      ],
+      "expected_behavior": "Preserve C014 and C015 as separate customers despite identical Alex Morgan name/email/phone; explicit customer IDs determine attribution."
+    },
+    {
+      "id": "supported-customer-link",
+      "title": "Recoverable missing loyalty ID",
+      "kind": "resolve",
+      "record_ids": [
+        "O-202609-014",
+        "C003"
+      ],
+      "expected_behavior": "Assign C003 using the unique customer email and the matching CL-0003 loyalty reference; normalize its display name without creating an extra customer."
+    },
+    {
+      "id": "ambiguous-customer",
+      "title": "Missing ID with shared household contacts",
+      "kind": "review",
+      "record_ids": [
+        "O-202609-015",
+        "C014",
+        "C015"
+      ],
+      "expected_behavior": "Keep $33.00 in store and product net sales but attribute it to UNASSIGNED; flag that C014 versus C015 cannot be established from these files.",
+      "expected_amount": 33.0
+    },
+    {
+      "id": "stable-identity",
+      "title": "Checkout and product label variants",
+      "kind": "resolve",
+      "record_ids": [
+        "O-202609-016",
+        "C001",
+        "BREAD9"
+      ],
+      "expected_behavior": "Use C001 and BREAD9 for aggregation despite display label variants; do not create duplicate customer or product categories."
+    },
+    {
+      "id": "cash-return",
+      "title": "Cash purchase and item refund",
+      "kind": "resolve",
+      "record_ids": [
+        "O-202609-017",
+        "R-202609-004"
+      ],
+      "expected_behavior": "Include the $12.96 cash refund in cash-after-refunds and the $12.00 sales reduction; exclude all cash from card payout.",
+      "expected_amount": 12.96
+    },
+    {
+      "id": "recorded-promotion",
+      "title": "Recorded promotional price and discount",
+      "kind": "preserve",
+      "record_ids": [
+        "O-202609-018"
+      ],
+      "expected_behavior": "Keep the recorded $16.50 coffee price instead of replacing it with the $18.00 catalog price, and apply the $2.10 croissant line discount once."
+    },
+    {
+      "id": "payment-reference",
+      "title": "Payment missing the usual order field",
+      "kind": "resolve",
+      "record_ids": [
+        "O-202609-019",
+        "P-202609-021"
+      ],
+      "expected_behavior": "Recover the exact order link from reference order:<order_id>; this payment is supported, not unmatched."
+    },
+    {
+      "id": "refund-settlement-cutoff",
+      "title": "Completed return settles next month",
+      "kind": "resolve",
+      "record_ids": [
+        "O-202609-020",
+        "R-202609-005"
+      ],
+      "expected_behavior": "Deduct $18.00 sales and $19.44 card refund receipts in 2026-09; exclude this refund from that month's payout because settlement is 2026-10-02.",
+      "expected_amount": 19.44
+    },
+    {
+      "id": "prior-month-return",
+      "title": "Return from a prior month's sale",
+      "kind": "resolve",
+      "record_ids": [
+        "O-202609-000",
+        "R-202609-006"
+      ],
+      "expected_behavior": "Exclude the original 2026-08 order and charge from 2026-09 sales/receipts, but deduct the succeeded $43.20 sales/$3.46 tax return completed and settled in 2026-09.",
+      "expected_amount": 46.66
+    },
+    {
+      "id": "unmatched-processor-charge",
+      "title": "Accepted processor charge without an order",
+      "kind": "review",
+      "record_ids": [
+        "P-202609-024"
+      ],
+      "expected_behavior": "Include the real $37.80 accepted charge and its $1.40 fee in processor receipt/payout totals; flag the missing order evidence without inventing earned sales.",
+      "expected_amount": 37.8
+    },
+    {
+      "id": "duplicate-exports",
+      "title": "Repeated exports across all transaction files",
+      "kind": "resolve",
+      "record_ids": [
+        "O-202609-002-L02",
+        "O-202609-010-L01",
+        "O-202609-015-L02",
+        "O-202609-099-L02",
+        "P-202609-003",
+        "P-202609-010",
+        "P-202609-019",
+        "R-202609-001"
+      ],
+      "expected_behavior": "Count repeated same-ID rows once in orders, payments, and refunds. Do not confuse repeated exports with distinct captured charges or real repeat order IDs."
+    }
+  ]
+}
