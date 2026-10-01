@@ -139,6 +139,25 @@ def scorecard(run: dict, graded: dict, timing: dict, usage: dict, official: bool
     return "\n".join(lines) + "\n"
 
 
+SAVED = ["SCORECARD.md", "owner-report.md", "grade.json", "judge.json", "verdicts.json", "usage.json", "run.json",
+         "agent-log.txt", "judge-log.txt"]
+
+
+def save_results(evidence: Path, run: str) -> Path:
+    """Copy a run's evidence into results/ in this repository, with the home folder path hidden."""
+    target = REPO / "results" / run
+    if target.exists():
+        raise SystemExit(f"{target} already exists")
+    target.mkdir(parents=True)
+    home = str(Path.home())
+    for name in SAVED:
+        if (evidence / name).is_file():
+            (target / name).write_text((evidence / name).read_text().replace(home, "~"))
+    shutil.copytree(evidence / "frozen", target / "submission")
+    (REPO / "results" / f"{run}.md").write_text((evidence / "SCORECARD.md").read_text())
+    return target
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--agent", choices=["claude", "codex", "custom"], required=True)
@@ -153,6 +172,8 @@ def main() -> None:
     parser.add_argument("--judge-command", help="For --judge custom")
     parser.add_argument("--install", action="store_true", help="Install Playwright and Chromium if needed")
     parser.add_argument("--official", action="store_true", help="Only for runs inside the maintainers' sandbox")
+    parser.add_argument("--save-results", action="store_true",
+                        help="Also copy the scorecard, report, grade, logs and submission into results/ in this repository")
     args = parser.parse_args()
 
     need_playwright(args.install)
@@ -184,6 +205,8 @@ def main() -> None:
     (evidence / "SCORECARD.md").write_text(card)
     print("\n" + card)
     print(f"Everything is saved in {evidence}")
+    if args.save_results:
+        print(f"Copied into {save_results(evidence, run['run'])} and results/{run['run']}.md; review, then commit and push.")
 
 
 if __name__ == "__main__":

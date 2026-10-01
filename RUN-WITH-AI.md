@@ -41,6 +41,14 @@ The run takes up to 45 minutes (`--minutes` changes it). It builds a fresh copy 
 - **Your sandbox blocks it:** the run needs the internet (to install the grader and for the tested model to reach its provider) and needs to write next to this folder. If your sandbox blocks either, ask the person to approve running it with network access or full access. Don't work around it some other way.
 - **pip refuses to install** ("externally managed environment"): make a virtual environment first (`python3 -m venv .venv && . .venv/bin/activate`), then run the commands with that Python.
 
+### Saving the results to the repository
+
+Only if the person asks you to save or publish the results (they'll usually be the repository's owner):
+
+1. Add `--save-results` to the command. After grading, it copies the scorecard, the owner report, the grade, the logs and the tested model's finished folder into `results/<run>/`, plus the scorecard as `results/<run>.md`. Paths in your home folder are shortened to `~`.
+2. Skim `results/<run>/agent-log.txt` for anything private, such as keys, tokens or email addresses, and tell the person if you find any. Don't commit until they say so.
+3. Commit only those new files, with the message `Add result <run>`, and push to `main`. If the push is refused, push a branch and give the person the link instead.
+
 ## 3. Rules
 
 - **Don't solve, hint or fix.** Never read the answer keys to the person or the tested model. Never edit the workspace before grading. The owner's message is sent unchanged.
