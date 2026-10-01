@@ -2,7 +2,7 @@
 """Run Main Street Bench on an AI model and print its score. One command, start to finish.
 
     python3 tools/run_bench.py --agent codex --model gpt-6.1-sol --effort medium
-    python3 tools/run_bench.py --agent claude --model claude-opus-5-5 --judge claude --judge-model claude-sonnet-5-5
+    python3 tools/run_bench.py --agent claude --model claude-opus-5-5 --judge-model claude-sonnet-5-5
     python3 tools/run_bench.py --agent custom --model my-model --command "mytool --model {model}"
 
 What it does:
@@ -11,7 +11,7 @@ What it does:
 3. Starts the tested AI with its own command-line tool in that folder, with the owner's prompt, and waits
    (45 minutes by default). The AI that set this up must not do the task itself.
 4. Saves its final message as the owner report, freezes the workspace, and grades it.
-5. Optionally asks a judge model to grade the 8 problems that need reading (--judge).
+5. Asks a different model from the same tool to judge the 8 problems that need reading (--judge-model).
 6. Writes ../evidence/<run>/SCORECARD.md and prints it.
 
 Agents:
@@ -175,16 +175,12 @@ def main() -> None:
     parser.add_argument("--minutes", type=int, default=45, help="Time limit for the tested AI")
     parser.add_argument("--base", type=Path, default=REPO.parent / "MainStreetBench-runs",
                         help="Where runs/, keys/ and evidence/ go (outside this repository)")
-    parser.add_argument("--judge", choices=["claude", "codex", "custom"], help="Agent to judge the 8 reading problems")
-    parser.add_argument("--judge-model")
-    parser.add_argument("--judge-command", help="For --judge custom")
+    parser.add_argument("--judge-model", help="A different model from the same tool, to judge the 8 reading problems")
     parser.add_argument("--install", action="store_true", help="Install Playwright and Chromium if needed")
     parser.add_argument("--official", action="store_true", help="Only for runs inside the maintainers' sandbox")
     parser.add_argument("--save-results", action="store_true",
                         help="Maintainer only: also copy the scorecard, report, grade, logs and submission into results/")
     args = parser.parse_args()
-    if args.judge and not args.judge_model and args.judge != "custom":
-        raise SystemExit("--judge needs --judge-model: a different model from the one being tested")
     if args.judge_model and args.judge_model == args.model:
         raise SystemExit("The judge can't be the model being tested")
 
@@ -205,15 +201,15 @@ def main() -> None:
     graded = health_check.grade(evidence / "frozen", run["key"], report, None)
     bundle = health_check.judge_bundle(evidence / "frozen", run["key"], report, graded)
     (evidence / "judge.json").write_text(json.dumps(bundle, indent=1) + "\n")
-    if args.judge:
-        verdicts = judge(args.judge, args.judge_model or "", bundle, args.judge_command, 900, evidence / "judge-log.txt")
+    if args.judge_model:
+        verdicts = judge(args.agent, args.judge_model, bundle, args.command, 900, evidence / "judge-log.txt")
         if verdicts:
             (evidence / "verdicts.json").write_text(json.dumps(verdicts, indent=1) + "\n")
             graded = health_check.grade(evidence / "frozen", run["key"], report, verdicts)
         else:
             print("The judge's reply couldn't be read; judge-graded problems stay unjudged.")
     (evidence / "grade.json").write_text(json.dumps(graded, indent=1) + "\n")
-    card = scorecard(run, graded, timing, usage, args.official, args.judge_model or args.judge_command if args.judge else None)
+    card = scorecard(run, graded, timing, usage, args.official, args.judge_model)
     (evidence / "SCORECARD.md").write_text(card)
     print("\n" + card)
     print(f"Everything is saved in {evidence}")
