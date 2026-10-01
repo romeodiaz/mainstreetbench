@@ -37,6 +37,8 @@ Paste this into an AI assistant that can run commands on your computer, such as 
 
 > Clone https://github.com/romeodiaz/mainstreetbench, follow RUN-WITH-AI.md, and run Main Street Bench on the model **XYZ**. Give me the score.
 
+To test a particular reasoning setting, say so: "run Main Street Bench on gpt-6.1-sol at medium effort".
+
 Your assistant sets things up, starts **XYZ** in its own folder with the bakery owner's message, waits for it to finish (up to 45 minutes) and grades the work. You get a scorecard:
 - problems fixed out of 100;
 - dollars at risk caught;

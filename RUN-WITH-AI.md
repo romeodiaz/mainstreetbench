@@ -18,9 +18,11 @@ Command-line flags change between versions. If the preset fails on a flag, check
 From this repository's folder:
 
 ```sh
-python3 tools/run_bench.py --install --agent codex  --model MODEL_ID     # OpenAI models
-python3 tools/run_bench.py --install --agent claude --model MODEL_ID     # Claude models
+python3 tools/run_bench.py --install --agent codex  --model MODEL_ID [--effort medium]   # OpenAI models
+python3 tools/run_bench.py --install --agent claude --model MODEL_ID [--effort medium]   # Claude models
 ```
+
+**Reasoning effort:** if the person names one ("gpt-6.1-sol medium", "Opus on high"), add `--effort medium` (or whatever they said). Never drop it: the same model at a different effort is a different result. If the tool rejects the setting, tell the person rather than running without it. If they don't name one, leave it out and tell the person the tool's default effort was used.
 
 Add a judge for the 8 problems that need reading, ideally a different model from the one being tested:
 

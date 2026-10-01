@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Run Main Street Bench on an AI model and print its score. One command, start to finish.
 
-    python3 tools/run_bench.py --agent codex --model gpt-6.1-sol
+    python3 tools/run_bench.py --agent codex --model gpt-6.1-sol --effort medium
     python3 tools/run_bench.py --agent claude --model claude-opus-5-5 --judge claude --judge-model claude-sonnet-5-5
     python3 tools/run_bench.py --agent custom --model my-model --command "mytool --model {model}"
 
@@ -15,10 +15,10 @@ What it does:
 6. Writes ../evidence/<run>/SCORECARD.md and prints it.
 
 Agents:
-  claude   Claude Code CLI:  claude -p --model MODEL (web tools disabled)
-  codex    Codex CLI:        codex exec --model MODEL --full-auto (sandboxed writes, no network)
+  claude   Claude Code CLI:  claude -p --model MODEL [--effort EFFORT] (web tools disabled)
+  codex    Codex CLI:        codex exec --model MODEL [-c model_reasoning_effort=EFFORT] --full-auto
   custom   --command TEMPLATE, run inside the workspace with the prompt on stdin. Placeholders:
-           {model} {workspace} {prompt_file} {report_file}. Its stdout, or {report_file} if written, is the report.
+           {model} {effort} {workspace} {prompt_file} {report_file}. Its stdout, or {report_file} if written, is the report.
 
 Isolation: the CLIs above can still read files outside the workspace. For an official result, run inside
 a sandbox that denies this repository and ../keys and ../evidence. Scores from this script are labelled
@@ -54,16 +54,19 @@ def need_playwright(install: bool) -> None:
         subprocess.run([sys.executable, "-m", "playwright", "install", "chromium"], check=True)
 
 
-def agent_command(agent: str, model: str, workspace: Path, report_file: Path, template: str | None) -> list[str]:
+def agent_command(agent: str, model: str, workspace: Path, report_file: Path, template: str | None,
+                  effort: str | None = None) -> list[str]:
     if agent == "claude":
         return ["claude", "-p", "--model", model, "--output-format", "json", "--dangerously-skip-permissions",
-                "--disallowedTools", "WebFetch,WebSearch"]
+                "--disallowedTools", "WebFetch,WebSearch"] + (["--effort", effort] if effort else [])
     if agent == "codex":
         return ["codex", "exec", "--model", model, "--cd", str(workspace), "--skip-git-repo-check", "--full-auto",
-                "--output-last-message", str(report_file), "-"]
+                "--output-last-message", str(report_file)] + (["-c", f"model_reasoning_effort={effort}"] if effort else []) + ["-"]
     if not template:
         raise SystemExit("--agent custom needs --command")
-    return shlex.split(template.format(model=shlex.quote(model), workspace=shlex.quote(str(workspace)),
+    if effort and "{effort}" not in template:
+        raise SystemExit("--effort with --agent custom needs {effort} in --command, so the setting isn't dropped")
+    return shlex.split(template.format(model=shlex.quote(model), effort=shlex.quote(effort or ""), workspace=shlex.quote(str(workspace)),
                                        prompt_file=shlex.quote(str(workspace.parent / "prompt.txt")),
                                        report_file=shlex.quote(str(report_file))))
 
@@ -141,6 +144,7 @@ def main() -> None:
     parser.add_argument("--agent", choices=["claude", "codex", "custom"], required=True)
     parser.add_argument("--model", required=True, help="The model to test, as its tool names it")
     parser.add_argument("--command", help="For --agent custom: the command template")
+    parser.add_argument("--effort", help="Reasoning effort, e.g. low, medium, high (passed to the tool and shown on the scorecard)")
     parser.add_argument("--minutes", type=int, default=45, help="Time limit for the tested AI")
     parser.add_argument("--base", type=Path, default=REPO.parent / "MainStreetBench-runs",
                         help="Where runs/, keys/ and evidence/ go (outside this repository)")
@@ -153,11 +157,11 @@ def main() -> None:
 
     need_playwright(args.install)
     import health_check
-    run = create_run(args.model, args.base)
+    run = create_run(f"{args.model} {args.effort}" if args.effort else args.model, args.base)
     print(f"Built run {run['run']}. Starting {args.model}; this can take up to {args.minutes} minutes.", flush=True)
     evidence, workspace = run["evidence"], run["workspace"]
     report_file = run["workspace"].parent / "final-message.md"
-    command = agent_command(args.agent, args.model, workspace, report_file, args.command)
+    command = agent_command(args.agent, args.model, workspace, report_file, args.command, args.effort)
     stdout, timing = run_agent(command, workspace, run["prompt"].read_text(), args.minutes * 60, evidence / "agent-log.txt")
     report, usage = report_from(args.agent, stdout, report_file)
     (evidence / "owner-report.md").write_text(report)
