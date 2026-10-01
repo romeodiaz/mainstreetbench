@@ -237,6 +237,9 @@ class Problems(ShopCase):
         self.settle(page)
         self.assertEqual([(l["sku"], l["qty"]) for l in self.cart(page)], [("BREAD9", 2)])
 
+    def test_P14_online_menu_has_allergen_notice(self):
+        self.assertRegex(self.page_text("/"), r"(?i)allergen")
+
     def test_L09_newsletter_not_preticked(self):
         page = self.call("GET", "/checkout")[1]
         box = re.search(r'<input[^>]*name="newsletter"[^>]*>', page)

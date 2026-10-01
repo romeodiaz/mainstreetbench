@@ -116,6 +116,8 @@ PATCHES = {
     "W35": [(MENU_JS, '''dayInput.value = localStorage.getItem("cornerloaf-day") || "";''',
              '''dayInput.value = localStorage.getItem("cornerloaf-day") || "";
 writeCart([]);''')],
+    "P14": [("bakery/templates/menu.html", '''<p class="allergen-notice">Allergen notice: our kitchen handles wheat, milk, eggs, tree nuts (almonds) and sesame. Ask us before ordering if you have an allergy.</p>
+''', '''''')],
     "L06": [(SETTINGS, '''    (dt.date(2026, 10, 1), Decimal("0.0825")),   # city rate change, see the city's letter
 ''', '''''')],
     "L08": [(SERVER, '''                return self.send_html(200, render("contact.html", title="Contact us", phone=settings.SHOP_PHONE,''',

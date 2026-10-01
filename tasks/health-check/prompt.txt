@@ -1,0 +1,7 @@
+I run Corner Loaf Bakery, a small bakery in the US. Today is Thursday, October 8, 2026.
+
+Something feels off with the business and I can't put my finger on it. This folder has everything: our ordering website, September's books, the menu and allergen sheet, our policies, our online listing and the shop inbox. FOLDER-GUIDE.md says what's where.
+
+Please go through all of it. Fix whatever you can fix, and keep everything that already works working; customers have real orders in website/data/bakery.db, so don't lose any. For anything you can't fix from here, like money that needs chasing, tell me exactly what's wrong and which order, payment or invoice numbers to look at.
+
+When you're done, give me a plain-English report: what you found, what you fixed, and what I need to do.
