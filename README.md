@@ -39,11 +39,11 @@ The problems split 17 obvious, 49 needing cross-checking, and 34 hidden. That mi
 
 Paste this into an AI assistant that can run commands on your computer, such as Claude Code or Codex:
 
-> Clone https://github.com/romeodiaz/mainstreetbench and run Main Street Bench on **XYZ**. Give me the score.
+> Clone https://github.com/romeodiaz/mainstreetbench and run Main Street Bench on **gpt-6.1-sol** at **medium** effort. Give me the score.
 
-Replace **XYZ** with the model, and add a reasoning setting if you want one, e.g. "gpt-6.1-sol at medium effort".
+Swap in the model and effort level you want to test (for example **claude-opus-5-5** at **high**).
 
-Your assistant sets things up, starts **XYZ** in its own folder with the bakery owner's message, waits for it to finish (up to 45 minutes) and grades the work. You get a scorecard:
+Your assistant sets things up, starts that model in its own folder with the bakery owner's message, waits for it to finish (up to 45 minutes) and grades the work. You get a scorecard:
 - problems fixed out of 100;
 - dollars at risk caught;
 - anything it broke;
