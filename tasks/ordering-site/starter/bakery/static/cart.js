@@ -26,4 +26,4 @@ document.addEventListener("click", (event) => {
   writeCart(cart);
 });
 
-updateCount();
+document.addEventListener("DOMContentLoaded", updateCount);

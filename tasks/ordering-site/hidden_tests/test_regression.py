@@ -38,6 +38,10 @@ class Regression(SiteCase):
         status, cancelled = self.call("POST", f"/admin/api/orders/{attempt.order_id}/cancel", admin=True)
         self.assertEqual((status, cancelled["status"]), (200, "cancelled"))
 
+    def test_customer_names_are_shown_as_text(self):
+        self.placed(name="Ana <b>Bold</b>")
+        self.assertNotIn("<b>Bold</b>", self.call("GET", "/admin", admin=True)[1])
+
     def test_pages_and_missing_things(self):
         self.assertEqual(self.call("GET", "/checkout")[0], 200)
         self.assertEqual(self.call("GET", "/static/style.css")[0], 200)

@@ -170,6 +170,37 @@ def create_order(db: Database, payload: dict) -> int:
     }, lines, check=check_capacity, after=record_gift_cards)
 
 
+def quote(db: Database, payload) -> dict:
+    """Price a cart exactly as an order would be priced, without saving anything."""
+    if not isinstance(payload, dict):
+        raise ValidationError("Quote must be a JSON object")
+    lines = []
+    for raw in payload.get("items") or []:
+        product = db.product(str(raw.get("sku", ""))) if isinstance(raw, dict) else None
+        qty = raw.get("qty") if isinstance(raw, dict) else None
+        if product is None or not product["active"] or not isinstance(qty, int) or isinstance(qty, bool) \
+                or not 1 <= qty <= MAX_QTY:
+            raise ValidationError("Your cart has an item we can't price")
+        lines.append({"qty": qty, "unit_price": product["price"], "category": product["category"]})
+    if not lines:
+        raise ValidationError("Your cart is empty")
+    code = str(payload.get("promo_code") or "").strip().upper()
+    promo = db.promo(code) if code else None
+    notes = ["That promo code isn't valid"] if code and promo is None else []
+    totals = price_order(lines, promo)
+    applied = balance_after = 0.0
+    gift_code = str(payload.get("gift_card_code") or "").strip().upper()
+    if gift_code:
+        card = db.gift_card(gift_code)
+        if card is None or card["status"] != "active" or card["balance"] <= 0:
+            notes.append("That gift card code isn't valid or has no money left")
+        else:
+            applied = min(card["balance"], totals["total"])
+            balance_after = round(card["balance"] - applied, 2)
+    return {**totals, "gift_card_applied": applied, "gift_card_balance_after": balance_after,
+            "amount_due": round(totals["total"] - applied, 2), "notes": notes}
+
+
 def parse_date(value) -> dt.date:
     try:
         return dt.date.fromisoformat(str(value))
@@ -298,6 +329,8 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         path = urlparse(self.path).path
         try:
+            if path == "/api/quote":
+                return self.send_json(200, quote(self.db, self.read_json()))
             if path == "/api/orders":
                 row = self.db.order(create_order(self.db, self.read_json()))
                 return self.send_json(201, {**order_json(self.db, row), "confirmation_url": confirmation_url(row)})
@@ -428,9 +461,10 @@ class Handler(BaseHTTPRequestHandler):
                 f"<td>{order['pickup_date']}</td><td>{order['pickup_slot'] or '—'}</td>"
                 f"<td>{html.escape(order['customer']['name'])}<br>"
                 f"<small>{html.escape(order['customer']['phone'])}</small></td><td>{items}</td>"
-                f"<td>{money(order['total'])}</td><td>{order['status']}</td></tr>")
+                f"<td>{money(order['total'])}</td><td>{money(order['gift_card_applied'])}</td>"
+                f"<td>{money(order['amount_due'])}</td><td>{order['status']}</td></tr>")
         self.send_html(200, render("admin.html", title="Orders", date=html.escape(pickup_date or ""),
-                                   rows="\n".join(rows) or "<tr><td colspan=\"7\">No orders</td></tr>"))
+                                   rows="\n".join(rows) or "<tr><td colspan=\"9\">No orders</td></tr>"))
 
     def static(self, name: str):
         target = (STATIC / name).resolve()

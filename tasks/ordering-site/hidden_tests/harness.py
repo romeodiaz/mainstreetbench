@@ -72,6 +72,7 @@ class Attempt:
     reason: str = ""
     page: object = None
     context: object = field(default=None, repr=False)
+    checkout_text: str = ""
 
 
 class Shopper:
@@ -115,7 +116,7 @@ class Shopper:
         return None
 
     def choose_date(self, page, iso: str) -> bool:
-        control = self.control(page, re.compile(r"date|day", re.I), exclude=re.compile(r"time", re.I))
+        control = self.control(page, re.compile(r"\b(date|day)\b", re.I), exclude=re.compile(r"time|quantity", re.I))
         if control is None:
             return False
         tag = control.evaluate("e => e.tagName.toLowerCase()")
@@ -174,8 +175,67 @@ class Shopper:
                 return True
         return False
 
+    @staticmethod
+    def settle(page, ms: int = 600) -> None:
+        page.wait_for_timeout(ms)
+        page.wait_for_load_state("networkidle")
+
+    def edit_line(self, page, product_name: str, qty: int) -> bool:
+        """Change a cart line at checkout the way a customer would: a quantity box, +/- buttons,
+        or a remove button. Returns False if the page offers no way to do it."""
+        name = re.compile(re.escape(product_name), re.I)
+        box = page.get_by_role("spinbutton", name=name)
+        rows = page.locator("tr, li, [role=row], .line, .cart-line").filter(has_text=name)
+        row = rows.last if rows.count() else None
+        if not box.count() and row is not None:
+            box = row.get_by_role("spinbutton")
+        if box.count():
+            box.first.fill(str(qty))
+            box.first.dispatch_event("change")   # the cart may re-render, detaching this box
+            self.settle(page)
+            return True
+        if row is None:
+            return False
+        if qty == 0:
+            remove = row.get_by_role("button", name=re.compile(r"remove|delete|×|✕|trash", re.I))
+            if remove.count():
+                remove.first.click()
+                self.settle(page)
+                return True
+        current = re.search(r"(\d+)\s*×|×\s*(\d+)|qty:?\s*(\d+)", row.inner_text(), re.I)
+        count = next((int(g) for g in current.groups() if g), None) if current else None
+        if count is None:
+            return False
+        step = re.compile(r"^\s*(\+|plus|increase|more|add one)\s*$" if qty > count else
+                          r"^\s*(−|-|–|minus|decrease|less|fewer|remove one)\s*$", re.I)
+        button = row.get_by_role("button", name=step)
+        if not button.count():
+            return False
+        for _ in range(abs(qty - count)):
+            button.first.click()
+            page.wait_for_timeout(100)
+        self.settle(page)
+        return True
+
+    def menu_for_day(self, iso: str):
+        """Open the menu and choose the pickup day there, as a customer planning an order would."""
+        context, page = self.new_page()
+        page.goto("/")
+        before = page.url
+        if not self.choose_date(page, iso):
+            return None
+        self.settle(page, 300)
+        if page.url == before:
+            go = page.get_by_role("button", name=re.compile(r"show|check|update|see|go|apply|view", re.I))
+            if go.count():
+                go.first.click()
+        self.settle(page)
+        return page
+
     def order(self, items, date=SATURDAY, slot="10:00", promo=None, gift=None, name="Ana Lopez",
-              require_time=False) -> Attempt:
+              require_time=False, edits=(), inspect=False) -> Attempt:
+        """Place an order through the site. `edits` are (product name, new quantity) changes made at
+        checkout; with `inspect`, the checkout page text just before ordering is kept."""
         context, page = self.new_page()
         page.goto("/")
         for sku, qty in items:
@@ -187,6 +247,10 @@ class Shopper:
             for _ in range(qty):
                 button.first.click()
         page.goto("/checkout")
+        self.settle(page, 300)
+        for product_name, qty in edits:
+            if not self.edit_line(page, product_name, qty):
+                return Attempt(False, reason=f"could not change {product_name} in the cart", context=context, page=page)
         filled = {
             re.compile(r"^\s*(your\s+|full\s+)?name", re.I): name,
             re.compile(r"e-?mail", re.I): "ana@example.com",
@@ -208,6 +272,14 @@ class Shopper:
                 if control is None:
                     return Attempt(False, reason=f"no field for {label}", context=context, page=page)
                 control.fill(value)
+                control.dispatch_event("change")
+                apply = page.get_by_role("button", name=re.compile(r"^\s*apply", re.I))
+                if apply.count() == 1 and apply.first.is_enabled():
+                    apply.first.click()
+        checkout_text = ""
+        if inspect:
+            self.settle(page, 1000)
+            checkout_text = page.inner_text("body")
         submit = page.get_by_role("button", name=re.compile(r"place|order|submit|checkout|pay|confirm", re.I))
         if not submit.count():
             return Attempt(False, reason="no submit button", context=context, page=page)
@@ -216,10 +288,11 @@ class Shopper:
             page.wait_for_url(re.compile(r"/order/\d+"), timeout=WAIT_MS)
         except PlaywrightTimeout:
             return Attempt(False, reason="order not placed", context=context, page=page,
-                           text=page.inner_text("body"))
+                           text=page.inner_text("body"), checkout_text=checkout_text)
         page.wait_for_load_state("networkidle")
         order_id = int(re.search(r"/order/(\d+)", page.url).group(1))
-        return Attempt(True, order_id, page.url, page.inner_text("body"), page=page, context=context)
+        return Attempt(True, order_id, page.url, page.inner_text("body"), page=page, context=context,
+                       checkout_text=checkout_text)
 
     def cancel(self, page, url: str) -> None:
         """Try to cancel from an order page; does nothing if the page offers no way to cancel."""
@@ -316,6 +389,46 @@ class SiteCase(unittest.TestCase):
         self.assertFalse(attempt.placed, "Order should not have been accepted")
         self.assertEqual(len(self.admin_orders()), before, "A refused order was saved anyway")
         return attempt
+
+    def staff_activate(self, order_id: int) -> bool:
+        """Do what staff would if a gift card isn't live yet: on the orders page, press the order's
+        activate / mark-paid button. Returns False if the site has no such step."""
+        context = self.browser.new_context(base_url=self.site.base, timezone_id="UTC",
+                                           http_credentials={"username": "staff", "password": PASSWORD})
+        try:
+            context.set_default_timeout(WAIT_MS)
+            context.clock.set_fixed_time(dt.datetime.fromisoformat(NOW).replace(tzinfo=dt.timezone.utc))
+            page = context.new_page()
+            page.on("dialog", lambda dialog: dialog.accept())
+            page.goto("/admin")
+            row = page.locator(f'[data-order-id="{order_id}"]').first
+            pattern = re.compile(r"activat|paid|payment|collect", re.I)
+            control = row.get_by_role("button", name=pattern)
+            if not control.count():
+                control = row.get_by_role("link", name=pattern)
+            if not control.count() or not control.first.is_enabled():
+                return False
+            control.first.click()
+            page.wait_for_timeout(300)
+            page.wait_for_load_state("networkidle")
+            return True
+        finally:
+            context.close()
+
+    def spend_gift_card(self, bought: Attempt, items=(("BREAD9", 2),), **kwargs):
+        """Pay with the gift card bought in `bought`, trying each code its order page shows. If none
+        works yet, let staff activate the card (pay-at-pickup sites may require it) and try again."""
+        attempt = None
+        for round_ in range(2):
+            bought.page.goto(bought.url)
+            bought.page.wait_for_load_state("networkidle")
+            for code in gift_codes(bought.page.inner_text("body")):
+                attempt = self.order(items, gift=code, **kwargs)
+                if attempt.placed:
+                    return code, attempt
+            if round_ == 0 and not self.staff_activate(bought.order_id):
+                break
+        return None, attempt
 
     def admin_orders(self) -> list:
         status, data = self.call("GET", "/admin/api/orders", admin=True)

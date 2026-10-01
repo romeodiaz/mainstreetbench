@@ -47,15 +47,8 @@ class OnlineCancellation(SiteCase):
 
     def test_cancelling_puts_money_back_on_the_gift_card(self):
         bought = self.placed([("GIFT25", 1)], slot="09:00")
-        codes = gift_codes(bought.text)
-        paid = None
-        for code in codes:
-            attempt = self.order([("BREAD9", 2)], gift=code, slot="10:00")
-            if attempt.placed:
-                paid = (code, attempt)
-                break
-        self.assertIsNotNone(paid, "Gift card could not be used")
-        code, attempt = paid
+        code, attempt = self.spend_gift_card(bought, slot="10:00")
+        self.assertIsNotNone(code, "Gift card could not be used")
         self.cancel(attempt)
         self.assertEqual(self.status(attempt.order_id), "cancelled")
         again = self.placed([("CAKE48", 1)], gift=code, date=SUNDAY, slot="10:00")
@@ -72,3 +65,11 @@ class OnlineCancellation(SiteCase):
         for code in codes:
             with self.subTest(code=code):
                 self.refused([("BREAD9", 2)], gift=code, slot="10:00")
+
+    def test_staff_cancelling_also_refunds_the_card(self):
+        bought = self.placed([("GIFT25", 1)], slot="09:00")
+        code, paid = self.spend_gift_card(bought, slot="10:00")
+        self.assertIsNotNone(code, "Gift card could not be used")
+        self.call("POST", f"/admin/api/orders/{paid.order_id}/cancel", admin=True)
+        again = self.placed([("CAKE48", 1)], gift=code, date=SUNDAY, slot="10:00")
+        self.assertIn(Decimal("25.00"), money_in(again.text), "Staff cancellation should put the money back")

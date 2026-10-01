@@ -29,7 +29,7 @@ class OrderingSiteTests(unittest.TestCase):
     @needs_browser
     def test_reference_passes_every_hidden_test(self):
         report = EVALUATOR.grade(TASK / "reference")
-        self.assertEqual(report["quality"]["score"], 1.0, report["quality"])
+        self.assertEqual(report["score"], 100.0, report["quality"])
         self.assertEqual({g: e["passed"] == e["total"] for g, e in report["groups"].items()},
                          {g: True for g in EVALUATOR.GROUPS.values()})
 
@@ -39,7 +39,7 @@ class OrderingSiteTests(unittest.TestCase):
         self.assertEqual(report["groups"]["regression"]["rate"], 1.0)
         for ticket in EVALUATOR.TICKETS:
             self.assertEqual(report["groups"][ticket]["passed"], 0, ticket)
-        self.assertEqual(report["quality"]["score"], 0.0)
+        self.assertEqual(report["score"], 0.0)
 
     @needs_browser
     def test_site_that_fails_to_start_scores_zero_without_crashing_the_grader(self):
@@ -48,7 +48,7 @@ class OrderingSiteTests(unittest.TestCase):
             shutil.copytree(TASK / "starter", broken, ignore=shutil.ignore_patterns("__pycache__"))
             (broken / "bakery" / "server.py").write_text("raise SystemExit('broken')\n")
             report = EVALUATOR.grade(broken)
-            self.assertEqual(report["quality"]["score"], 0.0)
+            self.assertEqual(report["score"], 0.0)
             self.assertEqual(report["groups"]["regression"]["passed"], 0)
 
     def test_visible_starter_tests_pass(self):
@@ -66,7 +66,8 @@ class OrderingSiteTests(unittest.TestCase):
             self.assertIn("data/bakery.db", files)
             self.assertEqual(sorted(f for f in files if f.startswith("tickets/")), [
                 "tickets/01-tax-and-coupons.md", "tickets/02-pickup-times.md", "tickets/03-daily-limits.md",
-                "tickets/04-gift-cards.md", "tickets/05-online-cancellation.md"])
+                "tickets/04-gift-cards.md", "tickets/05-online-cancellation.md", "tickets/06-sold-out-on-the-menu.md",
+                "tickets/07-change-the-cart.md", "tickets/08-total-before-ordering.md"])
             self.assertFalse([f for f in files if "hidden" in f or "reference" in f or "harness" in f
                               or f.endswith(".pyc")])
             self.assertTrue((Path(folder) / "workspace-prompt.txt").is_file())

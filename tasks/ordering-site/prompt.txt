@@ -1,6 +1,6 @@
 I run Corner Loaf Bakery. This folder is our online ordering site. My nephew Sam built it last year and he's away at college now, so I can't ask him to change it.
 
-There are five things I need done this month. They're in the tickets folder.
+There are eight things I need done this month. They're in the tickets folder.
 
 Please make the changes and keep everything that already works working. Customers have already placed orders that are saved in data/bakery.db, so please don't lose any of those.
 

@@ -54,6 +54,12 @@ class PickupTimes(SiteCase):
             self.assertIn(slot, times_in(re.sub(r"<[^>]+>", " ", row)), f"Row for order {order_id} lacks its time")
 
 
+    def test_confirmation_shows_the_pickup_time(self):
+        from harness import times_in
+        attempt = self.placed(slot="13:30", require_time=True)
+        self.assertIn("13:30", times_in(attempt.text))
+
+
 class ExistingOrdersKeepWorking(LegacyCase):
     def test_existing_orders_survive_and_new_ones_work(self):
         saved = {o["id"]: o for o in self.admin_orders()}

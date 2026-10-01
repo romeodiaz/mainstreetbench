@@ -7,8 +7,9 @@ on how the solver structured the code or named its fields. This RUNS SUBMITTED
 CODE: grade inside a sandbox or disposable container with no secrets.
 
 A test method passes only if all of its subtests pass. Each ticket scores the
-fraction of its tests that pass. The quality score is the mean ticket score
-times the fraction of regression tests (existing behavior) still passing.
+fraction of its tests that pass. The score, from 0 to 100, is the mean ticket
+pass rate times the fraction of regression tests (existing behavior) still
+passing, times 100.
 Each ticket counts equally, whatever its number of tests.
 """
 
@@ -29,6 +30,9 @@ GROUPS = {
     "test_t3_daily_limits": "ticket_3_daily_limits",
     "test_t4_gift_cards": "ticket_4_gift_cards",
     "test_t5_online_cancellation": "ticket_5_online_cancellation",
+    "test_t6_sold_out_on_menu": "ticket_6_sold_out_on_menu",
+    "test_t7_change_the_cart": "ticket_7_change_the_cart",
+    "test_t8_total_before_ordering": "ticket_8_total_before_ordering",
 }
 TICKETS = [g for g in GROUPS.values() if g.startswith("ticket_")]
 SUITE_TIMEOUT = 1800
@@ -99,13 +103,15 @@ def grade(site: Path) -> dict:
         entry["tests"][name.split(".", 1)[1]] = outcome
     for entry in groups.values():
         entry["rate"] = round(entry["passed"] / entry["total"], 4)
+        entry["score"] = round(100 * entry["passed"] / entry["total"], 1)
     ticket_mean = sum(groups[t]["rate"] for t in TICKETS) / len(TICKETS)
     regression = groups["regression"]["rate"]
     return {
         "site": str(site),
-        "quality": {"score": round(ticket_mean * regression, 4), "ticket_mean": round(ticket_mean, 4),
-                    "regression_rate": regression,
-                    "definition": "Mean of the five ticket pass rates, multiplied by the regression pass rate."},
+        "score": round(100 * ticket_mean * regression, 1),
+        "quality": {"score": round(100 * ticket_mean * regression, 1), "ticket_mean": round(100 * ticket_mean, 1),
+                    "regression": round(100 * regression, 1),
+                    "definition": "0–100: mean of the eight ticket pass rates × regression pass rate × 100."},
         "groups": groups,
     }
 
@@ -128,10 +134,10 @@ def main() -> None:
     if args.report:
         args.report.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     quality = report["quality"]
-    print(f"quality score: {quality['score']:.3f} (ticket mean {quality['ticket_mean']:.3f} × "
-          f"regression {quality['regression_rate']:.3f})")
+    print(f"score: {quality['score']:.1f}/100 (tickets {quality['ticket_mean']:.1f} × "
+          f"regression {quality['regression']:.1f}%)")
     for group, entry in report["groups"].items():
-        print(f"{group}: {entry['passed']}/{entry['total']}")
+        print(f"{group}: {entry['passed']}/{entry['total']} ({entry['score']:.0f})")
         for name, outcome in entry["tests"].items():
             if outcome["status"] != "pass":
                 print(f"  {outcome['status']}: {name}")
