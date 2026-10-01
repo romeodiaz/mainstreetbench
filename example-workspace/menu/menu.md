@@ -16,7 +16,6 @@ Order online at cornerloaf.example or call 555-010-0000. Open Tuesday–Sunday, 
 
 ## Cakes and pies
 - **Birthday Cake** — $48.00. Vanilla or chocolate, serves 20. Order 2 days ahead.
-- **Summer Berry Tart** — $28.00. Strawberries, blueberries and raspberries on vanilla custard.
 
 ## Catering
 - **Catering Tray** — $120.00. Pastries and sandwiches for 10–12. Order 24 hours ahead.

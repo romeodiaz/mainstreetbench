@@ -13,6 +13,7 @@ function updateCount() {
 
 function writeCart(cart) {
   try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch {}
+  updateCount();
 }
 
 function addItem(sku, name, price) {
@@ -21,7 +22,6 @@ function addItem(sku, name, price) {
   if (line) line.qty += 1;
   else cart.push({ sku, name, price: Number(price), qty: 1 });
   writeCart(cart);
-  updateCount();
 }
 
 document.addEventListener("click", (event) => {

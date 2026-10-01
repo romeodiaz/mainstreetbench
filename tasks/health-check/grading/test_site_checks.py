@@ -79,14 +79,6 @@ class Problems(ShopCase):
         self.assertEqual(self.tax_rate(), Decimal("0.0825"))
 
     # --- days, times and limits -------------------------------------------------------------------
-    def test_W11_closed_mondays(self):
-        self.assertNotEqual(self.place(date=MONDAY)[0], 201)
-
-    def test_W12_no_times_after_closing(self):
-        self.assertNotEqual(self.place(slot="15:30")[0], 201)
-        slots = self.call("GET", f"/api/slots?date={SATURDAY}")[1]["slots"]
-        self.assertLessEqual(max(s["time"] for s in slots), "14:30")
-
     def test_W13_cakes_need_two_days(self):
         self.assertNotEqual(self.place((("CAKE48", 1),), date=FRIDAY, slot="13:00")[0], 201)
         self.placed((("CAKE48", 1),), slot="09:30")
@@ -123,20 +115,22 @@ class Problems(ShopCase):
         self.assertEqual(self.call("POST", f"/api/orders/{order['id']}/cancel", {"key": key})[0], 200)
         self.assertNotEqual(self.place(gift=code, slot="10:00")[0], 201)
 
+    def test_W36_order_links_cannot_be_guessed(self):
+        # Two orders with the same customer and pickup must still get different, long private links.
+        first = self.placed(email="same.link@example.com", slot="09:00")
+        second = self.placed(email="same.link@example.com", slot="09:30")
+        keys = [o["confirmation_url"].split("key=")[1] for o in (first, second)]
+        self.assertNotEqual(keys[0], keys[1], "Private links are derived from the customer's details")
+        self.assertTrue(all(len(k) >= 16 for k in keys))
+
+    def test_W37_checkout_fields_have_labels(self):
+        page = self.page()
+        page.goto("/checkout")
+        self.settle(page, 200)
+        for label in ("Name", "Email", "Phone", "Pickup date"):
+            self.assertEqual(page.get_by_label(label, exact=True).count(), 1, f"No field is labelled {label!r}")
+
     # --- staff page and confirmation --------------------------------------------------------------
-    def test_W20_confirmation_shows_amount_charged(self):
-        order = self.placed((("BREAD9", 2), ("CROISSANT21", 1)), promo="WELCOME10")
-        page = self.call("GET", order["confirmation_url"])[1]
-        total_row = re.search(r'<tr class="total">.*?</tr>', page, re.S).group(0)
-        self.assertIn(f"${order['total']:,.2f}", total_row)
-
-    def test_W21_orders_page_in_pickup_order(self):
-        ids = [self.placed(date=d, slot=s)["id"] for d, s in
-               ((SUNDAY, "08:00"), (SATURDAY, "13:00"), (SATURDAY, "07:30"), (FRIDAY, "14:00"))]
-        page = self.call("GET", "/admin", admin=True)[1]
-        positions = [page.index(f'data-order-id="{i}"') for i in (ids[3], ids[2], ids[1], ids[0])]
-        self.assertEqual(positions, sorted(positions))
-
     def test_W22_cancelled_orders_look_cancelled(self):
         order = self.placed()
         self.call("POST", f"/admin/api/orders/{order['id']}/cancel", admin=True)
@@ -151,43 +145,11 @@ class Problems(ShopCase):
         self.settle(page)
         self.assertIn("October 10", page.locator(".pickup-date").inner_text())
 
-    def test_L08_contact_page_has_shop_number(self):
-        page = self.page_text("/contact")
-        self.assertIn("555-010-0000", page)
-        self.assertNotIn("555-867-5309", page)
-
     # --- menu, cart and checkout in the browser ---------------------------------------------------
     def test_W10_bakers_dozen_can_be_added(self):
         page = self.page()
         self.add_on_menu(page, ("DOZEN13", 1))
         self.assertIn("DOZEN13", [line["sku"] for line in self.cart(page)])
-
-    def test_W16_sold_out_cakes_cannot_be_added(self):
-        # Answer the menu's availability request directly, so only the menu's own handling is tested.
-        page = self.page()
-        menu = self.call("GET", f"/api/menu?date={SATURDAY}")[1]
-        for product in menu["products"]:
-            if product["sku"] == "CAKE48":
-                product.update(remaining=0, sold_out=True)
-        page.route("**/api/menu?date=*", lambda route: route.fulfill(json=menu))
-        page.goto("/")
-        page.fill("#menu-day", SATURDAY)
-        page.dispatch_event("#menu-day", "change")
-        self.settle(page)
-        button = page.locator('.item[data-sku="CAKE48"] button').first
-        if button.is_enabled():
-            button.click()
-        self.assertNotIn("CAKE48", [line["sku"] for line in self.cart(page)])
-
-    def test_W27_cart_count_follows_changes(self):
-        page = self.page()
-        self.add_on_menu(page, ("BREAD9", 2))
-        page.goto("/checkout")
-        self.settle(page, 200)
-        page.fill('[data-sku="BREAD9"] input', "5")
-        page.dispatch_event('[data-sku="BREAD9"] input', "change")
-        self.settle(page)
-        self.assertEqual(page.locator("#cart-count").inner_text().strip(), "5")
 
     def test_W28_removed_items_are_not_ordered(self):
         page = self.page()
@@ -226,16 +188,6 @@ class Problems(ShopCase):
         self.assertTrue(box and box["x"] >= 0 and box["x"] + box["width"] <= 390, "Place order is off-screen")
         button.click()
         page.wait_for_url(re.compile(r"/order/\d+"))
-
-    def test_W35_cart_survives_going_back(self):
-        page = self.page()
-        self.add_on_menu(page, ("BREAD9", 2))
-        page.goto("/checkout")
-        page.goto("/")
-        self.settle(page)
-        page.goto("/checkout")
-        self.settle(page)
-        self.assertEqual([(l["sku"], l["qty"]) for l in self.cart(page)], [("BREAD9", 2)])
 
     def test_P14_online_menu_has_allergen_notice(self):
         self.assertRegex(self.page_text("/"), r"(?i)\ballerg(en|ens|y|ies)\b")

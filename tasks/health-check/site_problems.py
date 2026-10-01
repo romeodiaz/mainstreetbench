@@ -62,24 +62,17 @@ PATCHES = {
                 f"onclick=\\"addItem('{product['sku']}', '{name}', {product['price']})\\">Add</button></li>")'''),
             (MENU_JS, '''    const button = row.querySelector("button.add");''',
              '''    const button = row.querySelector("button.add, button.add-inline");''')],
-    "W11": [(SETTINGS, '''OPEN_WEEKDAYS = {1, 2, 3, 4, 5, 6}''', '''OPEN_WEEKDAYS = {0, 1, 2, 3, 4, 5, 6}''')],
-    "W12": [(SETTINGS, '''LAST_SLOT = dt.time(14, 30)''', '''LAST_SLOT = dt.time(16, 30)''')],
     "W13": [(SETTINGS, '''LONG_NOTICE = dt.timedelta(hours=48)''', '''LONG_NOTICE = dt.timedelta(hours=24)''')],
     "W14": [(DB, '''            "SELECT pickup_slot, COUNT(*) AS n FROM orders WHERE pickup_date = ? AND status != 'cancelled' "''',
              '''            "SELECT pickup_slot, COUNT(*) AS n FROM orders WHERE pickup_date = ? "''')],
     "W15": [(DB, '''            "WHERE o.pickup_date = ? AND o.status != 'cancelled' GROUP BY i.sku", (pickup_date,)).fetchall()''',
              '''            "WHERE substr(o.created_at, 1, 10) = ? AND o.status != 'cancelled' GROUP BY i.sku", (pickup_date,)).fetchall()''')],
-    "W16": [(MENU_JS, '''    if (button) button.disabled = blocked;''', '''    if (button) button.disabled = !product.available;''')],
     "W17": [(SERVER, '''        if not isinstance(qty, int) or isinstance(qty, bool) or not 1 <= qty <= MAX_QTY:''',
              '''        if not isinstance(qty, int) or isinstance(qty, bool) or qty == 0 or abs(qty) > MAX_QTY:''')],
     "W18": [(SERVER, '''        price = product["price"]   # always our price, never one sent by the browser''',
              '''        price = float(raw.get("unit_price") or raw.get("price") or product["price"])''')],
     "W19": [(CONFIRM_JS, '''  const [y, m, d] = pickup.dataset.date.split("-").map(Number);
   const day = new Date(y, m - 1, d);''', '''  const day = new Date(pickup.dataset.date);''')],
-    "W20": [(SERVER, '''            discount=money(order["discount"]), tax=money(order["tax"]), total=money(order["total"]),''',
-             '''            discount=money(order["discount"]), tax=money(order["tax"]), total=money(order["subtotal"]),''')],
-    "W21": [(DB, '''        order_by = "ORDER BY pickup_date, pickup_slot IS NOT NULL, pickup_slot, id"''',
-             '''        order_by = "ORDER BY id"''')],
     "W22": [(SERVER, '''            status = order["status"]
             rows.append(''', '''            status = "cancelled" if order["status"] == "canceled" else "placed"
             rows.append(''')],
@@ -89,14 +82,6 @@ PATCHES = {
              '''    if skus & settings.PHONE_REQUIRED_SKUS and phone is None:''')],
     "W26": [(SERVER, '''        if pickup is not None and not schedule.in_season(product["sku"], pickup):''',
              '''        if pickup is not None and not schedule.in_season(product["sku"], pickup) and False:''')],
-    "W27": [(CART, '''  try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch {}
-  updateCount();
-}''', '''  try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch {}
-}'''),
-            (CART, '''  else cart.push({ sku, name, price: Number(price), qty: 1 });
-  writeCart(cart);''', '''  else cart.push({ sku, name, price: Number(price), qty: 1 });
-  writeCart(cart);
-  updateCount();''')],
     "W28": [(CHECKOUT_JS, '''    remove.addEventListener("click", () => removeLine(line.sku));''',
              '''    remove.addEventListener("click", () => row.remove());''')],
     "W29": [(CHECKOUT_JS, '''    body: JSON.stringify({ items, promo_code: form.get("promo_code"), gift_card_code: form.get("gift_card_code"),''',
@@ -117,15 +102,22 @@ PATCHES = {
              '''    return day.weekday() in settings.OPEN_WEEKDAYS''')],
     "W34": [(DB, '''            self.conn.execute("UPDATE gift_cards SET status = 'void', balance = 0 WHERE order_id = ?", (order_id,))''',
              '''            pass''')],
-    "W35": [(MENU_JS, '''dayInput.value = localStorage.getItem("cornerloaf-day") || "";''',
-             '''dayInput.value = localStorage.getItem("cornerloaf-day") || "";
-writeCart([]);''')],
     "P14": [("bakery/templates/menu.html", '''<p class="allergen-notice">Allergen notice: our kitchen handles wheat, milk, eggs, tree nuts (almonds) and sesame. Ask us before ordering if you have an allergy.</p>
 ''', '''''')],
     "L06": [(SETTINGS, '''    (dt.date(2026, 10, 1), Decimal("0.0825")),   # city rate change, see the city's letter
 ''', '''''')],
-    "L08": [(SERVER, '''                return self.send_html(200, render("contact.html", title="Contact us", phone=settings.SHOP_PHONE,''',
-             '''                return self.send_html(200, render("contact.html", title="Contact us", phone="555-867-5309",''')],
+    "W36": [(SERVER, '''"cancel_key": secrets.token_urlsafe(16),''',
+             '''"cancel_key": base64.urlsafe_b64encode(f"{email}:{pickup.isoformat()}".encode()).decode(),''')],
+    "W37": [
+        ("bakery/templates/checkout.html", '''<label>Name <input name="name" required></label>''',
+         '''<label>Name</label> <input name="name" required>'''),
+        ("bakery/templates/checkout.html", '''<label>Email <input name="email" type="email" required></label>''',
+         '''<label>Email</label> <input name="email" type="email" required>'''),
+        ("bakery/templates/checkout.html", '''<label>Phone <input name="phone" type="tel"></label>''',
+         '''<label>Phone</label> <input name="phone" type="tel">'''),
+        ("bakery/templates/checkout.html", '''<label>Pickup date <input name="pickup_date" type="date" required></label>''',
+         '''<label>Pickup date</label> <input name="pickup_date" type="date" required>'''),
+    ],
     "L09": [("bakery/templates/checkout.html", '''<input type="checkbox" name="newsletter">''',
              '''<input type="checkbox" name="newsletter" checked>''')],
 }

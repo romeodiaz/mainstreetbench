@@ -1,16 +1,16 @@
 {
   "name": "Corner Loaf Bakery",
-  "address": "12 Main Street",
+  "address": "12 Main Street, Springfield, IL 62701",
   "phone": "555-010-0199",
-  "website": "https://cornerloafbakery.example",
+  "website": "https://cornerloaf.example",
   "hours": {
     "Monday": "closed",
-    "Tuesday": "07:00-16:00",
-    "Wednesday": "07:00-16:00",
-    "Thursday": "07:00-16:00",
-    "Friday": "07:00-16:00",
-    "Saturday": "07:00-16:00",
-    "Sunday": "07:00-16:00"
+    "Tuesday": "07:00-15:00",
+    "Wednesday": "07:00-15:00",
+    "Thursday": "07:00-15:00",
+    "Friday": "07:00-15:00",
+    "Saturday": "07:00-15:00",
+    "Sunday": "07:00-15:00"
   },
   "special_hours": [],
   "services": {
@@ -25,7 +25,7 @@
     },
     {
       "item": "Birthday Cake",
-      "price": "4.80"
+      "price": "48.00"
     },
     {
       "item": "Croissant Box (6)",

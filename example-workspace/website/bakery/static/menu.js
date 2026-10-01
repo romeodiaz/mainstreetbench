@@ -1,7 +1,6 @@
 // Choosing a pickup day shows what's sold out or not available that day.
 const dayInput = document.getElementById("menu-day");
 dayInput.value = localStorage.getItem("cornerloaf-day") || "";
-writeCart([]);
 
 async function showDay() {
   if (!dayInput.value) return;
@@ -18,7 +17,7 @@ async function showDay() {
     const blocked = product.sold_out || !product.available;
     row.querySelector(".note").textContent = product.sold_out ? "Sold out" : (product.available ? "" : "Not available that day");
     row.toggleAttribute("data-sold-out", product.sold_out);
-    if (button) button.disabled = !product.available;
+    if (button) button.disabled = blocked;
   }
 }
 

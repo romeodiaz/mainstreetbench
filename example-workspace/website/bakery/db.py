@@ -171,7 +171,7 @@ class Database:
 
     def orders(self, pickup_date: str | None = None) -> list:
         # Pickup order: day, then time (orders from before pickup times existed first), then number.
-        order_by = "ORDER BY id"
+        order_by = "ORDER BY pickup_date, pickup_slot IS NOT NULL, pickup_slot, id"
         if pickup_date:
             return self.query(f"SELECT * FROM orders WHERE pickup_date = ? {order_by}", (pickup_date,))
         return self.query(f"SELECT * FROM orders {order_by}")

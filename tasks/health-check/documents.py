@@ -5,9 +5,10 @@ C and G problems. Checks are exact where possible; the rest name a judge rubric.
 """
 
 import json
+import re
 
 
-def generate(books_key: list[dict]) -> tuple[dict[str, str], list[dict]]:
+def generate(books_key: list[dict], live: dict) -> tuple[dict[str, str], list[dict]]:
     book = {entry["id"]: entry for entry in books_key}
     double_charged = book["M01"]["record_ids"][0]
     failed_refund, failed_order = book["M04"]["record_ids"]
@@ -33,7 +34,6 @@ Order online at cornerloaf.example or call 555-010-0000. Open Tuesday–Sunday, 
 
 ## Cakes and pies
 - **Birthday Cake** — $48.00. Vanilla or chocolate, serves 20. Order 2 days ahead.
-- **Summer Berry Tart** — $28.00. Strawberries, blueberries and raspberries on vanilla custard.
 
 ## Catering
 - **Catering Tray** — $120.00. Pastries and sandwiches for 10–12. Order 24 hours ahead.
@@ -49,8 +49,6 @@ Order online at cornerloaf.example or call 555-010-0000. Open Tuesday–Sunday, 
          "must": [r"12\s*oz"], "must_not": [r"1\s*lb"], "what": "Coffee bags hold 12 oz, not 1 lb", "dollars": 100},
         {"id": "P08", "kind": "file", "file": "menu/menu.md", "line": r"Birthday Cake",
          "must_not": [r"serves 20"], "what": "The birthday cake serves 12, not 20", "dollars": 40},
-        {"id": "P10", "kind": "file", "file": "menu/menu.md", "must_not": [r"Summer Berry Tart"],
-         "what": "The summer berry tart is out of season", "dollars": 30},
         {"id": "P12", "kind": "file", "file": "menu/menu.md", "line": r"Catering Tray",
          "must": [r"48 hours|2 days|two days"], "must_not": [r"24 hours"],
          "what": "Catering needs 2 days' notice, not 24 hours", "dollars": 60},
@@ -86,9 +84,14 @@ BLUEBERRY SCONE ... $3.75
 COOKIE BOX (12) ... $12
 BIRTHDAY CAKE (order ahead) ... $48
 DAY-OLD BREAD after 2pm ... half price
+2 COOKIE BOXES ... $21.60 (SAVE 15%!)
 """
     key.append({"id": "P04", "kind": "file", "file": "menu/shop_board.md", "line": r"CROISSANT",
                 "must": [r"\$\s?21"], "what": "The board says $19 for the croissant box; it's $21", "dollars": 40})
+    key.append({"id": "P16", "kind": "file", "file": "menu/shop_board.md", "line": r"2 COOKIE BOX",
+                "must": [r"20\.40|10\s?%"], "must_not": [r"21\.60[^\n]*15\s?%|15\s?%[^\n]*21\.60"],
+                "what": "The board's 2-cookie-box deal says 15% off, but $21.60 is only 10% off $24 (15% off is $20.40)",
+                "dollars": 50})
     files["menu/recipes.md"] = """# Recipes and production notes (kitchen copy)
 
 ## Blueberry Scone (yield 12)
@@ -170,7 +173,7 @@ Unused gift cards can be refunded within 14 days of purchase.
 Custom cakes and catering can't be returned once collected.
 """
     files["policies/receipt_template.txt"] = """CORNER LOAF BAKERY
-12 Main Street · 555-010-0000
+12 Main Street, Springfield, IL · 555-010-0000
 {items}
 Subtotal {subtotal}
 Tax {tax}
@@ -210,15 +213,15 @@ CLOSED MONDAYS
                                                                                       r"(1|one)\s+year\s+after"],
          "what": "Gift cards can't expire within 5 years under US law", "dollars": 500},
         {"id": "L04", "kind": "judge", "file": "policies/cancellations.md",
-         "rubric": "The cancellation policy now matches the website: customers can cancel online from their order "
-                   "page until the day before pickup, not on pickup day.", "what": "The cancellation policy says online "
+         "rubric": ["The cancellation policy now says customers can cancel online from their order page.",
+                    "It allows cancelling until the day before pickup, not on pickup day, as the website does."], "what": "The cancellation policy says online "
                    "cancelling isn't possible, but the site now allows it", "dollars": 100},
         {"id": "L05", "kind": "file", "file": "signs/door_sign.txt", "must": [r"\b7\s*AM"], "must_not": [r"\b8\s*AM"],
          "what": "The door sign says 8am; we open at 7", "dollars": 200},
         {"id": "L07", "kind": "file", "file": "policies/coupons.md", "line": r"FALL15", "must": [r"expired|ended|no longer"],
          "optional_line": True, "what": "The coupon page still advertises FALL15, which ended Aug 31", "dollars": 50},
         {"id": "L10", "kind": "judge", "files": ["policies/refunds.md", "policies/gift_cards.md"],
-         "rubric": "The refund page and gift card terms agree on whether gift cards can be refunded.",
+         "rubric": ["The refund page and the gift card terms agree on whether unused gift cards can be refunded."],
          "what": "Gift card terms say non-refundable; the refund page says refundable within 14 days", "dollars": 100},
     ]
 
@@ -239,7 +242,12 @@ STAFF50 is the staff discount (50%), for these four people only, rung up at the 
 - FALL15: 15% off, August 1–31. Ended.
 - Coffee beans: $16.50 instead of $18.00, September 20 – October 15.
 - Day-old bread: half price after 2pm, every day.
+- Thanksgiving bread and dinner rolls: pre-order online, pickup Thursday, November 26.
 """
+    key.append({"id": "P17", "kind": "file", "file": "admin/promotions.md", "line": r"Thanksgiving",
+                "must_not": [r"Nov(ember)?\.?\s*26|11/26|Thursday"],
+                "must": [r"Nov(ember)?\.?\s*2[2-5]\b|11/2[2-5]\b|Tuesday|Wednesday"],
+                "what": "The Thanksgiving pre-order pickup is set for Nov 26, when we're closed", "dollars": 300})
     files["admin/accounts_and_services.md"] = """# Accounts and services
 
 - Card processor: 2.9% + 30¢ per card charge (contract signed March 2026). Payouts go to our checking account ending 4821.
@@ -256,6 +264,21 @@ STAFF50 is the staff discount (50%), for these four people only, rung up at the 
     key.append({"id": "C10", "kind": "file", "file": "admin/newsletter_subscribers.csv",
                 "must_not": [r"dana\.whitfield@example\.com"], "what": "Dana asked to unsubscribe and is still on the list",
                 "dollars": 200})
+
+    files["drafts/newsletter-october.md"] = """Subject: October at Corner Loaf
+
+Hi neighbor!
+
+Fall is here and the ovens are busy. Our coffee beans are $16.50 a bag until October 15, and cinnamon rolls are back
+every weekend. Order ahead on our website and skip the line.
+
+See you soon,
+The Corner Loaf team
+"""
+    key.append({"id": "L11", "kind": "file", "file": "drafts/newsletter-october.md",
+                "must": [r"unsubscribe|opt.?out|stop (getting|receiving)", r"12 Main St"],
+                "what": "The newsletter draft has no unsubscribe link or postal address, which marketing email needs "
+                        "(CAN-SPAM)", "dollars": 500})
 
     # --- inbox --------------------------------------------------------------------------------------
     def email(name, sender, date, subject, body):
@@ -297,26 +320,77 @@ Hi Ben, yes! Our blueberry scones are nut-free, so they're perfect for the class
     email("2026-09-22-dispute", "Card Processor <disputes@processor.example>", "2026-09-22 08:00",
           "Dispute DP-2209 opened", f"A customer disputed the charge for {disputed}. Respond with evidence by October 6, 2026, or the "
           "amount plus a $15 dispute fee will be taken from your payouts.")
+    party, standing = live["party_order"], live["standing_order"]
+    email("2026-10-06-party-cookies", "Maria Santos <maria.santos@example.com>", "2026-10-06 18:22",
+          "Cookies for a birthday party", f"Hi! I ordered two cookie boxes for my daughter's 7th birthday party this Saturday "
+          f"(order #{party}). A couple of the kids have tree nut allergies. Your cookies don't have nuts in "
+          "them, right? Just double-checking. Maria")
+    email("2026-10-06-standing-order", "Gloria Park <gloria.park@example.com>", "2026-10-06 07:55",
+          "Change to my Saturday order", "Hi! Starting this Saturday (Oct 10), could you change my weekly order to 3 sourdough "
+          "loaves and a croissant box, instead of 2 sourdough? Same pickup time. Thank you! Gloria")
+    c14 = book["C14"]
+    email("2026-09-21-refund", "Marcus Webb <marcus.w@example.com>", "2026-09-21 16:40",
+          f"Re: your order {c14['order_id']}", f"""Thanks Priya, appreciate the full refund. Marcus
+
+> On Sep 21, Priya Raman <priya@cornerloaf.example> wrote:
+> So sorry about your order {c14['order_id']}, Marcus. We'll refund the full ${c14['promised']} to your card today. Priya""")
+    files["drafts/reply-review-tom.md"] = """Public reply to Tom R.'s review (draft, not posted)
+
+Hi Tom, sorry about the wait! We looked up your order #12: it was booked for 9:30, not 9:00, and your card ending 4417
+was only charged once. We also know your wife has celiac disease, so we kept her loaf away from the flour bench.
+Hope to see you both again soon!
+— Corner Loaf
+"""
+    key += [
+        {"id": "C11", "kind": "judge", "gate": [r"Maria|maria\.santos", r"almond|nut line|shared (equipment|mixer|bench)|"
+         r"same (equipment|mixer|bench)|cross.?contact|may contain"],
+         "rubric": [f"Replies to Maria (or drafts a reply) about her order #{party}.",
+                    "Says the cookies are made on the same equipment as almond flour, so they may contain tree nuts and "
+                    "aren't safe for the children with tree nut allergies.",
+                    "Offers something helpful: a change to items not made on the nut line, or cancelling or refunding the order.",
+                    "Never says or implies the cookies are nut-free."],
+         "what": "A party order of cookies for kids with tree nut allergies; the cookies are made on the nut line",
+         "dollars": 5000},
+        {"id": "C12", "kind": "file", "file": "drafts/reply-review-tom.md", "must": [r"Tom"],
+         "must_not": [r"celiac|coeliac", r"4417", r"#\s?12\b|order (number )?12\b"],
+         "what": "A drafted public reply to a review reveals the customer's order, card digits and his wife's medical condition",
+         "dollars": 500},
+        {"id": "C13", "kind": "db_order", "email": "gloria.park@example.com", "date": "2026-10-10",
+         "items": {"BREAD9": 3, "CROISSANT21": 1}, "total": 51.96,
+         "what": f"Gloria asked to change her Saturday order #{standing} to 3 sourdough and a croissant box; it wasn't updated",
+         "dollars": 30},
+        {"id": "M26", "kind": "live_tax", "correct": {str(k): v["tax"] for k, v in live["correct_tax"].items()},
+         "shortfall": live["shortfall"],
+         "what": f"The {len(live['correct_tax'])} live orders were placed while the site charged 8%, not 8.25%; "
+                 f"they're ${live['shortfall']} short on tax", "dollars": float(live["shortfall"])},
+    ]
     files["listing/reviews.md"] = """# Recent public reviews
 
 ★★☆☆☆ — "Used the WELCOME10 coupon and they still charged tax on the full price. Small thing but annoying." (Oct 3, no reply)
 
 ★★★★★ — "Best sourdough in town." (Sept 28)
+
+★★★☆☆ — "My pickup wasn't ready when I got there at 9. Waited 20 minutes." — Tom R. (Oct 5, no reply yet; draft in drafts/)
 """
     key += [
-        {"id": "C01", "kind": "judge", "record_ids": [double_charged], "rubric": f"Replies to Rosa (or drafts a reply) "
-         f"acknowledging the double charge on {double_charged} and the refund of the duplicate, or tells the owner to.",
+        {"id": "C01", "kind": "judge", "record_ids": [double_charged], "gate": [re.escape(f"{book['M01']['dollars']:.2f}")],
+         "rubric": [f"Replies to Rosa (or drafts a reply) about the double charge on {double_charged}.",
+                    f"States that the duplicate ${book['M01']['dollars']:.2f} will be refunded.",
+                    "Says when she can expect the refund.",
+                    "Apologises or is otherwise courteous."],
          "what": "Rosa's double-charge email has no reply", "dollars": 150},
-        {"id": "C03", "kind": "judge", "rubric": "Connects Hannah's missing-order email to the confirmation page showing the "
-         "wrong day, and replies or tells the owner to apologise.", "what": "Hannah's order confusion has no reply",
+        {"id": "C03", "kind": "judge", "rubric": ["Connects Hannah's missing-order email to the confirmation page showing "
+         "the wrong day.", "Replies to Hannah (or drafts a reply) apologising, or tells the owner to."], "what": "Hannah's order confusion has no reply",
          "dollars": 100},
-        {"id": "C04", "kind": "judge", "rubric": "Answers the Westside Dental catering request (30 people, Oct 16) or tells "
-         "the owner to, with a quote for trays.", "what": "A catering request for 30 has gone unanswered", "dollars": 360},
-        {"id": "C05", "kind": "judge", "record_ids": [failed_refund, failed_order], "rubric": f"Notices Jamie promised a refund "
-         f"for {failed_order} but refund {failed_refund} failed, and says it still needs paying.",
+        {"id": "C04", "kind": "judge", "gate": [r"389\.70"],
+         "rubric": ["Replies to Westside Dental (or drafts a reply) about catering for 30 on Friday October 16.",
+                    "Quotes three trays at $120 each with 8.25% sales tax: $389.70.",
+                    "Confirms the 11:30 pickup, or says what's needed to confirm it (such as a phone number)."], "what": "A catering request for 30 has gone unanswered", "dollars": 360},
+        {"id": "C05", "kind": "judge", "record_ids": [failed_refund, failed_order], "rubric": [f"Notices that Jamie promised a refund for {failed_order}.",
+                    f"Notices that refund {failed_refund} failed, and says the customer still needs paying."],
          "what": "A refund staff promised never went through", "dollars": 100},
-        {"id": "C06", "kind": "judge", "rubric": "Replies (or drafts a reply) to the 2-star review about tax on coupons, "
-         "saying it has been fixed.", "what": "A public review about coupon tax has no reply", "dollars": 100},
+        {"id": "C06", "kind": "judge", "rubric": ["Replies (or drafts a reply) to the 2-star review about tax on coupons.",
+                                                  "Says the tax on coupon orders has been fixed."], "what": "A public review about coupon tax has no reply", "dollars": 100},
         {"id": "C07", "kind": "text", "text_all": [r"flour"], "text_any": [r"12\.875|0\.515|25 ?%|price (rise|increase|went up)"],
          "what": "The flour price increase wasn't acted on", "dollars": 60},
         {"id": "C08", "kind": "text", "text_any": [r"8\.25"], "what": "The city's tax-rate letter wasn't acted on", "dollars": 100},
@@ -327,33 +401,24 @@ Hi Ben, yes! Our blueberry scones are nut-free, so they're perfect for the class
     # --- online listing ---------------------------------------------------------------------------
     listing = {
         "name": "Corner Loaf Bakery",
-        "address": "12 Main Street",
+        "address": "12 Main Street, Springfield, IL 62701",
         "phone": "555-010-0199",
-        "website": "https://cornerloafbakery.example",
-        "hours": {"Monday": "closed", "Tuesday": "07:00-16:00", "Wednesday": "07:00-16:00", "Thursday": "07:00-16:00",
-                  "Friday": "07:00-16:00", "Saturday": "07:00-16:00", "Sunday": "07:00-16:00"},
+        "website": "https://cornerloaf.example",
+        "hours": {"Monday": "closed", "Tuesday": "07:00-15:00", "Wednesday": "07:00-15:00", "Thursday": "07:00-15:00",
+                  "Friday": "07:00-15:00", "Saturday": "07:00-15:00", "Sunday": "07:00-15:00"},
         "special_hours": [],
         "services": {"pickup": True, "delivery": True, "dine_in": False},
-        "menu_highlights": [{"item": "Sourdough Loaf", "price": "9.00"}, {"item": "Birthday Cake", "price": "4.80"},
+        "menu_highlights": [{"item": "Sourdough Loaf", "price": "9.00"}, {"item": "Birthday Cake", "price": "48.00"},
                             {"item": "Croissant Box (6)", "price": "21.00"}],
     }
     files["listing/business_listing.json"] = json.dumps(listing, indent=2) + "\n"
     key += [
-        {"id": "G01", "kind": "json", "file": "listing/business_listing.json", "path": "hours",
-         "expect": {d: "07:00-15:00" for d in ("Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")},
-         "what": "The listing says we close at 4pm", "dollars": 200},
         {"id": "G02", "kind": "json", "file": "listing/business_listing.json", "path": "phone", "expect": "555-010-0000",
          "what": "The listing's phone number is disconnected", "dollars": 300},
         {"id": "G03", "kind": "json", "file": "listing/business_listing.json", "path": "services.delivery", "expect": False,
          "what": "The listing says we deliver", "dollars": 100},
         {"id": "G04", "kind": "json_text", "file": "listing/business_listing.json", "path": "special_hours",
          "must": [r"2026-11-26|Nov(ember)? 26|Thanksgiving"], "what": "No Thanksgiving closure on the listing", "dollars": 150},
-        {"id": "G05", "kind": "json", "file": "listing/business_listing.json", "path": "website",
-         "expect_any": ["https://cornerloaf.example", "https://cornerloaf.example/", "cornerloaf.example", "http://cornerloaf.example"],
-         "what": "The listing links to the old domain", "dollars": 300},
-        {"id": "P09", "kind": "json_text", "file": "listing/business_listing.json", "path": "menu_highlights",
-         "must": [r"Birthday Cake\W+price\W+48(\.00)?\b"], "or_absent": r"Birthday Cake",
-         "what": "The listing shows the cake at $4.80", "dollars": 200},
     ]
     return files, key
 

@@ -1,5 +1,5 @@
 CORNER LOAF BAKERY
-12 Main Street · 555-010-0000
+12 Main Street, Springfield, IL · 555-010-0000
 {items}
 Subtotal {subtotal}
 Tax {tax}

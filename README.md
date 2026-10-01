@@ -53,22 +53,24 @@ It gets [the bakery's folder](example-workspace/) and this message from the owne
 
 A careless model that fixes 70 problems but breaks 6 things scores 64.
 
-**92 problems are checked by code:**
+**90 problems are checked by code:**
 - the website is clicked through in a real browser;
 - the books and documents are checked against an answer key.
 
-The other 8, such as whether a customer got a sensible reply, are decided by a judge model. The scorecard names the judge and shows how many points it decided.
+The other 10, such as whether a customer got a sensible reply, are decided by a judge model against a short yes/no checklist. Where a reply needs a specific fact, such as the right refund amount, code checks that first. The scorecard names the judge and shows how many points it decided.
 
 The design follows [Bug Hunt Bench](https://github.com/phuryn/bug-hunt-bench): many independent planted problems, no list of what to find, and a judge only where a check can't be exact.
 
 **The grading is verified:**
 - an untouched bakery scores **0**;
 - a complete fix scores **100**;
-- each of the 39 website problems is shown, one at a time, to fail only its own check.
+- each of the 33 website problems is shown, one at a time, to fail only its own check.
 
-The problems split 17 obvious, 49 needing cross-checking, and 34 hidden, so expect scores well below 100. More detail: [the grader](tasks/health-check/) and [running it by hand](docs/running-the-bench.md).
+The problems split 5 obvious, 54 needing cross-checking, and 41 hidden, so expect scores well below 100. More detail: [the grader](tasks/health-check/) and [running it by hand](docs/running-the-bench.md).
 
 ## Results so far
+
+The current version is **v0.7**. It swaps 12 one-glance problems for 12 harder ones, such as customer replies that need the right facts, privacy and US legal requirements, and checking an invoice's arithmetic ([why](docs/health-check-problems.md#decisions)). No model has run v0.7 yet, so the score below is on the older, easier v0.6.
 
 | Model | Version | Score | Notes |
 |---|---|---|---|

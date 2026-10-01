@@ -11,10 +11,10 @@ TAX_RATES = [
     (dt.date(2000, 1, 1), Decimal("0.08")),
 ]
 
-OPEN_WEEKDAYS = {0, 1, 2, 3, 4, 5, 6}               # Tuesday–Sunday; closed Mondays
+OPEN_WEEKDAYS = {1, 2, 3, 4, 5, 6}               # Tuesday–Sunday; closed Mondays
 HOLIDAYS = {dt.date(2026, 11, 26), dt.date(2026, 12, 25)}
 FIRST_SLOT = dt.time(7, 0)
-LAST_SLOT = dt.time(16, 30)                      # we close at 3pm
+LAST_SLOT = dt.time(14, 30)                      # we close at 3pm
 SLOT_MINUTES = 30
 SLOT_CAPACITY = 4
 NOTICE = dt.timedelta(hours=2)

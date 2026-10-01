@@ -184,7 +184,7 @@ def create_order(db: Database, payload) -> int:
     return db.insert_order({
         "created_at": clock.now().isoformat(), "customer_name": name, "customer_email": email,
         "customer_phone": phone, "pickup_date": pickup.isoformat(), "pickup_slot": slot,
-        "promo_code": code or None, "cancel_key": secrets.token_urlsafe(16),
+        "promo_code": code or None, "cancel_key": base64.urlsafe_b64encode(f"{email}:{pickup.isoformat()}".encode()).decode(),
         "newsletter": 1 if payload.get("newsletter") is True else 0, "request_id": request_id, **totals,
     }, lines, check=check, after=after)
 
@@ -315,7 +315,7 @@ class Handler(BaseHTTPRequestHandler):
             if path == "/checkout":
                 return self.send_html(200, render("checkout.html", title="Checkout"))
             if path == "/contact":
-                return self.send_html(200, render("contact.html", title="Contact us", phone="555-867-5309",
+                return self.send_html(200, render("contact.html", title="Contact us", phone=settings.SHOP_PHONE,
                                                   email=settings.SHOP_EMAIL))
             if match := re.fullmatch(r"/order/(\d+)", path):
                 return self.confirmation_page(int(match[1]), query.get("key"))
@@ -439,7 +439,7 @@ class Handler(BaseHTTPRequestHandler):
             "confirmation.html", title=f"Order #{order_id}", order_id=order_id,
             name=html.escape(order["customer"]["name"]), pickup_date=order["pickup_date"],
             pickup_slot=order["pickup_slot"] or "any time", items=items, subtotal=money(order["subtotal"]),
-            discount=money(order["discount"]), tax=money(order["tax"]), total=money(order["subtotal"]),
+            discount=money(order["discount"]), tax=money(order["tax"]), total=money(order["total"]),
             status=order["status"], extras="\n".join(extras)))
 
     def admin_page(self, pickup_date):

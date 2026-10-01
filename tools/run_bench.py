@@ -11,7 +11,7 @@ What it does:
 3. Starts the tested AI with its own command-line tool in that folder, with the owner's prompt, and waits
    (45 minutes by default). The AI that set this up must not do the task itself.
 4. Saves its final message as the owner report, freezes the workspace, and grades it.
-5. Asks a different model from the same tool to judge the 8 problems that need reading (--judge-model).
+5. Asks a different model from the same tool to judge the 10 problems that need reading (--judge-model).
 6. Checks integrity: answer canaries in the work or report, and answer files or paths in the agent's log.
 7. Writes ../MainStreetBench-runs/evidence/<run>/SCORECARD.md and prints it.
 
@@ -245,7 +245,7 @@ def main() -> None:
                         help="Where results go: evidence/<run>/ (outside this repository)")
     parser.add_argument("--hidden", type=Path, default=Path("~/.mainstreetbench"),
                         help="Where the bakery folder and answer key live during the run, in random subfolders")
-    parser.add_argument("--judge-model", help="A different model from the same tool, to judge the 8 reading problems")
+    parser.add_argument("--judge-model", help="A different model from the same tool, to judge the 10 reading problems")
     parser.add_argument("--install", action="store_true", help="Install Playwright and Chromium if needed")
     parser.add_argument("--official", action="store_true", help="Only for runs inside the maintainers' sandbox")
     parser.add_argument("--save-results", action="store_true",
