@@ -8,13 +8,13 @@ An AI gets everything for Corner Loaf Bakery and this message from the owner, wo
 
 > Hi! I own Corner Loaf Bakery, a small neighborhood bakery. Today is Thursday, October 8, 2026.
 >
-> Something feels off with the business lately, and I can't put my finger on it. I've attached [a folder](example-workspace/) with everything for the business: our ordering website, September's books, the menu and allergen sheet, our policies, our online listing and the shop's emails. There's a note in there called [FOLDER-GUIDE](example-workspace/FOLDER-GUIDE.md) that says what's where.
+> Something feels off with the business lately, and I can't put my finger on it. I've attached [a folder](example-workspace/) with everything for the business: our ordering website, September's books, the menu and allergen sheet, our policies, our online listing and the shop's emails.
 >
 > Could you go through all of it? Please fix whatever you can, but don't break anything that's working. Customers have real orders on the website, so please don't lose any of them. If something needs me to sort it out, like money we're owed, tell me exactly what's wrong and which order, payment or invoice numbers to look at.
 >
 > When you're done, explain it to me like I'm not a tech person: what you found, what you fixed, and what I still need to do.
 
-Both links open the real thing: [`example-workspace/`](example-workspace/) is the folder exactly as the AI receives it, and each run starts from a fresh copy.
+[`example-workspace/`](example-workspace/) is that folder exactly as the AI receives it, including a short [FOLDER-GUIDE](example-workspace/FOLDER-GUIDE.md) note. Each run starts from a fresh copy.
 
 **100 problems** are planted across those files, and nothing lists them. They range from "the baguette is marked gluten-free" to "anyone can cancel anyone's order by typing an order number" to "a payout never reached the bank". [See all 100 in plain English.](docs/health-check-problems.md)
 
