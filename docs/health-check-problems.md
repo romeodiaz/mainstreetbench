@@ -1,4 +1,4 @@
-# Shop health check: the 100 planted problems (v1.0)
+# Shop health check: the 100 planted problems (v0.6)
 
 **Task.** The AI gets everything for Corner Loaf Bakery and one message from the owner:
 

@@ -1,4 +1,4 @@
-# Shop health check (v1.0)
+# Shop health check (v0.6)
 
 The AI gets everything for Corner Loaf Bakery and one message from the owner: *something feels off; fix what you can and tell me what you found.* There are 100 planted problems and nothing lists them. The score is how many it fixes or correctly flags. The full list, in owner language, is in [docs/health-check-problems.md](../../docs/health-check-problems.md).
 

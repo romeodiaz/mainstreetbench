@@ -2,7 +2,7 @@
 
 Can an expensive model planning and reviewing a cheaper model's work deliver similar quality at a lower cost, on the jobs a small business owner actually has?
 
-## The current task: the shop health check (v1.0)
+## The current task: the shop health check (v0.6)
 
 An AI gets everything for Corner Loaf Bakery and one message from the owner:
 
