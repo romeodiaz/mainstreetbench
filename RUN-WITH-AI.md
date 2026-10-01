@@ -34,6 +34,13 @@ Without a judge, those 8 count as not fixed and the scorecard says so.
 
 The run takes up to 45 minutes (`--minutes` changes it). It builds a fresh copy of the bakery in `../MainStreetBench-runs/runs/`, starts the tested model there with the owner's message, waits, grades the result and prints a scorecard. Leave it alone while it runs.
 
+### If something gets in the way
+
+- **Model name:** the person may write it loosely ("gpt 6.1 Sol Medium"). Pass the exact id the tool accepts (check its model list or `--help`) and put the effort in `--effort`. If you can't tell which model they mean, ask.
+- **Your commands time out:** the run takes up to 45 minutes, longer than many assistants let one command run. Start it in the background with its output going to a log file, e.g. `nohup python3 tools/run_bench.py ... > bench.log 2>&1 &`, then check `bench.log` every few minutes until it prints the scorecard.
+- **Your sandbox blocks it:** the run needs the internet (to install the grader and for the tested model to reach its provider) and needs to write next to this folder. If your sandbox blocks either, ask the person to approve running it with network access or full access. Don't work around it some other way.
+- **pip refuses to install** ("externally managed environment"): make a virtual environment first (`python3 -m venv .venv && . .venv/bin/activate`), then run the commands with that Python.
+
 ## 3. Rules
 
 - **Don't solve, hint or fix.** Never read the answer keys to the person or the tested model. Never edit the workspace before grading. The owner's message is sent unchanged.
