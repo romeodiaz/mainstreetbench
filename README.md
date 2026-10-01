@@ -25,6 +25,20 @@ The design follows [Bug Hunt Bench](https://github.com/phuryn/bug-hunt-bench): m
 
 The problems split 17 obvious, 49 needing cross-checking, and 34 hidden. That mix is meant to leave headroom, so expect scores well below 100. [How to run and grade it](tasks/health-check/), and [how to keep runs apart from this repository](docs/running-the-bench.md).
 
+## Test a new AI yourself
+
+Paste this into an AI assistant that can run commands on your computer, such as Claude Code or Codex:
+
+> Clone https://github.com/romeodiaz/mainstreetbench, follow RUN-WITH-AI.md, and run Main Street Bench on the model **XYZ**. Give me the score.
+
+Your assistant sets things up, starts **XYZ** in its own folder with the bakery owner's message, waits for it to finish (up to 45 minutes) and grades the work. You get a scorecard:
+- problems fixed out of 100;
+- dollars at risk caught;
+- anything it broke;
+- time and cost.
+
+Your assistant only referees. It doesn't help or take the test itself, because it can see the answers. Results you run yourself are labelled **self-run**.
+
 ## Three configurations
 
 | Configuration | Work | Reasoning |

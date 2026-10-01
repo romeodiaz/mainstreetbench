@@ -26,6 +26,14 @@ python3 tools/new_run.py --model sol
 
 It prints the working folder and prompt to give the AI, the folders to deny, and the grading commands.
 
+Or do everything in one command. It builds the run, starts the tested AI with its own command-line tool, then grades it and writes `evidence/<run>/SCORECARD.md`:
+
+```sh
+python3 tools/run_bench.py --agent codex --model gpt-6.1-sol --base ~/MainStreetBench
+```
+
+Without `--base`, it uses a `MainStreetBench-runs` folder next to the clone. [RUN-WITH-AI.md](../RUN-WITH-AI.md) has the full steps, written for an AI assistant to follow. These CLIs can still read outside the workspace, so the results are labelled self-run. For a published result, start the AI yourself inside a sandbox that enforces rule 1.
+
 ## Open source and contamination
 
 Everything in this repository is public on purpose, so anyone can check how problems are planted and graded. The cost is that a future model, or an agent with web access, could have seen the answers. To limit that:
