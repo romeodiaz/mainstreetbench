@@ -1,0 +1,7 @@
+.DS_Store
+__pycache__/
+runs/
+
+# Held back from the public repo for now
+answer-keys/
+tasks/01-messy-spreadsheet/generate.py
