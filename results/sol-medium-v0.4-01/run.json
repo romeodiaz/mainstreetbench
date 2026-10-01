@@ -1,0 +1,223 @@
+{
+  "run_id": "sol-v0.4-01",
+  "task_version": "0.4",
+  "configuration": "Sol solo",
+  "repository": "/Users/romeodiaz/Code/mainstreetbench",
+  "commit": "e3631f08a3b306829f05fb4903da9143a756d435",
+  "workspace": "/private/tmp/mainstreetbench-sol-v0.4-01-20261001T053309Z/workspace",
+  "packaged_workspace": "/Users/romeodiaz/Code/mainstreetbench/runs/sol-v0.4-01",
+  "control": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/control",
+  "root": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z",
+  "model_requested": "gpt-6.1-sol",
+  "reasoning_requested": "medium",
+  "cli_version": "codex-cli 0.159.0",
+  "packaging_python": "3.12.14",
+  "fixture_seed": 20261008,
+  "initial_files": 22,
+  "prompt_sha256": "23226e5487265bcb816f357b89c09207b6beeaac9de509da0e3f8372cb40d04d",
+  "time_limit_seconds": 2700,
+  "task_agents": 1,
+  "retries": 0,
+  "human_task_interventions": 0,
+  "tools": "Same Codex CLI shell/file-editing harness as v0.3; agents, web, apps, plugins, memories, hooks, fast mode and host skill discovery disabled",
+  "isolation": "Outer macOS sandbox blocks checkout (whole Code directory), controller/evidence (whole Documents directory), prior sessions, memories, skills/plugins and selected private directories. Same-byte packaged copy outside checkout. Inner tool sandbox disabled to avoid unsupported nesting. Other host reads and network remain possible; not a container boundary.",
+  "status": "completed",
+  "argv": [
+    "/usr/bin/sandbox-exec",
+    "-f",
+    "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/control/solver.sb",
+    "codex",
+    "--no-daemon",
+    "exec",
+    "--ignore-user-config",
+    "--ignore-rules",
+    "--ephemeral",
+    "--skip-git-repo-check",
+    "-C",
+    "/private/tmp/mainstreetbench-sol-v0.4-01-20261001T053309Z/workspace",
+    "-m",
+    "gpt-6.1-sol",
+    "-c",
+    "model_reasoning_effort=\"medium\"",
+    "-c",
+    "web_search=\"disabled\"",
+    "--sandbox",
+    "danger-full-access",
+    "--disable",
+    "multi_agent",
+    "--disable",
+    "multi_agent_v2",
+    "--disable",
+    "memories",
+    "--disable",
+    "chronicle",
+    "--disable",
+    "apps",
+    "--disable",
+    "plugins",
+    "--disable",
+    "hooks",
+    "--enable",
+    "skip_host_skill_discovery",
+    "--disable",
+    "fast_mode",
+    "--json",
+    "--color",
+    "never",
+    "-"
+  ],
+  "started_at": "2026-10-01T05:33:34.722307+00:00",
+  "environment_variable_names": [
+    "HOME",
+    "LANG",
+    "LC_ALL",
+    "LOGNAME",
+    "PATH",
+    "PYTHONDONTWRITEBYTECODE",
+    "TERM",
+    "TMPDIR",
+    "USER"
+  ],
+  "pid": 98208,
+  "exit_code": 0,
+  "elapsed_seconds": 737.599,
+  "finished_at": "2026-10-01T05:45:52.320176+00:00",
+  "usage": [
+    {
+      "input_tokens": 604111,
+      "cached_input_tokens": 549632,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 20149,
+      "reasoning_output_tokens": 3187
+    }
+  ],
+  "cost": {
+    "api_equivalent_usd": 0.365411,
+    "actual_api_charges": null,
+    "billing_route": "ChatGPT subscription",
+    "source": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+    "assumptions": "Standard short-context estimate, no fast/regional uplift; full input includes cache reads/writes; output includes reasoning. CLI JSON exposes turn totals but not per-request context counters."
+  },
+  "frozen": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/frozen",
+  "frozen_at": "2026-10-01T05:46:48.440242+00:00",
+  "freeze_exclusions": [
+    "__pycache__",
+    "*.pyc",
+    ".venv"
+  ],
+  "frozen_manifest_sha256": "35317ac1688cd753a7fa305a406fbbb1e0c2304337379c2688eb785fbd4581e9",
+  "task_shell_python_observed": "3.9.6 (tracebacks)",
+  "no_task_feedback_or_retry": true,
+  "prior_temporary_workspaces_held_out": {
+    "at": "2026-10-01T05:34:41.706263+00:00",
+    "moved": [
+      {
+        "original": "/private/tmp/mainstreetbench-active-run.json",
+        "held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/held-out-temporary-workspaces/mainstreetbench-active-run.json"
+      },
+      {
+        "original": "/private/tmp/mainstreetbench-minimal-preservation.json",
+        "held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/held-out-temporary-workspaces/mainstreetbench-minimal-preservation.json"
+      },
+      {
+        "original": "/private/tmp/mainstreetbench-copy-counts.json",
+        "held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/held-out-temporary-workspaces/mainstreetbench-copy-counts.json"
+      },
+      {
+        "original": "/private/tmp/mainstreetbench-retail-check-1",
+        "held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/held-out-temporary-workspaces/mainstreetbench-retail-check-1"
+      },
+      {
+        "original": "/private/tmp/mainstreetbench-single-month-preservation.json",
+        "held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/held-out-temporary-workspaces/mainstreetbench-single-month-preservation.json"
+      },
+      {
+        "original": "/private/tmp/mainstreetbench-independent-review.py",
+        "held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/held-out-temporary-workspaces/mainstreetbench-independent-review.py"
+      },
+      {
+        "original": "/private/tmp/mainstreetbench-preserved.sha256",
+        "held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/held-out-temporary-workspaces/mainstreetbench-preserved.sha256"
+      },
+      {
+        "original": "/private/tmp/mainstreetbench-retail-check-2",
+        "held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/held-out-temporary-workspaces/mainstreetbench-retail-check-2"
+      },
+      {
+        "original": "/private/tmp/mainstreetbench-retail-check-3",
+        "held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/held-out-temporary-workspaces/mainstreetbench-retail-check-3"
+      },
+      {
+        "original": "/private/tmp/mainstreetbench-sol-v0.3-01-20261001T043802Z",
+        "held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/held-out-temporary-workspaces/mainstreetbench-sol-v0.3-01-20261001T043802Z"
+      },
+      {
+        "original": "/private/tmp/mainstreetbench-pilot-preservation.json",
+        "held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/held-out-temporary-workspaces/mainstreetbench-pilot-preservation.json"
+      }
+    ],
+    "note": "Prior temporary benchmark workspaces moved under Documents, which the solver sandbox denies. No prior-reference access appears in task trace."
+  },
+  "live_database_byte_preservation": true,
+  "grade_summary": {
+    "quality": {
+      "score": 0.0,
+      "ticket_mean": 0.0,
+      "regression_rate": 0.6667,
+      "definition": "Mean of the five ticket pass rates, multiplied by the regression pass rate."
+    },
+    "groups": {
+      "regression": {
+        "passed": 4,
+        "total": 6,
+        "rate": 0.6667
+      },
+      "ticket_1_tax_and_coupons": {
+        "passed": 0,
+        "total": 5,
+        "rate": 0.0
+      },
+      "ticket_2_pickup_times": {
+        "passed": 0,
+        "total": 7,
+        "rate": 0.0
+      },
+      "ticket_3_daily_limits": {
+        "passed": 0,
+        "total": 6,
+        "rate": 0.0
+      },
+      "ticket_4_gift_cards": {
+        "passed": 0,
+        "total": 5,
+        "rate": 0.0
+      },
+      "ticket_5_online_cancellation": {
+        "passed": 0,
+        "total": 7,
+        "rate": 0.0
+      }
+    }
+  },
+  "grading": {
+    "run": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/grading/run.json",
+    "report": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/grading/report.json",
+    "model_calls": 0,
+    "scope": "Unchanged trusted evaluator/hidden suite with clean environment; all submitted server processes deny-default sandboxed. Fresh Playwright browsers/contexts, Chromium built-in sandbox enabled."
+  },
+  "checkout_diagnostic": {
+    "confirmed": true,
+    "page_error": "readCart is not defined",
+    "required_pickup_time_options_after_date_selection": [
+      {
+        "value": "",
+        "text": "Choose a date first"
+      }
+    ],
+    "pickup_time_requests": 0,
+    "all_32_failed_acceptance_tests_stop_at_pickup_selection": true,
+    "frozen_hashes_unchanged": true,
+    "repairs_or_regrades": 0,
+    "evidence": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/control/checkout-diagnostic.json"
+  }
+}

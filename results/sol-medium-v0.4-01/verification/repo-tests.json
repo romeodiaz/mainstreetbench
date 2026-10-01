@@ -1,0 +1,11 @@
+{
+  "git_commit": "e3631f08a3b306829f05fb4903da9143a756d435",
+  "python": "3.12.14",
+  "command": "python3 -m unittest discover -s tests -v",
+  "tests": 35,
+  "passed": 32,
+  "skipped": 3,
+  "elapsed_seconds": 1.339,
+  "result": "OK (skipped=3)",
+  "skipped_reason": "Bundled base Python lacks Playwright. Reference/starter browser grader controls run separately in controller venv."
+}

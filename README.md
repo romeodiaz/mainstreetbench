@@ -4,7 +4,8 @@ Can an expensive model planning and reviewing a cheaper model's work deliver sim
 
 The current task (v0.4) gives an AI the code for a bakery's online ordering site and the owner's to-do list for the month, five tickets written only in the owner's words. Hidden tests use the finished site in a real browser, as customers, staff and a nosy stranger would. Nobody has to read code; the question is whether the site works.
 
-**Status: uncalibrated.** v0.4 has no model runs yet.
+**Status: calibration started.** [The first v0.4 Sol Medium run](results/sol-medium-v0.4-01.md) scored **0.000** in **12m 18s** for an estimated **$0.3654**. A checkout script error blocked ordering and all 30 ticket checks; 4/6 regression checks passed. More solo attempts are needed before comparing models or the split.
+
 - **[v0.3](results/sol-medium-v0.3-01.md):** three tickets plus "Notes from Sam" that pinned down every interface. Sol solo scored 1.000 in 6m 36s for about $0.22.
 - **[v0.2](tasks/retail-reconciliation/):** retail reconciliation. Sol also reached the ceiling.
 

@@ -1,0 +1,15 @@
+{
+  "frozen_file_count": 26,
+  "frozen_inventory_and_hashes_match": true,
+  "trusted_source_file_count": 25,
+  "trusted_source_matches_recorded_git_commit": true,
+  "source_commit": "e3631f08a3b306829f05fb4903da9143a756d435",
+  "prompt_matches_packaged_prompt": true,
+  "initial_live_database_matches_frozen_bytes": true,
+  "relative_summary_links_checked": 19,
+  "acceptance_passed": 4,
+  "acceptance_total": 36,
+  "cost_arithmetic_verified_usd": 0.3654112,
+  "secret_pattern_scan": "no matches",
+  "submission_executed_by_this_verification": false
+}

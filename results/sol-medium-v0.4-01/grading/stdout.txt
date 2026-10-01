@@ -1,0 +1,39 @@
+quality score: 0.000 (ticket mean 0.000 × regression 0.667)
+regression: 4/6
+  fail: Regression.test_admin_needs_password_and_can_cancel
+  fail: Regression.test_customer_can_order_and_see_confirmation
+ticket_1_tax_and_coupons: 0/5
+  fail: TaxAndCoupons.test_coupons_do_not_discount_gift_cards
+  fail: TaxAndCoupons.test_dollar_coupon_taxes_the_discounted_price
+  fail: TaxAndCoupons.test_gift_cards_are_not_taxed
+  fail: TaxAndCoupons.test_half_cents_round_up
+  fail: TaxAndCoupons.test_percent_coupon_taxes_the_discounted_price
+ticket_2_pickup_times: 0/7
+  fail: ExistingOrdersKeepWorking.test_existing_orders_survive_and_new_ones_work
+  fail: PickupTimes.test_cakes_and_catering_need_two_days
+  fail: PickupTimes.test_closed_on_mondays
+  fail: PickupTimes.test_four_orders_per_half_hour
+  fail: PickupTimes.test_orders_page_lists_pickup_order_with_times
+  fail: PickupTimes.test_times_cover_opening_hours_only
+  fail: PickupTimes.test_two_hours_notice
+ticket_3_daily_limits: 0/6
+  fail: DailyLimits.test_limits_are_per_pickup_day
+  fail: DailyLimits.test_over_limit_order_is_refused_whole
+  fail: DailyLimits.test_refused_order_does_not_take_a_pickup_time
+  fail: DailyLimits.test_six_cakes_a_day
+  fail: DailyLimits.test_trays_and_pies
+  fail: LimitsWithExistingOrders.test_existing_orders_count_toward_the_day
+ticket_4_gift_cards: 0/5
+  fail: GiftCards.test_code_pays_and_shows_what_is_left
+  fail: GiftCards.test_each_card_gets_its_own_hard_to_guess_code
+  fail: GiftCards.test_leftover_balance_is_kept_then_runs_out
+  fail: GiftCards.test_paying_with_a_gift_card_does_not_change_tax
+  fail: GiftCards.test_unknown_codes_are_refused
+ticket_5_online_cancellation: 0/7
+  fail: OnlineCancellation.test_cancelling_a_gift_card_purchase_voids_the_card
+  fail: OnlineCancellation.test_cancelling_frees_the_cakes
+  fail: OnlineCancellation.test_cancelling_frees_the_pickup_time
+  fail: OnlineCancellation.test_cancelling_puts_money_back_on_the_gift_card
+  fail: OnlineCancellation.test_customer_can_cancel_from_their_order_page
+  fail: OnlineCancellation.test_not_on_the_day_of_pickup
+  fail: OnlineCancellation.test_strangers_cannot_cancel_by_order_number

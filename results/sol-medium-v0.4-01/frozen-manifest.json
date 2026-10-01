@@ -1,0 +1,106 @@
+{
+  "README.md": {
+    "sha256": "7fe48dfad3153cd5205899c49f6980518e1cde666cb6dffb1fdb28b489b6fa2e",
+    "bytes": 8215
+  },
+  "bakery/__init__.py": {
+    "sha256": "852ff7c930299c56cd39bea1804a44ee20554987f5c20e86f3c3160608fef728",
+    "bytes": 47
+  },
+  "bakery/clock.py": {
+    "sha256": "b9c829702215ebb33949b7c2a61c0c11779e3799224b9f31244738adb080adba",
+    "bytes": 351
+  },
+  "bakery/db.py": {
+    "sha256": "abfbd23ad7976f5339043909471db4efaae2a305afcc61a7ff6a560e010013ee",
+    "bytes": 14611
+  },
+  "bakery/pickup.py": {
+    "sha256": "36c08b323beae9b741fe537bd0596f3334d1db426de8a4dc07a01184190b1143",
+    "bytes": 498
+  },
+  "bakery/pricing.py": {
+    "sha256": "5558e15392dbd44e0f05f6976a4c6e14e49a0c7231bf2c331a9ff168a39600a8",
+    "bytes": 1037
+  },
+  "bakery/server.py": {
+    "sha256": "14a05eef4d38d8dd0f90057d8c0508461c92807eb40cca1f24b13a851537d888",
+    "bytes": 19711
+  },
+  "bakery/static/admin.js": {
+    "sha256": "9257b6f95ac508a19fcef68a3c73462d2baf71258574929ee4256b5918f601ee",
+    "bytes": 1541
+  },
+  "bakery/static/cart.js": {
+    "sha256": "46902058111acf052e407df91a3f92e309de1ea9b656fd37e8e042035832daf0",
+    "bytes": 914
+  },
+  "bakery/static/checkout.js": {
+    "sha256": "d23e2d00b7cd810ad27a65a6161c7ba6778d797d2eadc1110b0494ec227776bc",
+    "bytes": 3241
+  },
+  "bakery/static/order.js": {
+    "sha256": "c0fe81e2d8c5680a6d225435792799febefa188c32cd256ad7b6436954da9323",
+    "bytes": 819
+  },
+  "bakery/static/style.css": {
+    "sha256": "7e0dcbce41a849808bfcf4fbc947b21579fe6c46fea0830388a4bbddd9ce0f82",
+    "bytes": 1298
+  },
+  "bakery/templates/admin.html": {
+    "sha256": "63ba390e56f729d4962e8a16dcf5f1a0f925c836538befe297253ebf91b8377c",
+    "bytes": 1002
+  },
+  "bakery/templates/checkout.html": {
+    "sha256": "421819f59eddf7af01025a2fb5a1093f56373b76aa1641470e5f457f2f4ca0b0",
+    "bytes": 892
+  },
+  "bakery/templates/confirmation.html": {
+    "sha256": "38c8592c71a0ed57ac618c6d839da628376b7922de9cb58c76b9adbc9b140edc",
+    "bytes": 817
+  },
+  "bakery/templates/layout.html": {
+    "sha256": "4c678c2feae7123b2820d453bda637b0b7fd39958eff084848cd0d70932b2cc1",
+    "bytes": 530
+  },
+  "bakery/templates/menu.html": {
+    "sha256": "409471ea520dbfd0ce2d3408366ed7feaca65748dd64edde83c62cbf43e7cc47",
+    "bytes": 101
+  },
+  "bakery/templates/message.html": {
+    "sha256": "65c48ff0191d11ccd8299ee5ba683ae306abb673504b2a6448b00c1964a7ab64",
+    "bytes": 32
+  },
+  "data/bakery.db": {
+    "sha256": "0394e7e9e716e92003ce7a81b900f6421d6400edf8e3b68c71c543ffcea6ad9d",
+    "bytes": 32768
+  },
+  "tests/test_rules.py": {
+    "sha256": "94c3a029d5f741e3dc9ade91f971e5a857211b56adebc4145a42a48aad1b804d",
+    "bytes": 3557
+  },
+  "tests/test_site.py": {
+    "sha256": "327e5fa3fdd62ebecf96a3bfd4cab4b8c7a14d0e3944ca2509b95a91f1e579a6",
+    "bytes": 12412
+  },
+  "tickets/01-tax-and-coupons.md": {
+    "sha256": "d4d2fb4ed2d11056045a51e2f6967b33c0e911b6ec12bb41ec9cd2c4eb6070ea",
+    "bytes": 385
+  },
+  "tickets/02-pickup-times.md": {
+    "sha256": "9335c879c91bf7d1f1190a8bfabebd9162214786d21ba896da1aaa4b6f8ddef9",
+    "bytes": 448
+  },
+  "tickets/03-daily-limits.md": {
+    "sha256": "7d0ba7ad377f86f33f563a7e327dd879fcfe4411e5820855d0a4dbf6be9dff7a",
+    "bytes": 344
+  },
+  "tickets/04-gift-cards.md": {
+    "sha256": "6f1391083313ab3bfb580fddab43800f09625e0bcdc2a6e38e4f95c5058e52e6",
+    "bytes": 405
+  },
+  "tickets/05-online-cancellation.md": {
+    "sha256": "fc4fbc63e0b8dcc18348054f442e7ec6f1882e3af489e59e3da2efd1b8ca4812",
+    "bytes": 231
+  }
+}

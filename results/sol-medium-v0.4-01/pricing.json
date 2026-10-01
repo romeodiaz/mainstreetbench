@@ -1,0 +1,21 @@
+{
+  "checked_at": "2026-10-01T05:33:09.417245+00:00",
+  "model": "gpt-6.1-sol",
+  "source": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+  "standard_short_context_usd_per_million": {
+    "input": 2.0,
+    "cached_input": 0.1,
+    "cache_write": 2.5,
+    "output": 10.0
+  },
+  "standard_long_context_usd_per_million": {
+    "input": 4.0,
+    "cached_input": 0.2,
+    "cache_write": 5.0,
+    "output": 15.0
+  },
+  "long_context_threshold_input_tokens": 272000,
+  "actual_api_charges": null,
+  "billing_route": "ChatGPT subscription",
+  "assumptions": "API-equivalent estimate, standard rates, no fast/regional uplift. Input includes cache reads; output includes reasoning. Per-request context counters may be unavailable."
+}

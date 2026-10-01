@@ -1,0 +1,45 @@
+{
+  "source_commit": "e3631f08a3b306829f05fb4903da9143a756d435",
+  "controls": {
+    "reference": {
+      "score": 1.0,
+      "groups": {
+        "regression": "6/6",
+        "ticket_1_tax_and_coupons": "5/5",
+        "ticket_2_pickup_times": "7/7",
+        "ticket_3_daily_limits": "6/6",
+        "ticket_4_gift_cards": "5/5",
+        "ticket_5_online_cancellation": "7/7"
+      },
+      "elapsed_seconds": 205.473,
+      "server_launches": 39,
+      "browser_event_counts": {
+        "browser_launch": 9,
+        "browser_context": 99
+      },
+      "site_bytes_unchanged": true
+    },
+    "starter": {
+      "score": 0.0,
+      "groups": {
+        "regression": "6/6",
+        "ticket_1_tax_and_coupons": "0/5",
+        "ticket_2_pickup_times": "0/7",
+        "ticket_3_daily_limits": "0/6",
+        "ticket_4_gift_cards": "0/5",
+        "ticket_5_online_cancellation": "0/7"
+      },
+      "elapsed_seconds": 193.157,
+      "server_launches": 39,
+      "browser_event_counts": {
+        "browser_launch": 9,
+        "browser_context": 49
+      },
+      "site_bytes_unchanged": true
+    }
+  },
+  "sources_unchanged": true,
+  "server_env_clean": true,
+  "browser_sandbox_enabled": true,
+  "persistent_browser_state": false
+}

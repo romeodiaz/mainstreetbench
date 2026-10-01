@@ -1,0 +1,68 @@
+{
+  "purpose": "Read-only post-grade checkout diagnostic; no repair, score changes, or full regrade.",
+  "frozen_site": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/frozen",
+  "test_database": "fresh disposable database",
+  "fixed_clock": "2026-10-08T09:10:00",
+  "page_errors": [
+    "readCart is not defined"
+  ],
+  "console_errors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:63979/"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:63979/static/style.css"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:63979/static/cart.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:63979/checkout"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:63979/static/style.css"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:63979/static/checkout.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:63979/static/cart.js"
+    }
+  ],
+  "script_load_order": [
+    "/static/checkout.js",
+    "/static/cart.js"
+  ],
+  "time_options_before_date": [
+    {
+      "value": "",
+      "text": "Choose a date first",
+      "disabled": false
+    }
+  ],
+  "chosen_pickup_date": "2026-10-10",
+  "time_options_after_date": [
+    {
+      "value": "",
+      "text": "Choose a date first",
+      "disabled": false
+    }
+  ],
+  "readCart_type_after_full_load": "function",
+  "time_required": true,
+  "availability_text": "",
+  "pickup_time_requests": [],
+  "browser_version": "153.0.8010.12",
+  "frozen_file_hashes_unchanged": true,
+  "confirmed": true
+}

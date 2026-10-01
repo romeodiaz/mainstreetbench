@@ -1,0 +1,50 @@
+{
+  "at": "2026-10-01T05:34:41.706263+00:00",
+  "moved": [
+    {
+      "original": "/private/tmp/mainstreetbench-active-run.json",
+      "held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/held-out-temporary-workspaces/mainstreetbench-active-run.json"
+    },
+    {
+      "original": "/private/tmp/mainstreetbench-minimal-preservation.json",
+      "held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/held-out-temporary-workspaces/mainstreetbench-minimal-preservation.json"
+    },
+    {
+      "original": "/private/tmp/mainstreetbench-copy-counts.json",
+      "held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/held-out-temporary-workspaces/mainstreetbench-copy-counts.json"
+    },
+    {
+      "original": "/private/tmp/mainstreetbench-retail-check-1",
+      "held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/held-out-temporary-workspaces/mainstreetbench-retail-check-1"
+    },
+    {
+      "original": "/private/tmp/mainstreetbench-single-month-preservation.json",
+      "held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/held-out-temporary-workspaces/mainstreetbench-single-month-preservation.json"
+    },
+    {
+      "original": "/private/tmp/mainstreetbench-independent-review.py",
+      "held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/held-out-temporary-workspaces/mainstreetbench-independent-review.py"
+    },
+    {
+      "original": "/private/tmp/mainstreetbench-preserved.sha256",
+      "held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/held-out-temporary-workspaces/mainstreetbench-preserved.sha256"
+    },
+    {
+      "original": "/private/tmp/mainstreetbench-retail-check-2",
+      "held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/held-out-temporary-workspaces/mainstreetbench-retail-check-2"
+    },
+    {
+      "original": "/private/tmp/mainstreetbench-retail-check-3",
+      "held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/held-out-temporary-workspaces/mainstreetbench-retail-check-3"
+    },
+    {
+      "original": "/private/tmp/mainstreetbench-sol-v0.3-01-20261001T043802Z",
+      "held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/held-out-temporary-workspaces/mainstreetbench-sol-v0.3-01-20261001T043802Z"
+    },
+    {
+      "original": "/private/tmp/mainstreetbench-pilot-preservation.json",
+      "held_out": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-sol-medium-20261001T053309Z/held-out-temporary-workspaces/mainstreetbench-pilot-preservation.json"
+    }
+  ],
+  "note": "Prior temporary benchmark workspaces moved under Documents, which the solver sandbox denies. No prior-reference access appears in task trace."
+}

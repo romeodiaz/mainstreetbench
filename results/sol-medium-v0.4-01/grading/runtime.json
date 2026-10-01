@@ -1,0 +1,8 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "base_prefix": "/Users/romeodiaz/.cache/codex-runtimes/codex-primary-runtime/dependencies/python",
+  "playwright": "1.63.0",
+  "chromium_path": "/Users/romeodiaz/Documents/BenchRuns/mainstreetbench/v0.4-grader-preflight/browsers/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+  "chromium_sha256": "8319963f6625accf51c0dd4f55091ceaf9f09ed39e7a52fed4fae12b2a6b668a",
+  "installation": "controller-only venv and browser cache; no fixture/source edits"
+}
