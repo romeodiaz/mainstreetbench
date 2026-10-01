@@ -153,12 +153,13 @@ class Shopper:
                 deadline = time.time() + 3
                 while time.time() < deadline:
                     for option in control.locator("option").all():
-                        if option.is_disabled():
+                        # Playwright's is_disabled() ignores <option disabled>; ask the DOM.
+                        if option.evaluate("o => o.disabled || (o.parentElement && o.parentElement.disabled)"):
                             continue
                         value, text = option.get_attribute("value") or "", option.inner_text()
                         if slot_named(text, wanted) or slot_named(value, wanted) or value == wanted:
                             control.select_option(value=value)
-                            return True
+                            return control.input_value() == value
                     page.wait_for_timeout(150)
                 return False
         for index in range(radios.count()):
