@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """Grade a submitted ordering site with the hidden acceptance tests.
 
-The tests start the submitted site as a separate process and use HTTP only, so
-they don't depend on how the solver structured the code. This RUNS SUBMITTED
+The tests start the submitted site as a separate process and use it through a real
+browser (Playwright + Chromium) and the pre-existing admin API, so they don't depend
+on how the solver structured the code or named its fields. This RUNS SUBMITTED
 CODE: grade inside a sandbox or disposable container with no secrets.
 
 A test method passes only if all of its subtests pass. Each ticket scores the
 fraction of its tests that pass. The quality score is the mean ticket score
 times the fraction of regression tests (existing behavior) still passing.
+Each ticket counts equally, whatever its number of tests.
 """
 
 import argparse
@@ -25,9 +27,11 @@ GROUPS = {
     "test_t1_tax_and_coupons": "ticket_1_tax_and_coupons",
     "test_t2_pickup_times": "ticket_2_pickup_times",
     "test_t3_daily_limits": "ticket_3_daily_limits",
+    "test_t4_gift_cards": "ticket_4_gift_cards",
+    "test_t5_online_cancellation": "ticket_5_online_cancellation",
 }
 TICKETS = [g for g in GROUPS.values() if g.startswith("ticket_")]
-SUITE_TIMEOUT = 600
+SUITE_TIMEOUT = 1800
 
 
 class Collector(unittest.TestResult):
@@ -101,7 +105,7 @@ def grade(site: Path) -> dict:
         "site": str(site),
         "quality": {"score": round(ticket_mean * regression, 4), "ticket_mean": round(ticket_mean, 4),
                     "regression_rate": regression,
-                    "definition": "Mean of the three ticket pass rates, multiplied by the regression pass rate."},
+                    "definition": "Mean of the five ticket pass rates, multiplied by the regression pass rate."},
         "groups": groups,
     }
 

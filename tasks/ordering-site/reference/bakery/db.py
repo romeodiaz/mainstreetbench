@@ -32,7 +32,17 @@ CREATE TABLE IF NOT EXISTS orders (
     tax REAL NOT NULL,
     total REAL NOT NULL,
     status TEXT NOT NULL DEFAULT 'placed',
-    pickup_slot TEXT
+    pickup_slot TEXT,
+    cancel_key TEXT,
+    gift_card_code TEXT,
+    gift_card_applied REAL NOT NULL DEFAULT 0
+);
+CREATE TABLE IF NOT EXISTS gift_cards (
+    code TEXT PRIMARY KEY,
+    order_id INTEGER NOT NULL REFERENCES orders(id),
+    initial REAL NOT NULL,
+    balance REAL NOT NULL,
+    status TEXT NOT NULL DEFAULT 'active'
 );
 CREATE TABLE IF NOT EXISTS order_items (
     order_id INTEGER NOT NULL REFERENCES orders(id),
@@ -68,6 +78,10 @@ PROMO_CODES = [
 _lock = threading.Lock()
 
 
+class GiftCardInUse(Exception):
+    pass
+
+
 class Database:
     def __init__(self, path: str):
         self.path = path
@@ -93,8 +107,11 @@ class Database:
 
     def _migrate(self) -> None:
         """Bring databases created by earlier versions up to date without losing orders."""
-        if "pickup_slot" not in self._columns("orders"):
-            self.conn.execute("ALTER TABLE orders ADD COLUMN pickup_slot TEXT")
+        columns = self._columns("orders")
+        for column, kind in (("pickup_slot", "TEXT"), ("cancel_key", "TEXT"), ("gift_card_code", "TEXT"),
+                             ("gift_card_applied", "REAL NOT NULL DEFAULT 0")):
+            if column not in columns:
+                self.conn.execute(f"ALTER TABLE orders ADD COLUMN {column} {kind}")
         if "daily_limit" not in self._columns("products"):
             self.conn.execute("ALTER TABLE products ADD COLUMN daily_limit INTEGER")
             self._default_limits()
@@ -115,22 +132,32 @@ class Database:
         rows = self.query("SELECT * FROM promo_codes WHERE code = ? AND active = 1", (code.strip().upper(),))
         return rows[0] if rows else None
 
-    def insert_order(self, order: dict, items: list, check=None) -> int:
-        """Insert an order. `check(db)` runs under the same lock first, so capacity
-        and stock checks can't race with another order; it raises to reject."""
+    def insert_order(self, order: dict, items: list, check=None, after=None) -> int:
+        """Insert an order atomically. `check(db, order)` runs under the same lock first, so capacity,
+        stock and gift-card checks can't race with another order; it raises to reject and may fill
+        in order fields. `after(db, order_id)` runs before the commit (gift cards)."""
         with _lock:
-            if check is not None:
-                check(self)
-            cursor = self.conn.execute(
-                "INSERT INTO orders (created_at, customer_name, customer_email, customer_phone, pickup_date, "
-                "pickup_slot, promo_code, subtotal, discount, tax, total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                (order["created_at"], order["customer_name"], order["customer_email"], order["customer_phone"],
-                 order["pickup_date"], order["pickup_slot"], order["promo_code"], order["subtotal"],
-                 order["discount"], order["tax"], order["total"]))
-            order_id = cursor.lastrowid
-            self.conn.executemany(
-                "INSERT INTO order_items (order_id, sku, name, qty, unit_price, line_total) VALUES (?, ?, ?, ?, ?, ?)",
-                [(order_id, i["sku"], i["name"], i["qty"], i["unit_price"], i["line_total"]) for i in items])
+            try:
+                if check is not None:
+                    check(self, order)
+                cursor = self.conn.execute(
+                    "INSERT INTO orders (created_at, customer_name, customer_email, customer_phone, pickup_date, "
+                    "pickup_slot, promo_code, subtotal, discount, tax, total, cancel_key, gift_card_code, "
+                    "gift_card_applied) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    (order["created_at"], order["customer_name"], order["customer_email"], order["customer_phone"],
+                     order["pickup_date"], order["pickup_slot"], order["promo_code"], order["subtotal"],
+                     order["discount"], order["tax"], order["total"], order["cancel_key"],
+                     order.get("gift_card_code"), order.get("gift_card_applied", 0)))
+                order_id = cursor.lastrowid
+                self.conn.executemany(
+                    "INSERT INTO order_items (order_id, sku, name, qty, unit_price, line_total) "
+                    "VALUES (?, ?, ?, ?, ?, ?)",
+                    [(order_id, i["sku"], i["name"], i["qty"], i["unit_price"], i["line_total"]) for i in items])
+                if after is not None:
+                    after(self, order_id)
+            except Exception:
+                self.conn.rollback()
+                raise
             self.conn.commit()
             return order_id
 
@@ -163,6 +190,48 @@ class Database:
 
     def daily_limits(self) -> dict:
         return {row["sku"]: row["daily_limit"] for row in self.conn.execute("SELECT sku, daily_limit FROM products")}
+
+    # Gift cards. The *_unlocked helpers run inside insert_order's check/after hooks.
+    def gift_card_unlocked(self, code: str):
+        return self.conn.execute("SELECT * FROM gift_cards WHERE code = ?", (code,)).fetchone()
+
+    def add_gift_card_unlocked(self, code: str, order_id: int, amount: float) -> None:
+        self.conn.execute("INSERT INTO gift_cards (code, order_id, initial, balance) VALUES (?, ?, ?, ?)",
+                          (code, order_id, amount, amount))
+
+    def spend_gift_card_unlocked(self, code: str, amount: float) -> None:
+        self.conn.execute("UPDATE gift_cards SET balance = ROUND(balance - ?, 2) WHERE code = ?", (amount, code))
+
+    def order_gift_amount_unlocked(self, order_id: int) -> float:
+        return self.conn.execute("SELECT gift_card_applied FROM orders WHERE id = ?", (order_id,)).fetchone()[0]
+
+    def gift_cards_for_order(self, order_id: int) -> list:
+        return self.query("SELECT * FROM gift_cards WHERE order_id = ? ORDER BY rowid", (order_id,))
+
+    def gift_card(self, code: str):
+        rows = self.query("SELECT * FROM gift_cards WHERE code = ?", (code,))
+        return rows[0] if rows else None
+
+    def cancel_order(self, order_id: int, allow=None) -> str:
+        """Cancel an order and undo its effects: refund a gift card it paid with and void gift cards it
+        bought. Slot capacity and daily stock free up because they only count orders that aren't
+        cancelled. `allow(row)` may raise to refuse. Returns the resulting status."""
+        with _lock:
+            row = self.conn.execute("SELECT * FROM orders WHERE id = ?", (order_id,)).fetchone()
+            if row["status"] == "cancelled":
+                return "cancelled"
+            if allow is not None:
+                allow(row)
+            bought = self.conn.execute("SELECT * FROM gift_cards WHERE order_id = ?", (order_id,)).fetchall()
+            if any(card["balance"] < card["initial"] for card in bought):
+                raise GiftCardInUse("A gift card from this order has already been used, so please call us to cancel")
+            self.conn.execute("UPDATE gift_cards SET status = 'void', balance = 0 WHERE order_id = ?", (order_id,))
+            if row["gift_card_code"] and row["gift_card_applied"]:
+                self.conn.execute("UPDATE gift_cards SET balance = ROUND(balance + ?, 2) WHERE code = ?",
+                                  (row["gift_card_applied"], row["gift_card_code"]))
+            self.conn.execute("UPDATE orders SET status = 'cancelled' WHERE id = ?", (order_id,))
+            self.conn.commit()
+            return "cancelled"
 
     def locked(self, reader, *args):
         with _lock:

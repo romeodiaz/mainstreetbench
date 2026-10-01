@@ -16,7 +16,7 @@ from pathlib import Path
 
 TASK = Path(__file__).resolve().parent
 sys.path.insert(0, str(TASK / "hidden_tests"))
-from harness import LEGACY_NOW, STARTER, Site  # noqa: E402
+from sitectl import LEGACY_NOW, STARTER, Site  # noqa: E402
 
 PROMPT = (TASK / "prompt.txt").read_text(encoding="utf-8")
 FIRST_NAMES = ["Maria", "James", "Priya", "Daniel", "Aisha", "Tom", "Keiko", "Luis", "Grace", "Omar", "Hannah", "Ivy"]

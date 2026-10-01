@@ -14,6 +14,7 @@ document.getElementById("checkout").addEventListener("submit", async (event) => 
     pickup_date: form.get("pickup_date"),
     pickup_slot: form.get("pickup_slot"),
     promo_code: form.get("promo_code"),
+    gift_card_code: form.get("gift_card_code"),
     items: readCart().map((l) => ({ sku: l.sku, qty: l.qty })),
   };
   const response = await fetch("/api/orders", {
@@ -25,7 +26,7 @@ document.getElementById("checkout").addEventListener("submit", async (event) => 
     return;
   }
   writeCart([]);
-  window.location = `/order/${data.id}`;
+  window.location = data.confirmation_url;
 });
 
 async function loadSlots() {

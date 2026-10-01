@@ -78,10 +78,24 @@ class SiteTest(unittest.TestCase):
         status, order = self.order()
         self.assertEqual(status, 201)
         self.assertEqual((order["subtotal"], order["tax"], order["total"]), (18.0, 1.44, 19.44))
+        link = order.pop("confirmation_url")
         status, fetched = self.call("GET", f"/api/orders/{order['id']}")
         self.assertEqual(fetched, order)
-        status, page = self.call("GET", f"/order/{order['id']}")
+        status, page = self.call("GET", link)
         self.assertIn("$19.44", page)
+        self.assertNotIn("$19.44", self.call("GET", f"/order/{order['id']}")[1])
+
+    def test_gift_cards_and_cancellation(self):
+        _, bought = self.order(items=[{"sku": "GIFT25", "qty": 1}])
+        page = self.call("GET", bought["confirmation_url"])[1]
+        code = page.split("Gift card code: <strong>")[1].split("<")[0]
+        _, paid = self.order(pickup_slot="11:00", gift_card_code=code)
+        self.assertEqual((paid["tax"], paid["gift_card_applied"], paid["amount_due"]), (1.44, 19.44, 0.0))
+        key = paid["confirmation_url"].split("key=")[1]
+        self.assertEqual(self.call("POST", f"/api/orders/{paid['id']}/cancel", {"key": "wrong"})[0], 403)
+        self.assertEqual(self.call("POST", f"/api/orders/{paid['id']}/cancel", {"key": key})[0], 200)
+        _, again = self.order(pickup_slot="11:30", items=[{"sku": "CAKE48", "qty": 1}], gift_card_code=code)
+        self.assertEqual(again["gift_card_applied"], 25.0)
 
     def test_rejects_bad_orders(self):
         self.assertEqual(self.order(items=[])[0], 400)

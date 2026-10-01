@@ -20,10 +20,14 @@ Grade the frozen copy in a sandbox with `evaluators/ordering_site.py`.
 | Check | Passed / total | Failing tests |
 |---|---|---|
 | **Quality score** | | |
-| Regression (existing behavior) | /5 | |
-| Ticket 1: tax and coupons | /7 | |
-| Ticket 2: pickup times | /11 | |
-| Ticket 3: daily limits | /9 | |
+| Regression (existing behavior) | /6 | |
+| Ticket 1: tax and coupons | /5 | |
+| Ticket 2: pickup times | /7 | |
+| Ticket 3: daily limits | /6 | |
+| Ticket 4: gift cards | /5 | |
+| Ticket 5: online cancellation | /7 | |
+
+Unmentioned traps caught (gift card vs tax, cancel undoes slot/stock/gift money, voided purchased cards, stranger cancellation, code strength): [ ]
 
 Did the solver's own tests pass? Did it change or delete the live database's existing orders? [ ]
 

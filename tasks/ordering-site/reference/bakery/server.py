@@ -6,17 +6,19 @@ Run: python3 -m bakery.server --port 8000 --db data/bakery.db
 import argparse
 import base64
 import datetime as dt
+import hmac
 import html
 import json
 import os
 import re
+import secrets
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from string import Template
 from urllib.parse import parse_qs, urlparse
 
 from . import clock, schedule
-from .db import Database
+from .db import Database, GiftCardInUse
 from .pricing import price_order
 
 HERE = Path(__file__).resolve().parent
@@ -24,6 +26,13 @@ TEMPLATES = HERE / "templates"
 STATIC = HERE / "static"
 EMAIL = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 MAX_QTY = 50
+GIFT_CARD_SKU = "GIFT25"
+CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"   # no 0/O or 1/I to misread
+
+
+def new_gift_code() -> str:
+    raw = "".join(secrets.choice(CODE_ALPHABET) for _ in range(12))
+    return "-".join(raw[i:i + 4] for i in range(0, 12, 4))
 
 
 class ValidationError(Exception):
@@ -57,7 +66,17 @@ def order_json(db: Database, row) -> dict:
         "pickup_date": row["pickup_date"], "pickup_slot": row["pickup_slot"], "items": items,
         "promo_code": row["promo_code"],
         "subtotal": row["subtotal"], "discount": row["discount"], "tax": row["tax"], "total": row["total"],
+        "gift_card_applied": row["gift_card_applied"],
+        "amount_due": round(row["total"] - row["gift_card_applied"], 2),
     }
+
+
+def confirmation_url(row) -> str:
+    return f"/order/{row['id']}?key={row['cancel_key']}"
+
+
+def has_key(row, key) -> bool:
+    return bool(row["cancel_key"]) and isinstance(key, str) and hmac.compare_digest(row["cancel_key"], key)
 
 
 def create_order(db: Database, payload: dict) -> int:
@@ -107,11 +126,12 @@ def create_order(db: Database, payload: dict) -> int:
     if code and promo is None:
         raise ValidationError("That promo code isn't valid")
     totals = price_order(lines, promo)
+    gift_code = str(payload.get("gift_card_code") or "").strip().upper()
     wanted = {}
     for line in lines:
         wanted[line["sku"]] = wanted.get(line["sku"], 0) + line["qty"]
 
-    def check_capacity(db_: Database) -> None:
+    def check_capacity(db_: Database, order: dict) -> None:
         # Runs under the database lock, so two customers can't both take the last cake or slot.
         used = db_.product_usage(pickup.isoformat())
         limits = db_.daily_limits()
@@ -120,16 +140,34 @@ def create_order(db: Database, payload: dict) -> int:
                 remaining = max(limits[sku] - used.get(sku, 0), 0)
                 if qty > remaining:
                     name = next(line["name"] for line in lines if line["sku"] == sku)
-                    raise Conflict(f"Sorry, we only have {remaining} {name} left for {pickup.isoformat()}",
-                                   sku=sku, remaining=remaining)
+                    message = (f"Sorry, {name} is sold out for {pickup.isoformat()}" if remaining == 0 else
+                               f"Sorry, we only have {remaining} {name} left for {pickup.isoformat()}")
+                    raise Conflict(message, sku=sku, remaining=remaining)
         if db_.slot_usage(pickup.isoformat()).get(slot, 0) >= schedule.SLOT_CAPACITY:
             raise Conflict("That pickup time is full. Please choose another time")
+        if gift_code:
+            # A gift card is a way to pay, not a discount: tax and totals are unchanged.
+            card = db_.gift_card_unlocked(gift_code)
+            if card is None or card["status"] != "active":
+                raise ValidationError("We don't recognise that gift card code")
+            if card["balance"] <= 0:
+                raise ValidationError("That gift card has no money left on it")
+            order["gift_card_code"] = gift_code
+            order["gift_card_applied"] = min(card["balance"], totals["total"])
+
+    def record_gift_cards(db_: Database, order_id: int) -> None:
+        if gift_code:
+            db_.spend_gift_card_unlocked(gift_code, db_.order_gift_amount_unlocked(order_id))
+        for line in lines:
+            if line["sku"] == GIFT_CARD_SKU:
+                for _ in range(line["qty"]):
+                    db_.add_gift_card_unlocked(new_gift_code(), order_id, line["unit_price"])
 
     return db.insert_order({
         "created_at": clock.now().isoformat(), "customer_name": name, "customer_email": email,
         "customer_phone": phone, "pickup_date": pickup.isoformat(), "pickup_slot": slot,
-        "promo_code": code or None, **totals,
-    }, lines, check=check_capacity)
+        "promo_code": code or None, "cancel_key": secrets.token_urlsafe(16), **totals,
+    }, lines, check=check_capacity, after=record_gift_cards)
 
 
 def parse_date(value) -> dt.date:
@@ -235,7 +273,7 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/checkout":
             return self.send_html(200, render("checkout.html", title="Checkout"))
         if match := re.fullmatch(r"/order/(\d+)", path):
-            return self.confirmation_page(int(match[1]))
+            return self.confirmation_page(int(match[1]), query.get("key"))
         try:
             if path == "/api/menu":
                 day = parse_date(query["date"]) if "date" in query else None
@@ -261,21 +299,39 @@ class Handler(BaseHTTPRequestHandler):
         path = urlparse(self.path).path
         try:
             if path == "/api/orders":
-                order_id = create_order(self.db, self.read_json())
-                return self.send_json(201, order_json(self.db, self.db.order(order_id)))
+                row = self.db.order(create_order(self.db, self.read_json()))
+                return self.send_json(201, {**order_json(self.db, row), "confirmation_url": confirmation_url(row)})
             if match := re.fullmatch(r"/admin/api/orders/(\d+)/cancel", path):
                 if not self.require_admin():
                     return
                 row = self.db.order(int(match[1]))
                 if row is None:
                     return self.not_found()
-                self.db.set_status(row["id"], "cancelled")
+                self.db.cancel_order(row["id"])
                 return self.send_json(200, order_json(self.db, self.db.order(row["id"])))
+            if match := re.fullmatch(r"/api/orders/(\d+)/cancel", path):
+                return self.customer_cancel(int(match[1]), self.read_json())
         except ValidationError as exc:
             return self.send_json(400, {"error": str(exc)})
         except Conflict as exc:
             return self.send_json(409, {"error": str(exc), **exc.details})
+        except GiftCardInUse as exc:
+            return self.send_json(409, {"error": str(exc)})
         self.not_found()
+
+    def customer_cancel(self, order_id: int, body):
+        row = self.db.order(order_id)
+        key = body.get("key") if isinstance(body, dict) else None
+        if row is None or not has_key(row, key):
+            # Without the private link, an order number alone proves nothing.
+            return self.send_json(403, {"error": "Use the link from your order confirmation to cancel"})
+
+        def allow(current):
+            if dt.date.fromisoformat(current["pickup_date"]) <= clock.today():
+                raise ValidationError("Orders can't be cancelled on the day of pickup. Please call us")
+
+        self.db.cancel_order(order_id, allow=allow)
+        self.send_json(200, order_json(self.db, self.db.order(order_id)))
 
     def do_PUT(self):
         path = urlparse(self.path).path
@@ -328,11 +384,31 @@ class Handler(BaseHTTPRequestHandler):
         self.send_html(200, render("menu.html", title="Order online", menu="\n".join(sections),
                                    date=day.isoformat() if day else ""))
 
-    def confirmation_page(self, order_id: int):
+    def confirmation_page(self, order_id: int, key: str | None):
         row = self.db.order(order_id)
         if row is None:
             return self.not_found()
+        if not has_key(row, key):
+            # Order numbers are sequential; customer details and actions need the private link.
+            return self.send_html(200, render("message.html", title=f"Order #{order_id}",
+                                              message="Open the link from your order confirmation to see this order."))
         order = order_json(self.db, row)
+        extras = []
+        for card in self.db.gift_cards_for_order(order_id):
+            state = "void (order cancelled)" if card["status"] == "void" else f"{money(card['balance'])} on it"
+            extras.append(f"<p class=\"gift-card-code\">Gift card code: <strong>{card['code']}</strong> ({state})</p>")
+        if row["gift_card_code"]:
+            card = self.db.gift_card(row["gift_card_code"])
+            extras.append(f"<p class=\"gift-card-paid\">Paid with gift card: {money(row['gift_card_applied'])}. "
+                          f"Left on that card: {money(card['balance'])}.</p>")
+        extras.append(f"<p class=\"amount-due\">Amount due at pickup: <strong>{money(order['amount_due'])}</strong></p>")
+        if order["status"] == "placed" and dt.date.fromisoformat(order["pickup_date"]) > clock.today():
+            extras.append(f"<button type=\"button\" id=\"cancel-order\" data-order-id=\"{order_id}\" "
+                          f"data-key=\"{html.escape(key)}\">Cancel order</button>"
+                          "<p id=\"cancel-error\" class=\"error\" role=\"alert\"></p>"
+                          "<script src=\"/static/cancel.js\"></script>")
+        elif order["status"] == "placed":
+            extras.append("<p>It's pickup day, so this order can no longer be cancelled online. Please call us.</p>")
         items = "\n".join(f"<tr><td>{i['qty']} × {html.escape(i['name'])}</td><td>{money(i['line_total'])}</td></tr>"
                           for i in order["items"])
         self.send_html(200, render(
@@ -340,7 +416,7 @@ class Handler(BaseHTTPRequestHandler):
             name=html.escape(order["customer"]["name"]), pickup_date=order["pickup_date"],
             pickup_slot=order["pickup_slot"] or "any time", items=items,
             subtotal=money(order["subtotal"]), discount=money(order["discount"]), tax=money(order["tax"]),
-            total=money(order["total"]), status=order["status"]))
+            total=money(order["total"]), status=order["status"], extras="\n".join(extras)))
 
     def admin_page(self, pickup_date: str | None):
         rows = []
