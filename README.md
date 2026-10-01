@@ -23,7 +23,7 @@ The design follows [Bug Hunt Bench](https://github.com/phuryn/bug-hunt-bench): m
 - a complete reference fix scores **100**;
 - each of the 39 website problems is shown, one at a time, to fail only its own check.
 
-The problems split 17 obvious, 49 needing cross-checking, and 34 hidden. That mix is meant to leave headroom, so expect scores well below 100. [How to run and grade it.](tasks/health-check/)
+The problems split 17 obvious, 49 needing cross-checking, and 34 hidden. That mix is meant to leave headroom, so expect scores well below 100. [How to run and grade it](tasks/health-check/), and [how to keep runs apart from this repository](docs/running-the-bench.md).
 
 ## Three configurations
 
