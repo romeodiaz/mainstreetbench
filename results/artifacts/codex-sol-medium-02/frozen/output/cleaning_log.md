@@ -1,0 +1,948 @@
+# Corner Loaf cleaning log
+
+As of 2026-09-30. Source: the copied customer_orders.csv, SHA-256 `0fe0da134f5e16a426225741e42d3053c6d04f650342de147205119ada5f3e3d`. The copied source was not edited.
+Start: 2026-09-30 17:52:57 America/Los_Angeles. Skill used: Spreadsheets. Standard-library Python used for CSV processing.
+
+## Decisions and definitions
+
+- Source has 300 rows and 296 distinct IDs. Removed four exact duplicate rows and two explicit test records. Quarantined suspected test 90003 with its full original record below. Retained 293 transaction rows representing 290 purchases and three refunds, linked to 64 customers. A refund is a separate real transaction, not an additional purchase.
+- Recorded total is the best available evidence of what was charged or refunded. We do not replace totals with quantity × unit price. Four unresolved differences remain flagged; the supplied data cannot prove actual settlement, taxes, fees or discounts. Revenue is a recorded earned-revenue proxy, not audited bank receipts or profit.
+- Net revenue is recorded total for bakery goods, including negative refunds. Gift-card issuance is deferred revenue; recorded gift-card proceeds are shown separately. There is no redemption data, and no invented redemption revenue. Gift-card purchases count as orders and establish last purchase date. Gift-card units are excluded from best-selling bakery products.
+- Net earned revenue = $12,039.00. Net gift-card proceeds = $2,184.00. Net recorded receipts = $14,223.00. These reconcile: earned revenue + gift-card proceeds = recorded receipts.
+- Customer order count and last_order_date use purchases only, excluding refund rows. Inactivity means last purchase strictly more than 90 days before 2026-09-30: last_order_date < 2026-07-02. A purchase exactly 90 days ago is not inactive.
+- Product units are net quantities after returns. One croissant box is one box of six; a tray and cake each count as one product unit. No conversion to individual pastries. Top customers rank by net earned revenue descending, then stable customer ID for ties.
+- Customer identities use matching normalized phone, corroborated by the sole observed nonblank email. Verified no phone has conflicting emails and no email spans phones in the retained data. IDs are deterministic phone hashes; contacts changing in future require identity review. Missing emails stay blank unless recovered from another order with the same phone.
+- CSV has no native types: quantity, counts and money use plain numeric literals without currency symbols or thousands separators; dates use YYYY-MM-DD; IDs and phone are identifiers. source_row refers to copied CSV line numbers (header = line 1). Original notes and financial amounts are retained.
+- Every changed source field, excluded row, derived ID, financial reclassification and flagged issue is listed below by affected order ID. Unchanged field values are not repeated. Normalized row order is date then order ID; customer rows sort by name then customer ID.
+
+## Limitations needing owner review
+
+Confirm whether 90003 was a real complimentary order. It is quarantined as a likely test rather than asserted to be fake; reinstating it would add one order, one unverified customer and one croissant box, with zero revenue. Confirm amounts for 10030, 10239, 10240 and 10277; the recorded totals were retained. Year corrections for 10221 and 10269 use period and neighboring-date evidence. Four customers have no observed email. Gift-card redemption, tax breakdown and settlement data were not supplied.
+
+## Running the check
+
+Run `python3 output/check_dashboard.py` from the working directory, or `python3 check_dashboard.py` from output/. The checker uses only the Python standard library, prints PASS/FAIL, and exits 0/1. It reads saved CSVs and visible dashboard cells independently of the builder. The dashboard is a static snapshot; editing CSVs requires rebuilding the dashboard before the check can pass.
+
+## Date formatting
+
+- Order **10131**: '1/21/26' → 2026-01-21; slash dates parsed month/day/year for this US bakery.
+- Order **10136**: 'January 26, 2026' → 2026-01-26; slash dates parsed month/day/year for this US bakery.
+- Order **10054**: '9-Nov-2025' → 2025-11-09; slash dates parsed month/day/year for this US bakery.
+- Order **10109**: '26-Dec-2025' → 2025-12-26; slash dates parsed month/day/year for this US bakery.
+- Order **10154**: '21-Feb-2026' → 2026-02-21; slash dates parsed month/day/year for this US bakery.
+- Order **10278**: 'August 23, 2026' → 2026-08-23; slash dates parsed month/day/year for this US bakery.
+- Order **10215**: '5/28/26' → 2026-05-28; slash dates parsed month/day/year for this US bakery.
+- Order **10183**: '2-Apr-2026' → 2026-04-02; slash dates parsed month/day/year for this US bakery.
+- Order **10283**: '30-Aug-2026' → 2026-08-30; slash dates parsed month/day/year for this US bakery.
+- Order **10010**: '6-Oct-2025' → 2025-10-06; slash dates parsed month/day/year for this US bakery.
+- Order **10203**: '4/30/26' → 2026-04-30; slash dates parsed month/day/year for this US bakery.
+- Order **10188**: '4/7/26' → 2026-04-07; slash dates parsed month/day/year for this US bakery.
+- Order **10285**: '7-Sep-2026' → 2026-09-07; slash dates parsed month/day/year for this US bakery.
+- Order **10149**: '2/13/26' → 2026-02-13; slash dates parsed month/day/year for this US bakery.
+- Order **10086**: 'December 2, 2025' → 2025-12-02; slash dates parsed month/day/year for this US bakery.
+- Order **10120**: '1/11/26' → 2026-01-11; slash dates parsed month/day/year for this US bakery.
+- Order **10244**: '7/3/26' → 2026-07-03; slash dates parsed month/day/year for this US bakery.
+- Order **10237**: '6/20/26' → 2026-06-20; slash dates parsed month/day/year for this US bakery.
+- Order **10268**: '5-Aug-2026' → 2026-08-05; slash dates parsed month/day/year for this US bakery.
+- Order **10078**: '11/26/25' → 2025-11-26; slash dates parsed month/day/year for this US bakery.
+- Order **10085**: 'December 2, 2025' → 2025-12-02; slash dates parsed month/day/year for this US bakery.
+- Order **10056**: 'November 11, 2025' → 2025-11-11; slash dates parsed month/day/year for this US bakery.
+- Order **10200**: '4/25/26' → 2026-04-25; slash dates parsed month/day/year for this US bakery.
+- Order **10088**: 'December 6, 2025' → 2025-12-06; slash dates parsed month/day/year for this US bakery.
+- Order **10277**: '8/20/26' → 2026-08-20; slash dates parsed month/day/year for this US bakery.
+- Order **10235**: '6/18/26' → 2026-06-18; slash dates parsed month/day/year for this US bakery.
+- Order **10043**: '11/2/25' → 2025-11-02; slash dates parsed month/day/year for this US bakery.
+- Order **10292**: '9/28/26' → 2026-09-28; slash dates parsed month/day/year for this US bakery.
+- Order **10173**: 'March 15, 2026' → 2026-03-15; slash dates parsed month/day/year for this US bakery.
+- Order **10250**: '7/12/26' → 2026-07-12; slash dates parsed month/day/year for this US bakery.
+- Order **10174**: '3/15/26' → 2026-03-15; slash dates parsed month/day/year for this US bakery.
+- Order **10187**: 'April 6, 2026' → 2026-04-06; slash dates parsed month/day/year for this US bakery.
+- Order **10117**: 'January 6, 2026' → 2026-01-06; slash dates parsed month/day/year for this US bakery.
+- Order **10191**: 'April 11, 2026' → 2026-04-11; slash dates parsed month/day/year for this US bakery.
+- Order **10073**: '11/21/25' → 2025-11-21; slash dates parsed month/day/year for this US bakery.
+- Order **10122**: '14-Jan-2026' → 2026-01-14; slash dates parsed month/day/year for this US bakery.
+- Order **10140**: '2/4/26' → 2026-02-04; slash dates parsed month/day/year for this US bakery.
+- Order **10267**: '8/4/26' → 2026-08-04; slash dates parsed month/day/year for this US bakery.
+- Order **10029**: '10/23/25' → 2025-10-23; slash dates parsed month/day/year for this US bakery.
+- Order **10076**: '11/25/25' → 2025-11-25; slash dates parsed month/day/year for this US bakery.
+- Order **10206**: '5/10/26' → 2026-05-10; slash dates parsed month/day/year for this US bakery.
+- Order **10147**: '2/12/26' → 2026-02-12; slash dates parsed month/day/year for this US bakery.
+- Order **10026**: 'October 20, 2025' → 2025-10-20; slash dates parsed month/day/year for this US bakery.
+- Order **10024**: 'October 19, 2025' → 2025-10-19; slash dates parsed month/day/year for this US bakery.
+- Order **10272**: '8/12/26' → 2026-08-12; slash dates parsed month/day/year for this US bakery.
+- Order **10135**: 'January 26, 2026' → 2026-01-26; slash dates parsed month/day/year for this US bakery.
+- Order **10066**: '16-Nov-2025' → 2025-11-16; slash dates parsed month/day/year for this US bakery.
+- Order **10232**: '6/15/26' → 2026-06-15; slash dates parsed month/day/year for this US bakery.
+- Order **10121**: 'January 13, 2026' → 2026-01-13; slash dates parsed month/day/year for this US bakery.
+- Order **10216**: '29-May-2026' → 2026-05-29; slash dates parsed month/day/year for this US bakery.
+- Order **10008**: '10/6/25' → 2025-10-06; slash dates parsed month/day/year for this US bakery.
+- Order **10114**: '1/5/26' → 2026-01-05; slash dates parsed month/day/year for this US bakery.
+- Order **10004**: '1-Oct-2025' → 2025-10-01; slash dates parsed month/day/year for this US bakery.
+- Order **10205**: '5/7/26' → 2026-05-07; slash dates parsed month/day/year for this US bakery.
+- Order **10257**: '7/18/26' → 2026-07-18; slash dates parsed month/day/year for this US bakery.
+- Order **10071**: '11/20/25' → 2025-11-20; slash dates parsed month/day/year for this US bakery.
+- Order **10148**: '12-Feb-2026' → 2026-02-12; slash dates parsed month/day/year for this US bakery.
+- Order **10168**: '9-Mar-2026' → 2026-03-09; slash dates parsed month/day/year for this US bakery.
+- Order **10167**: '3/7/26' → 2026-03-07; slash dates parsed month/day/year for this US bakery.
+- Order **10018**: '10/16/25' → 2025-10-16; slash dates parsed month/day/year for this US bakery.
+- Order **10229**: 'June 14, 2026' → 2026-06-14; slash dates parsed month/day/year for this US bakery.
+- Order **10238**: '6/21/26' → 2026-06-21; slash dates parsed month/day/year for this US bakery.
+- Order **10081**: '11/29/25' → 2025-11-29; slash dates parsed month/day/year for this US bakery.
+- Order **10006**: 'October 4, 2025' → 2025-10-04; slash dates parsed month/day/year for this US bakery.
+- Order **10134**: '1/26/26' → 2026-01-26; slash dates parsed month/day/year for this US bakery.
+- Order **10270**: '7-Aug-2026' → 2026-08-07; slash dates parsed month/day/year for this US bakery.
+- Order **10184**: '4/4/26' → 2026-04-04; slash dates parsed month/day/year for this US bakery.
+- Order **10190**: '4/11/26' → 2026-04-11; slash dates parsed month/day/year for this US bakery.
+- Order **10059**: '11/14/25' → 2025-11-14; slash dates parsed month/day/year for this US bakery.
+- Order **10042**: 'November 1, 2025' → 2025-11-01; slash dates parsed month/day/year for this US bakery.
+- Order **10083**: '11/29/25' → 2025-11-29; slash dates parsed month/day/year for this US bakery.
+- Order **10063**: '15-Nov-2025' → 2025-11-15; slash dates parsed month/day/year for this US bakery.
+- Order **10137**: '1/28/26' → 2026-01-28; slash dates parsed month/day/year for this US bakery.
+- Order **10106**: '23-Dec-2025' → 2025-12-23; slash dates parsed month/day/year for this US bakery.
+- Order **10289**: '9/22/26' → 2026-09-22; slash dates parsed month/day/year for this US bakery.
+- Order **10091**: '12/8/25' → 2025-12-08; slash dates parsed month/day/year for this US bakery.
+- Order **10055**: '10-Nov-2025' → 2025-11-10; slash dates parsed month/day/year for this US bakery.
+- Order **10227**: 'June 10, 2026' → 2026-06-10; slash dates parsed month/day/year for this US bakery.
+- Order **10262**: 'July 24, 2026' → 2026-07-24; slash dates parsed month/day/year for this US bakery.
+- Order **10115**: '6-Jan-2026' → 2026-01-06; slash dates parsed month/day/year for this US bakery.
+- Order **10045**: '3-Nov-2025' → 2025-11-03; slash dates parsed month/day/year for this US bakery.
+- Order **10057**: '11/11/25' → 2025-11-11; slash dates parsed month/day/year for this US bakery.
+- Order **10152**: '2/18/26' → 2026-02-18; slash dates parsed month/day/year for this US bakery.
+- Order **10033**: '10/26/25' → 2025-10-26; slash dates parsed month/day/year for this US bakery.
+- Order **10034**: 'October 27, 2025' → 2025-10-27; slash dates parsed month/day/year for this US bakery.
+- Order **10072**: '11/20/25' → 2025-11-20; slash dates parsed month/day/year for this US bakery.
+- Order **10223**: 'June 5, 2026' → 2026-06-05; slash dates parsed month/day/year for this US bakery.
+- Order **10046**: '11/4/25' → 2025-11-04; slash dates parsed month/day/year for this US bakery.
+- Order **10064**: '11/15/25' → 2025-11-15; slash dates parsed month/day/year for this US bakery.
+- Order **10220**: '6/3/26' → 2026-06-03; slash dates parsed month/day/year for this US bakery.
+- Order **10230**: '6/14/26' → 2026-06-14; slash dates parsed month/day/year for this US bakery.
+- Order **10060**: '11/14/25' → 2025-11-14; slash dates parsed month/day/year for this US bakery.
+- Order **10074**: '23-Nov-2025' → 2025-11-23; slash dates parsed month/day/year for this US bakery.
+- Order **10209**: 'May 17, 2026' → 2026-05-17; slash dates parsed month/day/year for this US bakery.
+- Order **10145**: '2/9/26' → 2026-02-09; slash dates parsed month/day/year for this US bakery.
+- Order **10175**: 'March 15, 2026' → 2026-03-15; slash dates parsed month/day/year for this US bakery.
+- Order **10075**: '11/24/25' → 2025-11-24; slash dates parsed month/day/year for this US bakery.
+- Order **10256**: '7/18/26' → 2026-07-18; slash dates parsed month/day/year for this US bakery.
+- Order **10265**: 'July 28, 2026' → 2026-07-28; slash dates parsed month/day/year for this US bakery.
+- Order **10155**: '2/22/26' → 2026-02-22; slash dates parsed month/day/year for this US bakery.
+- Order **10240**: 'June 22, 2026' → 2026-06-22; slash dates parsed month/day/year for this US bakery.
+- Order **10279**: '8/24/26' → 2026-08-24; slash dates parsed month/day/year for this US bakery.
+- Order **10248**: '9-Jul-2026' → 2026-07-09; slash dates parsed month/day/year for this US bakery.
+- Order **10036**: '27-Oct-2025' → 2025-10-27; slash dates parsed month/day/year for this US bakery.
+- Order **10016**: 'October 15, 2025' → 2025-10-15; slash dates parsed month/day/year for this US bakery.
+- Order **10142**: '2/5/26' → 2026-02-05; slash dates parsed month/day/year for this US bakery.
+- Order **10258**: '7/19/26' → 2026-07-19; slash dates parsed month/day/year for this US bakery.
+- Order **10218**: 'May 29, 2026' → 2026-05-29; slash dates parsed month/day/year for this US bakery.
+- Order **10052**: '9-Nov-2025' → 2025-11-09; slash dates parsed month/day/year for this US bakery.
+- Order **10212**: '5/22/26' → 2026-05-22; slash dates parsed month/day/year for this US bakery.
+- Order **10084**: '29-Nov-2025' → 2025-11-29; slash dates parsed month/day/year for this US bakery.
+- Order **10226**: '6/9/26' → 2026-06-09; slash dates parsed month/day/year for this US bakery.
+- Order **10253**: 'July 15, 2026' → 2026-07-15; slash dates parsed month/day/year for this US bakery.
+- Order **10037**: '28-Oct-2025' → 2025-10-28; slash dates parsed month/day/year for this US bakery.
+- Order **10162**: 'March 1, 2026' → 2026-03-01; slash dates parsed month/day/year for this US bakery.
+- Order **10288**: '18-Sep-2026' → 2026-09-18; slash dates parsed month/day/year for this US bakery.
+- Order **10011**: 'October 7, 2025' → 2025-10-07; slash dates parsed month/day/year for this US bakery.
+- Order **10070**: '11/18/25' → 2025-11-18; slash dates parsed month/day/year for this US bakery.
+- Order **10038**: '10/28/25' → 2025-10-28; slash dates parsed month/day/year for this US bakery.
+- Order **10105**: '12/23/25' → 2025-12-23; slash dates parsed month/day/year for this US bakery.
+- Order **10094**: '12/12/25' → 2025-12-12; slash dates parsed month/day/year for this US bakery.
+- Order **10128**: 'January 18, 2026' → 2026-01-18; slash dates parsed month/day/year for this US bakery.
+- Order **10119**: '1/9/26' → 2026-01-09; slash dates parsed month/day/year for this US bakery.
+- Order **10015**: '10/12/25' → 2025-10-12; slash dates parsed month/day/year for this US bakery.
+- Order **10013**: '9-Oct-2025' → 2025-10-09; slash dates parsed month/day/year for this US bakery.
+- Order **10003**: '10/1/25' → 2025-10-01; slash dates parsed month/day/year for this US bakery.
+- Order **10161**: '2/27/26' → 2026-02-27; slash dates parsed month/day/year for this US bakery.
+- Order **10127**: 'January 16, 2026' → 2026-01-16; slash dates parsed month/day/year for this US bakery.
+- Order **10005**: '10/2/25' → 2025-10-02; slash dates parsed month/day/year for this US bakery.
+- Order **10090**: '8-Dec-2025' → 2025-12-08; slash dates parsed month/day/year for this US bakery.
+- Order **10198**: '23-Apr-2026' → 2026-04-23; slash dates parsed month/day/year for this US bakery.
+- Order **10069**: 'November 17, 2025' → 2025-11-17; slash dates parsed month/day/year for this US bakery.
+- Order **10113**: 'January 3, 2026' → 2026-01-03; slash dates parsed month/day/year for this US bakery.
+- Order **10048**: '11/4/25' → 2025-11-04; slash dates parsed month/day/year for this US bakery.
+- Order **10139**: '2/3/26' → 2026-02-03; slash dates parsed month/day/year for this US bakery.
+- Order **10252**: 'July 15, 2026' → 2026-07-15; slash dates parsed month/day/year for this US bakery.
+- Order **10012**: '8-Oct-2025' → 2025-10-08; slash dates parsed month/day/year for this US bakery.
+- Order **10099**: '15-Dec-2025' → 2025-12-15; slash dates parsed month/day/year for this US bakery.
+- Order **10217**: 'May 29, 2026' → 2026-05-29; slash dates parsed month/day/year for this US bakery.
+- Order **10293**: 'September 30, 2026' → 2026-09-30; slash dates parsed month/day/year for this US bakery.
+- Order **10151**: '2/15/26' → 2026-02-15; slash dates parsed month/day/year for this US bakery.
+- Order **10111**: '12/30/25' → 2025-12-30; slash dates parsed month/day/year for this US bakery.
+- Order **10068**: '11/16/25' → 2025-11-16; slash dates parsed month/day/year for this US bakery.
+- Order **10129**: '19-Jan-2026' → 2026-01-19; slash dates parsed month/day/year for this US bakery.
+- Order **10192**: '4/17/26' → 2026-04-17; slash dates parsed month/day/year for this US bakery.
+- Order **10189**: '4/10/26' → 2026-04-10; slash dates parsed month/day/year for this US bakery.
+- Order **10061**: '11/14/25' → 2025-11-14; slash dates parsed month/day/year for this US bakery.
+- Order **10023**: '10/19/25' → 2025-10-19; slash dates parsed month/day/year for this US bakery.
+- Order **10153**: 'February 20, 2026' → 2026-02-20; slash dates parsed month/day/year for this US bakery.
+- Order **10030**: '10/25/25' → 2025-10-25; slash dates parsed month/day/year for this US bakery.
+- Order **10195**: '4/18/26' → 2026-04-18; slash dates parsed month/day/year for this US bakery.
+- Order **10058**: '13-Nov-2025' → 2025-11-13; slash dates parsed month/day/year for this US bakery.
+- Order **10107**: '12/24/25' → 2025-12-24; slash dates parsed month/day/year for this US bakery.
+- Order **10204**: '5/6/26' → 2026-05-06; slash dates parsed month/day/year for this US bakery.
+- Order **10281**: '8/29/26' → 2026-08-29; slash dates parsed month/day/year for this US bakery.
+- Order **10096**: '12/13/25' → 2025-12-13; slash dates parsed month/day/year for this US bakery.
+- Order **10271**: '11-Aug-2026' → 2026-08-11; slash dates parsed month/day/year for this US bakery.
+- Order **10287**: '17-Sep-2026' → 2026-09-17; slash dates parsed month/day/year for this US bakery.
+- Order **10231**: '6/14/26' → 2026-06-14; slash dates parsed month/day/year for this US bakery.
+- Order **10022**: '18-Oct-2025' → 2025-10-18; slash dates parsed month/day/year for this US bakery.
+- Order **10050**: 'November 5, 2025' → 2025-11-05; slash dates parsed month/day/year for this US bakery.
+- Order **10213**: '5/25/26' → 2026-05-25; slash dates parsed month/day/year for this US bakery.
+- Order **10146**: '2/11/26' → 2026-02-11; slash dates parsed month/day/year for this US bakery.
+- Order **10276**: '8/19/26' → 2026-08-19; slash dates parsed month/day/year for this US bakery.
+- Order **10143**: '2/7/26' → 2026-02-07; slash dates parsed month/day/year for this US bakery.
+- Order **10002**: 'October 1, 2025' → 2025-10-01; slash dates parsed month/day/year for this US bakery.
+- Order **10027**: '10/21/25' → 2025-10-21; slash dates parsed month/day/year for this US bakery.
+- Order **10225**: 'June 7, 2026' → 2026-06-07; slash dates parsed month/day/year for this US bakery.
+- Order **10290**: '9/23/26' → 2026-09-23; slash dates parsed month/day/year for this US bakery.
+- Order **10007**: 'October 5, 2025' → 2025-10-05; slash dates parsed month/day/year for this US bakery.
+- Order **10176**: '3/18/26' → 2026-03-18; slash dates parsed month/day/year for this US bakery.
+- Order **10039**: '28-Oct-2025' → 2025-10-28; slash dates parsed month/day/year for this US bakery.
+- Order **10051**: '6-Nov-2025' → 2025-11-06; slash dates parsed month/day/year for this US bakery.
+- Order **10100**: 'December 16, 2025' → 2025-12-16; slash dates parsed month/day/year for this US bakery.
+- Order **10208**: '16-May-2026' → 2026-05-16; slash dates parsed month/day/year for this US bakery.
+- Order **10261**: 'July 22, 2026' → 2026-07-22; slash dates parsed month/day/year for this US bakery.
+- Order **10169**: '3/11/26' → 2026-03-11; slash dates parsed month/day/year for this US bakery.
+- Order **10102**: '19-Dec-2025' → 2025-12-19; slash dates parsed month/day/year for this US bakery.
+- Order **10080**: '11/29/25' → 2025-11-29; slash dates parsed month/day/year for this US bakery.
+- Order **10082**: '11/29/25' → 2025-11-29; slash dates parsed month/day/year for this US bakery.
+
+## Phone formatting
+
+- Order **10131**: '555.141.0112' → (555) 141-0112; removed optional US country code and standardized punctuation.
+- Order **10242**: '+1 555 519 0160' → (555) 519-0160; removed optional US country code and standardized punctuation.
+- Order **10136**: '+1 555 779 0152' → (555) 779-0152; removed optional US country code and standardized punctuation.
+- Order **10109**: '+1 555 306 0146' → (555) 306-0146; removed optional US country code and standardized punctuation.
+- Order **10154**: '5557450100' → (555) 745-0100; removed optional US country code and standardized punctuation.
+- Order **10278**: '+1 555 707 0126' → (555) 707-0126; removed optional US country code and standardized punctuation.
+- Order **10215**: '555.371.0113' → (555) 371-0113; removed optional US country code and standardized punctuation.
+- Order **10079**: '5559930147' → (555) 993-0147; removed optional US country code and standardized punctuation.
+- Order **10180**: '555-988-0103' → (555) 988-0103; removed optional US country code and standardized punctuation.
+- Order **10183**: '555-141-0112' → (555) 141-0112; removed optional US country code and standardized punctuation.
+- Order **10110**: '5556220136' → (555) 622-0136; removed optional US country code and standardized punctuation.
+- Order **10283**: '+1 555 967 0124' → (555) 967-0124; removed optional US country code and standardized punctuation.
+- Order **10138**: '555-522-0120' → (555) 522-0120; removed optional US country code and standardized punctuation.
+- Order **10285**: '+1 555 522 0120' → (555) 522-0120; removed optional US country code and standardized punctuation.
+- Order **10149**: '5552360151' → (555) 236-0151; removed optional US country code and standardized punctuation.
+- Order **10086**: '555.720.0159' → (555) 720-0159; removed optional US country code and standardized punctuation.
+- Order **10120**: '555.749.0117' → (555) 749-0117; removed optional US country code and standardized punctuation.
+- Order **10019**: '+1 555 622 0136' → (555) 622-0136; removed optional US country code and standardized punctuation.
+- Order **10244**: '5557070126' → (555) 707-0126; removed optional US country code and standardized punctuation.
+- Order **10237**: '555.859.0158' → (555) 859-0158; removed optional US country code and standardized punctuation.
+- Order **10268**: '+1 555 484 0105' → (555) 484-0105; removed optional US country code and standardized punctuation.
+- Order **10078**: '+1 555 803 0161' → (555) 803-0161; removed optional US country code and standardized punctuation.
+- Order **10085**: '555-997-0114' → (555) 997-0114; removed optional US country code and standardized punctuation.
+- Order **10157**: '+1 555 196 0132' → (555) 196-0132; removed optional US country code and standardized punctuation.
+- Order **10200**: '+1 555 954 0148' → (555) 954-0148; removed optional US country code and standardized punctuation.
+- Order **10159**: '5559260128' → (555) 926-0128; removed optional US country code and standardized punctuation.
+- Order **10277**: '+1 555 404 0118' → (555) 404-0118; removed optional US country code and standardized punctuation.
+- Order **10043**: '555.720.0159' → (555) 720-0159; removed optional US country code and standardized punctuation.
+- Order **10292**: '555.265.0145' → (555) 265-0145; removed optional US country code and standardized punctuation.
+- Order **10173**: '5557490117' → (555) 749-0117; removed optional US country code and standardized punctuation.
+- Order **10222**: '+1 555 862 0111' → (555) 862-0111; removed optional US country code and standardized punctuation.
+- Order **10250**: '555-196-0132' → (555) 196-0132; removed optional US country code and standardized punctuation.
+- Order **10174**: '555-343-0140' → (555) 343-0140; removed optional US country code and standardized punctuation.
+- Order **10170**: '555.609.0104' → (555) 609-0104; removed optional US country code and standardized punctuation.
+- Order **10101**: '555.988.0103' → (555) 988-0103; removed optional US country code and standardized punctuation.
+- Order **10187**: '555-901-0106' → (555) 901-0106; removed optional US country code and standardized punctuation.
+- Order **10191**: '555.829.0101' → (555) 829-0101; removed optional US country code and standardized punctuation.
+- Order **10122**: '+1 555 841 0138' → (555) 841-0138; removed optional US country code and standardized punctuation.
+- Order **10140**: '+1 555 306 0146' → (555) 306-0146; removed optional US country code and standardized punctuation.
+- Order **10104**: '555.306.0146' → (555) 306-0146; removed optional US country code and standardized punctuation.
+- Order **10267**: '+1 555 988 0103' → (555) 988-0103; removed optional US country code and standardized punctuation.
+- Order **10029**: '555.720.0159' → (555) 720-0159; removed optional US country code and standardized punctuation.
+- Order **10076**: '555-502-0134' → (555) 502-0134; removed optional US country code and standardized punctuation.
+- Order **10284**: '555-749-0117' → (555) 749-0117; removed optional US country code and standardized punctuation.
+- Order **10147**: '+1 555 952 0139' → (555) 952-0139; removed optional US country code and standardized punctuation.
+- Order **10026**: '+1 555 729 0141' → (555) 729-0141; removed optional US country code and standardized punctuation.
+- Order **10024**: '555-829-0101' → (555) 829-0101; removed optional US country code and standardized punctuation.
+- Order **10272**: '+1 555 141 0112' → (555) 141-0112; removed optional US country code and standardized punctuation.
+- Order **10247**: '+1 555 472 0133' → (555) 472-0133; removed optional US country code and standardized punctuation.
+- Order **10135**: '555-659-0129' → (555) 659-0129; removed optional US country code and standardized punctuation.
+- Order **10066**: '+1 555 993 0147' → (555) 993-0147; removed optional US country code and standardized punctuation.
+- Order **10232**: '+1 555 859 0158' → (555) 859-0158; removed optional US country code and standardized punctuation.
+- Order **10216**: '555.484.0105' → (555) 484-0105; removed optional US country code and standardized punctuation.
+- Order **10008**: '5555020134' → (555) 502-0134; removed optional US country code and standardized punctuation.
+- Order **10114**: '+1 555 779 0152' → (555) 779-0152; removed optional US country code and standardized punctuation.
+- Order **10144**: '5552360151' → (555) 236-0151; removed optional US country code and standardized punctuation.
+- Order **10205**: '+1 555 368 0131' → (555) 368-0131; removed optional US country code and standardized punctuation.
+- Order **10257**: '5558290101' → (555) 829-0101; removed optional US country code and standardized punctuation.
+- Order **10071**: '5555020134' → (555) 502-0134; removed optional US country code and standardized punctuation.
+- Order **10168**: '+1 555 609 0104' → (555) 609-0104; removed optional US country code and standardized punctuation.
+- Order **10167**: '5558290101' → (555) 829-0101; removed optional US country code and standardized punctuation.
+- Order **10186**: '+1 555 997 0114' → (555) 997-0114; removed optional US country code and standardized punctuation.
+- Order **10255**: '555.455.0127' → (555) 455-0127; removed optional US country code and standardized punctuation.
+- Order **10221**: '+1 555 522 0120' → (555) 522-0120; removed optional US country code and standardized punctuation.
+- Order **10229**: '555-368-0131' → (555) 368-0131; removed optional US country code and standardized punctuation.
+- Order **10125**: '5552360151' → (555) 236-0151; removed optional US country code and standardized punctuation.
+- Order **10124**: '5553060146' → (555) 306-0146; removed optional US country code and standardized punctuation.
+- Order **10081**: '555-522-0120' → (555) 522-0120; removed optional US country code and standardized punctuation.
+- Order **10021**: '5551450122' → (555) 145-0122; removed optional US country code and standardized punctuation.
+- Order **10201**: '555.779.0152' → (555) 779-0152; removed optional US country code and standardized punctuation.
+- Order **10185**: '+1 555 496 0123' → (555) 496-0123; removed optional US country code and standardized punctuation.
+- Order **10134**: '+1 555 688 0150' → (555) 688-0150; removed optional US country code and standardized punctuation.
+- Order **10270**: '+1 555 519 0160' → (555) 519-0160; removed optional US country code and standardized punctuation.
+- Order **10133**: '555-707-0126' → (555) 707-0126; removed optional US country code and standardized punctuation.
+- Order **10190**: '5559970114' → (555) 997-0114; removed optional US country code and standardized punctuation.
+- Order **10245**: '5554960123' → (555) 496-0123; removed optional US country code and standardized punctuation.
+- Order **10042**: '555-519-0160' → (555) 519-0160; removed optional US country code and standardized punctuation.
+- Order **10083**: '555.609.0104' → (555) 609-0104; removed optional US country code and standardized punctuation.
+- Order **10063**: '555.888.0110' → (555) 888-0110; removed optional US country code and standardized punctuation.
+- Order **10137**: '5557790152' → (555) 779-0152; removed optional US country code and standardized punctuation.
+- Order **10214**: '5557450100' → (555) 745-0100; removed optional US country code and standardized punctuation.
+- Order **10106**: '555-720-0159' → (555) 720-0159; removed optional US country code and standardized punctuation.
+- Order **10196**: '555.779.0152' → (555) 779-0152; removed optional US country code and standardized punctuation.
+- Order **10163**: '+1 555 729 0141' → (555) 729-0141; removed optional US country code and standardized punctuation.
+- Order **10210**: '+1 555 707 0126' → (555) 707-0126; removed optional US country code and standardized punctuation.
+- Order **10289**: '+1 555 404 0118' → (555) 404-0118; removed optional US country code and standardized punctuation.
+- Order **10098**: '5557200159' → (555) 720-0159; removed optional US country code and standardized punctuation.
+- Order **10291**: '+1 555 368 0131' → (555) 368-0131; removed optional US country code and standardized punctuation.
+- Order **10091**: '555-859-0158' → (555) 859-0158; removed optional US country code and standardized punctuation.
+- Order **10172**: '555-803-0161' → (555) 803-0161; removed optional US country code and standardized punctuation.
+- Order **10055**: '+1 555 306 0146' → (555) 306-0146; removed optional US country code and standardized punctuation.
+- Order **10286**: '555.450.0155' → (555) 450-0155; removed optional US country code and standardized punctuation.
+- Order **10227**: '+1 555 519 0160' → (555) 519-0160; removed optional US country code and standardized punctuation.
+- Order **10262**: '+1 555 745 0100' → (555) 745-0100; removed optional US country code and standardized punctuation.
+- Order **10115**: '+1 555 954 0148' → (555) 954-0148; removed optional US country code and standardized punctuation.
+- Order **10045**: '555.688.0150' → (555) 688-0150; removed optional US country code and standardized punctuation.
+- Order **10057**: '555-502-0134' → (555) 502-0134; removed optional US country code and standardized punctuation.
+- Order **10152**: '5554840105' → (555) 484-0105; removed optional US country code and standardized punctuation.
+- Order **10033**: '555.368.0131' → (555) 368-0131; removed optional US country code and standardized punctuation.
+- Order **10034**: '+1 555 368 0131' → (555) 368-0131; removed optional US country code and standardized punctuation.
+- Order **10072**: '5555020134' → (555) 502-0134; removed optional US country code and standardized punctuation.
+- Order **10219**: '+1 555 952 0139' → (555) 952-0139; removed optional US country code and standardized punctuation.
+- Order **10046**: '555-745-0100' → (555) 745-0100; removed optional US country code and standardized punctuation.
+- Order **10220**: '+1 555 745 0100' → (555) 745-0100; removed optional US country code and standardized punctuation.
+- Order **10263**: '555-202-0108' → (555) 202-0108; removed optional US country code and standardized punctuation.
+- Order **10230**: '5557450100' → (555) 745-0100; removed optional US country code and standardized punctuation.
+- Order **10060**: '+1 555 450 0155' → (555) 450-0155; removed optional US country code and standardized punctuation.
+- Order **10074**: '555.993.0147' → (555) 993-0147; removed optional US country code and standardized punctuation.
+- Order **10209**: '555-519-0160' → (555) 519-0160; removed optional US country code and standardized punctuation.
+- Order **10145**: '555-779-0152' → (555) 779-0152; removed optional US country code and standardized punctuation.
+- Order **10014**: '+1 555 841 0138' → (555) 841-0138; removed optional US country code and standardized punctuation.
+- Order **10075**: '+1 555 306 0146' → (555) 306-0146; removed optional US country code and standardized punctuation.
+- Order **10265**: '555.779.0152' → (555) 779-0152; removed optional US country code and standardized punctuation.
+- Order **10155**: '555.926.0128' → (555) 926-0128; removed optional US country code and standardized punctuation.
+- Order **10020**: '5557450100' → (555) 745-0100; removed optional US country code and standardized punctuation.
+- Order **10240**: '555-334-0165' → (555) 334-0165; removed optional US country code and standardized punctuation.
+- Order **10279**: '555.729.0141' → (555) 729-0141; removed optional US country code and standardized punctuation.
+- Order **10274**: '555-859-0158' → (555) 859-0158; removed optional US country code and standardized punctuation.
+- Order **10041**: '555-707-0126' → (555) 707-0126; removed optional US country code and standardized punctuation.
+- Order **10067**: '555-522-0120' → (555) 522-0120; removed optional US country code and standardized punctuation.
+- Order **10181**: '555.688.0150' → (555) 688-0150; removed optional US country code and standardized punctuation.
+- Order **10171**: '5553680131' → (555) 368-0131; removed optional US country code and standardized punctuation.
+- Order **10282**: '5559360168' → (555) 936-0168; removed optional US country code and standardized punctuation.
+- Order **10249**: '555.936.0168' → (555) 936-0168; removed optional US country code and standardized punctuation.
+- Order **10036**: '555-720-0159' → (555) 720-0159; removed optional US country code and standardized punctuation.
+- Order **10236**: '5555150167' → (555) 515-0167; removed optional US country code and standardized punctuation.
+- Order **10028**: '+1 555 306 0146' → (555) 306-0146; removed optional US country code and standardized punctuation.
+- Order **10049**: '555-945-0125' → (555) 945-0125; removed optional US country code and standardized punctuation.
+- Order **10087**: '5557200159' → (555) 720-0159; removed optional US country code and standardized punctuation.
+- Order **10141**: '555-515-0167' → (555) 515-0167; removed optional US country code and standardized punctuation.
+- Order **10123**: '5556220136' → (555) 622-0136; removed optional US country code and standardized punctuation.
+- Order **10016**: '555-749-0117' → (555) 749-0117; removed optional US country code and standardized punctuation.
+- Order **10142**: '5551510102' → (555) 151-0102; removed optional US country code and standardized punctuation.
+- Order **10218**: '+1 555 803 0161' → (555) 803-0161; removed optional US country code and standardized punctuation.
+- Order **10264**: '+1 555 707 0126' → (555) 707-0126; removed optional US country code and standardized punctuation.
+- Order **10095**: '555.888.0110' → (555) 888-0110; removed optional US country code and standardized punctuation.
+- Order **10212**: '555.404.0118' → (555) 404-0118; removed optional US country code and standardized punctuation.
+- Order **10084**: '555-729-0141' → (555) 729-0141; removed optional US country code and standardized punctuation.
+- Order **10226**: '555.615.0154' → (555) 615-0154; removed optional US country code and standardized punctuation.
+- Order **10062**: '555.484.0105' → (555) 484-0105; removed optional US country code and standardized punctuation.
+- Order **10269**: '555.967.0124' → (555) 967-0124; removed optional US country code and standardized punctuation.
+- Order **10130**: '555.745.0100' → (555) 745-0100; removed optional US country code and standardized punctuation.
+- Order **10253**: '555.368.0131' → (555) 368-0131; removed optional US country code and standardized punctuation.
+- Order **10037**: '5556880150' → (555) 688-0150; removed optional US country code and standardized punctuation.
+- Order **10097**: '+1 555 707 0126' → (555) 707-0126; removed optional US country code and standardized punctuation.
+- Order **10260**: '+1 555 901 0106' → (555) 901-0106; removed optional US country code and standardized punctuation.
+- Order **10108**: '+1 555 484 0105' → (555) 484-0105; removed optional US country code and standardized punctuation.
+- Order **10162**: '5559450125' → (555) 945-0125; removed optional US country code and standardized punctuation.
+- Order **10202**: '555.749.0117' → (555) 749-0117; removed optional US country code and standardized punctuation.
+- Order **10178**: '5559970114' → (555) 997-0114; removed optional US country code and standardized punctuation.
+- Order **10288**: '555-916-0130' → (555) 916-0130; removed optional US country code and standardized punctuation.
+- Order **10038**: '555-151-0102' → (555) 151-0102; removed optional US country code and standardized punctuation.
+- Order **10105**: '555.779.0152' → (555) 779-0152; removed optional US country code and standardized punctuation.
+- Order **10094**: '5553680131' → (555) 368-0131; removed optional US country code and standardized punctuation.
+- Order **10194**: '+1 555 952 0139' → (555) 952-0139; removed optional US country code and standardized punctuation.
+- Order **10031**: '555.958.0116' → (555) 958-0116; removed optional US country code and standardized punctuation.
+- Order **10119**: '5558630163' → (555) 863-0163; removed optional US country code and standardized punctuation.
+- Order **10015**: '555-145-0122' → (555) 145-0122; removed optional US country code and standardized punctuation.
+- Order **10013**: '+1 555 720 0159' → (555) 720-0159; removed optional US country code and standardized punctuation.
+- Order **10003**: '555-502-0134' → (555) 502-0134; removed optional US country code and standardized punctuation.
+- Order **10127**: '555.729.0141' → (555) 729-0141; removed optional US country code and standardized punctuation.
+- Order **10005**: '555.502.0134' → (555) 502-0134; removed optional US country code and standardized punctuation.
+- Order **10090**: '555-200-0156' → (555) 200-0156; removed optional US country code and standardized punctuation.
+- Order **10112**: '+1 555 615 0154' → (555) 615-0154; removed optional US country code and standardized punctuation.
+- Order **10116**: '+1 555 863 0163' → (555) 863-0163; removed optional US country code and standardized punctuation.
+- Order **10069**: '555.707.0126' → (555) 707-0126; removed optional US country code and standardized punctuation.
+- Order **10017**: '5556590129' → (555) 659-0129; removed optional US country code and standardized punctuation.
+- Order **10113**: '+1 555 522 0120' → (555) 522-0120; removed optional US country code and standardized punctuation.
+- Order **10053**: '5557200159' → (555) 720-0159; removed optional US country code and standardized punctuation.
+- Order **10012**: '+1 555 236 0151' → (555) 236-0151; removed optional US country code and standardized punctuation.
+- Order **10077**: '555-502-0134' → (555) 502-0134; removed optional US country code and standardized punctuation.
+- Order **10217**: '555-484-0105' → (555) 484-0105; removed optional US country code and standardized punctuation.
+- Order **10199**: '5557290141' → (555) 729-0141; removed optional US country code and standardized punctuation.
+- Order **10193**: '5559540148' → (555) 954-0148; removed optional US country code and standardized punctuation.
+- Order **10293**: '555.151.0102' → (555) 151-0102; removed optional US country code and standardized punctuation.
+- Order **10246**: '+1 555 522 0120' → (555) 522-0120; removed optional US country code and standardized punctuation.
+- Order **10151**: '555.926.0128' → (555) 926-0128; removed optional US country code and standardized punctuation.
+- Order **10111**: '555.745.0100' → (555) 745-0100; removed optional US country code and standardized punctuation.
+- Order **10068**: '5559970114' → (555) 997-0114; removed optional US country code and standardized punctuation.
+- Order **10129**: '555.779.0152' → (555) 779-0152; removed optional US country code and standardized punctuation.
+- Order **10192**: '5559560169' → (555) 956-0169; removed optional US country code and standardized punctuation.
+- Order **10259**: '+1 555 958 0116' → (555) 958-0116; removed optional US country code and standardized punctuation.
+- Order **10189**: '5556090104' → (555) 609-0104; removed optional US country code and standardized punctuation.
+- Order **10234**: '+1 555 265 0145' → (555) 265-0145; removed optional US country code and standardized punctuation.
+- Order **10061**: '555.622.0136' → (555) 622-0136; removed optional US country code and standardized punctuation.
+- Order **10254**: '+1 555 916 0130' → (555) 916-0130; removed optional US country code and standardized punctuation.
+- Order **10153**: '555-707-0126' → (555) 707-0126; removed optional US country code and standardized punctuation.
+- Order **10233**: '555-779-0152' → (555) 779-0152; removed optional US country code and standardized punctuation.
+- Order **10030**: '555-484-0105' → (555) 484-0105; removed optional US country code and standardized punctuation.
+- Order **10195**: '+1 555 455 0127' → (555) 455-0127; removed optional US country code and standardized punctuation.
+- Order **10058**: '5553610157' → (555) 361-0157; removed optional US country code and standardized punctuation.
+- Order **10107**: '+1 555 745 0100' → (555) 745-0100; removed optional US country code and standardized punctuation.
+- Order **10092**: '5554960123' → (555) 496-0123; removed optional US country code and standardized punctuation.
+- Order **10281**: '5552650145' → (555) 265-0145; removed optional US country code and standardized punctuation.
+- Order **10239**: '555-522-0120' → (555) 522-0120; removed optional US country code and standardized punctuation.
+- Order **10211**: '5555190160' → (555) 519-0160; removed optional US country code and standardized punctuation.
+- Order **10266**: '555.522.0120' → (555) 522-0120; removed optional US country code and standardized punctuation.
+- Order **10287**: '555.936.0168' → (555) 936-0168; removed optional US country code and standardized punctuation.
+- Order **10231**: '+1 555 522 0120' → (555) 522-0120; removed optional US country code and standardized punctuation.
+- Order **10022**: '5552360151' → (555) 236-0151; removed optional US country code and standardized punctuation.
+- Order **10050**: '5557290141' → (555) 729-0141; removed optional US country code and standardized punctuation.
+- Order **10213**: '+1 555 745 0100' → (555) 745-0100; removed optional US country code and standardized punctuation.
+- Order **10179**: '555-107-0107' → (555) 107-0107; removed optional US country code and standardized punctuation.
+- Order **10276**: '+1 555 646 0142' → (555) 646-0142; removed optional US country code and standardized punctuation.
+- Order **10027**: '5551450122' → (555) 145-0122; removed optional US country code and standardized punctuation.
+- Order **10225**: '555.958.0116' → (555) 958-0116; removed optional US country code and standardized punctuation.
+- Order **10166**: '555-958-0116' → (555) 958-0116; removed optional US country code and standardized punctuation.
+- Order **10290**: '555-707-0126' → (555) 707-0126; removed optional US country code and standardized punctuation.
+- Order **10007**: '555.145.0122' → (555) 145-0122; removed optional US country code and standardized punctuation.
+- Order **10118**: '5556880150' → (555) 688-0150; removed optional US country code and standardized punctuation.
+- Order **10176**: '5551070107' → (555) 107-0107; removed optional US country code and standardized punctuation.
+- Order **10039**: '555-200-0156' → (555) 200-0156; removed optional US country code and standardized punctuation.
+- Order **10100**: '+1 555 236 0151' → (555) 236-0151; removed optional US country code and standardized punctuation.
+- Order **10009**: '5555020134' → (555) 502-0134; removed optional US country code and standardized punctuation.
+- Order **10208**: '555-829-0101' → (555) 829-0101; removed optional US country code and standardized punctuation.
+- Order **10261**: '+1 555 945 0125' → (555) 945-0125; removed optional US country code and standardized punctuation.
+- Order **10169**: '555-945-0125' → (555) 945-0125; removed optional US country code and standardized punctuation.
+- Order **10102**: '555.779.0152' → (555) 779-0152; removed optional US country code and standardized punctuation.
+- Order **10080**: '5552360151' → (555) 236-0151; removed optional US country code and standardized punctuation.
+- Order **10082**: '+1 555 945 0125' → (555) 945-0125; removed optional US country code and standardized punctuation.
+- Order **10044**: '555.866.0153' → (555) 866-0153; removed optional US country code and standardized punctuation.
+- Order **10156**: '555.484.0105' → (555) 484-0105; removed optional US country code and standardized punctuation.
+- Order **10035**: '5556220136' → (555) 622-0136; removed optional US country code and standardized punctuation.
+- Order **10065**: '555-472-0133' → (555) 472-0133; removed optional US country code and standardized punctuation.
+
+## Product normalization
+
+- Order **10180**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10110**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10283**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10188**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10244**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10078**: 'croissant box (6)' → 'Croissant Box (6)'.
+- Order **10085**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10292**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10222**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10001**: 'Sourdogh Loaf' → 'Sourdough Loaf'.
+- Order **10122**: 'Croissant Box 6' → 'Croissant Box (6)'.
+- Order **10147**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10135**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10232**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10025**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10004**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10205**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10257**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10148**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10018**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10229**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10134**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10133**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10042**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10083**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10063**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10196**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10289**: 'sourdough loaf' → 'Sourdough Loaf'.
+- Order **10291**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10227**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10033**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10072**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10219**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10064**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10175**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10028**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10087**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10165**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10258**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10218**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10130**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10011**: 'Croissant Box 6' → 'Croissant Box (6)'.
+- Order **10105**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10112**: 'Sourdogh Loaf' → 'Sourdough Loaf'.
+- Order **10069**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10139**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10252**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10012**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10099**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10293**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10246**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10111**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10192**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10189**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10023**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10281**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10224**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10103**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10022**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10002**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10051**: 'Cofee Beans 1lb' → 'Coffee Beans 1 lb'.
+- Order **10169**: 'Coffee Beans 1lb' → 'Coffee Beans 1 lb'.
+
+## Gift-card revenue classification
+
+- Order **10138**: Recorded total 25.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10149**: Recorded total 50.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10056**: Recorded total 100.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10235**: Recorded total 25.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10043**: Recorded total 25.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10191**: Recorded total 100.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10140**: Recorded total 25.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10104**: Recorded total 100.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10186**: Recorded total 100.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10255**: Recorded total 75.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10221**: Recorded total 100.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10185**: Recorded total 50.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10270**: Recorded total 75.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10245**: Recorded total 50.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10214**: Recorded total 75.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10273**: Recorded total 100.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10034**: Recorded total 50.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10145**: Recorded total 25.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10014**: Recorded total 100.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10256**: Recorded total 100.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10240**: Recorded total 109.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10279**: Recorded total 25.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10249**: Recorded total 100.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10264**: Recorded total 100.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10128**: Recorded total 50.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10127**: Recorded total 75.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10048**: Recorded total -25.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10093**: Recorded total 75.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10234**: Recorded total 75.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10092**: Recorded total 25.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10231**: Recorded total 100.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10225**: Recorded total 50.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10118**: Recorded total 25.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+- Order **10102**: Recorded total 50.00 retained as gift-card proceeds; net earned revenue = 0.00. No redemption evidence supplied.
+
+## Numeric formatting
+
+- Order **10120**: Unit Price: '$21.00' → 21.00; numeric CSV value, currency decoration removed.
+- Order **10235**: Unit Price: '$25.00' → 25.00; numeric CSV value, currency decoration removed.
+- Order **10187**: Unit Price: '$21.00' → 21.00; numeric CSV value, currency decoration removed.
+- Order **10073**: Unit Price: '$ 48.00' → 48.00; numeric CSV value, currency decoration removed.
+- Order **10182**: Unit Price: '$21.00' → 21.00; numeric CSV value, currency decoration removed.
+- Order **10286**: Unit Price: '$9.00' → 9.00; numeric CSV value, currency decoration removed.
+- Order **10262**: Unit Price: '9.00 USD' → 9.00; numeric CSV value, currency decoration removed.
+- Order **10230**: Unit Price: '48.00 USD' → 48.00; numeric CSV value, currency decoration removed.
+- Order **10175**: Unit Price: '$ 18.00' → 18.00; numeric CSV value, currency decoration removed.
+- Order **10256**: Unit Price: '$ 25.00' → 25.00; numeric CSV value, currency decoration removed.
+- Order **10041**: Unit Price: '$ 21.00' → 21.00; numeric CSV value, currency decoration removed.
+- Order **10181**: Total: '$120.00' → 120.00; numeric CSV value, currency decoration removed.
+- Order **10171**: Unit Price: '$9.00' → 9.00; numeric CSV value, currency decoration removed.
+- Order **10036**: Unit Price: '21.00 USD' → 21.00; numeric CSV value, currency decoration removed.
+- Order **10141**: Unit Price: '9.00 USD' → 9.00; numeric CSV value, currency decoration removed.
+- Order **10130**: Unit Price: '$ 18.00' → 18.00; numeric CSV value, currency decoration removed.
+- Order **10031**: Total: '$120.00' → 120.00; numeric CSV value, currency decoration removed.
+- Order **10077**: Unit Price: '$ 21.00' → 21.00; numeric CSV value, currency decoration removed.
+- Order **10217**: Unit Price: '$ 9.00' → 9.00; numeric CSV value, currency decoration removed.
+- Order **10129**: Unit Price: '48.00 USD' → 48.00; numeric CSV value, currency decoration removed.
+- Order **10233**: Unit Price: '$ 48.00' → 48.00; numeric CSV value, currency decoration removed.
+- Order **10195**: Unit Price: '$ 9.00' → 9.00; numeric CSV value, currency decoration removed.
+- Order **10103**: Unit Price: '$ 18.00' → 18.00; numeric CSV value, currency decoration removed.
+- Order **10027**: Unit Price: '$9.00' → 9.00; numeric CSV value, currency decoration removed.
+- Order **10051**: Unit Price: '$18.00' → 18.00; numeric CSV value, currency decoration removed.
+- Order **10009**: Unit Price: '$ 21.00' → 21.00; numeric CSV value, currency decoration removed.
+- Order **10080**: Unit Price: '$ 9.00' → 9.00; numeric CSV value, currency decoration removed.
+
+## Unresolved amount differences
+
+- Order **10277**: Recorded total 54.00 differs from 3 × 9.00 = 27.00. Retained recorded amount; cannot establish discount, fee, quantity error, or total error. Earned revenue uses recorded total, pending owner confirmation.
+- Order **10240**: Recorded total 109.00 differs from 4 × 25.00 = 100.00. Retained recorded amount; cannot establish discount, fee, quantity error, or total error. Gift-card proceeds affected; earned revenue remains zero.
+- Order **10030**: Recorded total 4.50 differs from 1 × 9.00 = 9.00. Retained recorded amount; cannot establish discount, fee, quantity error, or total error. Earned revenue uses recorded total, pending owner confirmation.
+- Order **10239**: Recorded total 22.50 differs from 3 × 9.00 = 27.00. Retained recorded amount; cannot establish discount, fee, quantity error, or total error. Earned revenue uses recorded total, pending owner confirmation.
+
+## Exact duplicate removal
+
+- Order **10191**: Removed source row 56; exactly matches retained source row 48.
+- Order **10125**: Removed source row 121; exactly matches retained source row 86.
+- Order **10282**: Removed source row 171; exactly matches retained source row 158.
+- Order **10052**: Removed source row 260; exactly matches retained source row 177.
+
+## Year transposition correction
+
+- Order **10221**: '6/4/62' → 2026-06-04. 62 → 26 is corroborated by the supplied Oct 2025–Sep 2026 range and adjacent IDs/dates: 10220 = 2026-06-03; 10222 = 2026-06-05.
+- Order **10269**: '2062-08-06' → 2026-08-06. 62 → 26 is corroborated by the supplied Oct 2025–Sep 2026 range and adjacent IDs/dates: 10268 = 2026-08-05; 10270 = 2026-08-07.
+
+## Test exclusion and quarantine
+
+- Order **90002**: Explicit testing checkout note. Source row 139: `{"Order ID": "90002", "Order Date": "2026-05-11", "Customer Name": "TEST", "Email": "test@test.com", "Phone": "555-000-0000", "Product": "Catering Tray", "Qty": "1", "Unit Price": "9.00", "Total": "9.00", "Payment": "Card", "Notes": "testing checkout"}`.
+- Order **90001**: Explicit test - ignore note. Source row 185: `{"Order ID": "90001", "Order Date": "2025-11-21", "Customer Name": "Test Customer", "Email": "test@example.com", "Phone": "555-000-0000", "Product": "Coffee Beans 1lb", "Qty": "1", "Unit Price": "9.00", "Total": "9.00", "Payment": "Card", "Notes": "test - ignore"}`.
+- Order **90003**: Suspected test, quarantined pending confirmation: placeholder name asdf, zero price/total, same 555-000-0000 phone as both explicit test records, and adjacent 900xx ID. This is an inference, not a confirmed deletion of a real order. Full record retained below; no revenue effect, but order/customer/unit counts would change if real. Source row 283: `{"Order ID": "90003", "Order Date": "2026-02-12", "Customer Name": "asdf", "Email": "", "Phone": "555-000-0000", "Product": "Croissant Box (6)", "Qty": "1", "Unit Price": "0.00", "Total": "0.00", "Payment": "Card", "Notes": ""}`.
+
+## Refund treatment
+
+- Order **10070**: Retained as a separate refund transaction linked to original order 10067; reduces earned revenue. Does not increase purchase count or update last purchase date.
+- Order **10048**: Retained as a separate refund transaction linked to original order 10043; reduces gift-card proceeds. Does not increase purchase count or update last purchase date.
+- Order **10211**: Retained as a separate refund transaction linked to original order 10209; reduces earned revenue. Does not increase purchase count or update last purchase date.
+
+## Customer ID assignment
+
+- Order **10182**: Assigned C-07397feef339 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10179**: Assigned C-07397feef339 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10176**: Assigned C-07397feef339 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10051**: Assigned C-07397feef339 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10131**: Assigned C-6e2db6025825 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10183**: Assigned C-6e2db6025825 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10056**: Assigned C-6e2db6025825 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10272**: Assigned C-6e2db6025825 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10018**: Assigned C-eb027d930ca5 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10021**: Assigned C-eb027d930ca5 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10089**: Assigned C-eb027d930ca5 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10011**: Assigned C-eb027d930ca5 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10015**: Assigned C-eb027d930ca5 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10027**: Assigned C-eb027d930ca5 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10007**: Assigned C-eb027d930ca5 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10142**: Assigned C-6e8fc6022d02 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10052**: Assigned C-6e8fc6022d02 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10038**: Assigned C-6e8fc6022d02 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10293**: Assigned C-6e8fc6022d02 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10143**: Assigned C-52341fd61388 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10157**: Assigned C-9755bd0eeaab from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10250**: Assigned C-9755bd0eeaab from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10090**: Assigned C-5a2848cc9360 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10039**: Assigned C-5a2848cc9360 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10263**: Assigned C-9b87d6cceb19 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10023**: Assigned C-9b87d6cceb19 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10149**: Assigned C-7dfe829b9fc3 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10144**: Assigned C-7dfe829b9fc3 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10125**: Assigned C-7dfe829b9fc3 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10160**: Assigned C-7dfe829b9fc3 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10012**: Assigned C-7dfe829b9fc3 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10096**: Assigned C-7dfe829b9fc3 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10022**: Assigned C-7dfe829b9fc3 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10100**: Assigned C-7dfe829b9fc3 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10080**: Assigned C-7dfe829b9fc3 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10292**: Assigned C-0633746b8747 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10132**: Assigned C-0633746b8747 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10234**: Assigned C-0633746b8747 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10281**: Assigned C-0633746b8747 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10184**: Assigned C-0328eb20faa7 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10161**: Assigned C-0328eb20faa7 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10109**: Assigned C-5112552f4b35 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10140**: Assigned C-5112552f4b35 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10104**: Assigned C-5112552f4b35 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10124**: Assigned C-5112552f4b35 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10055**: Assigned C-5112552f4b35 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10075**: Assigned C-5112552f4b35 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10028**: Assigned C-5112552f4b35 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10139**: Assigned C-5112552f4b35 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10164**: Assigned C-5112552f4b35 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10117**: Assigned C-98a814e3bd29 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10025**: Assigned C-d98ef208abf5 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10256**: Assigned C-d98ef208abf5 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10240**: Assigned C-d98ef208abf5 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10174**: Assigned C-e375eea16934 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10058**: Assigned C-0d5767d6d25a from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10205**: Assigned C-99ebdb88513b from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10229**: Assigned C-99ebdb88513b from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10291**: Assigned C-99ebdb88513b from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10033**: Assigned C-99ebdb88513b from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10034**: Assigned C-99ebdb88513b from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10171**: Assigned C-99ebdb88513b from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10253**: Assigned C-99ebdb88513b from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10094**: Assigned C-99ebdb88513b from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10215**: Assigned C-795e061c1836 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10277**: Assigned C-b9048642713e from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10289**: Assigned C-b9048642713e from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10212**: Assigned C-b9048642713e from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10271**: Assigned C-b9048642713e from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10286**: Assigned C-fa1b86c04300 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10060**: Assigned C-fa1b86c04300 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10255**: Assigned C-160ca77a6385 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10195**: Assigned C-160ca77a6385 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10247**: Assigned C-17a622cf46c6 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10065**: Assigned C-17a622cf46c6 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10268**: Assigned C-83aaf85f6624 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10216**: Assigned C-83aaf85f6624 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10152**: Assigned C-83aaf85f6624 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10062**: Assigned C-83aaf85f6624 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10108**: Assigned C-83aaf85f6624 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10252**: Assigned C-83aaf85f6624 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10217**: Assigned C-83aaf85f6624 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10030**: Assigned C-83aaf85f6624 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10156**: Assigned C-83aaf85f6624 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10185**: Assigned C-306382316fac from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10245**: Assigned C-306382316fac from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10258**: Assigned C-306382316fac from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10092**: Assigned C-306382316fac from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10010**: Assigned C-aed971f0caaf from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10001**: Assigned C-aed971f0caaf from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10076**: Assigned C-aed971f0caaf from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10008**: Assigned C-aed971f0caaf from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10071**: Assigned C-aed971f0caaf from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10006**: Assigned C-aed971f0caaf from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10057**: Assigned C-aed971f0caaf from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10072**: Assigned C-aed971f0caaf from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10003**: Assigned C-aed971f0caaf from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10005**: Assigned C-aed971f0caaf from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10077**: Assigned C-aed971f0caaf from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10009**: Assigned C-aed971f0caaf from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10236**: Assigned C-c6670f8b5349 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10141**: Assigned C-c6670f8b5349 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10242**: Assigned C-ee58ab4442f3 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10270**: Assigned C-ee58ab4442f3 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10042**: Assigned C-ee58ab4442f3 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10227**: Assigned C-ee58ab4442f3 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10209**: Assigned C-ee58ab4442f3 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10280**: Assigned C-ee58ab4442f3 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10211**: Assigned C-ee58ab4442f3 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10138**: Assigned C-25904d80bf42 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10285**: Assigned C-25904d80bf42 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10221**: Assigned C-25904d80bf42 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10081**: Assigned C-25904d80bf42 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10175**: Assigned C-25904d80bf42 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10067**: Assigned C-25904d80bf42 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10070**: Assigned C-25904d80bf42 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10198**: Assigned C-25904d80bf42 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10113**: Assigned C-25904d80bf42 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10246**: Assigned C-25904d80bf42 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10239**: Assigned C-25904d80bf42 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10266**: Assigned C-25904d80bf42 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10231**: Assigned C-25904d80bf42 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10170**: Assigned C-4d3eb28b58ff from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10168**: Assigned C-4d3eb28b58ff from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10083**: Assigned C-4d3eb28b58ff from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10189**: Assigned C-4d3eb28b58ff from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10226**: Assigned C-fef063fc764c from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10112**: Assigned C-fef063fc764c from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10110**: Assigned C-690130586925 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10019**: Assigned C-690130586925 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10123**: Assigned C-690130586925 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10061**: Assigned C-690130586925 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10035**: Assigned C-690130586925 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10126**: Assigned C-ee895a2fc4dc from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10158**: Assigned C-09e8f2858582 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10276**: Assigned C-09e8f2858582 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10235**: Assigned C-9d4971dbf076 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10206**: Assigned C-9d4971dbf076 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10135**: Assigned C-9d4971dbf076 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10017**: Assigned C-9d4971dbf076 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10275**: Assigned C-9d4971dbf076 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10088**: Assigned C-00c362f21718 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10134**: Assigned C-00c362f21718 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10059**: Assigned C-00c362f21718 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10045**: Assigned C-00c362f21718 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10181**: Assigned C-00c362f21718 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10037**: Assigned C-00c362f21718 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10118**: Assigned C-00c362f21718 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10278**: Assigned C-2545643bab7f from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10203**: Assigned C-2545643bab7f from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10244**: Assigned C-2545643bab7f from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10133**: Assigned C-2545643bab7f from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10210**: Assigned C-2545643bab7f from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10041**: Assigned C-2545643bab7f from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10264**: Assigned C-2545643bab7f from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10097**: Assigned C-2545643bab7f from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10069**: Assigned C-2545643bab7f from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10153**: Assigned C-2545643bab7f from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10002**: Assigned C-2545643bab7f from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10290**: Assigned C-2545643bab7f from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10086**: Assigned C-30496d7322f9 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10043**: Assigned C-30496d7322f9 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10029**: Assigned C-30496d7322f9 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10004**: Assigned C-30496d7322f9 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10106**: Assigned C-30496d7322f9 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10098**: Assigned C-30496d7322f9 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10036**: Assigned C-30496d7322f9 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10087**: Assigned C-30496d7322f9 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10047**: Assigned C-30496d7322f9 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10013**: Assigned C-30496d7322f9 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10048**: Assigned C-30496d7322f9 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10053**: Assigned C-30496d7322f9 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10251**: Assigned C-2a2ca7244be8 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10026**: Assigned C-2a2ca7244be8 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10163**: Assigned C-2a2ca7244be8 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10279**: Assigned C-2a2ca7244be8 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10084**: Assigned C-2a2ca7244be8 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10127**: Assigned C-2a2ca7244be8 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10199**: Assigned C-2a2ca7244be8 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10050**: Assigned C-2a2ca7244be8 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10154**: Assigned C-73fadad9de66 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10214**: Assigned C-73fadad9de66 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10262**: Assigned C-73fadad9de66 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10223**: Assigned C-73fadad9de66 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10046**: Assigned C-73fadad9de66 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10220**: Assigned C-73fadad9de66 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10230**: Assigned C-73fadad9de66 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10020**: Assigned C-73fadad9de66 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10130**: Assigned C-73fadad9de66 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10111**: Assigned C-73fadad9de66 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10032**: Assigned C-73fadad9de66 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10107**: Assigned C-73fadad9de66 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10213**: Assigned C-73fadad9de66 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10146**: Assigned C-73fadad9de66 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10120**: Assigned C-b919dc3054d2 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10173**: Assigned C-b919dc3054d2 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10284**: Assigned C-b919dc3054d2 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10016**: Assigned C-b919dc3054d2 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10202**: Assigned C-b919dc3054d2 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10136**: Assigned C-5d57b3ed442e from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10114**: Assigned C-5d57b3ed442e from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10201**: Assigned C-5d57b3ed442e from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10137**: Assigned C-5d57b3ed442e from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10196**: Assigned C-5d57b3ed442e from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10064**: Assigned C-5d57b3ed442e from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10228**: Assigned C-5d57b3ed442e from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10145**: Assigned C-5d57b3ed442e from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10265**: Assigned C-5d57b3ed442e from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10105**: Assigned C-5d57b3ed442e from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10128**: Assigned C-5d57b3ed442e from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10129**: Assigned C-5d57b3ed442e from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10233**: Assigned C-5d57b3ed442e from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10102**: Assigned C-5d57b3ed442e from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10177**: Assigned C-9cf0e9ec9f3f from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10078**: Assigned C-4b084ee2ea14 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10238**: Assigned C-4b084ee2ea14 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10172**: Assigned C-4b084ee2ea14 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10218**: Assigned C-4b084ee2ea14 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10191**: Assigned C-31525888ad14 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10024**: Assigned C-31525888ad14 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10257**: Assigned C-31525888ad14 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10167**: Assigned C-31525888ad14 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10273**: Assigned C-31525888ad14 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10224**: Assigned C-31525888ad14 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10208**: Assigned C-31525888ad14 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10040**: Assigned C-31525888ad14 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10122**: Assigned C-7c30ea668313 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10014**: Assigned C-7c30ea668313 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10099**: Assigned C-7c30ea668313 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10237**: Assigned C-e7b1ec792293 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10232**: Assigned C-e7b1ec792293 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10091**: Assigned C-e7b1ec792293 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10274**: Assigned C-e7b1ec792293 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10222**: Assigned C-54f6f5bcae09 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10248**: Assigned C-54f6f5bcae09 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10188**: Assigned C-4c949965b701 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10204**: Assigned C-4c949965b701 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10119**: Assigned C-a6681f22fadd from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10116**: Assigned C-a6681f22fadd from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10103**: Assigned C-8cf18bbd1e2f from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10044**: Assigned C-8cf18bbd1e2f from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10063**: Assigned C-c0eeaf7e5eac from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10095**: Assigned C-c0eeaf7e5eac from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10187**: Assigned C-7b92e7db9d91 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10073**: Assigned C-7b92e7db9d91 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10260**: Assigned C-7b92e7db9d91 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10150**: Assigned C-7b92e7db9d91 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10243**: Assigned C-7b92e7db9d91 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10288**: Assigned C-bfbcd06582ae from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10093**: Assigned C-bfbcd06582ae from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10254**: Assigned C-bfbcd06582ae from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10207**: Assigned C-bfbcd06582ae from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10159**: Assigned C-97123f56873e from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10155**: Assigned C-97123f56873e from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10151**: Assigned C-97123f56873e from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10282**: Assigned C-095e8b7189c2 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10249**: Assigned C-095e8b7189c2 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10287**: Assigned C-095e8b7189c2 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10049**: Assigned C-dc6ab9e48dd7 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10241**: Assigned C-dc6ab9e48dd7 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10162**: Assigned C-dc6ab9e48dd7 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10261**: Assigned C-dc6ab9e48dd7 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10169**: Assigned C-dc6ab9e48dd7 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10082**: Assigned C-dc6ab9e48dd7 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10147**: Assigned C-e05eec7a6e16 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10219**: Assigned C-e05eec7a6e16 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10194**: Assigned C-e05eec7a6e16 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10200**: Assigned C-2b6261957cf2 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10115**: Assigned C-2b6261957cf2 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10193**: Assigned C-2b6261957cf2 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10192**: Assigned C-f827b906df25 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10031**: Assigned C-937d13ccfa80 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10259**: Assigned C-937d13ccfa80 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10225**: Assigned C-937d13ccfa80 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10166**: Assigned C-937d13ccfa80 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10283**: Assigned C-476e78f296ea from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10269**: Assigned C-476e78f296ea from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10180**: Assigned C-9e15d866a968 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10101**: Assigned C-9e15d866a968 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10267**: Assigned C-9e15d866a968 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10148**: Assigned C-9e15d866a968 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10165**: Assigned C-9e15d866a968 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10079**: Assigned C-0398351f86a4 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10066**: Assigned C-0398351f86a4 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10074**: Assigned C-0398351f86a4 from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10054**: Assigned C-2a913148cbdb from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10085**: Assigned C-2a913148cbdb from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10121**: Assigned C-2a913148cbdb from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10186**: Assigned C-2a913148cbdb from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10190**: Assigned C-2a913148cbdb from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10178**: Assigned C-2a913148cbdb from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10068**: Assigned C-2a913148cbdb from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+- Order **10197**: Assigned C-2a913148cbdb from SHA-256 of normalized phone (12 hex characters). Stable across input sorting and reruns; no name-only merges.
+
+## Email recovery and formatting
+
+- Order **10183**: '' → 'arjun.park@example.com'; sole observed email on matching phone. Evidence order IDs: 10131, 10056, 10272.
+- Order **10052**: '' → 'priya.patel@example.com'; sole observed email on matching phone. Evidence order IDs: 10142, 10038, 10293.
+- Order **10271**: '' → 'owen.qureshi@example.com'; sole observed email on matching phone. Evidence order IDs: 10277, 10289, 10212.
+- Order **10113**: '' → 'lena.park@example.com'; sole observed email on matching phone. Evidence order IDs: 10138, 10285, 10221, 10081, 10175, 10067, 10070, 10198, 10246, 10239, 10266, 10231.
+- Order **10110**: '' → 'mei.rahman@example.com'; sole observed email on matching phone. Evidence order IDs: 10019, 10123, 10061, 10035.
+- Order **10069**: '' → 'daniel.price@example.com'; sole observed email on matching phone. Evidence order IDs: 10278, 10203, 10244, 10133, 10210, 10041, 10264, 10097, 10153, 10002, 10290.
+- Order **10047**: '' → 'samuel.farouk@example.com'; sole observed email on matching phone. Evidence order IDs: 10086, 10043, 10029, 10004, 10106, 10098, 10036, 10087, 10013, 10048, 10053.
+- Order **10127**: '' → 'diego.stein@example.com'; sole observed email on matching phone. Evidence order IDs: 10251, 10026, 10163, 10279, 10084, 10199, 10050.
+- Order **10146**: '' → 'maria.lopez@example.com'; sole observed email on matching phone. Evidence order IDs: 10154, 10214, 10262, 10223, 10046, 10220, 10230, 10020, 10130, 10111, 10032, 10107, 10213.
+- Order **10191**: '' → 'james.chen@example.com'; sole observed email on matching phone. Evidence order IDs: 10024, 10257, 10167, 10273, 10224, 10208, 10040.
+- Order **10254**: '' → 'theo.holm@example.com'; sole observed email on matching phone. Evidence order IDs: 10288, 10093, 10207.
+
+## Customer identity resolution
+
+- Order **10142, 10052, 10038, 10293**: Names ['P. Patel', 'Priya Patel', 'priya patel'] linked as 'Priya Patel' (C-6e8fc6022d02) by identical normalized phone (555) 151-0102 and sole observed email priya.patel@example.com.
+- Order **10263, 10023**: Names ['Yara Weber', 'Yara Weber  '] linked as 'Yara Weber' (C-9b87d6cceb19) by identical normalized phone (555) 202-0108 and sole observed email yara.weber@example.com.
+- Order **10149, 10144, 10125, 10160, 10012, 10096, 10022, 10100, 10080**: Names ['  Jade Garcia', 'Jade Garcia'] linked as 'Jade Garcia' (C-7dfe829b9fc3) by identical normalized phone (555) 236-0151 and sole observed email jade.garcia@example.com.
+- Order **10154, 10214, 10262, 10223, 10046, 10220, 10230, 10020, 10130, 10111, 10032, 10107, 10213, 10146**: Names ['  Maria Lopez', 'Lopez, Maria', 'M. Lopez', 'MARIA LOPEZ', 'Maria Lopez', 'maria lopez'] linked as 'Maria Lopez' (C-73fadad9de66) by identical normalized phone (555) 745-0100 and sole observed email maria.lopez@example.com.
+- Order **10191, 10024, 10257, 10167, 10273, 10224, 10208, 10040**: Names ['Chen, James', 'J. Chen', 'James  Chen', 'James Chen', 'james chen'] linked as 'James Chen' (C-31525888ad14) by identical normalized phone (555) 829-0101 and sole observed email james.chen@example.com.
+- Order **10222, 10248**: Names ['Marcus Haddad', 'Marcus Haddad  '] linked as 'Marcus Haddad' (C-54f6f5bcae09) by identical normalized phone (555) 862-0111. No email invented.
+- Order **10119, 10116**: Names ['Luis Novak', 'Luis Novak  '] linked as 'Luis Novak' (C-a6681f22fadd) by identical normalized phone (555) 863-0163 and sole observed email luis.novak@example.com.
+- Order **10187, 10073, 10260, 10150, 10243**: Names ['  Tariq Rahman', 'Tariq Rahman'] linked as 'Tariq Rahman' (C-7b92e7db9d91) by identical normalized phone (555) 901-0106 and sole observed email tariq.rahman@example.com.
+- Order **10031, 10259, 10225, 10166**: Names ['  Elena Evans', 'Elena Evans'] linked as 'Elena Evans' (C-937d13ccfa80) by identical normalized phone (555) 958-0116 and sole observed email elena.evans@example.com.
+
+## Customer name standardization
+
+- Order **10052**: 'priya patel' → 'Priya Patel'; whitespace, capitalization, reversed name or contact-supported alias.
+- Order **10038**: 'P. Patel' → 'Priya Patel'; whitespace, capitalization, reversed name or contact-supported alias.
+- Order **10023**: 'Yara Weber  ' → 'Yara Weber'; whitespace, capitalization, reversed name or contact-supported alias.
+- Order **10125**: '  Jade Garcia' → 'Jade Garcia'; whitespace, capitalization, reversed name or contact-supported alias.
+- Order **10223**: 'MARIA LOPEZ' → 'Maria Lopez'; whitespace, capitalization, reversed name or contact-supported alias.
+- Order **10111**: '  Maria Lopez' → 'Maria Lopez'; whitespace, capitalization, reversed name or contact-supported alias.
+- Order **10032**: 'maria lopez' → 'Maria Lopez'; whitespace, capitalization, reversed name or contact-supported alias.
+- Order **10213**: 'M. Lopez' → 'Maria Lopez'; whitespace, capitalization, reversed name or contact-supported alias.
+- Order **10146**: 'Lopez, Maria' → 'Maria Lopez'; whitespace, capitalization, reversed name or contact-supported alias.
+- Order **10191**: 'Chen, James' → 'James Chen'; whitespace, capitalization, reversed name or contact-supported alias.
+- Order **10224**: 'James  Chen' → 'James Chen'; whitespace, capitalization, reversed name or contact-supported alias.
+- Order **10208**: 'james chen' → 'James Chen'; whitespace, capitalization, reversed name or contact-supported alias.
+- Order **10040**: 'J. Chen' → 'James Chen'; whitespace, capitalization, reversed name or contact-supported alias.
+- Order **10248**: 'Marcus Haddad  ' → 'Marcus Haddad'; whitespace, capitalization, reversed name or contact-supported alias.
+- Order **10119**: 'Luis Novak  ' → 'Luis Novak'; whitespace, capitalization, reversed name or contact-supported alias.
+- Order **10243**: '  Tariq Rahman' → 'Tariq Rahman'; whitespace, capitalization, reversed name or contact-supported alias.
+- Order **10259**: '  Elena Evans' → 'Elena Evans'; whitespace, capitalization, reversed name or contact-supported alias.
+
+## Missing contact data
+
+- Order **10058**: Email missing across this customer’s records; left blank. Phone available; no email invented.
+- Order **10215**: Email missing across this customer’s records; left blank. Phone available; no email invented.
+- Order **10222**: Email missing across this customer’s records; left blank. Phone available; no email invented.
+- Order **10248**: Email missing across this customer’s records; left blank. Phone available; no email invented.
+- Order **10063**: Email missing across this customer’s records; left blank. Phone available; no email invented.
+- Order **10095**: Email missing across this customer’s records; left blank. Phone available; no email invented.

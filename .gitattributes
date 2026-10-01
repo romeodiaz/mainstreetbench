@@ -1,0 +1,3 @@
+# Preserve benchmark inputs and recorded evidence byte for byte.
+*.csv -text
+results/artifacts/** -text

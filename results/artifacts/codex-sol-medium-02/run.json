@@ -1,0 +1,28 @@
+{
+  "run_id": "task01-sol-medium-02",
+  "solver_thread_id": "01a0f4f3-26f6-76d1-8b8f-ceec17cf5ba5",
+  "solver_model": "gpt-6.1-sol",
+  "solver_effort": "medium",
+  "grader_model": "gpt-6-astra",
+  "grader_effort": "high",
+  "solver_workdir": "/Users/romeodiaz/Documents/Codex/2026-09-30/corner-loaf-solo-02",
+  "prepared_at": "2026-10-01T00:53:01.732538+00:00",
+  "input_sha256": "0fe0da134f5e16a426225741e42d3053c6d04f650342de147205119ada5f3e3d",
+  "preregistered_sha256": {
+    "protocol.md": "2b9d54598f362153d2d4241e537cef133b9ed0134aeb8bd9815d4833f295cfbc",
+    "grader-prompt.md": "bdc89c954f5bd9ca35b30290533736192f3cd2f51f9a40b0cc19f58ced7fb6d3",
+    "reference/answer-key.md": "532cbcc4651cfe7c72b7ea7ba83354812cd53654db6d42ea9373d5ae9737c926",
+    "reference/generate.py": "4a8fed9efc9393e1490ca3abce13362bf74e467dc5d76d79471cf8c54a0364df",
+    "reference/task-prompt.md": "ca2d81e5a2296bc9d6656705943acec565af398aa1c8baa0a049bc8acc9af2fb"
+  },
+  "grader_thread_id": "01a0f4f7-d457-77c3-a2d3-4b0bdea89665",
+  "solver_duration_ms": 280518,
+  "solver_completed_at": "2026-10-01T00:57:31Z",
+  "interventions": 0,
+  "access_audit": "clean procedural isolation; full tool inventory reviewed",
+  "grader_duration_ms": 314846,
+  "grader_completed_at": "2026-10-01T01:03:12Z",
+  "verified_grader_model": "gpt-6-astra",
+  "verified_grader_effort": "high",
+  "post_grade_hash_verification": true
+}

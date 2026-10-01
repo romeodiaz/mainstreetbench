@@ -1,0 +1,17 @@
+{
+  "run_id": "codex-sol-medium-01",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "medium",
+  "agents": 1,
+  "started_at": "2026-10-01T00:40:42Z",
+  "frozen_at": "2026-10-01T00:43:40.032642+00:00",
+  "blind": false,
+  "contamination": "README and scorecard problem list read before execution; answer key not read until after freezing. Existing session instructions and skills present.",
+  "sha256": {
+    "customers.csv": "da938f583aed9ab8eb49417ac3893c636249340accb93cf4c392d074222109bd",
+    "check.py": "58f05707b3e63893b2c73104c20c820be2d69787807dacd04470b729a085ab43",
+    "clean_orders.csv": "b1f154393b8e09349db2ccb488874ee9da2afa177485e446e475ea7b1dc2af3a",
+    "cleaning_log.md": "8ae315da308b77cc4ee65355194b6455483025f3f630f1849f266b78eeb0e6bb",
+    "dashboard.html": "34b82537c7236fb72b50208945b7376a5c62f67bbab450d7470705a0b09b3547"
+  }
+}

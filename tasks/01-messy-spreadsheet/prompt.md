@@ -1,19 +1,16 @@
-Corner Loaf Bakery is a small US bakery. Their order history for October 2025 through September 2026 is in `customer_orders.csv`, exported from their register and a spreadsheet they have kept by hand. The owner wants to understand their customers and sales. Treat 2026-09-30 as today.
+I run Corner Loaf Bakery, and this is our order history for October 2025 through September 2026. It came from our register and a spreadsheet we’ve been updating by hand, so it’s a bit messy.
 
-Plan the work first, then build it.
+Can you clean it up and make a simple dashboard so I can understand our sales and customers?
 
-Deliverables, all in an `output/` folder:
+I’d like:
 
-1. `clean_orders.csv`: one row per real order, with consistent dates (YYYY-MM-DD), numbers stored as numbers, standardized product names, and a stable customer ID.
-2. `customers.csv`: one row per real customer, with name, email, phone in the format (555) 123-4567, number of orders, net revenue, and last order date.
-3. `cleaning_log.md`: every change you made and every problem you flagged, grouped by type, with the order IDs affected.
-4. `dashboard.html`: a single file that opens in a browser with no internet connection or accounts. It shows revenue by month, the top 10 customers, best-selling products, and customers who haven't ordered in the last 90 days. It must be readable on a phone screen.
-5. A check script that confirms the dashboard's numbers match `clean_orders.csv`, and reports pass or fail.
+- A cleaned-up orders CSV.
+- A customer list with their contact details, how many orders they’ve placed, how much they’ve spent after refunds, and when they last ordered.
+- A dashboard showing sales by month, our top 10 customers, our best-selling products, and customers who haven’t ordered in the last 90 days.
+- A note explaining what you changed and anything I need to check, with the order numbers so I can find it.
 
-Rules:
+Please keep the original file unchanged. If something is unclear, flag it instead of guessing. Make sure the sales figures reflect what we actually earned.
 
-- Don't invent data. If you can't fix something with confidence, flag it in the log instead.
-- Revenue should reflect what the bakery actually earned.
-- Don't modify the original CSV.
+The dashboard should work without internet or a login and be easy to read on my phone. Please check that its numbers match the cleaned file and include a simple way for me to run that check again.
 
-You're done when the check script passes and all five deliverables exist.
+Save everything in an `output` folder. Use September 30, 2026 as today.

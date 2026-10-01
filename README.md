@@ -1,35 +1,40 @@
-# Main Street Bench v0.1
+# Main Street Bench
 
-A benchmark for AI coding setups on the kind of work small businesses actually have. Instead of comparing models, Main Street Bench keeps the models fixed and compares the **harnesses** (the apps and workflows) that run them.
+A personal test of AI tools on everyday small-business work. I share the task, prompt, answer key and results so you can check my work or try it yourself.
 
-v0.1 setup: **Claude Opus 5.5 plans, GPT 6.1 Sol builds.**
+## The task
 
-## Task 1: The Messy Spreadsheet
+A fictional bakery has 300 order records with 12 types of problems. Can AI clean them up, organize the customers and build a useful sales dashboard?
 
-Corner Loaf Bakery (fictional) has a year of orders in `customer_orders.csv`: 300 rows with 12 planted problems. Each harness gets the same file and the same prompt and must produce a clean orders file, a merged customer list, a cleaning log, a single-file dashboard, and a check script.
+[See the spreadsheet](tasks/01-messy-spreadsheet/customer_orders.csv) · [Read the prompt](tasks/01-messy-spreadsheet/prompt.md) · [Check the answer key](answer-keys/01-messy-spreadsheet.md)
 
-| File | Purpose |
-|---|---|
-| [`tasks/01-messy-spreadsheet/customer_orders.csv`](tasks/01-messy-spreadsheet/customer_orders.csv) | The test data |
-| [`tasks/01-messy-spreadsheet/prompt.md`](tasks/01-messy-spreadsheet/prompt.md) | The exact prompt, pasted word for word into every harness |
-| [`tasks/01-messy-spreadsheet/generate.py`](tasks/01-messy-spreadsheet/generate.py) | Regenerates the CSV and answer key exactly (fixed seed) |
-| [`answer-keys/01-messy-spreadsheet.md`](answer-keys/01-messy-spreadsheet.md) | Planted problems by order ID and the correct results |
-| [`results/scorecard-template.md`](results/scorecard-template.md) | Scoring sheet |
+## Results so far
 
-## How to run a harness
+Both runs used GPT-6.1 Sol at medium reasoning.
 
-1. Copy **only** `tasks/01-messy-spreadsheet/customer_orders.csv` into a fresh project folder. Never give an agent this repo or the answer key.
-2. Configure Opus 5.5 as planner and GPT 6.1 Sol as builder (see [`setups/`](setups/) and [`docs/harness-options.md`](docs/harness-options.md)).
-3. Paste `prompt.md` and start a timer.
-4. Stop when the check script passes and all five deliverables exist.
-5. Score against the answer key with the scorecard template.
+| Run | How it was tested | Time | Problems fixed or flagged | Money totals match? |
+|---|---|---|---|---|
+| [1](results/codex-sol-medium-01.md) | AI saw the problem list before starting and graded its own work | About 4 minutes | 12/12 | No: $27 too high |
+| [2](results/codex-sol-medium-02.md) | Fresh AI chat, then a separate GPT-6 Astra/high grader | 4 min 41 sec | 12/12 | No: $27 too high |
 
-## Scoring rules
+Catching every problem does not mean every number is correct. Each report links to the actual outputs and grading details.
 
-- Only the 12 planted problems count. Extra fixes are noted, not scored.
-- A problem scores 1 if it is fixed or correctly flagged, 0 otherwise. No partial credit.
-- Grade blind where possible, and run each harness more than once if time allows.
+## Try it yourself
 
-## Credits
+1. Start a fresh AI chat with only the spreadsheet attached.
+2. Paste the prompt exactly as written and start a timer.
+3. Let the AI finish. Record any help you give it.
+4. Save its work before sharing the answer key with a separate grader.
+5. Record the time, problems fixed or flagged, and whether the money totals match.
 
-Grading approach inspired by [Bug Hunt Bench](https://github.com/phuryn/bug-hunt-bench) by Pawel Huryn.
+Use the [scorecard](results/scorecard-template.md) to keep track. [See the full process](docs/blind-evaluation.md).
+
+**Current prompt: v0.2.** The two completed runs used the [older prompt](docs/prompt-history/task01-v0.1.md). Keep runs with different prompts separate when comparing them.
+
+## Check the work
+
+[Outputs and evidence](docs/transparency.md) · [How the test data was made](tasks/01-messy-spreadsheet/generate.py) · [AI setups](docs/harness-options.md)
+
+This is one example of building a useful personal test. It does not show which AI is best at every task.
+
+Inspired by Pawel Huryn’s [Bug Hunt Bench](https://github.com/phuryn/bug-hunt-bench).

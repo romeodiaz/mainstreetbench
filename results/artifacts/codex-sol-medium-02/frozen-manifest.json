@@ -1,0 +1,19 @@
+{
+  "run_id": "task01-sol-medium-02",
+  "solver_chat_id": "01a0f4f3-26f6-76d1-8b8f-ceec17cf5ba5",
+  "solver_workdir": "/Users/romeodiaz/Documents/Codex/2026-09-30/corner-loaf-solo-02",
+  "frozen_at": "2026-10-01T00:57:36.715791+00:00",
+  "input_unchanged": true,
+  "sha256": {
+    "original_customer_orders.csv": "0fe0da134f5e16a426225741e42d3053c6d04f650342de147205119ada5f3e3d",
+    "output/check_dashboard.py": "7083cfac3d2400c120f722686281cc20290cfaa0f37b2dd333ec9145bfafaf53",
+    "output/clean_orders.csv": "471b2324f395a04151b197423ebfac76b6473367c037865c623707cddd02833d",
+    "output/cleaning_log.md": "cb9f6338e3183757618bece64b0629e340de5f052f6ea2083315402c104d555f",
+    "output/customers.csv": "3b1ef98049a34f8494c36d312f0f3b4f956e4d517be851bb1eec2cd75105af4e",
+    "output/dashboard.html": "69a838236ce7b3a2235cabbbaff5eef3fc53b9f0469c5954475a291a10584678",
+    "submitted_customer_orders.csv": "0fe0da134f5e16a426225741e42d3053c6d04f650342de147205119ada5f3e3d",
+    "customer_orders.csv": "0fe0da134f5e16a426225741e42d3053c6d04f650342de147205119ada5f3e3d"
+  },
+  "symlinks": {},
+  "snapshot_layout_note": "Source also retained under original customer_orders.csv filename so checkers can resolve their input path. No solver deliverables changed."
+}

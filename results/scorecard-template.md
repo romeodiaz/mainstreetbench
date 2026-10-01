@@ -1,30 +1,41 @@
-# Main Street Bench v0.1, Task 1: The Messy Spreadsheet — results
+# Test scorecard
 
-Recorded: [date] · Opus 5.5 effort: [ ] · GPT 6.1 Sol effort: [ ]
+Date: [ ] · Prompt version: [ ] · App/version: [ ]
 
-| Harness | Version | Setup (min) | Time to done (min) | Interventions | Planted problems (/12) | Totals match key? | Claude usage | ChatGPT usage | Terms-safe |
-|---|---|---|---|---|---|---|---|---|---|
-| Orca | | | | | | | | | Yes |
-| Conductor | | | | | | | | | Yes |
-| Claude Desktop | | | | | | | | | Yes |
+Task model and reasoning setting: [ ]
+Grader model and reasoning setting: [ ]
 
-## Planted problems, per harness
+| Measure | Result |
+|---|---|
+| Setup time | |
+| Task time | |
+| Times you helped the AI | |
+| Problems fixed or flagged, out of 12 | |
+| Money totals match the key? | |
+| Dashboard works offline? | |
+| Dashboard readable on a phone? | |
+| AI usage or cost, if measured | |
+| Did the task AI see the key or previous results? | |
 
-Score 1 for fixed or correctly flagged, 0 otherwise. No partial credit. Grade blind if possible.
+## Check each problem
 
-| # | Problem | Orca | Conductor | Claude Desktop |
-|---|---|---|---|---|
-| 01 | Same customer, different name spellings | | | |
-| 02 | Extra spaces in customer names | | | |
-| 03 | Mixed date formats | | | |
-| 04 | Prices stored as text | | | |
-| 05 | Missing emails (recover or flag) | | | |
-| 06 | Product name typos / variants | | | |
-| 07 | Total ≠ Qty × Unit Price | | | |
-| 08 | Inconsistent phone formats | | | |
-| 09 | Refund rows counted as negative revenue | | | |
-| 10 | 2062 date typo flagged | | | |
-| 11 | Test orders removed | | | |
-| 12 | Exact duplicate rows removed | | | |
+Give one point when every affected order is fixed or correctly flagged. Otherwise give zero. Check money totals separately.
 
-Traps to check: Tessa Park and Lena Park are different customers (merging them is wrong).
+| # | Problem | 0 or 1 | Evidence or notes |
+|---|---|---|---|
+| 01 | Different names for the same customer | | |
+| 02 | Extra spaces in names | | |
+| 03 | Mixed date formats | | |
+| 04 | Prices written with currency symbols | | |
+| 05 | Missing emails: recover or flag | | |
+| 06 | Product spelling differences | | |
+| 07 | Totals that do not match quantity × price | | |
+| 08 | Mixed phone formats | | |
+| 09 | Refunds reduce the total | | |
+| 10 | Future dates corrected or flagged | | |
+| 11 | Test orders removed or correctly flagged | | |
+| 12 | Duplicate rows removed | | |
+
+Tessa Park and Lena Park are different customers. Check that they remain separate.
+
+Link the submitted files and grading notes: [ ]
