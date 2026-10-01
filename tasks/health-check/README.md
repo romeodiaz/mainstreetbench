@@ -33,6 +33,8 @@ python3 evaluators/health_check.py --workspace FROZEN --key runs/sol-hc-01-key \
 
 4. Give `judge.json` to a judge model at medium effort, without saying which AI did the work, and save its JSON reply as `verdicts.json`. It covers the 8 judge-graded problems and the "said it fixed it, but didn't" list. Then rerun the evaluator with `--judge-verdicts verdicts.json`.
 
+**The date isn't given.** The owner's message doesn't say what day it is, and nothing in the folder does either. The files are set in early October 2026, and the website's clock is fixed to Thursday, October 8, 2026 during grading. A model that assumes a much later date may treat time-limited things as expired, such as the coffee promotion that runs until Oct 15. Each scorecard records the date of the run.
+
 ## What is scored
 
 | Measure | Meaning |

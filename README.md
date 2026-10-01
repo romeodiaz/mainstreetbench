@@ -6,7 +6,7 @@ Can an expensive model planning and reviewing a cheaper model's work deliver sim
 
 An AI gets everything for Corner Loaf Bakery and this message from the owner, word for word:
 
-> Hi! I own Corner Loaf Bakery, a small neighborhood bakery. Today is Thursday, October 8, 2026.
+> Hi! I own Corner Loaf Bakery, a small neighborhood bakery.
 >
 > Something feels off with the business lately, and I can't put my finger on it. I've attached [a folder](example-workspace/) with everything for the business: our ordering website, September's books, the menu and allergen sheet, our policies, our online listing and the shop's emails.
 >
