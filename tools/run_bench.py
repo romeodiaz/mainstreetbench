@@ -73,19 +73,40 @@ def agent_command(agent: str, model: str, workspace: Path, report_file: Path, te
                                        report_file=shlex.quote(str(report_file))))
 
 
+def clean_codex_home() -> Path | None:
+    """A temporary Codex profile holding only the sign-in, so personal instructions, plugins and settings don't load."""
+    source = Path(os.environ.get("CODEX_HOME", "~/.codex")).expanduser()
+    if not (source / "auth.json").is_file():
+        return None
+    home = Path(tempfile.mkdtemp(prefix="msb-codex-"))
+    shutil.copy2(source / "auth.json", home / "auth.json")
+    return home
+
+
 def run_agent(command: list[str], workspace: Path, prompt: str, timeout_s: int, log: Path) -> tuple[str, dict]:
-    """Run an agent; return (its stdout, extra usage info). The run is stopped at the time limit."""
+    """Run an agent; return (its stdout, extra usage info). The run is stopped at the time limit.
+
+    Codex runs with a clean temporary profile; the session record it writes there tells us the model and effort used."""
     if shutil.which(command[0]) is None:
         raise SystemExit(f"'{command[0]}' isn't installed or isn't on PATH")
+    codex_home = clean_codex_home() if command[0] == "codex" else None
+    env = {**os.environ, "CODEX_HOME": str(codex_home)} if codex_home else None
     started = time.time()
     try:
-        done = subprocess.run(command, cwd=workspace, input=prompt, capture_output=True, text=True, timeout=timeout_s)
+        done = subprocess.run(command, cwd=workspace, input=prompt, capture_output=True, text=True, timeout=timeout_s,
+                              env=env)
         out, err, code = done.stdout, done.stderr, done.returncode
     except subprocess.TimeoutExpired as exc:
         out = exc.stdout.decode() if isinstance(exc.stdout, bytes) else (exc.stdout or "")
         err, code = "time limit reached", "timeout"
-    log.write_text(f"$ {' '.join(command)}\nexit: {code}\n\n--- stdout ---\n{out}\n--- stderr ---\n{err}\n")
-    return out, {"seconds": round(time.time() - started), "exit": code}
+    session = ""
+    if codex_home:
+        session = "\n".join(p.read_text(errors="ignore") for p in sorted((codex_home / "sessions").rglob("*.jsonl")))
+        shutil.rmtree(codex_home, ignore_errors=True)   # holds a copy of the sign-in
+    log.write_text(f"$ {' '.join(command)}\nexit: {code}\nclean Codex profile: {bool(codex_home)}\n\n"
+                   f"--- stdout ---\n{out}\n--- stderr ---\n{err}\n")
+    return out + ("\n" + session if session else ""), {"seconds": round(time.time() - started), "exit": code,
+                                                        "clean_profile": bool(codex_home)}
 
 
 def events(stdout: str) -> list[dict]:
@@ -108,7 +129,8 @@ def models_reported(stdout: str) -> list[str]:
         if isinstance(value, dict):
             for key, inner in value.items():
                 if key == "model" and isinstance(inner, str):
-                    names.append(inner)
+                    effort = value.get("effort") or value.get("reasoning_effort")
+                    names.append(f"{inner} ({effort})" if isinstance(effort, str) else inner)
                 elif key == "modelUsage" and isinstance(inner, dict):
                     names.extend(inner)
                 walk(inner)
@@ -234,7 +256,9 @@ def main() -> None:
 
     need_playwright(args.install)
     import health_check
-    personal = [p for p in integrity.PERSONAL_INSTRUCTIONS if Path(p).expanduser().is_file()]
+    # Codex runs with a clean profile, so its own ~/.codex files don't load; files in the home folder still can.
+    skip = {"~/.codex/AGENTS.md"} if args.agent == "codex" else set()
+    personal = [p for p in integrity.PERSONAL_INSTRUCTIONS if Path(p).expanduser().is_file() and p not in skip]
     if personal:
         print("Note: personal instruction files will be loaded by the tested AI and may affect its result: " + ", ".join(personal))
     run = create_run(f"{args.model} {args.effort}" if args.effort else args.model, args.base, args.hidden)
@@ -252,6 +276,7 @@ def main() -> None:
     checked = integrity.check(evidence / "frozen", report, (evidence / "agent-log.txt").read_text(),
                               [REPO, run["key"], args.base.expanduser().resolve()])
     checked["log_has_commands"] = args.agent in ("claude", "codex")
+    checked["personal_instructions_found"] = [p for p in checked["personal_instructions_found"] if p in personal]
     (evidence / "integrity.json").write_text(json.dumps(checked, indent=2) + "\n")
 
     print("Grading...", flush=True)

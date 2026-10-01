@@ -361,6 +361,14 @@ class Handler(BaseHTTPRequestHandler):
                     return self.not_found()
                 self.db.set_status(row["id"], "cancelled")
                 return self.send_json(200, order_json(self.db, self.db.order(row["id"])))
+            if match := re.fullmatch(r"/admin/api/orders/(\d+)/payment-received", path):
+                if not self.require_admin():
+                    return
+                row = self.db.order(int(match[1]))
+                if row is None:
+                    return self.not_found()
+                self.db.record_payment(row["id"], clock.now().isoformat())
+                return self.send_json(200, order_json(self.db, self.db.order(row["id"])))
         except ValidationError as exc:
             return self.send_json(400, {"error": str(exc)})
         except Conflict as exc:

@@ -11,7 +11,7 @@ Someone asked you to run Main Street Bench on an AI model and report the score, 
   - **Anything else:** any tool that takes a prompt on standard input, works in the current folder and prints its final answer. Use `--agent custom --command "..."`.
 - If the tool isn't installed or signed in, tell the person exactly what to install or sign into, and stop. Don't substitute a different model.
 
-Command-line flags change between versions. If the preset fails on a flag, check `claude --help` or `codex exec --help` and pass the working command with `--agent custom --command`.
+Use the `claude` or `codex` preset; don't wrap the tool in your own script. The presets record the commands the model runs, check which model served it and give Codex a clean profile without the person's own instructions and plugins. If a preset fails, show the person the error first. Only then, if a flag changed in their version, pass a working command with `--agent custom --command`, and say on the report that a custom command was used.
 
 ## 2. Run it
 

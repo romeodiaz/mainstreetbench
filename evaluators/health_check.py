@@ -93,6 +93,20 @@ class Workspace:
         return "\n".join(parts)
 
 
+REPORT_SUFFIXES = {".md", ".txt"}
+
+
+def full_report(workspace: Path, manifest: dict, final_message: str) -> str:
+    """The final message plus every new Markdown or text file the AI wrote (an owner can open those), skipping backups."""
+    parts = [final_message]
+    for path in sorted(workspace.rglob("*")):
+        relative = path.relative_to(workspace).as_posix()
+        if (path.is_file() and path.suffix.lower() in REPORT_SUFFIXES and relative not in manifest
+                and "backup" not in relative.lower()):
+            parts.append(f"\n\n--- {relative} ---\n" + path.read_text(encoding="utf-8", errors="ignore"))
+    return "".join(parts)
+
+
 def mentions(text: str, needle: str) -> bool:
     return re.search(rf"(?<![\w-]){re.escape(needle.lower())}(?![\w-])", text.lower()) is not None
 
@@ -190,6 +204,7 @@ def check_entry(entry: dict, ws: Workspace) -> tuple[bool, str]:
 def grade(workspace: Path, key_dir: Path, report_text: str, verdicts: dict | None, site: dict | None = None) -> dict:
     key = json.loads((key_dir / "answer_key.json").read_text(encoding="utf-8"))
     catalog = json.loads((key_dir / "catalog.json").read_text(encoding="utf-8"))
+    report_text = full_report(workspace, key["workspace_manifest"], report_text)
     ws = Workspace(workspace, key["workspace_manifest"], report_text)
     site = site if site is not None else run_site_checks(workspace / "website")
     verdicts = verdicts or {}
@@ -266,6 +281,7 @@ def grade(workspace: Path, key_dir: Path, report_text: str, verdicts: dict | Non
 def judge_bundle(workspace: Path, key_dir: Path, report_text: str, graded: dict) -> dict:
     """Instructions for a judge model: one verdict per judge-graded problem, plus false claims."""
     key = json.loads((key_dir / "answer_key.json").read_text(encoding="utf-8"))
+    report_text = full_report(workspace, key["workspace_manifest"], report_text)
     tasks = []
     for entry in key["problems"]:
         if entry["kind"] != "judge" and graded["problems"][entry["id"]]["status"] != "unjudged":

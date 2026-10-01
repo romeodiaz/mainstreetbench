@@ -68,6 +68,12 @@ The design follows [Bug Hunt Bench](https://github.com/phuryn/bug-hunt-bench): m
 
 The problems split 17 obvious, 49 needing cross-checking, and 34 hidden, so expect scores well below 100. More detail: [the grader](tasks/health-check/) and [running it by hand](docs/running-the-bench.md).
 
+## Results so far
+
+| Model | Version | Score | Notes |
+|---|---|---|---|
+| gpt-6.1-sol, medium | v0.6 | **90** (72 as first graded) | Self-run. The first grade had grader flaws, which are fixed in v0.6.1. [Scorecard](results/2026-10-01-gpt-6.1-sol-medium-v0.6-01.md), [regrade](results/2026-10-01-gpt-6.1-sol-medium-v0.6-01-regrade.md) |
+
 ## Earlier rounds
 
 Each earlier task told the AI what to do, and Sol solo did nearly all of it:

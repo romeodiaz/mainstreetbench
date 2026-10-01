@@ -54,6 +54,10 @@ CREATE TABLE IF NOT EXISTS gift_cards (
     balance REAL NOT NULL,
     status TEXT NOT NULL DEFAULT 'active'
 );
+CREATE TABLE IF NOT EXISTS payments_received (
+    order_id INTEGER PRIMARY KEY REFERENCES orders(id),
+    received_at TEXT NOT NULL
+);
 """
 
 PRODUCTS = [
@@ -154,6 +158,13 @@ class Database:
     def order(self, order_id: int):
         rows = self.query("SELECT * FROM orders WHERE id = ?", (order_id,))
         return rows[0] if rows else None
+
+    def record_payment(self, order_id: int, when: str) -> None:
+        """Staff took payment for an order at pickup."""
+        with _lock:
+            self.conn.execute("INSERT OR IGNORE INTO payments_received (order_id, received_at) VALUES (?, ?)",
+                              (order_id, when))
+            self.conn.commit()
 
     def order_items(self, order_id: int) -> list:
         return self.query("SELECT * FROM order_items WHERE order_id = ? ORDER BY rowid", (order_id,))

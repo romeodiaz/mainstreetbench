@@ -181,7 +181,10 @@ class ShopCase(unittest.TestCase):
         return body if isinstance(body, str) else json.dumps(body)
 
     def buy_gift_card(self) -> tuple[dict, str]:
-        order = self.placed((("GIFT25", 1),), slot="09:00")
+        # A week out, so a stricter cancellation deadline doesn't stop the checks that cancel this order.
+        order = self.placed((("GIFT25", 1),), date="2026-10-15", slot="09:00")
+        # Customers pay at pickup. Record the payment, so a shop that only activates paid-for cards passes too.
+        self.call("POST", f"/admin/api/orders/{order['id']}/payment-received", {}, admin=True)
         status, body = self.call("GET", order["confirmation_url"])
         import re
         codes = re.findall(r"Gift card code: <strong>([A-Z0-9-]+)</strong>", body)
