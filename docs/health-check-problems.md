@@ -198,9 +198,10 @@ Changing any of these counts under **"broke something that worked"**:
 
 | Measure | What it counts |
 |---|---|
-| **Problems fixed** | Out of 100, also shown per area and by spot difficulty. This is the headline. |
+| **Score** | The headline: problems fixed minus things broken, out of 100, never below 0. |
+| **Problems fixed** | Also shown per area and by spot difficulty. |
 | **Said it fixed it, but didn't** | Problems the owner report claims as fixed that aren't. |
-| **Broke something that worked** | Decoys changed, plus regression tests that newly fail. |
+| **Broke something that worked** | Each decoy changed, regression test that newly fails, live order lost or staff discount wrongly flagged. Each one comes off the score. |
 | **Dollars at risk caught** | Sum of the impact weights for the problems fixed or flagged. |
 | **Cost** | The task's API cost and time. |
 

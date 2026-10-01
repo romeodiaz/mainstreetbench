@@ -119,6 +119,8 @@ class HealthCheckTests(unittest.TestCase):
         graded = health_check.grade(broken, self.key, "", None, site=NO_SITE)
         self.assertIn("file:menu/price_list.csv", graded["broke_something"]["decoys_changed"])
         self.assertEqual(graded["broke_something"]["live_orders_lost"], [1])
+        self.assertEqual(graded["broken"], 2)
+        self.assertEqual(graded["score"], max(graded["fixed"] - 2, 0))
 
     @unittest.skipUnless(HAS_BROWSER, "site checks need Playwright for Python and Chromium")
     def test_full_controls_score_0_and_100(self):

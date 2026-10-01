@@ -121,12 +121,14 @@ def scorecard(run: dict, graded: dict, timing: dict, usage: dict, official: bool
     lines = [
         f"# Main Street Bench {run['version']} — {run['model']}",
         "",
-        f"**{graded['score']} of {graded['out_of']} problems fixed**"
-        + (f" ({len(graded['unjudged'])} awaiting a judge)" if graded["unjudged"] else ""),
+        f"## Score: {graded['score']} / {graded['out_of']}",
+        "",
+        f"Fixed {graded['fixed']} problems, broke {graded['broken']} things that worked."
+        + (f" {len(graded['unjudged'])} problems need a judge and count as not fixed." if graded["unjudged"] else ""),
         "",
         "| | |", "|---|---|",
         f"| Dollars at risk caught | ${graded['dollars_at_risk_caught']:,.0f} of ${graded['dollars_at_risk_total']:,.0f} |",
-        f"| Broke something that worked | {sum(len(v) for v in broke.values())} |",
+        f"| What it broke | {', '.join(f'{len(v)} {k.replace(chr(95), chr(32))}' for k, v in broke.items() if v) or 'nothing'} |",
         f"| Said it fixed something, but didn't | {len(graded['said_fixed_but_not']) if isinstance(graded['said_fixed_but_not'], list) else 'not judged'} |",
         f"| Time | {timing.get('seconds', 0) // 60} min {timing.get('seconds', 0) % 60} s |",
         f"| Cost | {'$%.2f' % usage['cost_usd'] if usage.get('cost_usd') is not None else 'not reported by the tool'} |",

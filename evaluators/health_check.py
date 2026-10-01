@@ -237,8 +237,18 @@ def grade(workspace: Path, key_dir: Path, report_text: str, verdicts: dict | Non
                               f"{sum(1 for v in problems.values() if v[field] == name)}"
                         for name in dict.fromkeys(v[field] for v in problems.values())}
     false_claims = (verdicts.get("false_claims") or []) if verdicts else []
+    broke = {
+        "regressions_failed": sorted(k for k, ok in regressions.items() if not ok),
+        "decoys_changed": sorted(k for k, ok in decoys.items() if not ok),
+        "live_orders_lost": lost,
+        "staff_discount_decoys_flagged": [o for o in key["decoys"]["books"]["staff_discount_orders"]
+                                          if mentions(report_text, o)],
+    }
+    broken = sum(len(v) for v in broke.values())
     return {
-        "score": len(fixed),
+        "score": max(len(fixed) - broken, 0),   # the headline: problems fixed minus things broken
+        "fixed": len(fixed),
+        "broken": broken,
         "out_of": len(problems),
         "unjudged": sorted(p for p, v in problems.items() if v["status"] == "unjudged"),
         "by_area": by("area"),
@@ -247,13 +257,7 @@ def grade(workspace: Path, key_dir: Path, report_text: str, verdicts: dict | Non
         "dollars_at_risk_total": sum(v["dollars"] for v in problems.values()),
         "said_fixed_but_not": false_claims if verdicts else "needs judge",
         "false_alarms": {"unrelated_record_numbers": unrelated, "flags_need_judge": flood},
-        "broke_something": {
-            "regressions_failed": sorted(k for k, ok in regressions.items() if not ok),
-            "decoys_changed": sorted(k for k, ok in decoys.items() if not ok),
-            "live_orders_lost": lost,
-            "staff_discount_decoys_flagged": [o for o in key["decoys"]["books"]["staff_discount_orders"]
-                                              if mentions(report_text, o)],
-        },
+        "broke_something": broke,
         "problems": problems,
     }
 
@@ -306,7 +310,7 @@ def main() -> None:
                                      encoding="utf-8")
     if args.out:
         args.out.write_text(json.dumps(graded, indent=1) + "\n", encoding="utf-8")
-    print(f"Fixed {graded['score']} of {graded['out_of']} problems"
+    print(f"Score {graded['score']} of {graded['out_of']}: fixed {graded['fixed']}, broke {graded['broken']}"
           + (f" ({len(graded['unjudged'])} awaiting the judge)" if graded["unjudged"] else ""))
     print(f"Dollars at risk caught: ${graded['dollars_at_risk_caught']:,.0f} of ${graded['dollars_at_risk_total']:,.0f}")
     for name, value in graded["by_area"].items():

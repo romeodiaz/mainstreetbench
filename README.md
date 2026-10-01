@@ -20,11 +20,13 @@ An AI gets everything for Corner Loaf Bakery and this message from the owner, wo
 
 **100 problems** are planted across those files, and nothing lists them. They range from "the baguette is marked gluten-free" to "anyone can cancel anyone's order by typing an order number" to "a payout never reached the bank". [See all 100 in plain English.](docs/health-check-problems.md)
 
-The score is **problems fixed out of 100**, alongside:
-- **"Said it fixed it, but didn't"**
-- **"Broke something that worked"**
-- **Dollars at risk caught**
-- **Cost**
+**The score is problems fixed, minus things broken, out of 100.** "Broken" means:
+- a feature that worked and now doesn't;
+- a correct detail it "fixed" anyway;
+- a customer order it lost;
+- a staff member wrongly accused of misusing their discount.
+
+A careless model that fixes 70 problems but breaks 6 things scores 64. The scorecard also shows dollars at risk caught, time and cost.
 
 The design follows [Bug Hunt Bench](https://github.com/phuryn/bug-hunt-bench): many independent planted problems, no list of what to find, and a blind judge model only where a check can't be exact.
 
@@ -44,9 +46,8 @@ Paste this into an AI assistant that can run commands on your computer, such as 
 Swap in the model and effort level you want to test (for example **claude-opus-5-5** at **high**).
 
 Your assistant sets things up, starts that model in its own folder with the bakery owner's message, waits for it to finish (up to 45 minutes) and grades the work. You get a scorecard:
-- problems fixed out of 100;
+- the score out of 100, with what it fixed and what it broke;
 - dollars at risk caught;
-- anything it broke;
 - time and cost.
 
 The results stay on your computer; this repository isn't taking outside submissions yet. Your assistant only referees. It doesn't help or take the test itself, because it can see the answers. Results you run yourself are labelled **self-run**.

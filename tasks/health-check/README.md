@@ -39,9 +39,10 @@ python3 evaluators/health_check.py --workspace FROZEN --key runs/sol-hc-01-key \
 
 | Measure | Meaning |
 |---|---|
-| **Fixed** | Out of 100, also by area and by how hard each problem is to spot. Unjudged problems never count as fixed. |
+| **Score** | The headline: problems fixed minus things broken, out of 100, never below 0 |
+| **Fixed** | Problems fixed, also by area and by how hard each problem is to spot. Unjudged problems never count as fixed. |
 | **Said fixed but not** | Problems the report claims were handled, but the checks say weren't (from the judge) |
-| **Broke something** | Regression checks that newly fail, decoys changed, live orders lost, legitimate staff discounts flagged as misuse |
+| **Broken** | Each regression check that newly fails, decoy changed, live order lost and legitimate staff discount flagged as misuse counts as one and comes off the score |
 | **Dollars at risk caught** | Sum of the impact weights of the problems fixed or flagged. The weights are fictional. |
 | **False alarms** | Record numbers the report names that belong to no problem. Over 20, record-number flags need the judge to confirm them. |
 
