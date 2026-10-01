@@ -1,6 +1,6 @@
 Hi! I own Corner Loaf Bakery, a small neighborhood bakery. Today is Thursday, October 8, 2026.
 
-Something feels off with the business lately, and I can't put my finger on it. I've put everything in this folder: our ordering website, September's books, the menu and allergen sheet, our policies, our online listing and the shop's emails. There's a note in there called FOLDER-GUIDE that says what's where.
+Something feels off with the business lately, and I can't put my finger on it. I've attached a folder with everything for the business: our ordering website, September's books, the menu and allergen sheet, our policies, our online listing and the shop's emails. There's a note in there called FOLDER-GUIDE that says what's where.
 
 Could you go through all of it? Please fix whatever you can, but don't break anything that's working. Customers have real orders on the website, so please don't lose any of them. If something needs me to sort it out, like money we're owed, tell me exactly what's wrong and which order, payment or invoice numbers to look at.
 
