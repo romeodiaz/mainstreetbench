@@ -173,7 +173,7 @@ def main() -> None:
     parser.add_argument("--install", action="store_true", help="Install Playwright and Chromium if needed")
     parser.add_argument("--official", action="store_true", help="Only for runs inside the maintainers' sandbox")
     parser.add_argument("--save-results", action="store_true",
-                        help="Also copy the scorecard, report, grade, logs and submission into results/ in this repository")
+                        help="Maintainer only: also copy the scorecard, report, grade, logs and submission into results/")
     args = parser.parse_args()
 
     need_playwright(args.install)

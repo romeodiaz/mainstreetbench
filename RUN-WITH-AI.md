@@ -43,11 +43,13 @@ The run takes up to 45 minutes (`--minutes` changes it). It builds a fresh copy 
 
 ### Saving the results to the repository
 
-Only if the person asks you to save or publish the results (they'll usually be the repository's owner):
+By default, nothing is saved to the repository. The results stay on this computer in `../MainStreetBench-runs/evidence/<run>/`. This repository doesn't accept outside submissions yet, so **never open a pull request, fork the repository or file an issue with results**, even if asked. Tell the person the results are on their computer and where to find them.
 
-1. Add `--save-results` to the command. After grading, it copies the scorecard, the owner report, the grade, the logs and the tested model's finished folder into `results/<run>/`, plus the scorecard as `results/<run>.md`. Paths in your home folder are shortened to `~`.
+The repository's owner saves runs while calibrating. Do this only when the person explicitly asks to save or push the results **and** this computer's git can push to `romeodiaz/mainstreetbench` (`git push --dry-run origin main` succeeds):
+
+1. Add `--save-results` to the command. After grading, it copies the scorecard, the owner report, the grade, the logs and the tested model's finished folder into `results/<run>/`, plus the scorecard as `results/<run>.md`. Paths in the home folder are shortened to `~`.
 2. Skim `results/<run>/agent-log.txt` for anything private, such as keys, tokens or email addresses, and tell the person if you find any. Don't commit until they say so.
-3. Commit only those new files, with the message `Add result <run>`, and push to `main`. If the push is refused, push a branch and give the person the link instead.
+3. Commit only those new files, with the message `Add result <run>`, and push to `main`. If the push is refused, stop and say so; don't try another route.
 
 ## 3. Rules
 

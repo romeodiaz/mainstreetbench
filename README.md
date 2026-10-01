@@ -49,7 +49,7 @@ Your assistant sets things up, starts that model in its own folder with the bake
 - anything it broke;
 - time and cost.
 
-Your assistant only referees. It doesn't help or take the test itself, because it can see the answers. Results you run yourself are labelled **self-run**.
+The results stay on your computer; this repository isn't taking outside submissions yet. Your assistant only referees. It doesn't help or take the test itself, because it can see the answers. Results you run yourself are labelled **self-run**.
 
 ## What you need
 
