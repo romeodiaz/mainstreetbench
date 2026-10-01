@@ -28,7 +28,9 @@ python3 tools/run_bench.py --install --agent claude --model MODEL_ID [--effort m
 
 If the judge can't run, those 8 count as not fixed and the scorecard says so.
 
-The run takes up to 45 minutes (`--minutes` changes it). It builds a fresh copy of the bakery in `../MainStreetBench-runs/runs/`, starts the tested model there with the owner's message, waits, grades the result and prints a scorecard. Leave it alone while it runs.
+The run takes up to 45 minutes (`--minutes` changes it). It builds a fresh copy of the bakery in a random hidden folder under `~/.mainstreetbench/`, away from this repository and the answer key. It starts the tested model there with the owner's message, waits, grades the result and prints a scorecard. Leave it alone while it runs, and don't open or list those folders yourself.
+
+**Personal instruction files:** if the script prints that it found any, such as `~/.claude/CLAUDE.md`, the tested model will read them, and they can change its result. Tell the person before it starts. Setting them aside is their choice; never move or edit them yourself.
 
 ### If something gets in the way
 
@@ -52,7 +54,8 @@ The repository's owner saves runs while calibrating. Do this only when the perso
 - **Don't solve, hint or fix.** Never read the answer keys to the person or the tested model. Never edit the workspace before grading. The owner's message is sent unchanged.
 - **One run, reported as is.** Don't rerun to get a better number. If you run it again, report every score.
 - **Report failures honestly.** If the tool crashed, ran out of time or hit a usage limit, say so next to the score.
-- **It's a self-run.** Scores from this script aren't verified by the maintainers, and the tested model could in principle read files outside its folder. Say "self-run" when you report the score.
+- **It's a self-run.** Scores from this script aren't verified by the maintainers. Say "self-run" when you report the score.
+- **Integrity comes first.** The scorecard's Integrity row checks whether the tested model looked at or copied from the answers. If it shows ⚠, lead with that: the score doesn't count.
 - **Note the date.** This benchmark is public. A model trained after its release may have seen it, so say when the model was released.
 
 ## 4. Report back
@@ -63,6 +66,7 @@ Show the person the scorecard (`../MainStreetBench-runs/evidence/RUN/SCORECARD.m
 - the dollars at risk caught;
 - time and cost, if the tool reported cost;
 - what it was best and worst at, by area;
+- the Integrity row, and the model the tool reported if it differs from the one requested;
 - that it's a self-run, and the model's release date.
 
 The tested model's own report to the owner is in `owner-report.md` in the same folder, if the person wants to read it.

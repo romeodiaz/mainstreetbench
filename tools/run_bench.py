@@ -7,12 +7,13 @@
 
 What it does:
 1. Checks Python and Playwright (needed to grade the website). --install installs Playwright and Chromium.
-2. Builds a fresh run outside this repository: ../runs/<run>/workspace is all the tested AI may see.
+2. Builds a fresh run in a random folder under ~/.mainstreetbench/, away from this repository and the answer key.
 3. Starts the tested AI with its own command-line tool in that folder, with the owner's prompt, and waits
    (45 minutes by default). The AI that set this up must not do the task itself.
 4. Saves its final message as the owner report, freezes the workspace, and grades it.
 5. Asks a different model from the same tool to judge the 8 problems that need reading (--judge-model).
-6. Writes ../evidence/<run>/SCORECARD.md and prints it.
+6. Checks integrity: answer canaries in the work or report, and answer files or paths in the agent's log.
+7. Writes ../MainStreetBench-runs/evidence/<run>/SCORECARD.md and prints it.
 
 Agents:
   claude   Claude Code CLI:  claude -p --model MODEL [--effort EFFORT] (web tools disabled)
@@ -20,9 +21,9 @@ Agents:
   custom   --command TEMPLATE, run inside the workspace with the prompt on stdin. Placeholders:
            {model} {effort} {workspace} {prompt_file} {report_file}. Its stdout, or {report_file} if written, is the report.
 
-Isolation: the CLIs above can still read files outside the workspace. For an official result, run inside
-a sandbox that denies this repository and ../keys and ../evidence. Scores from this script are labelled
-"self-run" unless --official is given.
+Isolation: the CLIs above can still read files outside the workspace, so peeking is detected, not prevented.
+For an official result, run inside a sandbox that denies this repository and the keys. Scores from this script
+are labelled "self-run" unless --official is given.
 """
 
 import argparse
@@ -42,6 +43,7 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "tools"))
 sys.path.insert(0, str(REPO / "evaluators"))
 from new_run import create_run  # noqa: E402
+import integrity  # noqa: E402
 
 
 def need_playwright(install: bool) -> None:
@@ -57,10 +59,10 @@ def need_playwright(install: bool) -> None:
 def agent_command(agent: str, model: str, workspace: Path, report_file: Path, template: str | None,
                   effort: str | None = None) -> list[str]:
     if agent == "claude":
-        return ["claude", "-p", "--model", model, "--output-format", "json", "--dangerously-skip-permissions",
+        return ["claude", "-p", "--model", model, "--output-format", "stream-json", "--verbose", "--dangerously-skip-permissions",
                 "--disallowedTools", "WebFetch,WebSearch"] + (["--effort", effort] if effort else [])
     if agent == "codex":
-        return ["codex", "exec", "--model", model, "--cd", str(workspace), "--skip-git-repo-check", "--full-auto",
+        return ["codex", "exec", "--json", "--model", model, "--cd", str(workspace), "--skip-git-repo-check", "--full-auto",
                 "--output-last-message", str(report_file)] + (["-c", f"model_reasoning_effort={effort}"] if effort else []) + ["-"]
     if not template:
         raise SystemExit("--agent custom needs --command")
@@ -86,17 +88,47 @@ def run_agent(command: list[str], workspace: Path, prompt: str, timeout_s: int, 
     return out, {"seconds": round(time.time() - started), "exit": code}
 
 
+def events(stdout: str) -> list[dict]:
+    """The JSON objects in a tool's output: one per line for --json and stream-json, or a single object."""
+    found = []
+    for line in stdout.splitlines():
+        try:
+            value = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(value, dict):
+            found.append(value)
+    return found
+
+
+def models_reported(stdout: str) -> list[str]:
+    """Every model name the tool reported serving, from any "model" field or modelUsage keys in its output."""
+    names = []
+    def walk(value):
+        if isinstance(value, dict):
+            for key, inner in value.items():
+                if key == "model" and isinstance(inner, str):
+                    names.append(inner)
+                elif key == "modelUsage" and isinstance(inner, dict):
+                    names.extend(inner)
+                walk(inner)
+        elif isinstance(value, list):
+            for inner in value:
+                walk(inner)
+    walk(events(stdout))
+    return list(dict.fromkeys(names))
+
+
 def report_from(agent: str, stdout: str, report_file: Path) -> tuple[str, dict]:
     usage = {}
+    results = [e for e in events(stdout) if e.get("type") == "result"]
+    if results:
+        last = results[-1]
+        usage = {"cost_usd": last.get("total_cost_usd"), "usage": last.get("usage"), "turns": last.get("num_turns")}
     if report_file.is_file() and report_file.read_text().strip():
         return report_file.read_text(), usage
-    if agent == "claude":
-        try:
-            data = json.loads(stdout)
-            usage = {"cost_usd": data.get("total_cost_usd"), "usage": data.get("usage"), "turns": data.get("num_turns")}
-            return str(data.get("result", "")), usage
-        except json.JSONDecodeError:
-            pass
+    if results:
+        return str(results[-1].get("result", "")), usage
     return stdout, usage
 
 
@@ -120,7 +152,19 @@ BROKE_LABELS = {"regressions_failed": "working features broken", "decoys_changed
                 "live_orders_lost": "customer orders lost", "staff_discount_decoys_flagged": "staff wrongly accused"}
 
 
-def scorecard(run: dict, graded: dict, timing: dict, usage: dict, official: bool, judge_name: str | None = None) -> str:
+def integrity_line(checked: dict) -> str:
+    if checked["clean"]:
+        note = "clean" + ("" if checked["log_has_commands"] else " (this tool's log doesn't list commands, so only copying was checked)")
+    else:
+        found = checked["copied_from_answers"] + checked["log_mentions"]
+        note = "⚠ **looked at or copied from the answers**: " + ", ".join(found[:5]) + " (see integrity.json)"
+    if checked["personal_instructions_found"]:
+        note += "; personal instructions loaded: " + ", ".join(checked["personal_instructions_found"])
+    return note
+
+
+def scorecard(run: dict, graded: dict, timing: dict, usage: dict, official: bool, judge_name: str | None = None,
+              checked: dict | None = None) -> str:
     broke = graded["broke_something"]
     lines = [
         f"# Main Street Bench {run['version']} — {run['model']}",
@@ -136,6 +180,8 @@ def scorecard(run: dict, graded: dict, timing: dict, usage: dict, official: bool
         f"| What it broke | {'; '.join(f'{BROKE_LABELS[k]}: {len(v)}' for k, v in broke.items() if v) or 'nothing'} |",
         f"| Said it fixed something, but didn't | {len(graded['said_fixed_but_not']) if isinstance(graded['said_fixed_but_not'], list) else 'not judged'} |",
         f"| Judge | {judge_name or 'none'} |",
+        f"| Model the tool reported | {', '.join(usage.get('models_reported') or []) or 'not reported'} |",
+        f"| Integrity | {integrity_line(checked) if checked else 'not checked'} |",
         f"| Time | {timing.get('seconds', 0) // 60} min {timing.get('seconds', 0) % 60} s |",
         f"| Cost | {'$%.2f' % usage['cost_usd'] if usage.get('cost_usd') is not None else 'not reported by the tool'} |",
         "", "| Area | Fixed |", "|---|---|",
@@ -147,7 +193,7 @@ def scorecard(run: dict, graded: dict, timing: dict, usage: dict, official: bool
     return "\n".join(lines) + "\n"
 
 
-SAVED = ["SCORECARD.md", "owner-report.md", "grade.json", "judge.json", "verdicts.json", "usage.json", "run.json",
+SAVED = ["SCORECARD.md", "owner-report.md", "grade.json", "judge.json", "verdicts.json", "usage.json", "run.json", "integrity.json",
          "agent-log.txt", "judge-log.txt"]
 
 
@@ -174,7 +220,9 @@ def main() -> None:
     parser.add_argument("--effort", help="Reasoning effort, e.g. low, medium, high (passed to the tool and shown on the scorecard)")
     parser.add_argument("--minutes", type=int, default=45, help="Time limit for the tested AI")
     parser.add_argument("--base", type=Path, default=REPO.parent / "MainStreetBench-runs",
-                        help="Where runs/, keys/ and evidence/ go (outside this repository)")
+                        help="Where results go: evidence/<run>/ (outside this repository)")
+    parser.add_argument("--hidden", type=Path, default=Path("~/.mainstreetbench"),
+                        help="Where the bakery folder and answer key live during the run, in random subfolders")
     parser.add_argument("--judge-model", help="A different model from the same tool, to judge the 8 reading problems")
     parser.add_argument("--install", action="store_true", help="Install Playwright and Chromium if needed")
     parser.add_argument("--official", action="store_true", help="Only for runs inside the maintainers' sandbox")
@@ -186,16 +234,25 @@ def main() -> None:
 
     need_playwright(args.install)
     import health_check
-    run = create_run(f"{args.model} {args.effort}" if args.effort else args.model, args.base)
+    personal = [p for p in integrity.PERSONAL_INSTRUCTIONS if Path(p).expanduser().is_file()]
+    if personal:
+        print("Note: personal instruction files will be loaded by the tested AI and may affect its result: " + ", ".join(personal))
+    run = create_run(f"{args.model} {args.effort}" if args.effort else args.model, args.base, args.hidden)
     print(f"Built run {run['run']}. Starting {args.model}; this can take up to {args.minutes} minutes.", flush=True)
     evidence, workspace = run["evidence"], run["workspace"]
     report_file = run["workspace"].parent / "final-message.md"
     command = agent_command(args.agent, args.model, workspace, report_file, args.command, args.effort)
     stdout, timing = run_agent(command, workspace, run["prompt"].read_text(), args.minutes * 60, evidence / "agent-log.txt")
     report, usage = report_from(args.agent, stdout, report_file)
+    usage["models_reported"] = models_reported(stdout)
     (evidence / "owner-report.md").write_text(report)
     shutil.copytree(workspace, evidence / "frozen", ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
+    shutil.rmtree(workspace.parent, ignore_errors=True)
     (evidence / "usage.json").write_text(json.dumps({**timing, **usage}, indent=2) + "\n")
+    checked = integrity.check(evidence / "frozen", report, (evidence / "agent-log.txt").read_text(),
+                              [REPO, run["key"], args.base.expanduser().resolve()])
+    checked["log_has_commands"] = args.agent in ("claude", "codex")
+    (evidence / "integrity.json").write_text(json.dumps(checked, indent=2) + "\n")
 
     print("Grading...", flush=True)
     graded = health_check.grade(evidence / "frozen", run["key"], report, None)
@@ -209,7 +266,9 @@ def main() -> None:
         else:
             print("The judge's reply couldn't be read; judge-graded problems stay unjudged.")
     (evidence / "grade.json").write_text(json.dumps(graded, indent=1) + "\n")
-    card = scorecard(run, graded, timing, usage, args.official, args.judge_model)
+    shutil.copytree(run["key"], evidence / "key")   # kept for regrading; the hidden copy is removed
+    shutil.rmtree(run["key"].parent, ignore_errors=True)
+    card = scorecard(run, graded, timing, usage, args.official, args.judge_model, checked)
     (evidence / "SCORECARD.md").write_text(card)
     print("\n" + card)
     print(f"Everything is saved in {evidence}")

@@ -32,7 +32,7 @@ Or do everything in one command. It builds the run, starts the tested AI with it
 python3 tools/run_bench.py --agent codex --model gpt-6.1-sol --base ~/MainStreetBench
 ```
 
-Without `--base`, it uses a `MainStreetBench-runs` folder next to the clone. [RUN-WITH-AI.md](../RUN-WITH-AI.md) has the full steps, written for an AI assistant to follow. These CLIs can still read outside the workspace, so the results are labelled self-run. For a published result, start the AI yourself inside a sandbox that enforces rule 1.
+Without `--base`, results go to a `MainStreetBench-runs` folder next to the clone. The bakery folder and the key live in random folders under `~/.mainstreetbench/` during the run and are removed afterwards. A canary string in every answer file, plus a scan of the agent's log, flags a run that looked at the answers. [RUN-WITH-AI.md](../RUN-WITH-AI.md) has the full steps, written for an AI assistant to follow. These CLIs can still read outside the workspace, so the results are labelled self-run. For a published result, start the AI yourself inside a sandbox that enforces rule 1.
 
 ## Open source and contamination
 

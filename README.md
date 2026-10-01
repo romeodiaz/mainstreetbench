@@ -18,7 +18,7 @@ You get a scorecard with:
 - dollars at risk caught;
 - time and cost.
 
-Your assistant only referees: it starts the model you named in its own folder, then grades the result. Results stay on your computer, and are labelled **self-run**. This repository isn't taking outside submissions yet.
+Your assistant only referees: it starts the model you named in its own folder, then grades the result. The scorecard also checks that the model didn't peek at the answers. Results stay on your computer, and are labelled **self-run**. This repository isn't taking outside submissions yet.
 
 ### What you need
 

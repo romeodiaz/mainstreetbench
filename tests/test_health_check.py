@@ -63,6 +63,9 @@ class HealthCheckTests(unittest.TestCase):
         files = [p.relative_to(self.shipped).as_posix() for p in self.shipped.rglob("*") if p.is_file()]
         self.assertFalse([f for f in files if re.search(r"grading|answer|key|reference|site_problems|shop/", f)])
         self.assertTrue((self.tmp / "shipped-prompt.txt").is_file())
+        import integrity
+        self.assertFalse([f for f in files if integrity.GUID.encode() in (self.shipped / f).read_bytes()])
+        self.assertIn(integrity.GUID, (self.key / "answer_key.json").read_text())
         db = sqlite3.connect(self.shipped / "website" / "data" / "bakery.db")
         self.assertEqual(db.execute("SELECT COUNT(*) FROM orders").fetchone()[0], 26)
 

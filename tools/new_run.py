@@ -10,6 +10,7 @@ Builds ../runs/<date>-<model>-v0.6-NN/workspace (the only folder the AI sees), m
 import argparse
 import datetime as dt
 import json
+import secrets
 import shutil
 import subprocess
 import sys
@@ -19,8 +20,11 @@ REPO = Path(__file__).resolve().parents[1]
 VERSION = "v0.6"
 
 
-def create_run(model: str, base: Path) -> dict:
-    """Build a run outside the repository. Returns its paths and the source commit."""
+def create_run(model: str, base: Path, hidden: Path | None = None) -> dict:
+    """Build a run outside the repository. Returns its paths and the source commit.
+
+    With hidden, the workspace and the key go into two unrelated random folders under it instead of
+    base/runs and base/keys, so nothing next to the AI's folder points at the answers."""
     base = base.expanduser().resolve()
     if base == REPO or REPO in base.parents:
         raise SystemExit("The run folder must be outside the repository, or the AI could read the answers")
@@ -34,6 +38,11 @@ def create_run(model: str, base: Path) -> dict:
         number += 1
     run = f"{stem}-{number:02d}"
     run_dir, key_dir, evidence = base / "runs" / run, base / "keys" / run, base / "evidence" / run
+    if hidden:
+        hidden = hidden.expanduser().resolve()
+        if hidden == REPO or REPO in hidden.parents:
+            raise SystemExit("The hidden folder must be outside the repository")
+        run_dir, key_dir = hidden / secrets.token_hex(6), hidden / secrets.token_hex(6) / "key"
     run_dir.mkdir(parents=True)
     subprocess.run([sys.executable, str(REPO / "tasks" / "health-check" / "build.py"), "--out", str(run_dir / "workspace")],
                    check=True, capture_output=True)
