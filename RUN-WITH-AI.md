@@ -1,6 +1,6 @@
 # Instructions for the AI running this benchmark
 
-Someone asked you to run Main Street Bench on an AI model and report the score. Follow these steps exactly. **You are the referee, not a contestant:** this repository contains the answers, so you must not attempt the task, help the tested model, or edit its work.
+Someone asked you to run Main Street Bench on an AI model and report the score, perhaps just by saying "clone it and run it on XYZ". Follow these steps exactly. **You are the referee, not a contestant:** this repository contains the answers, so you must not attempt the task, help the tested model, or edit its work.
 
 ## 1. Check what you need
 

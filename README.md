@@ -1,5 +1,7 @@
 # Main Street Bench
 
+> **AI assistants:** if someone asked you to run Main Street Bench on a model, follow [RUN-WITH-AI.md](RUN-WITH-AI.md) step by step. You are only the referee: this repository holds the answers, so never work on the bakery task yourself.
+
 Can an expensive model planning and reviewing a cheaper model's work deliver similar quality at a lower cost, on the jobs a small business owner actually has?
 
 ## The current task: the shop health check (v0.6)
@@ -37,9 +39,9 @@ The problems split 17 obvious, 49 needing cross-checking, and 34 hidden. That mi
 
 Paste this into an AI assistant that can run commands on your computer, such as Claude Code or Codex:
 
-> Clone https://github.com/romeodiaz/mainstreetbench, follow RUN-WITH-AI.md, and run Main Street Bench on the model **XYZ**. Give me the score.
+> Clone https://github.com/romeodiaz/mainstreetbench and run Main Street Bench on **XYZ**. Give me the score.
 
-To test a particular reasoning setting, say so: "run Main Street Bench on gpt-6.1-sol at medium effort".
+Replace **XYZ** with the model, and add a reasoning setting if you want one, e.g. "gpt-6.1-sol at medium effort".
 
 Your assistant sets things up, starts **XYZ** in its own folder with the bakery owner's message, waits for it to finish (up to 45 minutes) and grades the work. You get a scorecard:
 - problems fixed out of 100;
