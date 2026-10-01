@@ -116,6 +116,10 @@ def judge(agent: str, model: str, bundle: dict, template: str | None, timeout_s:
         return None
 
 
+BROKE_LABELS = {"regressions_failed": "working features broken", "decoys_changed": "correct details changed",
+                "live_orders_lost": "customer orders lost", "staff_discount_decoys_flagged": "staff wrongly accused"}
+
+
 def scorecard(run: dict, graded: dict, timing: dict, usage: dict, official: bool) -> str:
     broke = graded["broke_something"]
     lines = [
@@ -128,7 +132,7 @@ def scorecard(run: dict, graded: dict, timing: dict, usage: dict, official: bool
         "",
         "| | |", "|---|---|",
         f"| Dollars at risk caught | ${graded['dollars_at_risk_caught']:,.0f} of ${graded['dollars_at_risk_total']:,.0f} |",
-        f"| What it broke | {', '.join(f'{len(v)} {k.replace(chr(95), chr(32))}' for k, v in broke.items() if v) or 'nothing'} |",
+        f"| What it broke | {'; '.join(f'{BROKE_LABELS[k]}: {len(v)}' for k, v in broke.items() if v) or 'nothing'} |",
         f"| Said it fixed something, but didn't | {len(graded['said_fixed_but_not']) if isinstance(graded['said_fixed_but_not'], list) else 'not judged'} |",
         f"| Time | {timing.get('seconds', 0) // 60} min {timing.get('seconds', 0) % 60} s |",
         f"| Cost | {'$%.2f' % usage['cost_usd'] if usage.get('cost_usd') is not None else 'not reported by the tool'} |",
