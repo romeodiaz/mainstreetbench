@@ -139,7 +139,7 @@ def create_order(db: Database, payload) -> int:
         raise ValidationError("Please choose a pickup time")
     lines = priced_lines(db, payload.get("items"), pickup)
     skus = {line["sku"] for line in lines}
-    if skus & settings.PHONE_REQUIRED_SKUS and phone is None:
+    if skus & settings.PHONE_REQUIRED_SKUS and not re.search(r"\d{7}", re.sub(r"\D", "", phone)):
         raise ValidationError("Please add a phone number so we can call about your cake or catering order")
     notice = schedule.required_notice(skus)
     if schedule.slot_start(pickup, slot) < clock.now() + notice:
@@ -435,7 +435,7 @@ class Handler(BaseHTTPRequestHandler):
                           f"data-key=\"{html.escape(key)}\">Cancel order</button>"
                           "<p id=\"cancel-error\" class=\"error\" role=\"alert\"></p>")
         self.send_html(200, render(
-            "confirmation.html", title=f"Order #{order_id}", order_id=order_id,
+            "confirmation.html", title="Thank you", order_id=order_id,
             name=html.escape(order["customer"]["name"]), pickup_date=order["pickup_date"],
             pickup_slot=order["pickup_slot"] or "any time", items=items, subtotal=money(order["subtotal"]),
             discount=money(order["discount"]), tax=money(order["tax"]), total=money(order["total"]),
@@ -450,7 +450,7 @@ class Handler(BaseHTTPRequestHandler):
             rows.append(
                 f"<tr data-order-id=\"{order['id']}\" class=\"{status}\"><td>#{order['id']}</td>"
                 f"<td>{order['pickup_date']}</td><td>{order['pickup_slot'] or '—'}</td>"
-                f"<td>{order['customer']['name']}<br><small>{html.escape(order['customer']['phone'])}</small></td>"
+                f"<td>{html.escape(order['customer']['name'])}<br><small>{html.escape(order['customer']['phone'])}</small></td>"
                 f"<td>{items}</td><td>{money(order['total'])}</td><td>{money(order['gift_card_applied'])}</td>"
                 f"<td>{money(order['amount_due'])}</td><td class=\"status\">{status}</td></tr>")
         self.send_html(200, render("admin.html", title="Orders", date=html.escape(pickup_date or ""),
@@ -459,10 +459,10 @@ class Handler(BaseHTTPRequestHandler):
     def orders_csv(self):
         out = io.StringIO()
         writer = csv.writer(out)
-        writer.writerow(["id", "pickup_date", "pickup_slot", "name", "email", "phone", "total", "status"])
+        writer.writerow(["id", "pickup_date", "pickup_slot", "name", "email", "phone", "total", "status", "link"])
         for row in self.db.orders():
             writer.writerow([row["id"], row["pickup_date"], row["pickup_slot"] or "", row["customer_name"],
-                             row["customer_email"], row["customer_phone"], f"{row['total']:.2f}", row["status"]])
+                             row["customer_email"], row["customer_phone"], f"{row['total']:.2f}", row["status"], confirmation_url(row)])
         self.send(200, out.getvalue().encode(), "text/csv; charset=utf-8")
 
     def static(self, name: str):

@@ -403,7 +403,7 @@ class Handler(BaseHTTPRequestHandler):
                 f"<li class=\"item\" data-sku=\"{product['sku']}\"><span class=\"name\">{name}</span>"
                 f"<span class=\"price\">{money(product['price'])}</span><span class=\"note\"></span>"
                 f"<button type=\"button\" class=\"add\" data-sku=\"{product['sku']}\" data-name=\"{name}\" "
-                f"data-price=\"{product['price']}\">Add</button></li>")
+                f"data-price=\"{product['price']}\" aria-label=\"Add {name}\">Add</button></li>")
         if current is not None:
             sections.append("</ul></section>")
         self.send_html(200, render("menu.html", title="Order online", menu="\n".join(sections)))

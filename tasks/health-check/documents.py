@@ -39,14 +39,14 @@ Order online at cornerloaf.example or call 555-010-0000. Open Tuesday–Sunday, 
 - **Catering Tray** — $120.00. Pastries and sandwiches for 10–12. Order 24 hours ahead.
 
 ## Pantry
-- **Coffee Beans (1 lb bag)** — $18.00 ($16.50 through Oct 15). Roasted for us by Northside Coffee.
+- **Coffee Beans (12 oz bag)** — $18.00 ($16.50 through Oct 15). Roasted for us by Northside Coffee.
 
 ## Gift cards
 - **$25 Gift Card**
+
+Allergens: we label all 8 major food allergens. Ask us if you have questions.
 """
     key += [
-        {"id": "P07", "kind": "file", "file": "menu/menu.md", "line": r"Coffee Beans",
-         "must": [r"12\s*oz"], "must_not": [r"1\s*lb"], "what": "Coffee bags hold 12 oz, not 1 lb", "dollars": 100},
         {"id": "P12", "kind": "file", "file": "menu/menu.md", "line": r"Catering Tray",
          "must": [r"48 hours|2 days|two days"], "must_not": [r"24 hours"],
          "what": "Catering needs 2 days' notice, not 24 hours", "dollars": 60},
@@ -78,9 +78,16 @@ COOKIE BOX (12) ... $12
 BIRTHDAY CAKE (order ahead) ... $48
 DAY-OLD BREAD after 2pm ... half price
 2 COOKIE BOXES ... $21.60 (SAVE 15%!)
+ALL PRICES INCLUDE TAX
 """
+    key.append({"id": "L16", "kind": "file", "file": "menu/shop_board.md", "must_not": [r"includ\w* (sales )?tax|tax(es)? included"],
+                "what": "The price board says prices include tax, but tax is added at the register", "dollars": 300})
     key.append({"id": "P04", "kind": "file", "file": "menu/shop_board.md", "line": r"CROISSANT",
                 "must": [r"\$\s?21"], "what": "The board says $19 for the croissant box; it's $21", "dollars": 40})
+    key.append({"id": "L17", "kind": "file", "file": "menu/menu.md", "line": r"major (food )?allergens",
+                "must": [r"\b(9|nine)\b"], "must_not": [r"\b(8|eight)\b"],
+                "what": "The menu says it labels the 8 major allergens; since 2023 there are 9 (sesame was added)",
+                "dollars": 500})
     key.append({"id": "P16", "kind": "file", "file": "menu/shop_board.md", "line": r"2 COOKIE BOX",
                 "must": [r"20\.40|10\s?%"], "must_not": [r"21\.60[^\n]*15\s?%|15\s?%[^\n]*21\.60"],
                 "what": "The board's 2-cookie-box deal says 15% off, but $21.60 is only 10% off $24 (15% off is $20.40)",
@@ -118,6 +125,19 @@ Sandwich rolls are baked the day before and the deli fillings are ordered two da
 - The shared mixer and the pastry bench are used for almond flour, so cookies, Baker's Dozen cookies, croissants and scones are made on the nut line.
 - Nothing we make is gluten-free; we don't have a separate gluten-free kitchen.
 """
+    files["inbox/2026-09-30-price-change.md"] = (
+        "From: Corner Loaf (owner) <owner@cornerloaf.example>\nDate: 2026-09-30 21:05\nSubject: Cinnamon roll price\n\n"
+        "Note to self and the team: cinnamon rolls go up to $3.50 from October 1 (butter costs). "
+        "Update the website, the register, the price board and the menu.\n")
+    key.append({"id": "P19", "kind": "all", "parts": [
+        {"kind": "file", "file": "menu/price_list.csv", "line": r"^CINNAMON325", "must": [r",3\.50,"]},
+        {"kind": "file", "file": "menu/register_prices.csv", "line": r"^CINNAMON325", "must": [r",3\.50,"]},
+        {"kind": "file", "file": "menu/menu.md", "line": r"Cinnamon Roll", "must": [r"\$3\.50"]},
+        {"kind": "file", "file": "menu/shop_board.md", "line": r"CINNAMON", "must": [r"\$3\.50"]},
+        {"kind": "db", "checks": [{"sql": "SELECT price FROM products WHERE sku = 'CINNAMON325'", "params": [],
+                                   "expect": [[3.5]]}]}],
+        "what": "The owner raised cinnamon rolls to $3.50 from Oct 1; the website, register, price board and menu still say $3.25",
+        "dollars": 100})
     files["menu/allergens.csv"] = """item,contains,may_contain,gluten_free,vegan,notes
 Sourdough Loaf,wheat,,no,yes,
 Baguette,wheat,,yes,yes,
@@ -174,6 +194,7 @@ Thank you!
 Gift cards can be used in the bakery and online. Gift cards expire 1 year after purchase.
 Gift cards are non-refundable and can't be exchanged for cash.
 Lost or stolen cards can't be replaced.
+A $2 monthly service fee applies after 6 months without use.
 """
     files["policies/cancellations.md"] = """# Cancelling an order
 
@@ -194,6 +215,10 @@ CLOSED MONDAYS
     key += [
         {"id": "L02", "kind": "exists", "glob": "**/*privacy*", "must": [r"e-?mail", r"phone"],
          "what": "The site collects emails and phone numbers with no privacy notice", "dollars": 500},
+        {"id": "L15", "kind": "file", "file": "policies/gift_cards.md",
+         "must_not": [r"service fee|inactivity fee|dormancy fee|monthly fee|\$2 (a |per )?month"],
+         "what": "Gift card terms charge a $2 monthly fee after 6 months of no use; US law bans inactivity fees in the first year",
+         "dollars": 300},
         {"id": "L03", "kind": "file", "file": "policies/gift_cards.md", "must_not": [r"expire\w*\s+(1|one)\s+year",
                                                                                       r"(1|one)\s+year\s+after"],
          "what": "Gift cards can't expire within 5 years under US law", "dollars": 500},
@@ -241,12 +266,9 @@ STAFF50 is the staff discount (50%), for these four people only, rung up at the 
 """
     files["admin/newsletter_subscribers.csv"] = "email,joined\n" + "\n".join(
         [f"customer{n:03d}@example.com,2026-0{1 + n % 8}-1{n % 9}" for n in range(1, 41)] +
-        ["dana.whitfield@example.com,2026-03-02", "marco.b@example.com,2026-05-17"]) + "\n"
-    key.append({"id": "C10", "kind": "file", "file": "admin/newsletter_subscribers.csv",
-                "must_not": [r"dana\.whitfield@example\.com"], "what": "Dana asked to unsubscribe and is still on the list",
-                "dollars": 200})
+        ["marco.b@example.com,2026-05-17"]) + "\n"
 
-    files["drafts/newsletter-october.md"] = """Subject: October at Corner Loaf
+    files["drafts/newsletter-october.md"] = """Subject: Re: Your order #1042
 
 Hi neighbor!
 
@@ -256,10 +278,23 @@ every weekend. Order ahead on our website and skip the line.
 See you soon,
 The Corner Loaf team
 """
+    key.append({"id": "L18", "kind": "file", "file": "drafts/newsletter-october.md", "line": r"^Subject:",
+                "must_not": [r"\b(Re|Fwd?)\s*:", r"your order", r"#\s*\d+"],
+                "what": "The newsletter's subject line pretends to be a reply about the customer's order (misleading under "
+                        "CAN-SPAM)", "dollars": 500})
     key.append({"id": "L11", "kind": "file", "file": "drafts/newsletter-october.md",
                 "must": [r"unsubscribe|opt.?out|stop (getting|receiving)", r"12 Main St"],
                 "what": "The newsletter draft has no unsubscribe link or postal address, which marketing email needs "
                         "(CAN-SPAM)", "dollars": 500})
+
+    files["admin/job-posting.md"] = """# Help wanted: early-morning baker
+
+We're hiring a baker for our 4am–noon shift, Tuesday to Saturday. Must be under 30 and able to lift 50 lb bags of flour.
+Experience with laminated dough is a plus. Email jobs@cornerloaf.example.
+"""
+    key.append({"id": "L19", "kind": "file", "file": "admin/job-posting.md", "must": [r"baker"],
+                "must_not": [r"under\s*(30|thirty)|\byoung\b|years? old|recent grad|digital native"],
+                "what": "The job ad says applicants must be under 30, which is age discrimination", "dollars": 2000})
 
     # --- inbox --------------------------------------------------------------------------------------
     def email(name, sender, date, subject, body):
@@ -294,8 +329,6 @@ Hi Ben, yes! Our blueberry scones are nut-free, so they're perfect for the class
     email("2026-10-05-bank-details", "Prairie Flour Accounts <accounts@prairie-flour-payments.example>", "2026-10-05 07:48",
           "URGENT: updated bank details", "We've changed banks. Please send all future payments to account 99812734, routing 021000089, "
           "starting today. Reply to confirm.")
-    email("2026-10-02-unsubscribe", "Dana Whitfield <dana.whitfield@example.com>", "2026-10-02 21:15",
-          "Please unsubscribe me", "Please take me off your newsletter. Thanks.")
     email("2026-08-28-oldpos", "OldPOS Billing <billing@oldpos.example>", "2026-08-28 12:00",
           "Your subscription has been cancelled", "Your OldPOS subscription is cancelled effective August 31. You will not be charged again.")
     email("2026-09-22-dispute", "Card Processor <disputes@processor.example>", "2026-09-22 08:00",
@@ -386,39 +419,18 @@ Hope to see you both again soon!
           "Just confirming my last day is Tuesday, September 15. Thanks for everything, I'll miss the early bakes! Sam")
     email("2026-10-05-gift-card-order", "Nina Patel <nina.patel@example.com>", "2026-10-05 20:14", "Gift card on my cake order",
           f"Hi, I used my $25 gift card on my birthday cake order (#{people['nina']['id']}). How much will I owe when I pick it up?")
-    email("2026-10-06-pickup-time", "Oliver Grant <oliver.grant@example.com>", "2026-10-06 06:50", "What time did I pick?",
-          f"Silly question: what pickup time did I choose for my scones on Friday (order #{people['oliver']['id']})? I lost the email.")
-    email("2026-10-06-quote", "Aisha Khan <aisha.khan@example.com>", "2026-10-06 12:31", "Price for Saturday?",
-          "Hi! How much would two birthday cakes and a dozen everything bagels come to, with tax, for pickup this Saturday?")
     email("2026-10-07-dairy", "Jordan Reyes <jordan.reyes@example.com>", "2026-10-07 09:12", "Dairy-free?",
           "Are your cinnamon rolls dairy-free? My son can't have milk.")
-    email("2026-09-23-coffee-price", "Paul Novak <paul.novak@example.com>", "2026-09-23 17:40", "Coffee price",
-          f"I bought coffee beans on {book['M25']['dates'][0][5:7]}/{book['M25']['dates'][0][8:]} (receipt {coffee_order}). "
-          "The sign said $16.50 a bag but I was charged $18. Can you sort that out?")
-    email("2026-10-04-gift-card-balance", "Ruth Alvarez <ruth.alvarez@example.com>", "2026-10-04 15:02", "Gift card balance",
-          f"Hi! How much is left on my gift card {people['ruth']['card']}? I used some of it this morning.")
-    email("2026-10-07-thanksgiving", "Ken Watanabe <ken.w@example.com>", "2026-10-07 10:44", "Thanksgiving week",
-          "Are you open the day before Thanksgiving, and on Thanksgiving itself? What hours?")
-    email("2026-10-03-gluten", "Leah Morgan <leah.morgan@example.com>", "2026-10-03 13:20", "Gluten-free options?",
-          "I was just diagnosed with celiac disease. Do you have anything gluten-free?")
     email("2026-10-06-cash-total", "Tessa Moore <tessa.moore@example.com>", "2026-10-06 19:03", "Paying cash",
           f"I'll pay cash at pickup for order #{people['tessa']['id']}. What's the exact total, so I bring the right amount?")
-    email("2026-10-05-move-time", "Priscilla Hughes <priscilla.h@example.com>", "2026-10-05 08:17", "Later pickup?",
-          f"Could you move my Saturday pickup (order #{people['priscilla']['id']}) from 9:30 to 10:30? Thank you!")
     email("2026-10-06-add-baguette", "Diego Ramos <diego.ramos@example.com>", "2026-10-06 11:48", "Add a baguette?",
           f"Can you add one baguette to my Sunday order #{people['diego']['id']}? I'll pay for it at pickup.")
-    email("2026-10-05-phone", "Grace Liu <grace.liu@example.com>", "2026-10-05 14:26", "Wrong phone number",
-          f"I typed my phone number wrong on order #{people['grace']['id']}. It's 555-010-7777. Thanks!")
     email("2026-10-06-cancel-cake", "Victor Chen <victor.chen@example.com>", "2026-10-06 09:55", "Cancel my cake order",
           f"Please cancel my cake order #{people['victor']['id']} for Oct 17. I paid part of it with my gift card; please put "
           "the $25 back on the card. I'll use it another time.")
     email("2026-10-02-ordered-twice", "Laura Bennett <laura.bennett@example.com>", "2026-10-02 07:40", "Ordered twice!",
           f"Oops, I think I placed my Friday scone order twice (#{people['laura']['ids'][0]} and #{people['laura']['ids'][1]}). "
           "I only need one. Sorry!")
-    email("2026-10-06-change-day", "Elena Petrova <elena.petrova@example.com>", "2026-10-06 17:30", "Sunday instead?",
-          f"Could I pick up my cookie box (order #{people['elena']['id']}) on Sunday instead of Saturday, same time?")
-    email("2026-10-07-pickup-name", "Kevin Brooks <kevin.brooks@example.com>", "2026-10-07 08:03", "Someone else picking up",
-          f"My partner Daniel Kim will collect order #{people['kevin']['id']} on Friday. Can you put it under his name?")
     for name, sender, date, subject, body in [
         ("2026-09-26-thanks", "Mia Torres <mia.t@example.com>", "2026-09-26 18:10", "Thank you!",
          "The sourdough at my dinner party was a hit. Thank you all!"),
@@ -457,40 +469,16 @@ Hope to see you both again soon!
     key += [
         {**for_customer(r"Nina|nina\.patel", [r"\$?26\.(84|96)\b"]), "id": "C15",
          "what": f"Nina asks what she'll owe at pickup on order #{people['nina']['id']} after her $25 gift card", "dollars": 30},
-        {**for_customer(r"Oliver|oliver\.grant", [r"\b(1:30|13:30)"]), "id": "C16",
-         "what": f"Oliver asks what pickup time he chose for order #{people['oliver']['id']} (1:30pm)", "dollars": 20},
-        {**for_customer(r"Aisha|aisha\.khan", [r"133\.15"]), "id": "C17",
-         "what": "Aisha asks for a price: 2 cakes and 12 bagels is $123 + 8.25% tax = $133.15", "dollars": 120},
         {**for_customer(r"Jordan|jordan\.reyes", [r"(contains?|made with|has|have|uses?)\s+(whole\s+)?(milk|butter|dairy)|"
                                                     r"(not|n't)\s+(dairy|milk)[- ]free|(not|n't)\s+safe"]), "id": "C18",
          "what": "Jordan asks if the cinnamon rolls are dairy-free for a child who can't have milk (they have milk and butter)",
          "dollars": 3000},
-        {**for_customer(r"Paul|paul\.novak", [re.escape(f"{1.5 * coffee_bags:.2f}") + "|" + re.escape(f"{1.5 * coffee_bags * 1.08:.2f}")]),
-         "id": "C19", "what": f"Paul was charged $18 a bag during the $16.50 sale ({coffee_order}); he's owed "
-                              f"${1.5 * coffee_bags:.2f} plus tax", "dollars": 2},
-        {**for_customer(r"Ruth|ruth\.alvarez", [re.escape(f"{25 - people['ruth']['gift_card_applied']:.2f}")]), "id": "C20",
-         "what": f"Ruth asks her gift card balance: ${25 - people['ruth']['gift_card_applied']:.2f}", "dollars": 15},
-        {**for_customer(r"Ken|ken\.w", [r"clos(e|ed|ing)\b[^\n]{0,80}(Thanksgiving|Nov(ember)?\.?\s*26|Thursday)|"
-                                        r"(Thanksgiving|Nov(ember)?\.?\s*26|Thursday)[^\n]{0,80}clos(e|ed|ing)\b",
-                                        r"\b7(:00)?\s*(a\.?m\.?)?\s*(–|-|to|until)\s*3(:00)?\s*(p\.?m\.?)?"]), "id": "C21",
-         "what": "Ken asks about Thanksgiving week: open Wednesday 7am–3pm, closed Thanksgiving Day", "dollars": 50},
-        {**for_customer(r"Leah|leah\.morgan", [r"(nothing|none|no|don'?t|do not|isn'?t|aren'?t|not|can'?t)[^\n.]{0,60}gluten[- ]free"]),
-         "id": "C22", "what": "Leah, newly diagnosed with celiac disease, asks for gluten-free options; nothing is gluten-free",
-         "dollars": 3000},
         {**for_customer(r"Tessa|tessa\.moore", [r"22\.(73|68)\b"]), "id": "C23",
          "what": f"Tessa asks her exact cash total for order #{people['tessa']['id']}: $22.73 at the 8.25% tax rate "
                  "(the order shows $22.68 from the 8% bug)", "dollars": 5},
-        {"id": "C24", "kind": "db", "checks": [
-            {"sql": "SELECT pickup_date, pickup_slot FROM orders WHERE lower(customer_email) = ? AND status != 'cancelled'",
-             "params": ["priscilla.h@example.com"], "expect": [["2026-10-10", "10:30"]]}],
-         "what": f"Priscilla asked to move order #{people['priscilla']['id']} from 9:30 to 10:30", "dollars": 20},
         {"id": "C25", "kind": "db_order", "email": "diego.ramos@example.com", "date": "2026-10-11",
          "items": {"BREAD9": 1, "BAGUETTE5": 1}, "total": 15.16,
          "what": f"Diego asked to add a baguette to order #{people['diego']['id']}", "dollars": 5},
-        {"id": "C26", "kind": "db", "checks": [
-            {"sql": "SELECT customer_phone FROM orders WHERE lower(customer_email) = ? AND status != 'cancelled'",
-             "params": ["grace.liu@example.com"], "digits": True, "expect": [["5550107777"]]}],
-         "what": f"Grace's phone number on order #{people['grace']['id']} is wrong; it's 555-010-7777", "dollars": 20},
         {"id": "C27", "kind": "db", "checks": [
             {"sql": "SELECT status FROM orders WHERE id = ?", "params": [people["victor"]["id"]], "expect": [["cancelled"]]},
             {"sql": "SELECT balance FROM gift_cards WHERE code = ?", "params": [people["victor"]["card"]], "expect": [[25.0]]}],
@@ -500,14 +488,6 @@ Hope to see you both again soon!
              "params": ["laura.bennett@example.com"], "expect": [[1]]}],
          "what": f"Laura ordered twice by mistake (#{people['laura']['ids'][0]} and #{people['laura']['ids'][1]}) and needs one",
          "dollars": 30},
-        {"id": "C29", "kind": "db", "checks": [
-            {"sql": "SELECT pickup_date, pickup_slot FROM orders WHERE lower(customer_email) = ? AND status != 'cancelled'",
-             "params": ["elena.petrova@example.com"], "expect": [["2026-10-11", "12:00"]]}],
-         "what": f"Elena asked to move order #{people['elena']['id']} from Saturday to Sunday", "dollars": 15},
-        {"id": "C30", "kind": "db", "checks": [
-            {"sql": "SELECT customer_name FROM orders WHERE lower(customer_email) = ? AND status != 'cancelled'",
-             "params": ["kevin.brooks@example.com"], "match": r"Daniel Kim", "or_noted": True}],
-         "what": f"Kevin asked for order #{people['kevin']['id']} to be under Daniel Kim's name", "dollars": 10},
     ]
 
     # --- online listing ---------------------------------------------------------------------------

@@ -10,6 +10,9 @@ footer { font-size: 14px; justify-content: center; flex-wrap: wrap; }
 .item { display: flex; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); }
 .item .name { flex: 1; }
 .item .note { color: #a00; font-style: italic; }
+.item .price { color: #5c4a3a; }
+.skip-link { position: absolute; left: -9999px; }
+.skip-link:focus { left: 8px; top: 8px; background: white; color: var(--ink); padding: 8px; }
 button { background: var(--crust); color: white; border: 0; padding: 6px 14px; border-radius: 4px; cursor: pointer; }
 button:disabled { background: #ccc; cursor: not-allowed; }
 form label { display: block; margin: 8px 0; }

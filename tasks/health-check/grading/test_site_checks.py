@@ -32,10 +32,6 @@ class Problems(ShopCase):
         self.placed()
         self.assertEqual(self.call("GET", "/admin/orders.csv")[0], 401)
 
-    def test_W24_customer_names_shown_as_text(self):
-        self.placed(name="Ana <b>Bold</b>")
-        self.assertNotIn("<b>Bold</b>", self.call("GET", "/admin", admin=True)[1])
-
     def test_W18_browser_cannot_set_prices(self):
         body = order_body()
         body["items"] = [{"sku": "BREAD9", "qty": 2, "unit_price": 0.01, "price": 0.01}]
@@ -53,21 +49,9 @@ class Problems(ShopCase):
         self.assertEqual(self.tax_rate(), Decimal("0.0825"))
 
     # --- days, times and limits -------------------------------------------------------------------
-    def test_W13_cakes_need_two_days(self):
-        self.assertNotEqual(self.place((("CAKE48", 1),), date=FRIDAY, slot="13:00")[0], 201)
-        self.placed((("CAKE48", 1),), slot="09:30")
-
-    def test_W14_cancelled_orders_free_their_time(self):
-        orders = [self.placed(slot="09:00") for _ in range(4)]
-        self.call("POST", f"/admin/api/orders/{orders[0]['id']}/cancel", admin=True)
-        self.placed(slot="09:00")
-
     def test_W15_cake_limit_counts_pickup_day(self):
         self.placed((("CAKE48", 6),), slot="10:00")
         self.assertNotEqual(self.place((("CAKE48", 1),), slot="10:30")[0], 201)
-
-    def test_W25_phone_required_for_cakes(self):
-        self.assertNotEqual(self.place((("CAKE48", 1),), phone="")[0], 201)
 
     def test_W33_closed_thanksgiving(self):
         self.assertNotEqual(self.place(date=THANKSGIVING)[0], 201)
@@ -137,6 +121,60 @@ class Problems(ShopCase):
         order = self.placed((("CAKE48", 1),), gift=code, slot="10:00")
         due = f"${order['total'] - order['gift_card_applied']:.2f}"
         self.assertIn(due, self.call("GET", order["confirmation_url"])[1], "The confirmation doesn't say what's due at pickup")
+
+    def test_W43_add_buttons_name_their_item(self):
+        page = self.page()
+        page.goto("/")
+        self.settle(page, 200)
+        self.assertEqual(page.get_by_role("button", name=re.compile(r"Add .*Sourdough", re.I)).count(), 1,
+                         "Screen readers hear only \"Add\", not which item")
+
+    def test_W44_keyboard_focus_is_visible(self):
+        page = self.page()
+        page.goto("/checkout")
+        self.settle(page, 200)
+        page.focus("[name=name]")
+        visible = page.evaluate("""() => { const s = getComputedStyle(document.activeElement);
+            return s.outlineStyle !== 'none' || s.boxShadow !== 'none'; }""")
+        self.assertTrue(visible, "Keyboard users can't see which field has focus")
+
+    def test_W45_prices_are_readable(self):
+        page = self.page()
+        page.goto("/")
+        self.settle(page, 200)
+        ratio = page.evaluate("""() => {
+            const lum = (c) => { const [r, g, b] = c.match(/\\d+/g).slice(0, 3).map(Number).map((v) => {
+                v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; });
+                return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
+            const el = document.querySelector('.price');
+            let bg = el; while (bg && getComputedStyle(bg).backgroundColor.match(/rgba\\(0, 0, 0, 0\\)|transparent/)) bg = bg.parentElement;
+            const a = lum(getComputedStyle(el).color), b = lum(getComputedStyle(bg || document.body).backgroundColor);
+            return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05); }""")
+        self.assertGreaterEqual(ratio, 4.5, f"Price text contrast is {ratio:.1f}:1, below 4.5:1")
+
+    def test_W46_confirmation_title_names_the_order(self):
+        order = self.placed()
+        title = re.search(r"<title>(.*?)</title>", self.call("GET", order["confirmation_url"])[1], re.S).group(1)
+        self.assertRegex(title, rf"\b{order['id']}\b", "The page title doesn't say which order it is")
+
+    def test_W47_skip_to_content_link(self):
+        page = self.page_text("/")
+        link = re.search(r'<a[^>]*href="#([\w-]+)"[^>]*>\s*Skip', page, re.I)
+        self.assertTrue(link and re.search(rf'id="{link.group(1)}"', page), "No working skip-to-content link")
+
+    def test_W48_staff_csv_has_no_private_links(self):
+        order = self.placed()
+        key = order["confirmation_url"].split("key=")[1]
+        status, body = self.call("GET", "/admin/orders.csv", admin=True)
+        self.assertEqual(status, 200)
+        self.assertNotIn(key, body if isinstance(body, str) else str(body), "The staff CSV leaks customers' private links")
+
+    def test_W49_no_past_pickup_dates(self):
+        page = self.page()
+        page.goto("/checkout")
+        self.settle(page, 200)
+        earliest = page.evaluate("() => document.querySelector('[name=pickup_date]').min")
+        self.assertTrue("2026-10-08" <= (earliest or "") <= "2026-10-10", f"The date picker allows past dates (min={earliest!r})")
 
     # --- staff page and confirmation --------------------------------------------------------------
     def test_W19_confirmation_shows_the_right_day(self):

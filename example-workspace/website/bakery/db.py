@@ -179,7 +179,7 @@ class Database:
     # Readers for use inside insert_order's hooks, which already hold the lock.
     def slot_usage_unlocked(self, pickup_date: str) -> dict:
         rows = self.conn.execute(
-            "SELECT pickup_slot, COUNT(*) AS n FROM orders WHERE pickup_date = ? "
+            "SELECT pickup_slot, COUNT(*) AS n FROM orders WHERE pickup_date = ? AND status != 'cancelled' "
             "AND pickup_slot IS NOT NULL GROUP BY pickup_slot", (pickup_date,)).fetchall()
         return {row["pickup_slot"]: row["n"] for row in rows}
 

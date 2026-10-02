@@ -1,6 +1,6 @@
 # What's in this folder
 
-- `admin/`: our accounts and services, promotions calendar, staff list and newsletter subscribers.
+- `admin/`: our accounts and services, promotions calendar, staff list, newsletter subscribers and a job posting.
 - `books/`: September's numbers: register exports for each half of the month, card payments, payouts, refunds, disputes, the bank statement, cash drawer counts, supplier invoices, the sales report, the draft sales tax return, the gift card ledger and our cost sheet.
 - `drafts/`: replies and a newsletter we've written but haven't sent.
 - `inbox/`: emails from the last few weeks, one per file.

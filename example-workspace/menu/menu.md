@@ -21,7 +21,9 @@ Order online at cornerloaf.example or call 555-010-0000. Open Tuesday–Sunday, 
 - **Catering Tray** — $120.00. Pastries and sandwiches for 10–12. Order 24 hours ahead.
 
 ## Pantry
-- **Coffee Beans (1 lb bag)** — $18.00 ($16.50 through Oct 15). Roasted for us by Northside Coffee.
+- **Coffee Beans (12 oz bag)** — $18.00 ($16.50 through Oct 15). Roasted for us by Northside Coffee.
 
 ## Gift cards
 - **$25 Gift Card**
+
+Allergens: we label all 8 major food allergens. Ask us if you have questions.

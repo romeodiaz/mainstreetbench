@@ -95,6 +95,7 @@ async function loadSlots() {
 }
 
 const dateInput = document.querySelector("[name=pickup_date]");
+dateInput.min = new Date().toLocaleDateString("en-CA");   // no pickup dates in the past
 dateInput.value = localStorage.getItem("cornerloaf-day") || "";
 dateInput.addEventListener("change", () => { loadSlots(); refreshQuote(); });
 

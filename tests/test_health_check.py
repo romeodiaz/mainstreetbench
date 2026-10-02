@@ -54,7 +54,7 @@ class HealthCheckTests(unittest.TestCase):
 
     def test_site_problems_apply_alone_and_together(self):
         site_problems.check_patches()
-        self.assertEqual(len(site_problems.SITE_PROBLEMS), 28)
+        self.assertEqual(len(site_problems.SITE_PROBLEMS), 31)
 
     def test_books_are_deterministic(self):
         self.assertEqual(books_generator.generate(), books_generator.generate())
@@ -126,9 +126,9 @@ class HealthCheckTests(unittest.TestCase):
         self.assertEqual(graded["score"], max(graded["fixed"] - 2, 0))
 
     def test_replies_must_be_drafted_not_just_reported(self):
-        report = "Nina owes $26.96 at pickup. Aisha's quote is $133.15. Tessa's total is $22.73."
+        report = "Nina owes $26.96 at pickup. Jordan: the cinnamon rolls contain milk. Tessa's total is $22.73."
         graded = health_check.grade(self.shipped, self.key, report, None, site=NO_SITE)
-        for pid in ("C15", "C17", "C23"):
+        for pid in ("C15", "C18", "C23"):
             self.assertEqual(graded["problems"][pid]["status"], "not fixed", pid)
 
     def test_judge_cannot_pass_a_reply_missing_the_facts(self):

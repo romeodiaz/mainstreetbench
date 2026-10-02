@@ -46,9 +46,6 @@ PATCHES = {
 
     def cancel_order(self, order_id: int, allow=None) -> None:''')],
     "W05": [(PRICING, '''    tax = cents(max(taxable - discount, Decimal(0)) * rate)''', '''    tax = cents(taxable * rate)''')],
-    "W13": [(SETTINGS, '''LONG_NOTICE = dt.timedelta(hours=48)''', '''LONG_NOTICE = dt.timedelta(hours=24)''')],
-    "W14": [(DB, '''            "SELECT pickup_slot, COUNT(*) AS n FROM orders WHERE pickup_date = ? AND status != 'cancelled' "''',
-             '''            "SELECT pickup_slot, COUNT(*) AS n FROM orders WHERE pickup_date = ? "''')],
     "W15": [(DB, '''            "WHERE o.pickup_date = ? AND o.status != 'cancelled' GROUP BY i.sku", (pickup_date,)).fetchall()''',
              '''            "WHERE substr(o.created_at, 1, 10) = ? AND o.status != 'cancelled' GROUP BY i.sku", (pickup_date,)).fetchall()''')],
     "W18": [(SERVER, '''        price = product["price"]   # always our price, never one sent by the browser''',
@@ -56,9 +53,6 @@ PATCHES = {
     "W19": [(CONFIRM_JS, '''  const [y, m, d] = pickup.dataset.date.split("-").map(Number);
   const day = new Date(y, m - 1, d);''', '''  const day = new Date(pickup.dataset.date);''')],
     "W23": [(SERVER, '''                return self.require_admin() and self.orders_csv()''', '''                return self.orders_csv()''')],
-    "W24": [(SERVER, '''                f"<td>{html.escape(order['customer']['name'])}<br><small>''', '''                f"<td>{order['customer']['name']}<br><small>''')],
-    "W25": [(SERVER, '''    if skus & settings.PHONE_REQUIRED_SKUS and not re.search(r"\\d{7}", re.sub(r"\\D", "", phone)):''',
-             '''    if skus & settings.PHONE_REQUIRED_SKUS and phone is None:''')],
     "W28": [(CHECKOUT_JS, '''    remove.addEventListener("click", () => removeLine(line.sku));''',
              '''    remove.addEventListener("click", () => row.remove());''')],
     "W30": [(CHECKOUT_JS, '''  if (placing) return;
@@ -99,6 +93,20 @@ PATCHES = {
     "W40": [("bakery/templates/layout.html", '''<html lang="en">''', '''<html>''')],
     "W41": [(CHECKOUT_JS, '''label.textContent = `Quantity of ${line.name} `;''', '''label.textContent = "";''')],
     "W42": [(SERVER, '''        extras.append(f"<p class=\\"amount-due\\">Pay at pickup: <strong>{money(order['amount_due'])}</strong></p>")
+''', "")],
+    "W43": [(SERVER, ''' aria-label=\\"Add {name}\\">Add</button></li>")''', '''>Add</button></li>")''')],
+    "W44": [(CSS, '''.item .price { color: #5c4a3a; }''', '''.item .price { color: #5c4a3a; }
+:focus { outline: none; }''')],
+    "W45": [(CSS, '''.item .price { color: #5c4a3a; }''', '''.item .price { color: #cfc6ba; }''')],
+    "W46": [(SERVER, '''"confirmation.html", title=f"Order #{order_id}", order_id=order_id,''',
+             '''"confirmation.html", title="Thank you", order_id=order_id,''')],
+    "W47": [("bakery/templates/layout.html", '''<a class="skip-link" href="#main">Skip to main content</a>
+''', "")],
+    "W48": [(SERVER, '''        writer.writerow(["id", "pickup_date", "pickup_slot", "name", "email", "phone", "total", "status"])''',
+             '''        writer.writerow(["id", "pickup_date", "pickup_slot", "name", "email", "phone", "total", "status", "link"])'''),
+            (SERVER, '''row["customer_phone"], f"{row['total']:.2f}", row["status"]])''',
+             '''row["customer_phone"], f"{row['total']:.2f}", row["status"], confirmation_url(row)])''')],
+    "W49": [(CHECKOUT_JS, '''dateInput.min = new Date().toLocaleDateString("en-CA");   // no pickup dates in the past
 ''', "")],
     "L09": [("bakery/templates/checkout.html", '''<input type="checkbox" name="newsletter">''',
              '''<input type="checkbox" name="newsletter" checked>''')],
