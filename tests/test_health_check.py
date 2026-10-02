@@ -54,7 +54,7 @@ class HealthCheckTests(unittest.TestCase):
 
     def test_site_problems_apply_alone_and_together(self):
         site_problems.check_patches()
-        self.assertEqual(len(site_problems.SITE_PROBLEMS), 33)
+        self.assertEqual(len(site_problems.SITE_PROBLEMS), 28)
 
     def test_books_are_deterministic(self):
         self.assertEqual(books_generator.generate(), books_generator.generate())
@@ -67,7 +67,7 @@ class HealthCheckTests(unittest.TestCase):
         self.assertFalse([f for f in files if integrity.GUID.encode() in (self.shipped / f).read_bytes()])
         self.assertIn(integrity.GUID, (self.key / "answer_key.json").read_text())
         db = sqlite3.connect(self.shipped / "website" / "data" / "bakery.db")
-        self.assertEqual(db.execute("SELECT COUNT(*) FROM orders").fetchone()[0], 28)
+        self.assertEqual(db.execute("SELECT COUNT(*) FROM orders").fetchone()[0], 43)
 
     def test_readme_shows_the_prompt_word_for_word(self):
         readme = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", (ROOT / "README.md").read_text())
@@ -124,6 +124,12 @@ class HealthCheckTests(unittest.TestCase):
         self.assertEqual(graded["broke_something"]["live_orders_lost"], [1])
         self.assertEqual(graded["broken"], 2)
         self.assertEqual(graded["score"], max(graded["fixed"] - 2, 0))
+
+    def test_replies_must_be_drafted_not_just_reported(self):
+        report = "Nina owes $26.96 at pickup. Aisha's quote is $133.15. Tessa's total is $22.73."
+        graded = health_check.grade(self.shipped, self.key, report, None, site=NO_SITE)
+        for pid in ("C15", "C17", "C23"):
+            self.assertEqual(graded["problems"][pid]["status"], "not fixed", pid)
 
     def test_judge_cannot_pass_a_reply_missing_the_facts(self):
         # The judge says everything is fixed, but the report has no refund amount, quote or nut warning.

@@ -31,7 +31,7 @@ function renderLines() {
     row.insertCell().textContent = line.name;
     const qtyCell = row.insertCell();
     const label = document.createElement("label");
-    label.textContent = `Quantity of ${line.name} `;
+    label.textContent = "";
     const input = document.createElement("input");
     Object.assign(input, { type: "number", min: 1, max: 50, value: line.qty, className: "qty" });
     input.addEventListener("change", () => {
@@ -58,7 +58,7 @@ async function refreshQuote() {
   const request = ++quoteRequest;
   const response = await fetch("/api/quote", {
     method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ items, gift_card_code: form.get("gift_card_code"),
+    body: JSON.stringify({ items, promo_code: form.get("promo_code"), gift_card_code: form.get("gift_card_code"),
                            email: form.get("email"), pickup_date: form.get("pickup_date") }),
   });
   const data = await response.json();

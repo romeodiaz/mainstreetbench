@@ -15,7 +15,7 @@ Order online at cornerloaf.example or call 555-010-0000. Open Tuesday–Sunday, 
 - **Baker's Dozen Cookies** — $15.00. Thirteen cookies, our pick.
 
 ## Cakes and pies
-- **Birthday Cake** — $48.00. Vanilla or chocolate, serves 20. Order 2 days ahead.
+- **Birthday Cake** — $48.00. Vanilla or chocolate, cut into 12 slices. Order 2 days ahead.
 
 ## Catering
 - **Catering Tray** — $120.00. Pastries and sandwiches for 10–12. Order 24 hours ahead.

@@ -64,13 +64,13 @@ The design follows [Bug Hunt Bench](https://github.com/phuryn/bug-hunt-bench): m
 **The grading is verified:**
 - an untouched bakery scores **0**;
 - a complete fix scores **100**;
-- each of the 33 website problems is shown, one at a time, to fail only its own check.
+- each of the 28 website problems is shown, one at a time, to fail only its own check.
 
-The problems split 5 obvious, 54 needing cross-checking, and 41 hidden, so expect scores well below 100. More detail: [the grader](tasks/health-check/) and [running it by hand](docs/running-the-bench.md).
+The problems split 4 obvious, 46 needing cross-checking, and 50 hidden, so expect scores well below 100. More detail: [the grader](tasks/health-check/) and [running it by hand](docs/running-the-bench.md).
 
 ## Results so far
 
-The current version is **v0.7**. It swaps 12 one-glance problems for 12 harder ones, such as customer replies that need the right facts, privacy and US legal requirements, and checking an invoice's arithmetic ([why](docs/health-check-problems.md#decisions)). Scores from different versions aren't directly comparable.
+The current version is **v0.8**. It's calibrated so a cheap model has room to fall short: 30 problems that GPT-6.1 Sol solved in both earlier runs were swapped for 30 of the kinds it missed, such as drafting the actual reply to a customer, making the change they asked for in the order system, and finding one wrong row in a large set of books ([why](docs/health-check-problems.md#decisions)). No model has run v0.8 yet; earlier scores are on easier versions and aren't directly comparable.
 
 | Model | Version | Score | Notes |
 |---|---|---|---|

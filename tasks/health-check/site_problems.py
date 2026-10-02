@@ -45,47 +45,22 @@ PATCHES = {
             self.conn.commit()
 
     def cancel_order(self, order_id: int, allow=None) -> None:''')],
-    "W04": [(SERVER, '''    if promo["first_order_only"] and email and db.has_ordered(email):''',
-             '''    if promo["first_order_only"] and email and False:''')],
     "W05": [(PRICING, '''    tax = cents(max(taxable - discount, Decimal(0)) * rate)''', '''    tax = cents(taxable * rate)''')],
-    "W06": [(PRICING, '''UNTAXED_CATEGORIES = {"Gift Cards"}''', '''UNTAXED_CATEGORIES = set()''')],
-    "W07": [(PRICING, '''from decimal import Decimal, ROUND_HALF_UP''', '''from decimal import Decimal, ROUND_HALF_DOWN as ROUND_HALF_UP''')],
-    "W08": [(PRICING, '''            discount = cents(discountable * Decimal(str(promo["percent_off"])) / 100)''',
-             '''            discount = cents(subtotal * Decimal(str(promo["percent_off"])) / 100)''')],
-    "W09": [(PRICING, '''            discount = min(cents(promo["amount_off"]), discountable)''',
-             '''            discount = cents(promo["amount_off"])''')],
-    "W10": [(SERVER, '''            name = html.escape(product["name"], quote=True)''',
-             '''            name = product["name"]'''),
-            (SERVER, '''                f"<button type=\\"button\\" class=\\"add\\" data-sku=\\"{product['sku']}\\" data-name=\\"{name}\\" "
-                f"data-price=\\"{product['price']}\\">Add</button></li>")''',
-             '''                f"<button type=\\"button\\" class=\\"add-inline\\" data-sku=\\"{product['sku']}\\" "
-                f"onclick=\\"addItem('{product['sku']}', '{name}', {product['price']})\\">Add</button></li>")'''),
-            (MENU_JS, '''    const button = row.querySelector("button.add");''',
-             '''    const button = row.querySelector("button.add, button.add-inline");''')],
     "W13": [(SETTINGS, '''LONG_NOTICE = dt.timedelta(hours=48)''', '''LONG_NOTICE = dt.timedelta(hours=24)''')],
     "W14": [(DB, '''            "SELECT pickup_slot, COUNT(*) AS n FROM orders WHERE pickup_date = ? AND status != 'cancelled' "''',
              '''            "SELECT pickup_slot, COUNT(*) AS n FROM orders WHERE pickup_date = ? "''')],
     "W15": [(DB, '''            "WHERE o.pickup_date = ? AND o.status != 'cancelled' GROUP BY i.sku", (pickup_date,)).fetchall()''',
              '''            "WHERE substr(o.created_at, 1, 10) = ? AND o.status != 'cancelled' GROUP BY i.sku", (pickup_date,)).fetchall()''')],
-    "W17": [(SERVER, '''        if not isinstance(qty, int) or isinstance(qty, bool) or not 1 <= qty <= MAX_QTY:''',
-             '''        if not isinstance(qty, int) or isinstance(qty, bool) or qty == 0 or abs(qty) > MAX_QTY:''')],
     "W18": [(SERVER, '''        price = product["price"]   # always our price, never one sent by the browser''',
              '''        price = float(raw.get("unit_price") or raw.get("price") or product["price"])''')],
     "W19": [(CONFIRM_JS, '''  const [y, m, d] = pickup.dataset.date.split("-").map(Number);
   const day = new Date(y, m - 1, d);''', '''  const day = new Date(pickup.dataset.date);''')],
-    "W22": [(SERVER, '''            status = order["status"]
-            rows.append(''', '''            status = "cancelled" if order["status"] == "canceled" else "placed"
-            rows.append(''')],
     "W23": [(SERVER, '''                return self.require_admin() and self.orders_csv()''', '''                return self.orders_csv()''')],
     "W24": [(SERVER, '''                f"<td>{html.escape(order['customer']['name'])}<br><small>''', '''                f"<td>{order['customer']['name']}<br><small>''')],
     "W25": [(SERVER, '''    if skus & settings.PHONE_REQUIRED_SKUS and not re.search(r"\\d{7}", re.sub(r"\\D", "", phone)):''',
              '''    if skus & settings.PHONE_REQUIRED_SKUS and phone is None:''')],
-    "W26": [(SERVER, '''        if pickup is not None and not schedule.in_season(product["sku"], pickup):''',
-             '''        if pickup is not None and not schedule.in_season(product["sku"], pickup) and False:''')],
     "W28": [(CHECKOUT_JS, '''    remove.addEventListener("click", () => removeLine(line.sku));''',
              '''    remove.addEventListener("click", () => row.remove());''')],
-    "W29": [(CHECKOUT_JS, '''    body: JSON.stringify({ items, promo_code: form.get("promo_code"), gift_card_code: form.get("gift_card_code"),''',
-             '''    body: JSON.stringify({ items, gift_card_code: form.get("gift_card_code"),''')],
     "W30": [(CHECKOUT_JS, '''  if (placing) return;
   placing = true;''', '''  placing = true;'''),
             (CHECKOUT_JS, '''  button.disabled = true;
@@ -118,6 +93,13 @@ PATCHES = {
         ("bakery/templates/checkout.html", '''<label>Pickup date <input name="pickup_date" type="date" required></label>''',
          '''<label>Pickup date</label> <input name="pickup_date" type="date" required>'''),
     ],
+    "W38": [("bakery/templates/checkout.html", '''<p id="checkout-error" class="error" role="alert"></p>''',
+             '''<p id="checkout-error" class="error"></p>''')],
+    "W39": [("bakery/templates/checkout.html", '<p class="allergy-note">Cookies, croissants and scones are made on equipment shared with almond flour, so they may contain tree nuts. Nothing we bake is gluten-free.</p>\n', "")],
+    "W40": [("bakery/templates/layout.html", '''<html lang="en">''', '''<html>''')],
+    "W41": [(CHECKOUT_JS, '''label.textContent = `Quantity of ${line.name} `;''', '''label.textContent = "";''')],
+    "W42": [(SERVER, '''        extras.append(f"<p class=\\"amount-due\\">Pay at pickup: <strong>{money(order['amount_due'])}</strong></p>")
+''', "")],
     "L09": [("bakery/templates/checkout.html", '''<input type="checkbox" name="newsletter">''',
              '''<input type="checkbox" name="newsletter" checked>''')],
 }

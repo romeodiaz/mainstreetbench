@@ -1,9 +1,9 @@
 """Order pricing. Coupons apply to food only, tax applies to food after the coupon, and gift cards are
 never discounted or taxed. Cents round half up, as the bookkeeper does."""
 
-from decimal import Decimal, ROUND_HALF_DOWN as ROUND_HALF_UP
+from decimal import Decimal, ROUND_HALF_UP
 
-UNTAXED_CATEGORIES = set()
+UNTAXED_CATEGORIES = {"Gift Cards"}
 NO_DISCOUNT_CATEGORIES = {"Gift Cards"}
 CENT = Decimal("0.01")
 
@@ -23,9 +23,9 @@ def price_order(lines: list, promo, rate: Decimal) -> dict:
     discount = Decimal(0)
     if promo is not None:
         if promo["percent_off"]:
-            discount = cents(subtotal * Decimal(str(promo["percent_off"])) / 100)
+            discount = cents(discountable * Decimal(str(promo["percent_off"])) / 100)
         elif promo["amount_off"]:
-            discount = cents(promo["amount_off"])
+            discount = min(cents(promo["amount_off"]), discountable)
     tax = cents(taxable * rate)
     total = subtotal - discount + tax
     return {name: float(value) for name, value in

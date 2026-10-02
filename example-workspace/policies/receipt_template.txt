@@ -4,5 +4,5 @@ CORNER LOAF BAKERY
 Subtotal {subtotal}
 Tax {tax}
 Total {total}
-Returns accepted within 30 days with this receipt.
+Returns accepted within 14 days with this receipt.
 Thank you!

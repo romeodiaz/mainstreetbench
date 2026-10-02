@@ -90,10 +90,10 @@ def priced_lines(db: Database, raw_items, pickup: dt.date | None) -> list:
         product = db.product(str(raw.get("sku", ""))) if isinstance(raw, dict) else None
         if product is None or not product["active"]:
             raise ValidationError("One of the items is no longer available")
-        if pickup is not None and not schedule.in_season(product["sku"], pickup) and False:
+        if pickup is not None and not schedule.in_season(product["sku"], pickup):
             raise ValidationError(f"{product['name']} isn't available for that day")
         qty = raw.get("qty")
-        if not isinstance(qty, int) or isinstance(qty, bool) or qty == 0 or abs(qty) > MAX_QTY:
+        if not isinstance(qty, int) or isinstance(qty, bool) or not 1 <= qty <= MAX_QTY:
             raise ValidationError(f"Quantity for {product['name']} must be between 1 and {MAX_QTY}")
         price = float(raw.get("unit_price") or raw.get("price") or product["price"])
         lines.append({"sku": product["sku"], "name": product["name"], "qty": qty, "category": product["category"],
@@ -107,7 +107,7 @@ def promo_for(db: Database, code: str, email: str | None):
     promo = db.promo(code)
     if promo is None:
         raise ValidationError("That promo code isn't valid")
-    if promo["first_order_only"] and email and False:
+    if promo["first_order_only"] and email and db.has_ordered(email):
         raise ValidationError(f"{code} is for your first order only")
     return promo
 
@@ -398,12 +398,12 @@ class Handler(BaseHTTPRequestHandler):
                     sections.append("</ul></section>")
                 current = product["category"]
                 sections.append(f"<section><h2>{html.escape(current)}</h2><ul class=\"menu\">")
-            name = product["name"]
+            name = html.escape(product["name"], quote=True)
             sections.append(
                 f"<li class=\"item\" data-sku=\"{product['sku']}\"><span class=\"name\">{name}</span>"
                 f"<span class=\"price\">{money(product['price'])}</span><span class=\"note\"></span>"
-                f"<button type=\"button\" class=\"add-inline\" data-sku=\"{product['sku']}\" "
-                f"onclick=\"addItem('{product['sku']}', '{name}', {product['price']})\">Add</button></li>")
+                f"<button type=\"button\" class=\"add\" data-sku=\"{product['sku']}\" data-name=\"{name}\" "
+                f"data-price=\"{product['price']}\">Add</button></li>")
         if current is not None:
             sections.append("</ul></section>")
         self.send_html(200, render("menu.html", title="Order online", menu="\n".join(sections)))
@@ -430,7 +430,6 @@ class Handler(BaseHTTPRequestHandler):
             card = self.db.gift_card(row["gift_card_code"])
             extras.append(f"<p>Paid with gift card: {money(row['gift_card_applied'])}. "
                           f"Left on that card: {money(card['balance'])}.</p>")
-        extras.append(f"<p class=\"amount-due\">Pay at pickup: <strong>{money(order['amount_due'])}</strong></p>")
         if order["status"] == "placed" and dt.date.fromisoformat(order["pickup_date"]) > clock.today():
             extras.append(f"<button type=\"button\" id=\"cancel-order\" data-order-id=\"{order_id}\" "
                           f"data-key=\"{html.escape(key)}\">Cancel order</button>"
@@ -447,7 +446,7 @@ class Handler(BaseHTTPRequestHandler):
         for row in self.db.orders(pickup_date):
             order = order_json(self.db, row)
             items = ", ".join(f"{i['qty']} × {html.escape(i['name'])}" for i in order["items"])
-            status = "cancelled" if order["status"] == "canceled" else "placed"
+            status = order["status"]
             rows.append(
                 f"<tr data-order-id=\"{order['id']}\" class=\"{status}\"><td>#{order['id']}</td>"
                 f"<td>{order['pickup_date']}</td><td>{order['pickup_slot'] or '—'}</td>"

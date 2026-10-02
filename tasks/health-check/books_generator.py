@@ -76,7 +76,7 @@ def generate(seed: int = 20261008) -> tuple[dict[str, str], list[dict]]:
     # --- ordinary September trade --------------------------------------------------------------------
     cash_by_day = {d: Decimal(0) for d in OPEN_DAYS}
     for day in OPEN_DAYS:
-        for _ in range(rng.randint(16, 24)):
+        for _ in range(rng.randint(40, 55)):
             sale = add_sale(day, item_lines(day), tender="cash" if rng.random() < 0.22 else "card")
 
     def pick(day_filter=lambda d: True, tender="card", channel=None):
@@ -106,24 +106,55 @@ def generate(seed: int = 20261008) -> tuple[dict[str, str], list[dict]]:
         misuse.append(s)
     flag("M17", [s["order_id"] for s in misuse], "STAFF50 was used by people who aren't staff",
          float(sum(Decimal(s["discount"]) for s in misuse)))
-    # M22 expired FALL15 used
-    expired = []
-    for _ in range(2):
-        s = pick(); s["promo_code"] = "FALL15"
-        set_discount(s, c(Decimal(s["subtotal"]) * Decimal("0.15")))
-        expired.append(s)
-    flag("M22", [s["order_id"] for s in expired], "FALL15 was used after it expired on Aug 31",
-         float(sum(Decimal(s["discount"]) for s in expired)))
     # M25 coffee charged at $18 during the promo
     coffee = [s for s in sales if "Coffee Beans @ 16.50" in s["items"] and not s.get("_used")][:2]
+    coffee_bags = []
     for s in coffee:
         bags = int(re.search(r"(\d+) x Coffee Beans @ 16\.50", s["items"]).group(1))
+        coffee_bags.append(bags)
         s["items"] = s["items"].replace("Coffee Beans @ 16.50", "Coffee Beans @ 18.00")
         s["subtotal"] = f"{Decimal(s['subtotal']) + Decimal('1.50') * bags:.2f}"
         set_discount(s, Decimal(s["discount"]))
         s["_used"] = True
     flag("M25", [s["order_id"] for s in coffee], "Coffee beans rang up at $18.00 during the $16.50 promo",
-         1.5 * len(coffee))
+         1.5 * sum(coffee_bags), bags=coffee_bags, dates=[s["date"] for s in coffee])
+    # Needles: one wrong row each among about 1,200 register rows
+    def reprice(s):
+        lines = re.findall(r"(\d+) x [^@;]+@ ([\d.]+)", s["items"])
+        s["subtotal"] = f"{sum(int(q) * Decimal(p) for q, p in lines):.2f}"
+        set_discount(s, Decimal(s["discount"]))
+    roll = next(s for s in sales[300:] if "Cinnamon Roll @ 3.25" in s["items"] and not s.get("_used") and s["tender"] == "card")
+    roll["items"] = roll["items"].replace("Cinnamon Roll @ 3.25", "Cinnamon Roll @ 3.52"); roll["_used"] = True
+    reprice(roll)
+    flag("M29", [roll["order_id"]], f"{roll['order_id']} rang up cinnamon rolls at $3.52 instead of $3.25", 0.27)
+    wrong_tax = pick(lambda d: f"{MONTH}-08" <= d)
+    wrong_tax["tax"] = f"{c((Decimal(wrong_tax['subtotal']) - Decimal(wrong_tax['discount'])) * Decimal('0.10')):.2f}"
+    wrong_tax["total"] = f"{Decimal(wrong_tax['subtotal']) - Decimal(wrong_tax['discount']) + Decimal(wrong_tax['tax']):.2f}"
+    flag("M30", [wrong_tax["order_id"]], f"{wrong_tax['order_id']} was taxed at 10% instead of 8%",
+         float(Decimal(wrong_tax["tax"]) - c((Decimal(wrong_tax["subtotal"]) - Decimal(wrong_tax["discount"])) * TAX)))
+    monday = pick(lambda d: f"{MONTH}-12" <= d <= f"{MONTH}-13")
+    monday["date"] = f"{MONTH}-14"
+    flag("M33", [monday["order_id"]], f"{monday['order_id']} is dated Monday Sept 14, when the shop is closed",
+         float(monday["total"]))
+    short_line = next(s for s in sales[600:] if s["items"].count(";") >= 2 and not s.get("_used") and s["tender"] == "card")
+    short_line["_used"] = True
+    missing_line = Decimal(re.findall(r"(\d+) x [^@;]+@ ([\d.]+)", short_line["items"])[-1][1]) * \
+        int(re.findall(r"(\d+) x [^@;]+@ ([\d.]+)", short_line["items"])[-1][0])
+    short_line["subtotal"] = f"{Decimal(short_line['subtotal']) - missing_line:.2f}"
+    set_discount(short_line, Decimal(short_line["discount"]))
+    flag("M34", [short_line["order_id"]], f"{short_line['order_id']}'s subtotal leaves out its last line "
+         f"(${missing_line:.2f} not charged)", float(missing_line))
+    # L13 Sam left on Sept 15 but STAFF50 was rung up on his email afterwards
+    after_sam = pick(lambda d: f"{MONTH}-22" <= d, channel="counter")
+    after_sam["customer_email"] = "sam.k@cornerloaf.example"; after_sam["promo_code"] = "STAFF50"
+    set_discount(after_sam, c(Decimal(after_sam["subtotal"]) / 2))
+    key.append({"id": "L13", "kind": "all", "record_ids": [after_sam["order_id"]], "parts": [
+        {"kind": "file", "file": "admin/staff.md", "line": r"Sam Kowalski", "optional_line": True,
+         "must": [r"left|former|no longer|last day|not eligible|ineligible|remove"]},
+        {"kind": "flag", "record_ids": [after_sam["order_id"]]}],
+        "what": f"Sam left on Sept 15: he's still on the staff discount list, and STAFF50 was used on his email "
+                f"after he left ({after_sam['order_id']})", "dollars": float(after_sam["discount"])})
+
     for sale in sales:
         if sale["tender"] == "card":
             pay(sale)
@@ -135,15 +166,6 @@ def generate(seed: int = 20261008) -> tuple[dict[str, str], list[dict]]:
     second = pay(sale)
     flag("M01", [sale["order_id"], second["payment_id"]], f"{sale['order_id']} was charged twice ({second['payment_id']})",
          float(sale["total"]))
-    # M02 unpaid order (card sale with no payment)
-    day = rng.choice(OPEN_DAYS[:20])
-    sale = add_sale(day, item_lines(day), channel="online")
-    flag("M02", [sale["order_id"]], f"{sale['order_id']} was handed over with no payment", float(sale["total"]))
-    # M03 short cash sale
-    sale = pick(tender="cash")
-    sale["cash_received"] = f"{Decimal(sale['total']) - 8:.2f}"
-    cash_by_day[sale["date"]] -= 8
-    flag("M03", [sale["order_id"]], f"{sale['order_id']} came up $8.00 short in cash", 8.0)
     # M04/M05/M06 refunds
     def refund(sale, status, requested, completed="", amount=None, rid=None):
         amount = amount or sale["total"]
@@ -157,14 +179,16 @@ def generate(seed: int = 20261008) -> tuple[dict[str, str], list[dict]]:
     failed = refund(pick(lambda d: d < f"{MONTH}-20"), "failed", f"{MONTH}-12")
     flag("M04", [failed["refund_id"], failed["order_id"]], f"Refund {failed['refund_id']} failed; the customer was never paid",
          float(failed["amount"]))
-    pending = refund(pick(lambda d: d < f"{MONTH}-20"), "pending", f"{MONTH}-18")
-    flag("M05", [pending["refund_id"], pending["order_id"]], f"Refund {pending['refund_id']} has been pending since Sept 18",
-         float(pending["amount"]))
     twice = pick(lambda d: d < f"{MONTH}-20")
     first_refund = refund(twice, "succeeded", f"{MONTH}-21", f"{MONTH}-21")
     second_refund = refund(twice, "succeeded", f"{MONTH}-23", f"{MONTH}-23")
     flag("M06", [twice["order_id"], first_refund["refund_id"], second_refund["refund_id"]],
          f"{twice['order_id']} was refunded twice", float(twice["total"]))
+    # M31 a refund bigger than the order it refunds
+    over = pick(lambda d: d < f"{MONTH}-24")
+    over_refund = refund(over, "succeeded", f"{MONTH}-24", f"{MONTH}-24", amount=f"{Decimal(over['total']) + 10:.2f}")
+    flag("M31", [over_refund["refund_id"], over["order_id"]],
+         f"{over_refund['refund_id']} refunded ${over_refund['amount']} on a ${over['total']} order ($10.00 too much)", 10.0)
     # C14 a promised full refund was keyed in with two digits swapped
     swappable = [s for s in sales if s["tender"] == "card" and not s.get("_used") and s["date"] < f"{MONTH}-20"
                  and 10 <= Decimal(s["total"]) < 100 and s["total"][0] > s["total"][1]]
@@ -191,9 +215,6 @@ def generate(seed: int = 20261008) -> tuple[dict[str, str], list[dict]]:
             overcharged.append(p["payment_id"])
     flag("M07", ["Sept 14", "Sept 20", "3.5%"], f"Card fees were 3.5% from Sept 14–20 instead of 2.9% + 30¢ (${extra:.2f} extra)",
          float(extra), match="text", text_any=[r"\b3\.5\s?%", r"\b0\.035\b", re.escape(f"${extra:.2f}")])
-    # M08 unlinked terminal charge
-    stray = pay(None, day=f"{MONTH}-17", amount="37.80", reference="terminal:T2")
-    flag("M08", [stray["payment_id"]], f"{stray['payment_id']} ($37.80) matches no order", 37.80)
 
     # --- payouts and the bank ------------------------------------------------------------------------
     payouts, bank = [], []
@@ -212,18 +233,16 @@ def generate(seed: int = 20261008) -> tuple[dict[str, str], list[dict]]:
             target = next(p for p in payouts if p["date"] >= r["completed"])
             target["amount"] = f"{Decimal(target['amount']) - Decimal(r['amount']):.2f}"
     missing = rng.choice(payouts[5:12])
-    short = rng.choice([p for p in payouts[12:20]])
-    old = rng.sample([p for p in payouts[20:] if p not in (missing, short)], 2)
+    old = rng.sample([p for p in payouts[20:] if p is not missing], 2)
     for o in old:
         o["account"] = f"...{OLD_ACCOUNT}"
     for p in payouts:
         if p is missing or p in old:
             continue
-        amount = Decimal(p["amount"]) - (35 if p is short else 0)
+        amount = Decimal(p["amount"])
         bank.append({"date": p["date"], "description": f"CARD PROCESSOR PAYOUT {p['payout_id']}", "amount": f"{amount:.2f}"})
     flag("M09", [missing["payout_id"]], f"Payout {missing['payout_id']} (${missing['amount']}) never reached the bank",
          float(missing["amount"]))
-    flag("M10", [short["payout_id"]], f"Payout {short['payout_id']} arrived $35.00 short", 35.0)
     flag("M23", [o["payout_id"] for o in old], "Two payouts went to the old account ending 1170",
          float(sum(Decimal(o["amount"]) for o in old)))
 
@@ -236,14 +255,17 @@ def generate(seed: int = 20261008) -> tuple[dict[str, str], list[dict]]:
         counted = expected - (Decimal("20.00") if weekday == 1 else 0)
         if counted != expected:
             tuesday_short.append(day)
+        closer = closers[weekday]
+        if closer == "Sam Kowalski" and day > f"{MONTH}-15":   # Sam's last day was Sept 15
+            closer = "Jamie Ortiz" if weekday == 3 else "Priya Raman"
         drawer.append({"date": day, "expected_cash": f"{expected:.2f}", "counted_cash": f"{counted:.2f}",
-                       "closed_by": closers[weekday]})
+                       "closed_by": closer})
         bank.append({"date": day, "description": "CASH DEPOSIT", "amount": f"{counted:.2f}"})
     days = [str(int(d[8:])) for d in tuesday_short]
     flag("M18", tuesday_short, "The cash drawer is $20 short every Tuesday", 20.0 * len(tuesday_short),
          match="text", text_any=["Tuesday", r"\b" + r"(st|nd|rd|th)?,?\s*(and\s*)?".join(days) + r"\b"])
 
-    # Supplier bills (M13 double payment, M14 flour increase), subscription (M16)
+    # Supplier bills (M14 flour increase, M27 a line that doesn't multiply out)
     invoices = [
         {"invoice_id": "INV-FL-0907", "supplier": "Prairie Flour Co", "date": f"{MONTH}-07", "amount": "412.00",
          "detail": "40 x 25kg flour @ $10.30", "paid": f"{MONTH}-10"},
@@ -259,18 +281,16 @@ def generate(seed: int = 20261008) -> tuple[dict[str, str], list[dict]]:
         {"invoice_id": "INV-PK-0911", "supplier": "BoxRight Packaging", "date": f"{MONTH}-11", "amount": "164.00",
          "detail": "cake boxes, bags", "paid": f"{MONTH}-14"},
     ]
+    bank.append({"date": f"{MONTH}-18", "description": "PAYMENT GLOBAL BAKE SUPPLY INV-GB-0918", "amount": "-286.40"})
+    flag("M32", ["INV-GB-0918"], "The bank paid $286.40 to Global Bake Supply (INV-GB-0918); there's no such supplier "
+         "or bill on file", 286.40, text_any=[r"Global Bake"])
     for inv in invoices:
         bank.append({"date": inv["paid"], "description": f"PAYMENT {inv['supplier'].upper()} {inv['invoice_id']}",
                      "amount": f"-{inv['amount']}"})
-    bank.append({"date": f"{MONTH}-12", "description": "PAYMENT PRAIRIE FLOUR CO INV-FL-0907", "amount": "-412.00"})
     key.append({"id": "M27", "kind": "text", "record_ids": ["INV-DY-0924"], "text_all": [r"INV-DY-0924"],
                 "text_any": [r"(?<![\d.])\$?45\.00\b", r"\$45\b", r"(?<![\d.])\$?194\.00\b", r"\$194\b"],
                 "what": "Invoice INV-DY-0924 bills 40 lb of butter at $239.00; 40 x $4.85 is $194.00 ($45 over)",
                 "dollars": 45.0})
-    flag("M13", ["INV-FL-0907"], "Flour invoice INV-FL-0907 was paid twice (Sept 10 and Sept 12)", 412.0)
-    bank.append({"date": f"{MONTH}-01", "description": "OLDPOS SOFTWARE MONTHLY", "amount": "-49.00"})
-    flag("M16", ["OLDPOS"], "The bank still pays $49/month to OldPOS, which was cancelled in August", 49.0, match="text",
-         text_any=["OldPOS", "OLDPOS", "old register software", "Old POS"])
     bank.append({"date": f"{MONTH}-01", "description": "RENT 12 MAIN ST", "amount": "-2400.00"})
     bank.append({"date": f"{MONTH}-15", "description": "PAYROLL", "amount": "-6120.00"})
     bank.append({"date": f"{MONTH}-30", "description": "PAYROLL", "amount": "-6120.00"})
@@ -373,7 +393,7 @@ def generate(seed: int = 20261008) -> tuple[dict[str, str], list[dict]]:
         "books/cost_sheet.csv": to_csv(cost_sheet, ["item", "flour_kg", "flour_cost_per_kg", "other_ingredients", "labor", "price"]),
     }
     decoys = {"staff_discount_orders": [s["order_id"] for s in sales if s["promo_code"] == "STAFF50"
-                                        and s["customer_email"] in STAFF]}
+                                        and s["customer_email"] in STAFF and s is not after_sam]}
     return files, sorted(key, key=lambda k: k["id"]), decoys
 
 

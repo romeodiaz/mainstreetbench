@@ -13,7 +13,7 @@ async function showDay() {
   for (const product of data.products) {
     const row = document.querySelector(`.item[data-sku="${product.sku}"]`);
     if (!row) continue;
-    const button = row.querySelector("button.add, button.add-inline");
+    const button = row.querySelector("button.add");
     const blocked = product.sold_out || !product.available;
     row.querySelector(".note").textContent = product.sold_out ? "Sold out" : (product.available ? "" : "Not available that day");
     row.toggleAttribute("data-sold-out", product.sold_out);

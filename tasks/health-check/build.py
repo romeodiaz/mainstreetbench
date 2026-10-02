@@ -58,6 +58,32 @@ PARTY_ORDER = {"name": "Maria Santos", "email": "maria.santos@example.com", "dat
                "items": [("COOKIE12", 2)]}
 STANDING_ORDER = {"name": "Gloria Park", "email": "gloria.park@example.com", "date": "2026-10-10", "slot": "12:30",
                   "items": [("BREAD9", 2)]}
+# Customers whose emails need a reply with facts from their order (C15, C16, C20, C23) or a change to it (C24–C30).
+# "card" buys a $25 gift card first (paid at pickup), then uses it on the order.
+CUSTOMERS = {
+    "nina": {"name": "Nina Patel", "email": "nina.patel@example.com", "date": "2026-10-10", "slot": "11:00",
+             "items": [("CAKE48", 1)], "card": True},
+    "oliver": {"name": "Oliver Grant", "email": "oliver.grant@example.com", "date": "2026-10-09", "slot": "13:30",
+               "items": [("SCONE375", 4)]},
+    "ruth": {"name": "Ruth Alvarez", "email": "ruth.alvarez@example.com", "date": "2026-10-04", "slot": "08:30",
+             "items": [("BAGUETTE5", 2)], "card": True},
+    "tessa": {"name": "Tessa Moore", "email": "tessa.moore@example.com", "date": "2026-10-11", "slot": "12:00",
+              "items": [("CROISSANT21", 1)]},
+    "priscilla": {"name": "Priscilla Hughes", "email": "priscilla.h@example.com", "date": "2026-10-10", "slot": "09:30",
+                  "items": [("BREAD9", 1)]},
+    "diego": {"name": "Diego Ramos", "email": "diego.ramos@example.com", "date": "2026-10-11", "slot": "12:30",
+              "items": [("BREAD9", 1)]},
+    "grace": {"name": "Grace Liu", "email": "grace.liu@example.com", "date": "2026-10-14", "slot": "10:30",
+              "items": [("CINNAMON325", 6)]},
+    "victor": {"name": "Victor Chen", "email": "victor.chen@example.com", "date": "2026-10-17", "slot": "09:30",
+               "items": [("CAKE48", 1)], "card": True},
+    "laura": {"name": "Laura Bennett", "email": "laura.bennett@example.com", "date": "2026-10-09", "slot": "11:00",
+              "items": [("SCONE375", 6)], "twice": True},
+    "elena": {"name": "Elena Petrova", "email": "elena.petrova@example.com", "date": "2026-10-10", "slot": "12:00",
+              "items": [("COOKIE12", 1)]},
+    "kevin": {"name": "Kevin Brooks", "email": "kevin.brooks@example.com", "date": "2026-10-09", "slot": "12:00",
+              "items": [("BREAD9", 1), ("BAGUETTE5", 1)]},
+}
 
 
 def seed_live_orders(website: Path) -> dict:
@@ -95,8 +121,43 @@ def seed_live_orders(website: Path) -> dict:
                     assert status == 201, order
                     orders.append((order, spec["items"]))
                     special[label] = order["id"]
+                for label, spec in CUSTOMERS.items():
+                    info, code = {}, None
+                    if spec.get("card"):
+                        status, bought = site.call("POST", "/api/orders", order_body(
+                            [("GIFT25", 1)], date="2026-10-03", slot="09:00" if label != "ruth" else "10:00",
+                            name=spec["name"], email=spec["email"]))
+                        assert status == 201, bought
+                        orders.append((bought, [("GIFT25", 1)]))
+                        site.call("POST", f"/admin/api/orders/{bought['id']}/payment-received", {}, admin=True)
+                        page = site.call("GET", bought["confirmation_url"])[1]
+                        code = re.search(r"Gift card code: <strong>([A-Z0-9-]+)</strong>", page).group(1)
+                        info["card"] = code
+                    for _ in range(2 if spec.get("twice") else 1):
+                        status, order = site.call("POST", "/api/orders", order_body(
+                            spec["items"], date=spec["date"], slot=spec["slot"], name=spec["name"], email=spec["email"],
+                            gift=code))
+                        assert status == 201, (label, order)
+                        orders.append((order, spec["items"]))
+                        info.setdefault("ids", []).append(order["id"])
+                    info.update(id=info["ids"][0], total=order["total"], amount_due=order["amount_due"],
+                                gift_card_applied=order["gift_card_applied"])
+                    special[label] = info
             finally:
                 site.stop()
+            # Gift card codes are random; give the customers' cards fixed codes so every build ships the same inbox.
+            import sqlite3
+            codes = random.Random(20261002)
+            conn = sqlite3.connect(db)
+            for label, info in special.items():
+                if isinstance(info, dict) and info.get("card"):
+                    raw = "".join(codes.choice("ABCDEFGHJKLMNPQRSTUVWXYZ23456789") for _ in range(12))
+                    fixed_code = "-".join(raw[i:i + 4] for i in range(0, 12, 4))
+                    conn.execute("UPDATE gift_cards SET code = ? WHERE code = ?", (fixed_code, info["card"]))
+                    conn.execute("UPDATE orders SET gift_card_code = ? WHERE gift_card_code = ?", (fixed_code, info["card"]))
+                    info["card"] = fixed_code
+            conn.commit()
+            conn.close()
             fixed = Site(HERE / "shop", Path(folder) / "quotes.db")
             try:
                 correct = {}
@@ -110,6 +171,7 @@ def seed_live_orders(website: Path) -> dict:
         site_harness.NOW = original
     shortfall = sum(Decimal(str(c["tax"])) - Decimal(str(c["charged_tax"])) for c in correct.values())
     return {"placed": len(orders), "party_order": special["party"], "standing_order": special["standing"],
+            "customers": {k: v for k, v in special.items() if k not in ("party", "standing")},
             "correct_tax": correct, "shortfall": f"{shortfall:.2f}"}
 
 
@@ -136,9 +198,10 @@ def build(out: Path) -> dict:
     # No answer value may already appear in the shipped workspace, or it could match by accident.
     shipped = "\n".join(p.read_text(encoding="utf-8", errors="ignore") for p in out.rglob("*")
                         if p.is_file() and p.suffix not in {".db"})
+    shipped = re.sub(r"(?<=\d),(?=\d{3}\b)", "", shipped)   # 1,485.00 -> 1485.00, but keep CSV commas
     for entry in key:
         for value in entry.get("values", []):
-            assert value not in shipped.replace(",", ""), f"{entry['id']} value {value} already in the packet"
+            assert not re.search(rf"(?<![\d.]){re.escape(value)}(?!\d)", shipped), f"{entry['id']} value {value} already in the packet"
 
     import sqlite3
     db = sqlite3.connect(website / "data" / "bakery.db")

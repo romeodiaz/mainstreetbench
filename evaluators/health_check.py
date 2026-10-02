@@ -80,6 +80,19 @@ class Workspace:
         path = self.root / relative
         return path.read_text(encoding="utf-8", errors="ignore") if path.is_file() else None
 
+    def replies(self) -> list[str]:
+        """Text of every added or changed file that reads as a reply: anything in drafts/, or named like one."""
+        import hashlib
+        found = []
+        for path in self.root.rglob("*"):
+            relative = path.relative_to(self.root).as_posix()
+            if (not path.is_file() or path.suffix.lower() not in {".md", ".txt", ".eml", ""} or
+                    not (relative.startswith("drafts/") or re.search(r"repl|email|response|message", path.name, re.I))):
+                continue
+            if self.manifest.get(relative) != hashlib.sha256(path.read_bytes()).hexdigest():
+                found.append(path.read_text(encoding="utf-8", errors="ignore"))
+        return found
+
     def changed_text(self) -> str:
         """The owner report plus every text file that was added or changed."""
         if getattr(self, "_changed", None) is None:
@@ -220,6 +233,35 @@ def check_entry(entry: dict, ws: Workspace) -> tuple[bool, str]:
             return True, "removed"
         ok = all(re.search(p, dumped, re.I) for p in entry.get("must", []))
         return ok, "fixed" if ok else f"still {dumped[:80]}"
+    if kind == "all":
+        for part in entry["parts"]:
+            ok, why = check_entry(part, ws)
+            if not ok:
+                return False, why
+        return True, "every part fixed"
+    if kind == "reply":
+        for text in ws.replies():
+            if re.search(entry["who"], text, re.I) and all(re.search(f, text, re.I) for f in entry["facts"]):
+                return True, "reply drafted with the right facts"
+        return False, "no drafted reply with the right facts"
+    if kind == "db":
+        try:
+            db = sqlite3.connect(f"file:{ws.root / 'website' / 'data' / 'bakery.db'}?mode=ro", uri=True)
+            for check in entry["checks"]:
+                rows = [list(r) for r in db.execute(check["sql"], check["params"]).fetchall()]
+                if check.get("digits"):
+                    rows = [[re.sub(r"\D", "", str(v)) for v in r] for r in rows]
+                if "match" in check:
+                    ok = len(rows) == 1 and re.search(check["match"], str(rows[0][0]), re.I)
+                else:
+                    ok = rows == check["expect"]
+                if not ok:
+                    return False, f"database has {rows}"
+            return True, "database updated"
+        except sqlite3.Error as exc:
+            return False, f"database error: {exc}"
+        finally:
+            db.close()
     if kind in ("live_tax", "db_order"):
         try:
             db = sqlite3.connect(f"file:{ws.root / 'website' / 'data' / 'bakery.db'}?mode=ro", uri=True)
