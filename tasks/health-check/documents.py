@@ -156,7 +156,7 @@ Coffee Beans,,,yes,yes,
         {"id": "P18", "kind": "file", "file": "menu/allergens.csv", "lines_all": [row("Cookie Box"), row("Baker's Dozen")],
          "must": [r"\bsoy"], "what": "The cookies' chocolate chips contain soy, which neither cookie row lists", "dollars": 2000},
         {"id": "P01", "kind": "file", "file": "menu/allergens.csv", "line": row("Blueberry Scone"),
-         "must": [r"almond|tree nut|nuts"], "must_not": [r"nut-free"], "what": "Scones contain almond flour",
+         "must": [r"almond|tree nut|nuts"], "must_not": [r"(?<!not )(?<!not a )\bnut-free"], "what": "Scones contain almond flour",
          "dollars": 5000},
         {"id": "P03", "kind": "file", "file": "menu/allergens.csv", "line": row("Baguette"), "must": [r"wheat"],
          "column": {"gluten_free": "no"}, "what": "The baguette is marked gluten-free", "dollars": 3000},
@@ -252,9 +252,9 @@ STAFF50 is the staff discount (50%), for these four people only, rung up at the 
 - Thanksgiving bread and dinner rolls: pre-order online, pickup Thursday, November 26.
 """
     key.append({"id": "P17", "kind": "file", "file": "admin/promotions.md", "line": r"Thanksgiving",
-                "must_not": [r"pick ?up[^.;]*?(Nov(ember)?\.?\s*26|11/26|Thursday)"],
+                "must_not": [r"pick ?up\s*(on\s*|date:?\s*|day:?\s*|is\s*)?(Thursday|Nov(ember)?\.?\s*26|11/26)"],
                 "must": [r"Nov(ember)?\.?\s*2[2-5]\b|11/2[2-5]\b|Tuesday|Wednesday|on hold|paused|"
-                         r"withdrawn|removed|not (yet )?advertis|before advertising|choose an? (open )?(pickup )?date"],
+                         r"withdrawn|removed|not (yet )?advertis|before advertising|choose an? (open )?(pickup )?date|to (be )?confirm|TBC|TBD"],
                 "what": "The Thanksgiving pre-order pickup is set for Nov 26, when we're closed", "dollars": 300})
     files["admin/accounts_and_services.md"] = """# Accounts and services
 

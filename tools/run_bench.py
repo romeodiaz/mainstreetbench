@@ -267,8 +267,9 @@ def main() -> None:
     need_playwright(args.install)
     import health_check
     # Codex runs with a clean profile, so its own ~/.codex files don't load; files in the home folder still can.
-    skip = {"~/.codex/AGENTS.md"} if args.agent == "codex" else set()
-    personal = [p for p in integrity.PERSONAL_INSTRUCTIONS if Path(p).expanduser().is_file() and p not in skip]
+    # Only files the tested tool reads; Codex also runs with a clean profile, so its ~/.codex files don't load.
+    reads = integrity.READ_BY.get(args.agent, set(integrity.PERSONAL_INSTRUCTIONS)) - ({"~/.codex/AGENTS.md"} if args.agent == "codex" else set())
+    personal = [p for p in integrity.PERSONAL_INSTRUCTIONS if Path(p).expanduser().is_file() and p in reads]
     if personal:
         print("Note: personal instruction files will be loaded by the tested AI and may affect its result: " + ", ".join(personal))
     run = create_run(f"{args.model} {args.effort}" if args.effort else args.model, args.base, args.hidden)

@@ -13,6 +13,8 @@ ANSWER_NAMES = ["answer_key.json", "catalog.json", "reference_fix", "site_proble
                 "isolation_check", "test_site_checks", "site_harness", "health-check-problems", "RUN-WITH-AI",
                 "run_bench.py", "health_check.py"]
 PERSONAL_INSTRUCTIONS = ["~/.claude/CLAUDE.md", "~/.codex/AGENTS.md", "~/AGENTS.md", "~/CLAUDE.md"]
+# Which of those each tool reads: Claude Code reads CLAUDE.md files, Codex reads AGENTS.md files.
+READ_BY = {"claude": {"~/.claude/CLAUDE.md", "~/CLAUDE.md"}, "codex": {"~/.codex/AGENTS.md", "~/AGENTS.md"}}
 
 
 def comment(suffix: str) -> str | None:
