@@ -1,0 +1,47 @@
+email_file,status,detail
+inbox/2026-08-28-oldpos.md,Recorded,Cancellation effective Aug 31 confirmed; no OldPOS debit in provided September statement.
+inbox/2026-09-10-city-tax.md,Fixed locally; owner POS update,Website October rate 8.25%; September retained 8%; update actual register.
+inbox/2026-09-10-last-day.md,Fixed locally; owner access update,Sam removed from current staff list; revoke actual account and POS discount access.
+inbox/2026-09-13-refund-promised.md,Owner action,CL-0228 / RF-010 failed; 89.64 not refunded.
+inbox/2026-09-16-flour-price.md,Fixed,Cost sheet flour/kg raised from .412 to .515; historical supplier invoices preserved.
+inbox/2026-09-21-refund.md,Owner action,CL-0701 / RF-014 underrefund 36.00; verify identity mismatch.
+inbox/2026-09-22-dispute.md,Urgent owner action,DP-2209; Oct 6 deadline; verify inconsistent date and goods before genuine evidence.
+inbox/2026-09-23-coffee-price.md,Owner action and draft,CL-0792 / PAY-00618 refund 1.62; also CL-0794 / PAY-00620.
+inbox/2026-09-25-charged-twice.md,Owner action and draft,CL-0045 duplicate PAY-00031/PAY-00944; refund one 25.92 charge.
+inbox/2026-09-26-thanks.md,No action needed,"Routine confirmation, thanks or alert; retained as supplied."
+inbox/2026-09-28-flyer.md,Optional owner opportunity,Oct 24 street fair booths free; no booking made.
+inbox/2026-09-29-boxright-delivery.md,No action needed,"Routine confirmation, thanks or alert; retained as supplied."
+inbox/2026-09-29-nut-allergy.md,Urgent corrected draft,Ben: scones contain almond flour; unsafe old reply replaced.
+inbox/2026-09-30-catering.md,Quote draft; not booked,"Westside Dental Oct 16 11:30: three trays, 389.70 tax-inclusive; resolve margin and confirm details."
+inbox/2026-09-30-marketing.md,No action,Unsolicited SEO offer; no reply or purchase.
+inbox/2026-10-01-dairy-delivery.md,No action needed,"Routine confirmation, thanks or alert; retained as supplied."
+inbox/2026-10-01-thanks-cake.md,No action needed,"Routine confirmation, thanks or alert; retained as supplied."
+inbox/2026-10-02-landlord.md,No action needed,"Routine confirmation, thanks or alert; retained as supplied."
+inbox/2026-10-02-ordered-twice.md,Fixed; reply draft,"#40 retained; #41 cancelled, items retained for audit."
+inbox/2026-10-02-processor-news.md,No action needed,"Routine confirmation, thanks or alert; retained as supplied."
+inbox/2026-10-02-unsubscribe.md,Fixed; reply draft,Dana removed from subscriber list and added to suppression list.
+inbox/2026-10-03-gluten.md,Reply draft,No gluten-free baked goods or separate kitchen; baguette contains wheat.
+inbox/2026-10-03-newsletter-signup.md,Owner verification,No name/email supplied and all DB orders have newsletter=0; do not invent signup identity.
+inbox/2026-10-04-gift-card-balance.md,Reply draft,Ruth card balance 14.20; verify privately before sharing.
+inbox/2026-10-04-missing-order.md,Bug fixed; owner identifier needed,UTC date-display bug fixed; no matching Hannah name/email; ask order number/private link.
+inbox/2026-10-04-review-alert.md,No action needed,"Routine confirmation, thanks or alert; retained as supplied."
+inbox/2026-10-05-bank-details.md,Owner verification,Changed supplier domain; verify via independently trusted contact before changing bank routing.
+inbox/2026-10-05-gift-card-order.md,Reply draft,#30 recorded due 26.84 after 25 gift card; accepted total retained.
+inbox/2026-10-05-move-time.md,Fixed; reply draft,#35 Oct 10 moved to 10:30; capacity checked.
+inbox/2026-10-05-phone.md,Fixed; reply draft,#37 phone updated to 555-010-7777.
+inbox/2026-10-05-printer.md,Owner action,"Inspect printed menu cards for corrected price, weight, allergens, notice and policies before distribution."
+inbox/2026-10-05-thanks-staff.md,No action needed,"Routine confirmation, thanks or alert; retained as supplied."
+inbox/2026-10-06-add-baguette.md,Fixed; reply draft,"#36 baguette added; new total 15.16, Oct 11 12:30."
+inbox/2026-10-06-cancel-cake.md,Fixed; reply draft,#39 cancelled; 25 restored to gift card once.
+inbox/2026-10-06-cash-total.md,Reply draft,"#34 accepted total 22.68, Oct 11 noon; no repricing."
+inbox/2026-10-06-change-day.md,Fixed; reply draft,#42 moved to Oct 11 noon; capacity checked.
+inbox/2026-10-06-insurance.md,No action needed,"Routine confirmation, thanks or alert; retained as supplied."
+inbox/2026-10-06-party-cookies.md,Urgent owner call; order flagged,#27 tree nut cross-contact risk; retained pending customer discussion.
+inbox/2026-10-06-pickup-time.md,Reply draft,#31 Oct 9 13:30.
+inbox/2026-10-06-quote.md,Quote draft; not booked,Aisha 2 cakes +12 bagels total 133.15; choose slot and supply phone.
+inbox/2026-10-06-standing-order.md,Fixed dated order; owner recurring update,"#28 Oct 10 12:30 now 3 loaves +croissant box, 51.96. Later weeks not present in DB."
+inbox/2026-10-07-dairy.md,Reply draft,Cinnamon rolls contain milk and butter; unsuitable for milk avoidance.
+inbox/2026-10-07-market.md,Optional owner opportunity,Winter market applications open Nov 1; no application made.
+inbox/2026-10-07-pickup-name.md,Fixed; reply draft,#43 staff note authorizes Daniel Kim; customer identity retained.
+inbox/2026-10-07-thanks-croissants.md,No action needed,"Routine confirmation, thanks or alert; retained as supplied."
+inbox/2026-10-07-thanksgiving.md,Reply draft; local records fixed,"Nov 25 open 7–15, last online slot 14:30; Nov 26 closed."

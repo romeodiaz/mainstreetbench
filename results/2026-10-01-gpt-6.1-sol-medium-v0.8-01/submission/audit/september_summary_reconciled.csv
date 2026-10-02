@@ -1,0 +1,14 @@
+line,amount,note
+Unique September receipts,1216,Original exports preserved
+Food sales before returns,61238.68,After recorded discounts; excludes gift-card issuance
+Sales tax collected before returns,4899.39,"As recorded, including CL-0331 overcollection"
+Successful processor refunds,770.77,Actual money refunded
+"Refunds attributable to sales, before tax",638.42,Duplicate/excess refunds excluded from sales returns
+Refunded sales tax attributable to sales,51.07,Proportional allocation; bookkeeper must approve
+Net food sales after sale returns,60600.26,Unresolved losses and suspected discount abuse are separate
+Net recorded sales tax after sale returns,4848.32,Do not file without bookkeeper review
+Excess/duplicate refund loss or receivable,81.28,RF-012 and RF-013; not a second sale reversal
+Gift cards sold,425,"Liability, not food sales revenue"
+Gift card liability at September close,1485,Corrected from 1305
+Processor fees in excess of contract,72.77,214 payments; see exact IDs
+Cash drawer shortages,100.00,Counted amounts match bank cash deposits

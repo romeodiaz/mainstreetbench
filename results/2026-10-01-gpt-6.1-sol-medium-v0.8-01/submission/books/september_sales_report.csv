@@ -1,0 +1,5 @@
+line,amount,note
+Net food sales,60600.26,"1216 unique September receipts after sale-attributable returns; see audit reconciliation"
+Gift cards sold,425.00,"Liability; excluded from net food sales"
+Food returns before tax,638.42,"Excludes duplicate/excess refunds of 81.28; successful processor refunds total 770.77 including tax"
+Sales tax collected net of sale returns,4848.32,"Includes 0.30 overcollection on CL-0331; draft for bookkeeper review"

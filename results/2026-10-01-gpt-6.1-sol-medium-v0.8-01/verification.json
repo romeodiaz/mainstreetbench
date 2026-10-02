@@ -1,0 +1,20 @@
+{
+  "run": "2026-10-01-gpt-6.1-sol-medium-v0.8-01",
+  "agent_mode": "codex preset",
+  "actual_solver_model": "gpt-6.1-sol",
+  "actual_solver_effort": "medium",
+  "clean_profile": true,
+  "web_search": "disabled",
+  "completed_command_events": 35,
+  "token_usage": [
+    {
+      "input_tokens": 2336862,
+      "cached_input_tokens": 2226688,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 31321,
+      "reasoning_output_tokens": 6433
+    }
+  ],
+  "note": "codex-auto-review is the approval reviewer, not a different solver. Original scorecard is preserved unchanged. Self-run isolation detects answer access but does not enforce read separation.",
+  "evidence_directory": "~/Documents/Codex/2026-10-01/clone-https-github-com-romeodiaz-mainstreetbench/work/MainStreetBench-runs/evidence/2026-10-01-gpt-6.1-sol-medium-v0.8-01"
+}

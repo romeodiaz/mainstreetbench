@@ -1,0 +1,7 @@
+{
+  "run": "2026-10-01-gpt-6.1-sol-medium-v0.8-01",
+  "model": "gpt-6.1-sol medium",
+  "version": "v0.8",
+  "source_commit": "97109cff7be0852f0ce7be5337854fada93ec5b0",
+  "created": "2026-10-01T18:00:40"
+}

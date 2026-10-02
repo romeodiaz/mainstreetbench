@@ -1,0 +1,83 @@
+[
+  {
+    "order": 35,
+    "before": {
+      "pickup_date": "2026-10-10",
+      "pickup_slot": "09:30"
+    },
+    "after": {
+      "pickup_date": "2026-10-10",
+      "pickup_slot": "10:30"
+    }
+  },
+  {
+    "order": 37,
+    "before": {
+      "customer_phone": "555-010-4242"
+    },
+    "after": {
+      "customer_phone": "555-010-7777"
+    }
+  },
+  {
+    "order": 42,
+    "before": {
+      "pickup_date": "2026-10-10",
+      "pickup_slot": "12:00"
+    },
+    "after": {
+      "pickup_date": "2026-10-11",
+      "pickup_slot": "12:00"
+    }
+  },
+  {
+    "order": 39,
+    "before": {
+      "status": "placed"
+    },
+    "after": {
+      "status": "cancelled"
+    },
+    "reason": "Customer email request; gift card restored where applicable"
+  },
+  {
+    "order": 41,
+    "before": {
+      "status": "placed"
+    },
+    "after": {
+      "status": "cancelled"
+    },
+    "reason": "Customer email request; gift card restored where applicable"
+  },
+  {
+    "order": 36,
+    "before": {
+      "subtotal": 9.0,
+      "discount": 0.0,
+      "tax": 0.72,
+      "total": 9.72
+    },
+    "after": {
+      "subtotal": 14.0,
+      "discount": 0.0,
+      "tax": 1.16,
+      "total": 15.16
+    }
+  },
+  {
+    "order": 28,
+    "before": {
+      "subtotal": 18.0,
+      "discount": 0.0,
+      "tax": 1.44,
+      "total": 19.44
+    },
+    "after": {
+      "subtotal": 48.0,
+      "discount": 0.0,
+      "tax": 3.96,
+      "total": 51.96
+    }
+  }
+]

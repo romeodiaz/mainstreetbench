@@ -1,0 +1,16 @@
+{
+  "original_orders_retained": 43,
+  "private_links_preserved": true,
+  "existing_payment_records_preserved": true,
+  "untouched_order_items_preserved": true,
+  "database_integrity": "ok",
+  "foreign_keys": "ok",
+  "http_tests_passed": 15,
+  "checkout_interaction_checks": "passed",
+  "emails_reviewed": 46,
+  "september_unique_receipts": 1216,
+  "excluded_export_rows": 7,
+  "live_deployment_performed": false,
+  "messages_sent": false,
+  "card_refunds_performed": false
+}
