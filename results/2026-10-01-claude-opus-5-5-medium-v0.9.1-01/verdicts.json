@@ -1,0 +1,137 @@
+{
+ "problems": {
+  "M15": {
+   "verdict": "not fixed",
+   "evidence": "The report says trays cost about $132 and sell for $120, so each one loses money. It never recommends raising the price or cutting the cost."
+  },
+  "M28": {
+   "verdict": "not fixed",
+   "evidence": "The report lists the Tuesday shortfalls on closes by Lee Chen and treats it as something to look into, without accusing Lee. It recommends no safeguard such as a two-person count or a count at shift change."
+  },
+  "L04": {
+   "verdict": "not fixed",
+   "evidence": "The shown policy file still says online orders can't be cancelled. The report leaves the cancellation rules for the owner to choose ('Choose one and I can make them match')."
+  },
+  "L10": {
+   "verdict": "not fixed",
+   "evidence": "Both policy files are unchanged: refunds.md says unused gift cards can be refunded within 14 days, while gift_cards.md only says they can't be exchanged for cash. The report doesn't mention this conflict."
+  },
+  "C11": {
+   "verdict": "fixed",
+   "evidence": "The Maria reply on order #27 says the cookies are baked on the same equipment as almond flour, so it can't promise they're safe for children with tree nut allergies. It offers a change or cancellation at no cost and never calls the cookies nut-free."
+  },
+  "C01": {
+   "verdict": "fixed",
+   "evidence": "The Rosa reply on CL-0045 apologises, says the duplicate $25.92 is being refunded, and says it usually shows up in 5-10 days."
+  },
+  "C03": {
+   "verdict": "fixed",
+   "evidence": "The Hannah reply links her problem to the confirmation page showing the date one day early, and it apologises. It also tells the owner to ask her for the order number."
+  },
+  "C04": {
+   "verdict": "fixed",
+   "evidence": "The Westside Dental reply quotes three trays at $360 plus $29.70 tax, so $389.70, for pickup Friday Oct 16 at 11:30. It asks for a contact name and phone number to confirm."
+  },
+  "C05": {
+   "verdict": "fixed",
+   "evidence": "The report says Jamie thinks the CL-0228 refund went through, but RF-010 ($89.64) failed and the customer hasn't been paid back."
+  },
+  "C06": {
+   "verdict": "fixed",
+   "evidence": "The draft reply to the WELCOME10 review says tax is now worked out on the discounted price and offers to refund the difference."
+  },
+  "P14": {
+   "verdict": "not fixed",
+   "evidence": "The report never mentions an allergen notice on the online menu."
+  },
+  "W32": {
+   "verdict": "not fixed",
+   "evidence": "The report doesn't mention the hidden Place order button on phones."
+  },
+  "W37": {
+   "verdict": "not fixed",
+   "evidence": "The report doesn't mention linking checkout labels to their boxes."
+  },
+  "W38": {
+   "verdict": "not fixed",
+   "evidence": "The report doesn't mention announcing checkout errors to screen readers."
+  },
+  "W39": {
+   "verdict": "not fixed",
+   "evidence": "The report doesn't mention a nut warning at checkout."
+  },
+  "W40": {
+   "verdict": "not fixed",
+   "evidence": "The report doesn't mention declaring the page language."
+  },
+  "W42": {
+   "verdict": "not fixed",
+   "evidence": "The report doesn't mention showing the amount still due after a gift card on the confirmation page."
+  },
+  "W43": {
+   "verdict": "not fixed",
+   "evidence": "The report doesn't mention labelling the Add buttons for screen readers."
+  },
+  "W44": {
+   "verdict": "not fixed",
+   "evidence": "The report doesn't mention visible keyboard focus."
+  },
+  "W45": {
+   "verdict": "not fixed",
+   "evidence": "The report doesn't mention the pale grey menu prices."
+  },
+  "W46": {
+   "verdict": "not fixed",
+   "evidence": "The report doesn't mention the confirmation page title."
+  },
+  "W47": {
+   "verdict": "not fixed",
+   "evidence": "The report doesn't mention a skip link."
+  },
+  "W48": {
+   "verdict": "not fixed",
+   "evidence": "The report says the customer list download now needs a password, but it doesn't say the private order links were removed from the staff orders download. It also says old guessable links were left working."
+  },
+  "W49": {
+   "verdict": "not fixed",
+   "evidence": "The report doesn't mention blocking past dates in the date picker."
+  },
+  "M33": {
+   "verdict": "not fixed",
+   "evidence": "The report doesn't mention a sale dated on a Monday."
+  },
+  "M37": {
+   "verdict": "not fixed",
+   "evidence": "The report doesn't mention the -1 croissant box line."
+  },
+  "P01": {
+   "verdict": "fixed",
+   "evidence": "The report says the allergen sheet now lists almond in the scones and carries may-contain-nuts notes for cookies, croissants and scones."
+  },
+  "L02": {
+   "verdict": "not fixed",
+   "evidence": "The report doesn't mention a privacy notice."
+  },
+  "P17": {
+   "verdict": "not fixed",
+   "evidence": "The report flags that Nov 26 pickup is on a closed day and leaves the owner to pick another day. It did not change it."
+  },
+  "L11": {
+   "verdict": "not fixed",
+   "evidence": "The report only removes the 'Re: Your order' subject. The shown newsletter draft still has no unsubscribe link or postal address."
+  },
+  "C12": {
+   "verdict": "fixed",
+   "evidence": "The Tom review reply was rewritten without his order, card digits or his wife's condition, and it carries a note not to promise anything gluten-free."
+  },
+  "M26": {
+   "verdict": "not fixed",
+   "evidence": "The report updated tax only on orders picked up from Oct 8 onward. It left nine earlier orders at 8%, about $0.58 short, and says so openly."
+  },
+  "L12": {
+   "verdict": "fixed",
+   "evidence": "The report says the online listing now shows closed on Thanksgiving and Christmas Day. It doesn't mention the door sign."
+  }
+ },
+ "false_claims": []
+}

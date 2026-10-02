@@ -1,0 +1,16 @@
+<h1>Checkout</h1>
+<table id="cart-lines" class="lines"></table>
+<form id="checkout">
+  <label>Name</label> <input name="name" required>
+  <label>Email</label> <input name="email" type="email" required>
+  <label>Phone</label> <input name="phone" type="tel">
+  <label>Pickup date</label> <input name="pickup_date" type="date" required>
+  <label>Pickup time <select name="pickup_slot" required><option value="">Choose a date first</option></select></label>
+  <label>Promo code <input name="promo_code"></label>
+  <label>Gift card code <input name="gift_card_code" autocomplete="off"></label>
+  <label class="check"><input type="checkbox" name="newsletter"> Send me the monthly newsletter</label>
+  <div id="quote" aria-live="polite"></div>
+  <p id="checkout-error" class="error"></p>
+  <button type="submit" id="place-order">Place order</button>
+</form>
+<script src="/static/checkout.js"></script>

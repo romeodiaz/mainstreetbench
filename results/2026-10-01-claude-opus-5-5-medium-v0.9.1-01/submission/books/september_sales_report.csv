@@ -1,0 +1,5 @@
+line,amount,note
+Net sales,61217.68,"food sales after discounts: both register exports with 6 duplicated rows and the Aug 31 sale (CL-0831-0107) removed; gift cards are not sales"
+Gift cards sold,425.00,"not included in net sales; money held for customers (see gift_card_ledger.csv)"
+Returns,861.57,"pre-tax 797.75 + tax 63.82; card refunds actually owed. RF-012 paid out 20.80 on a 10.80 order, so 10.00 more left the till"
+Sales tax collected,4897.71,sum of both register exports after removing duplicates and the Aug 31 sale
