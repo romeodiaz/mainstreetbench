@@ -74,6 +74,8 @@ The current version is **v0.9**. It's calibrated so a cheap model has room to fa
 
 | Model | Version | Score | Notes |
 |---|---|---|---|
+| claude-opus-5-5, medium | v0.9 | **87** (run 2) | Self-run, Claude Code. $3.94, 15 min. [Scorecard](results/2026-10-01-claude-opus-5-5-medium-v0.9.1-02.md), [comparison](results/v0.9-comparison.md) |
+| claude-opus-5-5, medium | v0.9 | **76** (run 1; 73 as first graded) | Self-run, Claude Code. $2.29, 7 min. [Scorecard](results/2026-10-01-claude-opus-5-5-medium-v0.9.1-01.md) |
 | gpt-6.1-sol, medium | v0.9 | **72** (run 2; 69 as first graded) | Self-run. [Scorecard](results/2026-10-01-gpt-6.1-sol-medium-v0.9-02.md), [regrade of both runs](results/2026-10-01-gpt-6.1-sol-medium-v0.9-regrade.md) |
 | gpt-6.1-sol, medium | v0.9 | **71** (run 1; 67 as first graded) | Self-run. Crashed the online menu (counted as broken). [Scorecard](results/2026-10-01-gpt-6.1-sol-medium-v0.9-01.md) |
 | gpt-6.1-sol, medium | v0.8 | **86** (77 as first graded) | Self-run. The first grade had grader flaws, which are fixed in v0.8.1. [Scorecard](results/2026-10-01-gpt-6.1-sol-medium-v0.8-01.md), [regrade](results/2026-10-01-gpt-6.1-sol-medium-v0.8-01-regrade.md) |
