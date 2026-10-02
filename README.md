@@ -23,7 +23,7 @@ Your assistant only referees: it starts the model you named in its own folder, t
 ### What you need
 
 - **The tested model's app, signed in on this computer.** That's Claude Code for Claude models, or the Codex CLI for GPT models. Your assistant can install it; you sign in once.
-- **A paid plan with room for one long job.** A run uses up to 45 minutes of the model's work, plus a little for a second model from the same plan that judges 8 of the problems.
+- **A paid plan with room for one long job.** A run uses up to 45 minutes of the model's work, plus a little for a second model from the same plan that judges 10 of the problems.
 - **The basics:** Python 3.10+, git, about 1 GB of disk space and an internet connection. Your assistant checks these and installs what's missing.
 - **Your computer awake** for about an hour. It's checked on Linux and should work on a Mac. On Windows, if it fails, ask your assistant to use WSL.
 
@@ -70,11 +70,13 @@ The problems split 4 obvious, 37 needing cross-checking, and 59 hidden, so expec
 
 ## Results so far
 
-The current version is **v0.9**. It's calibrated so a cheap model has room to fall short: problems that GPT-6.1 Sol solved every time were swapped for the kinds it kept missing, such as accessibility and safeguards on the website, single wrong rows in a large set of books, and complete legal and policy fixes ([why](docs/health-check-problems.md#decisions)). Scores from different versions aren't directly comparable.
+The current version is **v0.9**: the bakery and its 100 problems are the v0.9 ones, graded with the v0.9.2 grader. v0.9.1 and v0.9.2 corrected grading flaws only, so the four v0.9 rows below compare directly (the Opus run names say v0.9.1 because that grader was current when they ran). Charts of these scores, beside three public indexes for the same models, are at [workwithguava.com/mainstreetbench](https://workwithguava.com/mainstreetbench).
+
+v0.9 is calibrated so a cheap model has room to fall short: problems that GPT-6.1 Sol solved every time were swapped for the kinds it kept missing, such as accessibility and safeguards on the website, single wrong rows in a large set of books, and complete legal and policy fixes ([why](docs/health-check-problems.md#decisions)). Scores from different versions aren't directly comparable.
 
 | Model | Version | Score | Notes |
 |---|---|---|---|
-| claude-opus-5-5, medium | v0.9 | **87** (run 2) | Self-run, Claude Code. $3.94, 15 min. [Scorecard](results/2026-10-01-claude-opus-5-5-medium-v0.9.1-02.md), [comparison](results/v0.9-comparison.md) |
+| claude-opus-5-5, medium | v0.9 | **87** (run 2; 86 as first graded) | Self-run, Claude Code. $3.94, 15 min. [Scorecard](results/2026-10-01-claude-opus-5-5-medium-v0.9.1-02.md), [regrade of both runs](results/2026-10-01-claude-opus-5-5-medium-v0.9.1-regrade.md), [comparison](results/v0.9-comparison.md) |
 | claude-opus-5-5, medium | v0.9 | **76** (run 1; 73 as first graded) | Self-run, Claude Code. $2.29, 7 min. [Scorecard](results/2026-10-01-claude-opus-5-5-medium-v0.9.1-01.md) |
 | gpt-6.1-sol, medium | v0.9 | **72** (run 2; 69 as first graded) | Self-run. [Scorecard](results/2026-10-01-gpt-6.1-sol-medium-v0.9-02.md), [regrade of both runs](results/2026-10-01-gpt-6.1-sol-medium-v0.9-regrade.md) |
 | gpt-6.1-sol, medium | v0.9 | **71** (run 1; 67 as first graded) | Self-run. Crashed the online menu (counted as broken). [Scorecard](results/2026-10-01-gpt-6.1-sol-medium-v0.9-01.md) |
@@ -103,3 +105,7 @@ Python 3.10+ standard library; website checks also need Playwright for Python an
 python3 -m unittest discover -s tests -v
 python3 tasks/health-check/grading/isolation_check.py
 ```
+
+## License
+
+[MIT](LICENSE). Everything here is public so anyone can check how problems are planted and graded. The answer files carry a canary line asking that they stay out of AI training data; [running the bench](docs/running-the-bench.md#open-source-and-contamination) covers what that means for results.

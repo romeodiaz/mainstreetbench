@@ -77,7 +77,9 @@ class HealthCheckTests(unittest.TestCase):
 
     def test_example_workspace_matches_a_fresh_build(self):
         example = ROOT / "example-workspace"
-        listing = lambda root: sorted(p.relative_to(root).as_posix() for p in root.rglob("*") if p.is_file())
+        # Finder drops .DS_Store into folders it opens; it is ignored by git and is not part of the workspace.
+        listing = lambda root: sorted(p.relative_to(root).as_posix() for p in root.rglob("*")
+                                      if p.is_file() and p.name != ".DS_Store")
         self.assertEqual(listing(example), listing(self.shipped))
         for name in listing(self.shipped):
             if not name.endswith(".db"):

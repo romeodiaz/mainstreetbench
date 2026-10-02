@@ -8,10 +8,10 @@ The AI gets everything for Corner Loaf Bakery and one message from the owner: *s
 |---|---|---|
 | `prompt.txt` | Solver | The owner's message, sent unchanged |
 | `build.py` | Operator | Builds a workspace, its prompt file and its grader-only key folder |
-| `shop/` | Grader only | The **fixed** ordering site. The solver gets this with 39 problems planted. |
+| `shop/` | Grader only | The **fixed** ordering site. The solver gets this with the 31 website problems planted. |
 | `site_problems.py` | Grader only | The 31 website problems, each a small patch against `shop/` |
-| `books_generator.py` | Grader only | September's books with the 25 money problems, and their answer key |
-| `documents.py` | Grader only | Menu, allergen, policy, sign, listing, admin and inbox files with 36 problems |
+| `books_generator.py` | Grader only | September's books with their 30 problems, and their answer key |
+| `documents.py` | Grader only | Menu, allergen, policy, sign, listing, admin and inbox files with 39 problems |
 | `grading/` | Grader only | Site checks, isolation check and the reference fix used as a control |
 
 ## Run an attempt
