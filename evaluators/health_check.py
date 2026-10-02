@@ -292,7 +292,9 @@ def check_entry(entry: dict, ws: Workspace) -> tuple[bool, str]:
                     if re.search(r"\borders?\b", line, re.I) and (
                             re.search(r"\b8\s?%[^\n]{0,40}(instead of|not|rather than)[^\n]{0,10}8\.25", line, re.I) or
                             (re.search(r"\btax", line, re.I) and
-                             re.search(r"under-?(record|collect|charg)|short|too little|discrepanc", line, re.I))):
+                             re.search(r"under-?(record|collect|charg)|short|too little|discrepanc", line, re.I)) or
+                            (re.search(r"(existing|accepted|placed|live|retained|current|open|already)[^.\n]{0,40}orders?", line, re.I)
+                             and re.search(r"\btax", line, re.I) and re.search(r"\b8\s?%", line, re.I))):
                         return True, "report says the existing orders were under-taxed"
                 taxes = {str(r["id"]): r["tax"] for r in db.execute("SELECT id, tax FROM orders")}
                 ok = all(k in taxes and abs(taxes[k] - v) < 0.005 for k, v in entry["correct"].items())
