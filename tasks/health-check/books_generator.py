@@ -265,7 +265,7 @@ def generate(seed: int = 20261008) -> tuple[dict[str, str], list[dict]]:
         expected = cash_by_day[day]
         weekday = __import__("datetime").date.fromisoformat(day).weekday()
         counted = expected - (Decimal("20.00") if weekday == 1 else 0) + (Decimal("50.00") if day == f"{MONTH}-19" else 0)
-        if counted != expected:
+        if weekday == 1:
             tuesday_short.append(day)
         closer = closers[weekday]
         if closer == "Sam Kowalski" and day > f"{MONTH}-15":   # Sam's last day was Sept 15

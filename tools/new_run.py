@@ -3,7 +3,7 @@
 
     python3 tools/new_run.py --model sol
 
-Builds ../runs/<date>-<model>-v0.9-NN/workspace (the only folder the AI sees), moves the answer key to
+Builds ../runs/<date>-<model>-v0.9.1-NN/workspace (the only folder the AI sees), moves the answer key to
 ../keys/<run>/, creates ../evidence/<run>/, and prints what to give the AI and what to deny it.
 """
 
@@ -17,7 +17,7 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
-VERSION = "v0.9"
+VERSION = "v0.9.1"
 
 
 def create_run(model: str, base: Path, hidden: Path | None = None) -> dict:
