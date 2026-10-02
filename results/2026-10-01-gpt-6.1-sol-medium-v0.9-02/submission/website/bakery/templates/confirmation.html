@@ -1,0 +1,14 @@
+<h1>Thanks, $name!</h1>
+<p>Your order <strong>#$order_id</strong> is <span class="status">$status</span> for pickup on <strong class="pickup-date" data-date="$pickup_date">$pickup_date</strong> at <strong class="pickup-slot">$pickup_slot</strong>.</p>
+<table class="lines">
+$items
+<tr class="subtotal"><td>Subtotal</td><td>$subtotal</td></tr>
+<tr class="discount"><td>Discount</td><td>−$discount</td></tr>
+<tr class="tax"><td>Sales tax</td><td>$tax</td></tr>
+<tr class="total"><td>Total</td><td>$total</td></tr>
+<tr><td>Gift card applied</td><td>−$gift_card_applied</td></tr>
+<tr><td>Pay at pickup</td><td>$amount_due</td></tr>
+</table>
+$extras
+<p>Questions? Call us at 555-010-0000.</p>
+<script src="/static/confirmation.js"></script>

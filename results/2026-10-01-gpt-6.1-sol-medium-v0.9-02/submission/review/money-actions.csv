@@ -1,0 +1,29 @@
+issue,reference,amount,action
+Duplicate export row,CL-0742,83.75,Excluded from clean review copy; original retained
+Duplicate export row,CL-1177,41.00,Excluded from clean review copy; original retained
+Duplicate export row,CL-0316,32.00,Excluded from clean review copy; original retained
+Duplicate export row,CL-0845,63.50,Excluded from clean review copy; original retained
+Duplicate export row,CL-1016,74.50,Excluded from clean review copy; original retained
+Duplicate export row,CL-0534,21.00,Excluded from clean review copy; original retained
+Wrong month,CL-0831-0107,97.20,August 31 sale excluded from September
+Duplicate charge,"CL-0045 / PAY-00031, PAY-00944",25.92,Check processor and refund one duplicate charge; no refund found in supplied records
+Excess processor fee,PAY-00315 / CL-0405 / PO-0910,3.00,Contract fee 0.42; actual 3.42; seek fee correction
+Duplicate bank payout line,PO-0910,1960.84,Confirm actual bank statement; do not count duplicate as earned sales
+Payout absent from current bank,PO-0927 / ...1170,2006.23,Trace and reissue to account ending 4821; old 1170 closed Aug 20
+Payout absent from current bank,PO-0929 / ...1170,2355.32,Trace and reissue to account ending 4821; old 1170 closed Aug 20
+Failed customer refund,RF-010 / CL-0228 / PAY-00176,89.64,Retry refund; Sept 13 email incorrectly says completed
+Short customer refund,RF-013 / CL-0261 / PAY-00198,27.00,"Promised 96.12, refunded 69.12; refund remaining 27.00"
+Dispute,DP-2209 / CL-0203 / PAY-00157,83.04,"68.04 plus possible 15 fee; response due Oct 6. Check status immediately, supply collection evidence if available; no debit proven in September"
+Supplier invoice number reused,INV-DY-0917,318.60,"Paid 301.15 Sept 19 and 318.60 Sept 30 under same number; ask Valley Dairy to validate separate delivery or credit, do not assume both are the same bill"
+Ineligible staff discount,CL-0372 / customer155@example.com,41.88,Check authorization and remove former staff access; do not automatically charge customer
+Ineligible staff discount,CL-0651 / customer142@example.com,21.00,Check authorization and remove former staff access; do not automatically charge customer
+Coffee promo overcharge,CL-0792,1.62,Coffee promo missed; base excess 1.50 plus tax. Check payment and refund excess
+Coffee promo overcharge,CL-0794,1.62,Coffee promo missed; base excess 1.50 plus tax. Check payment and refund excess
+Ineligible staff discount,CL-1150 / sam.k@cornerloaf.example,37.50,Check authorization and remove former staff access; do not automatically charge customer
+Ineligible staff discount,CL-1184 / customer058@example.com,34.50,Check authorization and remove former staff access; do not automatically charge customer
+Cash variance,2026-09-01 / Lee Chen,-20.00,Recount receipts and change; investigate without assuming theft
+Cash variance,2026-09-08 / Lee Chen,-20.00,Recount receipts and change; investigate without assuming theft
+Cash variance,2026-09-15 / Lee Chen,-20.00,Recount receipts and change; investigate without assuming theft
+Cash variance,2026-09-19 / Priya Raman,50.00,Recount receipts and change; investigate without assuming theft
+Cash variance,2026-09-22 / Lee Chen,-20.00,Recount receipts and change; investigate without assuming theft
+Cash variance,2026-09-29 / Lee Chen,-20.00,Recount receipts and change; investigate without assuming theft

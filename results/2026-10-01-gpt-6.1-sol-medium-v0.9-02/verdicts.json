@@ -1,0 +1,50 @@
+{
+ "problems": {
+  "M15": {
+   "verdict": "fixed",
+   "evidence": "Reports $132.19 cost against a $120 price, a $12.19 loss before overhead, and recommends changing the price or reducing costs."
+  },
+  "M28": {
+   "verdict": "not fixed",
+   "evidence": "Identifies all five $20 shortages as Lee's closes and avoids alleging theft, but recommends only reviewing procedures, without a concrete safeguard."
+  },
+  "L04": {
+   "verdict": "fixed",
+   "evidence": "The policy directs customers to cancel through their private confirmation link before pickup day, with 48 hours required for cakes and catering."
+  },
+  "L10": {
+   "verdict": "fixed",
+   "evidence": "Both policies permit refunds of unused gift cards within 14 days."
+  },
+  "C11": {
+   "verdict": "not fixed",
+   "evidence": "Maria's draft identifies order #27 and shared almond equipment, but offers no specific safe alternative, cancellation or refund."
+  },
+  "C01": {
+   "verdict": "not fixed",
+   "evidence": "The owner is told to investigate and refund the duplicate $25.92, but no reply to Rosa or refund timeframe is supplied."
+  },
+  "C03": {
+   "verdict": "not fixed",
+   "evidence": "Connects Hannah's complaint to the incorrect date display and drafts a response, but neither apologises nor instructs the owner to apologise."
+  },
+  "C04": {
+   "verdict": "fixed",
+   "evidence": "Drafts a reply quoting three trays for $360 plus 8.25% tax, totaling $389.70, and specifies the October 16, 11:30 pickup and information needed to confirm."
+  },
+  "C05": {
+   "verdict": "fixed",
+   "evidence": "Identifies Jamie's promised refund for CL-0228, the failed RF-010 for $89.64, and the need to retry and confirm payment."
+  },
+  "C06": {
+   "verdict": "fixed",
+   "evidence": "Supplies a public coupon-tax review reply stating that the website's coupon tax calculation was corrected."
+  }
+ },
+ "false_claims": [
+  "W39",
+  "M18",
+  "L15",
+  "P17"
+ ]
+}

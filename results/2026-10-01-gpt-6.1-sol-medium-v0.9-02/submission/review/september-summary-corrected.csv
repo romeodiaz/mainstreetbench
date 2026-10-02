@@ -1,0 +1,10 @@
+line,amount,note
+Food sales before returns,61217.68,1216 unique September orders; gift card sales excluded
+Completed returns including tax,871.57,Failed RF-010 excluded
+Returns before tax,807.01,Allocated at September 8% per refund; confirm allocations before filing
+Food sales after completed returns,60410.67,Proposed taxable sales subject to bookkeeper review
+Tax collected before returns,4897.71,Sum unique September rows
+Tax reversed on completed returns,64.56,Refund tax allocation
+Tax collected after completed returns,4833.15,"Reconciled collected tax, not a filed return"
+Gift cards sold,425.00,"Liability, not sales; from gift card ledger"
+Gift card liability at September end,1485.00,1240 + 425 - 180; former 1305 understated by 180

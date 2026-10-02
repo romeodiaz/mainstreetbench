@@ -1,0 +1,5 @@
+line,amount,note
+Net sales,60410.67,"1216 unique September food orders; after discounts and completed returns; gift cards excluded"
+Gift cards sold,425.00,"Liability, not included in net sales"
+Returns,871.57,"Completed refunds including tax; failed RF-010 excluded"
+Sales tax collected,4833.15,"4897.71 collected less 64.56 allocated refund tax; see review/september-summary-corrected.csv"
