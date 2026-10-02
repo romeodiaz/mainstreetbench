@@ -1,0 +1,11 @@
+{
+  "seconds": 937,
+  "exit": 0,
+  "clean_profile": true,
+  "models_reported": [
+    "gpt-6.1-sol",
+    "gpt-6.1-sol (medium)",
+    "codex-auto-review",
+    "codex-auto-review (low)"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "run": "2026-10-01-gpt-6.1-sol-medium-v0.7-01",
+  "agent_mode": "custom direct codex command",
+  "actual_solver_model": "gpt-6.1-sol",
+  "actual_solver_effort": "medium",
+  "clean_profile": true,
+  "completed_command_events": 27,
+  "token_usage": [
+    {
+      "input_tokens": 1837729,
+      "cached_input_tokens": 1719040,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 26956,
+      "reasoning_output_tokens": 3578
+    }
+  ],
+  "web_search": "disabled",
+  "note": "Harness usage.json confirms clean_profile=true. Custom mode still labels the globally present personal instruction file as loaded, although clean_codex_home copies only auth.json. The log contains command events despite log_has_commands=false in custom mode. codex-auto-review is the approval reviewer, not the solver. Original scorecard and integrity report preserved unchanged. Self-run read isolation is not enforced.",
+  "source_commit": "f8f6801",
+  "evidence_directory": "~/Documents/Codex/2026-10-01/clone-https-github-com-romeodiaz-mainstreetbench/work/MainStreetBench-runs/evidence/2026-10-01-gpt-6.1-sol-medium-v0.7-01"
+}

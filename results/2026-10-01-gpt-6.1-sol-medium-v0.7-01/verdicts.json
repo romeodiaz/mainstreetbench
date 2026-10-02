@@ -1,0 +1,49 @@
+{
+ "problems": {
+  "M15": {
+   "verdict": "fixed",
+   "evidence": "Identifies $132.19 cost against a $120 price, a $12.19 loss per tray, and recommends deciding a sustainable price."
+  },
+  "M28": {
+   "verdict": "not fixed",
+   "evidence": "Identifies all five shortages as Lee Chen closes and avoids alleging theft, but recommends investigation without a concrete counting safeguard."
+  },
+  "L04": {
+   "verdict": "fixed",
+   "evidence": "The policy permits cancellation through the private confirmation link before pickup day and requires calling on pickup day."
+  },
+  "L10": {
+   "verdict": "fixed",
+   "evidence": "Both policies allow refunds of unused gift cards within 14 days."
+  },
+  "C11": {
+   "verdict": "fixed",
+   "evidence": "Maria's draft identifies order #27, explains shared almond-flour equipment and allergy unsuitability, and offers cancellation."
+  },
+  "C01": {
+   "verdict": "not fixed",
+   "evidence": "The report recommends refunding Rosa's duplicate $34.56, but no customer reply or expected refund timing is supplied."
+  },
+  "C03": {
+   "verdict": "fixed",
+   "evidence": "Hannah's draft connects her confusion to the confirmation page displaying the previous weekday and apologises."
+  },
+  "C04": {
+   "verdict": "fixed",
+   "evidence": "The draft quotes three trays at $360 plus $29.70 tax, totaling $389.70, and requests details and capacity confirmation for October 16 at 11:30."
+  },
+  "C05": {
+   "verdict": "fixed",
+   "evidence": "Identifies Jamie's promised refund for CL-0075, failed RF-010 for $10.53, and the need to retry or arrange payment."
+  },
+  "C06": {
+   "verdict": "not fixed",
+   "evidence": "No reply to the coupon-tax review is supplied, although the report says the tax calculation was fixed."
+  }
+ },
+ "false_claims": [
+  "W34",
+  "L11",
+  "C09"
+ ]
+}

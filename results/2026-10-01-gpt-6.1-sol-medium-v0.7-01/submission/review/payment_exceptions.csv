@@ -1,0 +1,4 @@
+order_id,payment_ids,amount,issue
+CL-0362,PAY-00277; PAY-00381,34.56,Two captured charges for one sale
+CL-0490,,76.68,No captured payment in supplied export; verify before collecting
+unmatched,PAY-00382,37.80,No order reference; terminal:T2 on 2026-09-17

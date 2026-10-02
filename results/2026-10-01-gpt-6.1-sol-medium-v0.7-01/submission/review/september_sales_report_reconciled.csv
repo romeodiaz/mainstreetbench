@@ -1,0 +1,15 @@
+line,amount,note
+Unique September orders,490,Dates filtered; exact duplicates excluded
+Gross merchandise sales,24145.00,Gift cards sold separately; no gift-card purchase lines in register
+Discounts,150.63,As charged; improper discounts listed for owner review
+Merchandise sales after discounts before refunds,23994.37,Excludes $425 gift cards sold
+Sales tax collected before refunds,1919.55,September 8%; no historical repricing
+Customer sale totals before refunds,25913.92,Excludes duplicate card charge and unmatched terminal charge
+Completed refunds including duplicate,801.00,RF-010 failed and RF-011 pending excluded
+Completed refunds excluding duplicate RF-013,707.58,Genuine returns total; RF-013 separately flagged as excess refund
+Genuine returns before tax,655.17,Excludes duplicate RF-013
+Merchandise net sales excluding duplicate refund loss,23339.20,Working operating-sales measure; bookkeeper must classify $93.42 duplicate refund separately
+Merchandise after all completed refund outflows before tax,23252.70,"Includes duplicate refund; cash-flow bridge, not final accounting classification"
+Gift cards sold,425.00,Liability increase; not extra merchandise revenue
+Gift cards redeemed,180.00,"Liability decrease; ledger source, verify against redemption records"
+Gift-card closing liability,1485.00,1240 + 425 - 180; original 1305 understated by 180

@@ -1,0 +1,9 @@
+line,amount,note
+Taxable sales before returns,23994.37,490 unique September sales; rate 8%
+Genuine refund taxable-base reduction,655.17,Excludes second full refund RF-013
+Taxable sales after genuine returns,23339.20,Bookkeeper review; unmatched PAY-00382 not yet assigned
+Tax after genuine refund tax reductions,1867.14,1867.14; extra refund credit requires confirmation
+Taxable sales if duplicate RF-013 also qualifies for tax credit,23252.70,23252.70; conditional alternative
+Tax after all completed refunds if credits allowable,1860.22,1860.22; $59.07 above original draft 1801.15
+Unmatched charge PAY-00382,37.80,"If taxable sale, may imply $35 base + $2.80 tax; do not add until matched"
+Rate,8%,September only; October rate is 8.25%

@@ -1,0 +1,8 @@
+order_id,date,channel,customer_email,items,subtotal,promo_code,discount,tax,total,tender,cash_received,reason
+CL-0831-0107,2026-08-31,counter,,1 x Birthday Cake @ 48.00; 2 x Croissant Box (6) @ 21.00,90.00,,0.00,7.20,97.20,card,,Outside September
+CL-0283,2026-09-17,counter,customer082@example.com,1 x Seasonal Pie @ 32.00; 3 x Sourdough Loaf @ 9.00,59.00,,0.00,4.72,63.72,card,,Exact duplicate order ID
+CL-0029,2026-09-02,counter,,2 x Blueberry Scone @ 3.75; 3 x Cookie Box (12) @ 12.00; 3 x Croissant Box (6) @ 21.00,106.50,,0.00,8.52,115.02,card,,Exact duplicate order ID
+CL-0082,2026-09-05,counter,,1 x Baguette @ 5.00; 2 x Coffee Beans @ 18.00,41.00,,0.00,3.28,44.28,card,,Exact duplicate order ID
+CL-0449,2026-09-27,online,,1 x Sourdough Loaf @ 9.00,9.00,,0.00,0.72,9.72,card,,Exact duplicate order ID
+CL-0073,2026-09-04,online,customer030@example.com,1 x Baguette @ 5.00,5.00,,0.00,0.40,5.40,card,,Exact duplicate order ID
+CL-0471,2026-09-30,online,customer125@example.com,1 x Blueberry Scone @ 3.75; 1 x Coffee Beans @ 16.50,20.25,,0.00,1.62,21.87,card,,Exact duplicate order ID
