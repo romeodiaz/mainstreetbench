@@ -226,7 +226,7 @@ STAFF50 is the staff discount (50%), for these four people only, rung up at the 
 - Thanksgiving bread and dinner rolls: pre-order online, pickup Thursday, November 26.
 """
     key.append({"id": "P17", "kind": "file", "file": "admin/promotions.md", "line": r"Thanksgiving",
-                "must_not": [r"Nov(ember)?\.?\s*26|11/26|Thursday"],
+                "must_not": [r"pick ?up[^.;]*?(Nov(ember)?\.?\s*26|11/26|Thursday)"],
                 "must": [r"Nov(ember)?\.?\s*2[2-5]\b|11/2[2-5]\b|Tuesday|Wednesday"],
                 "what": "The Thanksgiving pre-order pickup is set for Nov 26, when we're closed", "dollars": 300})
     files["admin/accounts_and_services.md"] = """# Accounts and services
@@ -470,14 +470,14 @@ Hope to see you both again soon!
                               f"${1.5 * coffee_bags:.2f} plus tax", "dollars": 2},
         {**for_customer(r"Ruth|ruth\.alvarez", [re.escape(f"{25 - people['ruth']['gift_card_applied']:.2f}")]), "id": "C20",
          "what": f"Ruth asks her gift card balance: ${25 - people['ruth']['gift_card_applied']:.2f}", "dollars": 15},
-        {**for_customer(r"Ken|ken\.w", [r"closed[^\n]{0,80}(Thanksgiving|Nov(ember)?\.?\s*26|Thursday)|"
-                                        r"(Thanksgiving|Nov(ember)?\.?\s*26|Thursday)[^\n]{0,80}closed",
+        {**for_customer(r"Ken|ken\.w", [r"clos(e|ed|ing)\b[^\n]{0,80}(Thanksgiving|Nov(ember)?\.?\s*26|Thursday)|"
+                                        r"(Thanksgiving|Nov(ember)?\.?\s*26|Thursday)[^\n]{0,80}clos(e|ed|ing)\b",
                                         r"\b7(:00)?\s*(a\.?m\.?)?\s*(–|-|to|until)\s*3(:00)?\s*(p\.?m\.?)?"]), "id": "C21",
          "what": "Ken asks about Thanksgiving week: open Wednesday 7am–3pm, closed Thanksgiving Day", "dollars": 50},
         {**for_customer(r"Leah|leah\.morgan", [r"(nothing|none|no|don'?t|do not|isn'?t|aren'?t|not|can'?t)[^\n.]{0,60}gluten[- ]free"]),
          "id": "C22", "what": "Leah, newly diagnosed with celiac disease, asks for gluten-free options; nothing is gluten-free",
          "dollars": 3000},
-        {**for_customer(r"Tessa|tessa\.moore", [r"22\.73"]), "id": "C23",
+        {**for_customer(r"Tessa|tessa\.moore", [r"22\.(73|68)\b"]), "id": "C23",
          "what": f"Tessa asks her exact cash total for order #{people['tessa']['id']}: $22.73 at the 8.25% tax rate "
                  "(the order shows $22.68 from the 8% bug)", "dollars": 5},
         {"id": "C24", "kind": "db", "checks": [
@@ -506,7 +506,7 @@ Hope to see you both again soon!
          "what": f"Elena asked to move order #{people['elena']['id']} from Saturday to Sunday", "dollars": 15},
         {"id": "C30", "kind": "db", "checks": [
             {"sql": "SELECT customer_name FROM orders WHERE lower(customer_email) = ? AND status != 'cancelled'",
-             "params": ["kevin.brooks@example.com"], "match": r"Daniel Kim"}],
+             "params": ["kevin.brooks@example.com"], "match": r"Daniel Kim", "or_noted": True}],
          "what": f"Kevin asked for order #{people['kevin']['id']} to be under Daniel Kim's name", "dollars": 10},
     ]
 

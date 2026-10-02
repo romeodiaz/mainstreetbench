@@ -84,7 +84,9 @@ class Problems(ShopCase):
         # The customer cancels before pickup, so the card was never paid for. A shop may not show its code yet.
         order, code = self.buy_gift_card(paid=False)
         key = order["confirmation_url"].split("key=")[1]
-        self.assertEqual(self.call("POST", f"/api/orders/{order['id']}/cancel", {"key": key})[0], 200)
+        if self.call("POST", f"/api/orders/{order['id']}/cancel", {"key": key})[0] != 200:
+            # A shop may route cancellations through staff; R4 covers whether customers can cancel online.
+            self.assertEqual(self.call("POST", f"/admin/api/orders/{order['id']}/cancel", admin=True)[0], 200)
         if code:
             self.assertNotEqual(self.place(gift=code, slot="10:00")[0], 201)
 

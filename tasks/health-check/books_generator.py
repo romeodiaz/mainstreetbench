@@ -199,7 +199,7 @@ def generate(seed: int = 20261008) -> tuple[dict[str, str], list[dict]]:
     owed = Decimal(cake["total"]) - Decimal(keyed_in)
     key.append({"id": "C14", "kind": "text", "record_ids": [cake["order_id"], short_refund["refund_id"]],
                 "text_all": [re.escape(cake["order_id"]) + "|" + re.escape(short_refund["refund_id"])],
-                "text_any": [re.escape(f"{owed:.2f}")],
+                "text_any": [re.escape(f"{owed:.2f}") if owed % 1 else rf"\${int(owed)}(\.00)?\b|(?<![\d.]){int(owed)}\.00\b"],
                 "what": f"Marcus was promised a full ${cake['total']} refund for {cake['order_id']}; {short_refund['refund_id']} "
                         f"paid ${keyed_in} (digits swapped), so he's still owed ${owed:.2f}",
                 "dollars": float(owed), "order_id": cake["order_id"], "promised": cake["total"],

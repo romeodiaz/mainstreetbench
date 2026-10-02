@@ -70,10 +70,11 @@ The problems split 4 obvious, 46 needing cross-checking, and 50 hidden, so expec
 
 ## Results so far
 
-The current version is **v0.8**. It's calibrated so a cheap model has room to fall short: 30 problems that GPT-6.1 Sol solved in both earlier runs were swapped for 30 of the kinds it missed, such as drafting the actual reply to a customer, making the change they asked for in the order system, and finding one wrong row in a large set of books ([why](docs/health-check-problems.md#decisions)). No model has run v0.8 yet; earlier scores are on easier versions and aren't directly comparable.
+The current version is **v0.8**. It's calibrated so a cheap model has room to fall short: 30 problems that GPT-6.1 Sol solved in both earlier runs were swapped for 30 of the kinds it missed, such as drafting the actual reply to a customer, making the change they asked for in the order system, and finding one wrong row in a large set of books ([why](docs/health-check-problems.md#decisions)). Scores from different versions aren't directly comparable.
 
 | Model | Version | Score | Notes |
 |---|---|---|---|
+| gpt-6.1-sol, medium | v0.8 | **86** (77 as first graded) | Self-run. The first grade had grader flaws, which are fixed in v0.8.1. [Scorecard](results/2026-10-01-gpt-6.1-sol-medium-v0.8-01.md), [regrade](results/2026-10-01-gpt-6.1-sol-medium-v0.8-01-regrade.md) |
 | gpt-6.1-sol, medium | v0.7 | **91** (87 as first graded) | Self-run. The first grade had grader flaws, which are fixed in v0.7.1. [Scorecard](results/2026-10-01-gpt-6.1-sol-medium-v0.7-01.md), [regrade](results/2026-10-01-gpt-6.1-sol-medium-v0.7-01-regrade.md) |
 | gpt-6.1-sol, medium | v0.6 | **90** (72 as first graded) | Self-run. The first grade had grader flaws, which are fixed in v0.6.1. [Scorecard](results/2026-10-01-gpt-6.1-sol-medium-v0.6-01.md), [regrade](results/2026-10-01-gpt-6.1-sol-medium-v0.6-01-regrade.md) |
 

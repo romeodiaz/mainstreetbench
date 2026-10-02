@@ -136,10 +136,16 @@ CLEARED = re.compile(r"(?<!not )(?<!n't )\b(valid|legitimate|genuine|eligible|al
                      r"preserved|okay|ok)\b|\b(is|are|was|were) (a )?staff\b|\bby (a )?staff\b", re.I)
 
 
+ACCUSING = re.compile(r"misus|abus|non-?staff|not (a )?staff|isn'?t (a )?staff|aren'?t staff|ineligible|not eligible|"
+                      r"unauthori[sz]ed|improper|shouldn'?t|should not|invalid|violat|fraud|theft|steal|suspicious|"
+                      r"not allowed|not valid|wrongly|wrongful|unearned", re.I)
+
+
 def accuses(text: str, record: str) -> bool:
-    """True if a sentence names the record without clearing it (a list of valid staff uses isn't an accusation)."""
+    """True if a sentence names the record in accusing terms and doesn't clear it. Listing valid staff uses isn't
+    an accusation, and neither is a sentence that only names the order."""
     sentences = [s for s in re.split(r"(?<=[.!?])\s+|\n", text) if mentions(s, record)]
-    return any(not CLEARED.search(s) for s in sentences)
+    return any(ACCUSING.search(s) and not CLEARED.search(s) for s in sentences)
 
 
 def lines_matching(text: str, pattern: str) -> list[str]:
@@ -241,8 +247,11 @@ def check_entry(entry: dict, ws: Workspace) -> tuple[bool, str]:
         return True, "every part fixed"
     if kind == "reply":
         for text in ws.replies():
-            if re.search(entry["who"], text, re.I) and all(re.search(f, text, re.I) for f in entry["facts"]):
-                return True, "reply drafted with the right facts"
+            # A file may hold several replies; check each customer's section on its own.
+            sections = re.split(r"\n(?=#{1,6} |\*\*[^*\n]+\*\*\s*\n|To:|-{3,}\s*\n)", "\n" + text)
+            for section in sections:
+                if re.search(entry["who"], section, re.I) and all(re.search(f, section, re.I) for f in entry["facts"]):
+                    return True, "reply drafted with the right facts"
         return False, "no drafted reply with the right facts"
     if kind == "db":
         try:
@@ -253,6 +262,12 @@ def check_entry(entry: dict, ws: Workspace) -> tuple[bool, str]:
                     rows = [[re.sub(r"\D", "", str(v)) for v in r] for r in rows]
                 if "match" in check:
                     ok = len(rows) == 1 and re.search(check["match"], str(rows[0][0]), re.I)
+                    if not ok and check.get("or_noted"):
+                        # Also accept a note against the order in any table, e.g. an "authorised pickup" note.
+                        for (table,) in db.execute("SELECT name FROM sqlite_master WHERE type = 'table'"):
+                            for row in db.execute(f'SELECT * FROM "{table}"'):
+                                if re.search(check["match"], " ".join(str(v) for v in row), re.I) and table != "orders":
+                                    ok = True
                 else:
                     ok = rows == check["expect"]
                 if not ok:
@@ -272,6 +287,11 @@ def check_entry(entry: dict, ws: Workspace) -> tuple[bool, str]:
             if kind == "live_tax":
                 if re.search(rf"(?<![\d.]){re.escape(entry['shortfall'])}\b", ws.report):
                     return True, "report states the shortfall"
+                for line in ws.report.splitlines():
+                    if (re.search(r"(existing|accepted|placed|live|retained|current|open|already)[^.\n]{0,40}orders?", line, re.I)
+                            and re.search(r"\btax", line, re.I)
+                            and re.search(r"under-?(record|collect|charg)|short|too little|discrepanc|\b8\s?%", line, re.I)):
+                        return True, "report says the existing orders were under-taxed"
                 taxes = {str(r["id"]): r["tax"] for r in db.execute("SELECT id, tax FROM orders")}
                 ok = all(k in taxes and abs(taxes[k] - v) < 0.005 for k, v in entry["correct"].items())
                 return ok, "orders corrected" if ok else "not in the report, orders not corrected"

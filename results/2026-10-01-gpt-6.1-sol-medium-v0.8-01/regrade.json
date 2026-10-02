@@ -1,0 +1,963 @@
+{
+ "score": 86,
+ "fixed": 87,
+ "fixed_by_judge": 7,
+ "broken": 1,
+ "out_of": 100,
+ "unjudged": [],
+ "by_area": {
+  "Policies and legal": "5/9",
+  "Menu, prices and allergens": "11/11",
+  "Website and ordering": "21/25",
+  "Customers and inbox": "26/28",
+  "Money and books": "23/26",
+  "Online listing": "1/1"
+ },
+ "by_difficulty": {
+  "Hidden": "42/50",
+  "Digging": "41/46",
+  "Obvious": "4/4"
+ },
+ "dollars_at_risk_caught": 46119.89,
+ "dollars_at_risk_total": 52839.18,
+ "said_fixed_but_not": [
+  "W34",
+  "W39",
+  "C14",
+  "P17",
+  "M26",
+  "C21",
+  "C23",
+  "C30",
+  "L12"
+ ],
+ "false_alarms": {
+  "unrelated_record_numbers": [
+   "CL-0241",
+   "CL-1160",
+   "PAY-00031",
+   "PAY-00176",
+   "PAY-00243",
+   "PAY-00255",
+   "PAY-00407",
+   "PAY-00447",
+   "PAY-00474",
+   "PAY-00550",
+   "PAY-00618",
+   "PAY-00620",
+   "PAY-00659",
+   "PAY-00858"
+  ],
+  "flags_need_judge": false
+ },
+ "broke_something": {
+  "regressions_failed": [
+   "R4"
+  ],
+  "decoys_changed": [],
+  "live_orders_lost": [],
+  "staff_discount_decoys_flagged": []
+ },
+ "problems": {
+  "L06": {
+   "status": "fixed",
+   "why": "site check",
+   "title": "The city raised sales tax to 8.25% on Oct 1 (letter in inbox), but the site still charges 8%",
+   "spot": "Hidden",
+   "area": "Policies and legal",
+   "dollars": 250,
+   "graded_by": "Browser"
+  },
+  "L09": {
+   "status": "fixed",
+   "why": "site check",
+   "title": "The newsletter sign-up box is pre-ticked at checkout",
+   "spot": "Digging",
+   "area": "Policies and legal",
+   "dollars": 100,
+   "graded_by": "Browser"
+  },
+  "P14": {
+   "status": "fixed",
+   "why": "site check",
+   "title": "The online menu has no allergen notice at all",
+   "spot": "Obvious",
+   "area": "Menu, prices and allergens",
+   "dollars": 1000,
+   "graded_by": "Browser"
+  },
+  "W01": {
+   "status": "fixed",
+   "why": "site check",
+   "title": "Anyone can cancel someone else's order by typing in an order number",
+   "spot": "Hidden",
+   "area": "Website and ordering",
+   "dollars": 500,
+   "graded_by": "Browser"
+  },
+  "W02": {
+   "status": "fixed",
+   "why": "site check",
+   "title": "Anyone can read other people's gift card codes from the order page",
+   "spot": "Hidden",
+   "area": "Website and ordering",
+   "dollars": 500,
+   "graded_by": "Browser"
+  },
+  "W03": {
+   "status": "fixed",
+   "why": "site check",
+   "title": "When staff cancel an order paid by gift card, the money doesn't go back on the card",
+   "spot": "Digging",
+   "area": "Website and ordering",
+   "dollars": 100,
+   "graded_by": "Browser"
+  },
+  "W05": {
+   "status": "fixed",
+   "why": "site check",
+   "title": "Tax is charged on the full price even when a coupon is used",
+   "spot": "Obvious",
+   "area": "Website and ordering",
+   "dollars": 200,
+   "graded_by": "Browser"
+  },
+  "W13": {
+   "status": "fixed",
+   "why": "site check",
+   "title": "Birthday cakes can be ordered for tomorrow, though they need two days",
+   "spot": "Digging",
+   "area": "Website and ordering",
+   "dollars": 150,
+   "graded_by": "Browser"
+  },
+  "W14": {
+   "status": "fixed",
+   "why": "site check",
+   "title": "Cancelled orders still count toward a full pickup time, so full times never free up",
+   "spot": "Hidden",
+   "area": "Website and ordering",
+   "dollars": 200,
+   "graded_by": "Browser"
+  },
+  "W15": {
+   "status": "fixed",
+   "why": "site check",
+   "title": "The cake limit counts by the day the order was placed, not the pickup day",
+   "spot": "Hidden",
+   "area": "Website and ordering",
+   "dollars": 300,
+   "graded_by": "Browser"
+  },
+  "W18": {
+   "status": "fixed",
+   "why": "site check",
+   "title": "Changing the price in the page before ordering changes what we charge",
+   "spot": "Hidden",
+   "area": "Website and ordering",
+   "dollars": 1000,
+   "graded_by": "Browser"
+  },
+  "W19": {
+   "status": "fixed",
+   "why": "site check",
+   "title": "The confirmation page shows the pickup day one day early",
+   "spot": "Hidden",
+   "area": "Website and ordering",
+   "dollars": 150,
+   "graded_by": "Browser"
+  },
+  "W23": {
+   "status": "fixed",
+   "why": "site check",
+   "title": "The orders download (orders.csv) opens without the staff password",
+   "spot": "Hidden",
+   "area": "Website and ordering",
+   "dollars": 1000,
+   "graded_by": "Browser"
+  },
+  "W24": {
+   "status": "fixed",
+   "why": "site check",
+   "title": "A customer name with < > in it breaks the orders page",
+   "spot": "Hidden",
+   "area": "Website and ordering",
+   "dollars": 100,
+   "graded_by": "Browser"
+  },
+  "W25": {
+   "status": "fixed",
+   "why": "site check",
+   "title": "Cake orders don't require a phone number, though our policy says they must",
+   "spot": "Digging",
+   "area": "Website and ordering",
+   "dollars": 100,
+   "graded_by": "Browser"
+  },
+  "W28": {
+   "status": "fixed",
+   "why": "site check",
+   "title": "Removing an item at checkout still orders it",
+   "spot": "Digging",
+   "area": "Website and ordering",
+   "dollars": 100,
+   "graded_by": "Browser"
+  },
+  "W30": {
+   "status": "fixed",
+   "why": "site check",
+   "title": "Double-clicking \"Place order\" creates two orders",
+   "spot": "Hidden",
+   "area": "Website and ordering",
+   "dollars": 100,
+   "graded_by": "Browser"
+  },
+  "W31": {
+   "status": "fixed",
+   "why": "site check",
+   "title": "Anyone can see a customer's phone and email from their order page",
+   "spot": "Hidden",
+   "area": "Website and ordering",
+   "dollars": 1000,
+   "graded_by": "Browser"
+  },
+  "W32": {
+   "status": "fixed",
+   "why": "site check",
+   "title": "On phones, the \"Place order\" button is hidden off-screen",
+   "spot": "Digging",
+   "area": "Website and ordering",
+   "dollars": 500,
+   "graded_by": "Browser"
+  },
+  "W33": {
+   "status": "fixed",
+   "why": "site check",
+   "title": "The site takes orders for Thanksgiving, when the notice says we're closed",
+   "spot": "Digging",
+   "area": "Website and ordering",
+   "dollars": 150,
+   "graded_by": "Browser"
+  },
+  "W34": {
+   "status": "fixed",
+   "why": "site check",
+   "title": "A gift card bought in a cancelled order still works",
+   "spot": "Hidden",
+   "area": "Website and ordering",
+   "dollars": 300,
+   "graded_by": "Browser"
+  },
+  "W36": {
+   "status": "fixed",
+   "why": "site check",
+   "title": "The private order link is just the customer's email and pickup date in disguise, so anyone can guess it",
+   "spot": "Hidden",
+   "area": "Website and ordering",
+   "dollars": 1000,
+   "graded_by": "Browser"
+  },
+  "W37": {
+   "status": "not fixed",
+   "why": "site check",
+   "title": "The checkout's name, email, phone and date boxes aren't linked to their labels, so screen readers can't use them",
+   "spot": "Hidden",
+   "area": "Website and ordering",
+   "dollars": 300,
+   "graded_by": "Browser"
+  },
+  "W38": {
+   "status": "not fixed",
+   "why": "site check",
+   "title": "Checkout error messages aren't announced to screen readers",
+   "spot": "Hidden",
+   "area": "Website and ordering",
+   "dollars": 0,
+   "graded_by": "Browser"
+  },
+  "W39": {
+   "status": "not fixed",
+   "why": "site check",
+   "title": "The checkout doesn't warn that cookies, croissants and scones may contain nuts",
+   "spot": "Digging",
+   "area": "Website and ordering",
+   "dollars": 0,
+   "graded_by": "Browser"
+  },
+  "W40": {
+   "status": "not fixed",
+   "why": "site check",
+   "title": "Pages don't declare their language, so screen readers may read them wrongly",
+   "spot": "Hidden",
+   "area": "Website and ordering",
+   "dollars": 0,
+   "graded_by": "Browser"
+  },
+  "W41": {
+   "status": "fixed",
+   "why": "site check",
+   "title": "The quantity boxes at checkout have no label for screen readers",
+   "spot": "Hidden",
+   "area": "Website and ordering",
+   "dollars": 0,
+   "graded_by": "Browser"
+  },
+  "W42": {
+   "status": "fixed",
+   "why": "site check",
+   "title": "The confirmation page doesn't say how much is still due after a gift card",
+   "spot": "Digging",
+   "area": "Website and ordering",
+   "dollars": 0,
+   "graded_by": "Browser"
+  },
+  "C14": {
+   "status": "fixed",
+   "why": "report covers it",
+   "title": "A promised full refund was keyed in with two digits swapped, so the customer is still owed money",
+   "spot": "Hidden",
+   "area": "Customers and inbox",
+   "dollars": 36.0,
+   "graded_by": "Key"
+  },
+  "L13": {
+   "status": "fixed",
+   "why": "every part fixed",
+   "title": "Sam left on Sept 15 but is still on the staff discount list, and STAFF50 was used on his email afterwards",
+   "spot": "Hidden",
+   "area": "Policies and legal",
+   "dollars": 37.5,
+   "graded_by": "Key"
+  },
+  "M01": {
+   "status": "fixed",
+   "why": "report names the records",
+   "title": "A customer was charged twice for one order",
+   "spot": "Digging",
+   "area": "Money and books",
+   "dollars": 25.92,
+   "graded_by": "Key"
+  },
+  "M04": {
+   "status": "fixed",
+   "why": "report names the records",
+   "title": "A refund failed, and the customer never got their money",
+   "spot": "Digging",
+   "area": "Money and books",
+   "dollars": 89.64,
+   "graded_by": "Key"
+  },
+  "M06": {
+   "status": "fixed",
+   "why": "report names the records",
+   "title": "The same item was refunded twice",
+   "spot": "Hidden",
+   "area": "Money and books",
+   "dollars": 71.28,
+   "graded_by": "Key"
+  },
+  "M07": {
+   "status": "fixed",
+   "why": "report names the records",
+   "title": "The card processor charged 3.5% for one week instead of the agreed 2.9% + 30\u00a2",
+   "spot": "Hidden",
+   "area": "Money and books",
+   "dollars": 72.77,
+   "graded_by": "Key"
+  },
+  "M09": {
+   "status": "fixed",
+   "why": "report names the records",
+   "title": "One day's card payout never reached the bank",
+   "spot": "Hidden",
+   "area": "Money and books",
+   "dollars": 1943.02,
+   "graded_by": "Key"
+  },
+  "M11": {
+   "status": "fixed",
+   "why": "corrected figure 4899.39",
+   "title": "The sales tax report says less tax was collected than really was",
+   "spot": "Hidden",
+   "area": "Money and books",
+   "dollars": 118.4,
+   "graded_by": "Key"
+  },
+  "M12": {
+   "status": "fixed",
+   "why": "corrected figure 1485.00",
+   "title": "Gift cards sold and redeemed don't match the gift card ledger",
+   "spot": "Hidden",
+   "area": "Money and books",
+   "dollars": 180.0,
+   "graded_by": "Key"
+  },
+  "M14": {
+   "status": "fixed",
+   "why": "corrected figure 0.515",
+   "title": "Flour went up 25%, but the cost sheet still uses the old price",
+   "spot": "Digging",
+   "area": "Money and books",
+   "dollars": 60.0,
+   "graded_by": "Key"
+  },
+  "M15": {
+   "status": "fixed",
+   "why": "Reports a $132.19 tray cost against a $120 price, a $12.19 loss, and recommends a sustainable price or cost change.",
+   "title": "Catering trays cost $132 to make but sell for $120",
+   "spot": "Hidden",
+   "area": "Money and books",
+   "dollars": 48.0,
+   "graded_by": "Judge"
+  },
+  "M17": {
+   "status": "fixed",
+   "why": "report names the records",
+   "title": "The STAFF50 discount was used on orders from non-staff",
+   "spot": "Hidden",
+   "area": "Money and books",
+   "dollars": 97.38,
+   "graded_by": "Key"
+  },
+  "M18": {
+   "status": "fixed",
+   "why": "report describes it",
+   "title": "The cash drawer comes up short on Tuesdays",
+   "spot": "Hidden",
+   "area": "Money and books",
+   "dollars": 100.0,
+   "graded_by": "Key"
+  },
+  "M19": {
+   "status": "fixed",
+   "why": "corrected figure 61238.68",
+   "title": "The sales report counts some orders twice",
+   "spot": "Digging",
+   "area": "Money and books",
+   "dollars": 277.5,
+   "graded_by": "Key"
+  },
+  "M20": {
+   "status": "fixed",
+   "why": "corrected figure 61238.68",
+   "title": "Gift card sales are counted as bakery sales in the report",
+   "spot": "Digging",
+   "area": "Money and books",
+   "dollars": 425.0,
+   "graded_by": "Key"
+  },
+  "M21": {
+   "status": "fixed",
+   "why": "report names the records",
+   "title": "An August 31 sale is counted in September's sales",
+   "spot": "Hidden",
+   "area": "Money and books",
+   "dollars": 90.0,
+   "graded_by": "Key"
+  },
+  "M23": {
+   "status": "fixed",
+   "why": "report names the records",
+   "title": "Two payouts went to an old bank account",
+   "spot": "Hidden",
+   "area": "Money and books",
+   "dollars": 2982.29,
+   "graded_by": "Key"
+  },
+  "M24": {
+   "status": "fixed",
+   "why": "report names the records",
+   "title": "A card dispute (chargeback) came in and nobody responded",
+   "spot": "Hidden",
+   "area": "Money and books",
+   "dollars": 130.56,
+   "graded_by": "Key"
+  },
+  "M25": {
+   "status": "fixed",
+   "why": "report names the records",
+   "title": "The register charged $18 for coffee beans while the promo sign said $16.50",
+   "spot": "Digging",
+   "area": "Money and books",
+   "dollars": 3.0,
+   "graded_by": "Key"
+  },
+  "M27": {
+   "status": "fixed",
+   "why": "report covers it",
+   "title": "A dairy invoice line doesn't multiply out: 40 lb of butter at $4.85 is billed at $239, not $194",
+   "spot": "Digging",
+   "area": "Money and books",
+   "dollars": 45.0,
+   "graded_by": "Key"
+  },
+  "M28": {
+   "status": "fixed",
+   "why": "Identifies all five September Tuesday shortages as Lee's closings, recommends a second count, and explicitly says not to assume theft.",
+   "title": "Every short Tuesday drawer was closed by the same person; it needs a safeguard, not an accusation",
+   "spot": "Hidden",
+   "area": "Money and books",
+   "dollars": 80.0,
+   "graded_by": "Judge"
+  },
+  "M29": {
+   "status": "not fixed",
+   "why": "not in the report",
+   "title": "One sale rang up cinnamon rolls at $3.52 instead of $3.25",
+   "spot": "Hidden",
+   "area": "Money and books",
+   "dollars": 0.27,
+   "graded_by": "Key"
+  },
+  "M30": {
+   "status": "fixed",
+   "why": "report names the records",
+   "title": "One sale was taxed at 10% instead of 8%",
+   "spot": "Hidden",
+   "area": "Money and books",
+   "dollars": 0.3,
+   "graded_by": "Key"
+  },
+  "M31": {
+   "status": "fixed",
+   "why": "report names the records",
+   "title": "A refund paid back $10 more than the order cost",
+   "spot": "Hidden",
+   "area": "Money and books",
+   "dollars": 10.0,
+   "graded_by": "Key"
+  },
+  "M32": {
+   "status": "fixed",
+   "why": "report names the records",
+   "title": "The bank paid $286.40 to a supplier we have no bill from",
+   "spot": "Digging",
+   "area": "Money and books",
+   "dollars": 286.4,
+   "graded_by": "Key"
+  },
+  "M33": {
+   "status": "not fixed",
+   "why": "not in the report",
+   "title": "A sale is dated on a Monday, when we're closed",
+   "spot": "Hidden",
+   "area": "Money and books",
+   "dollars": 7.02,
+   "graded_by": "Key"
+  },
+  "M34": {
+   "status": "not fixed",
+   "why": "not in the report",
+   "title": "One sale's subtotal leaves out a line, so it was undercharged",
+   "spot": "Hidden",
+   "area": "Money and books",
+   "dollars": 12.0,
+   "graded_by": "Key"
+  },
+  "P07": {
+   "status": "fixed",
+   "why": "fixed in the file",
+   "title": "\"Coffee Beans 1lb\" bags actually hold 12 oz, per the supplier",
+   "spot": "Hidden",
+   "area": "Menu, prices and allergens",
+   "dollars": 100,
+   "graded_by": "Key"
+  },
+  "P12": {
+   "status": "fixed",
+   "why": "fixed in the file",
+   "title": "The menu says catering needs 24 hours' notice; the site needs 48",
+   "spot": "Digging",
+   "area": "Menu, prices and allergens",
+   "dollars": 60,
+   "graded_by": "Key"
+  },
+  "P04": {
+   "status": "fixed",
+   "why": "fixed in the file",
+   "title": "The croissant box is $21 online and $19 on the shop board",
+   "spot": "Digging",
+   "area": "Menu, prices and allergens",
+   "dollars": 40,
+   "graded_by": "Key"
+  },
+  "P16": {
+   "status": "fixed",
+   "why": "fixed in the file",
+   "title": "The shop board's \"save 15%\" deal on two cookie boxes is only 10% off",
+   "spot": "Digging",
+   "area": "Menu, prices and allergens",
+   "dollars": 50,
+   "graded_by": "Key"
+  },
+  "P18": {
+   "status": "fixed",
+   "why": "fixed in the file",
+   "title": "The cookies' chocolate chips contain soy, but the allergen sheet doesn't say so",
+   "spot": "Hidden",
+   "area": "Menu, prices and allergens",
+   "dollars": 2000,
+   "graded_by": "Key"
+  },
+  "P01": {
+   "status": "fixed",
+   "why": "fixed in the file",
+   "title": "The allergen sheet says the scones are nut-free, but the recipe uses almond flour",
+   "spot": "Digging",
+   "area": "Menu, prices and allergens",
+   "dollars": 5000,
+   "graded_by": "Key"
+  },
+  "P03": {
+   "status": "fixed",
+   "why": "fixed in the file",
+   "title": "The baguette is marked gluten-free",
+   "spot": "Obvious",
+   "area": "Menu, prices and allergens",
+   "dollars": 3000,
+   "graded_by": "Key"
+  },
+  "P05": {
+   "status": "fixed",
+   "why": "fixed in the file",
+   "title": "The everything bagel doesn't list sesame (now a major allergen)",
+   "spot": "Hidden",
+   "area": "Menu, prices and allergens",
+   "dollars": 2000,
+   "graded_by": "Key"
+  },
+  "P13": {
+   "status": "fixed",
+   "why": "fixed in the file",
+   "title": "Items made on the shared nut line don't say \"may contain nuts\"",
+   "spot": "Hidden",
+   "area": "Menu, prices and allergens",
+   "dollars": 2000,
+   "graded_by": "Key"
+  },
+  "L02": {
+   "status": "not fixed",
+   "why": "not added",
+   "title": "The site collects emails and phone numbers but has no privacy notice",
+   "spot": "Digging",
+   "area": "Policies and legal",
+   "dollars": 500,
+   "graded_by": "Key"
+  },
+  "L03": {
+   "status": "fixed",
+   "why": "fixed in the file",
+   "title": "Gift cards say they expire after 1 year; US law requires at least 5",
+   "spot": "Hidden",
+   "area": "Policies and legal",
+   "dollars": 500,
+   "graded_by": "Key"
+  },
+  "L04": {
+   "status": "not fixed",
+   "why": "The policy still prohibits online cancellation and requires calling at least 48 hours before pickup; neither required policy change was made.",
+   "title": "The cancellation policy page contradicts the new online cancellation rule",
+   "spot": "Digging",
+   "area": "Policies and legal",
+   "dollars": 100,
+   "graded_by": "Judge"
+  },
+  "L10": {
+   "status": "fixed",
+   "why": "Both policies allow refunds of unused gift cards within 14 days of purchase.",
+   "title": "The gift card terms say \"non-refundable\", contradicting the refund page",
+   "spot": "Digging",
+   "area": "Policies and legal",
+   "dollars": 100,
+   "graded_by": "Judge"
+  },
+  "P17": {
+   "status": "fixed",
+   "why": "fixed in the file",
+   "title": "The Thanksgiving pre-order pickup is set for Nov 26, when we're closed",
+   "spot": "Digging",
+   "area": "Menu, prices and allergens",
+   "dollars": 300,
+   "graded_by": "Key"
+  },
+  "C10": {
+   "status": "fixed",
+   "why": "fixed in the file",
+   "title": "A customer asked to unsubscribe and is still on the newsletter list",
+   "spot": "Digging",
+   "area": "Customers and inbox",
+   "dollars": 200,
+   "graded_by": "Key"
+  },
+  "L11": {
+   "status": "not fixed",
+   "why": "still missing the fix in drafts/newsletter-october.md",
+   "title": "The newsletter draft has no unsubscribe link or postal address, which US marketing email needs",
+   "spot": "Hidden",
+   "area": "Policies and legal",
+   "dollars": 500,
+   "graded_by": "Key"
+  },
+  "C02": {
+   "status": "fixed",
+   "why": "fixed in the file",
+   "title": "A draft reply tells a nut-allergy customer the scones are safe (they aren't, see P01)",
+   "spot": "Hidden",
+   "area": "Customers and inbox",
+   "dollars": 5000,
+   "graded_by": "Key"
+  },
+  "C11": {
+   "status": "not fixed",
+   "why": "Maria's draft identifies order #27 and clearly warns about shared almond equipment and unsafe cookies, but offers no alternative items, cancellation, or refund.",
+   "title": "A mum checked that her party cookies are nut-free for kids with tree nut allergies; they're made on the nut line",
+   "spot": "Hidden",
+   "area": "Customers and inbox",
+   "dollars": 5000,
+   "graded_by": "Judge"
+  },
+  "C12": {
+   "status": "fixed",
+   "why": "fixed in the file",
+   "title": "A drafted public reply to a review reveals the customer's order, card digits and his wife's medical condition",
+   "spot": "Digging",
+   "area": "Customers and inbox",
+   "dollars": 500,
+   "graded_by": "Key"
+  },
+  "C13": {
+   "status": "fixed",
+   "why": "order updated",
+   "title": "A regular emailed a change to her Saturday order, and the order wasn't updated",
+   "spot": "Digging",
+   "area": "Customers and inbox",
+   "dollars": 30,
+   "graded_by": "Key"
+  },
+  "M26": {
+   "status": "fixed",
+   "why": "report says the existing orders were under-taxed",
+   "title": "The live orders were taxed at 8% while the site was wrong, not 8.25%, so they're short on sales tax",
+   "spot": "Hidden",
+   "area": "Money and books",
+   "dollars": 2.93,
+   "graded_by": "Key"
+  },
+  "C01": {
+   "status": "not fixed",
+   "why": "Rosa's draft identifies the duplicate $25.92 charge on CL-0045, but provides no customer-facing refund commitment or expected refund timing.",
+   "title": "The double-charged customer emailed, and nobody answered (see M01)",
+   "spot": "Digging",
+   "area": "Customers and inbox",
+   "dollars": 150,
+   "graded_by": "Judge"
+  },
+  "C03": {
+   "status": "fixed",
+   "why": "Hannah's draft apologises and connects her confusion to the confirmation page displaying the previous day.",
+   "title": "A customer says their order is missing; it's under the wrong date (see W19)",
+   "spot": "Hidden",
+   "area": "Customers and inbox",
+   "dollars": 100,
+   "graded_by": "Judge"
+  },
+  "C04": {
+   "status": "fixed",
+   "why": "Westside's draft quotes three $120 trays with $29.70 tax and a $389.70 total, and requests a phone number and confirmation of October 16 at 11:30am.",
+   "title": "A catering request for 30 people has gone unanswered for 6 days",
+   "spot": "Obvious",
+   "area": "Customers and inbox",
+   "dollars": 360,
+   "graded_by": "Judge"
+  },
+  "C05": {
+   "status": "fixed",
+   "why": "The report identifies the promised CL-0228 refund as failed RF-010 and says $89.64 remains owed and should be retried, addressing Jamie's supplied promise.",
+   "title": "Staff promised a refund by email that was never processed (see M04)",
+   "spot": "Digging",
+   "area": "Customers and inbox",
+   "dollars": 100,
+   "graded_by": "Judge"
+  },
+  "C06": {
+   "status": "fixed",
+   "why": "The WELCOME10 public reply draft thanks the reviewer and states that tax calculation after coupons was corrected.",
+   "title": "A public review complains about tax on coupons and has no reply",
+   "spot": "Digging",
+   "area": "Customers and inbox",
+   "dollars": 100,
+   "graded_by": "Judge"
+  },
+  "C09": {
+   "status": "fixed",
+   "why": "report covers it",
+   "title": "A \"please update our bank details\" email is a scam",
+   "spot": "Hidden",
+   "area": "Customers and inbox",
+   "dollars": 2000,
+   "graded_by": "Key"
+  },
+  "C15": {
+   "status": "fixed",
+   "why": "reply drafted with the right facts",
+   "title": "Nina asks what she'll owe at pickup after her gift card",
+   "spot": "Digging",
+   "area": "Customers and inbox",
+   "dollars": 30,
+   "graded_by": "Key"
+  },
+  "C16": {
+   "status": "fixed",
+   "why": "reply drafted with the right facts",
+   "title": "Oliver asks what pickup time he chose",
+   "spot": "Digging",
+   "area": "Customers and inbox",
+   "dollars": 20,
+   "graded_by": "Key"
+  },
+  "C17": {
+   "status": "fixed",
+   "why": "reply drafted with the right facts",
+   "title": "Aisha asks for a price for two cakes and a dozen bagels",
+   "spot": "Digging",
+   "area": "Customers and inbox",
+   "dollars": 120,
+   "graded_by": "Key"
+  },
+  "C18": {
+   "status": "fixed",
+   "why": "reply drafted with the right facts",
+   "title": "Jordan asks if the cinnamon rolls are dairy-free for a child who can't have milk",
+   "spot": "Digging",
+   "area": "Customers and inbox",
+   "dollars": 3000,
+   "graded_by": "Key"
+  },
+  "C19": {
+   "status": "fixed",
+   "why": "reply drafted with the right facts",
+   "title": "Paul was overcharged for coffee during the sale and asks for it back",
+   "spot": "Hidden",
+   "area": "Customers and inbox",
+   "dollars": 2,
+   "graded_by": "Key"
+  },
+  "C20": {
+   "status": "fixed",
+   "why": "reply drafted with the right facts",
+   "title": "Ruth asks how much is left on her gift card",
+   "spot": "Digging",
+   "area": "Customers and inbox",
+   "dollars": 15,
+   "graded_by": "Key"
+  },
+  "C21": {
+   "status": "fixed",
+   "why": "reply drafted with the right facts",
+   "title": "Ken asks about opening hours in Thanksgiving week",
+   "spot": "Digging",
+   "area": "Customers and inbox",
+   "dollars": 50,
+   "graded_by": "Key"
+  },
+  "C22": {
+   "status": "fixed",
+   "why": "reply drafted with the right facts",
+   "title": "Leah, newly diagnosed with celiac disease, asks for gluten-free options",
+   "spot": "Digging",
+   "area": "Customers and inbox",
+   "dollars": 3000,
+   "graded_by": "Key"
+  },
+  "C23": {
+   "status": "fixed",
+   "why": "reply drafted with the right facts",
+   "title": "Tessa asks her exact cash total, which changed with the tax rate",
+   "spot": "Hidden",
+   "area": "Customers and inbox",
+   "dollars": 5,
+   "graded_by": "Key"
+  },
+  "C24": {
+   "status": "fixed",
+   "why": "database updated",
+   "title": "Priscilla asked to move her pickup time",
+   "spot": "Digging",
+   "area": "Customers and inbox",
+   "dollars": 20,
+   "graded_by": "Key"
+  },
+  "C25": {
+   "status": "fixed",
+   "why": "order updated",
+   "title": "Diego asked to add a baguette to his order",
+   "spot": "Digging",
+   "area": "Customers and inbox",
+   "dollars": 5,
+   "graded_by": "Key"
+  },
+  "C26": {
+   "status": "fixed",
+   "why": "database updated",
+   "title": "Grace's phone number on her order is wrong",
+   "spot": "Digging",
+   "area": "Customers and inbox",
+   "dollars": 20,
+   "graded_by": "Key"
+  },
+  "C27": {
+   "status": "fixed",
+   "why": "database updated",
+   "title": "Victor asked to cancel his cake order and get his gift card balance back",
+   "spot": "Hidden",
+   "area": "Customers and inbox",
+   "dollars": 75,
+   "graded_by": "Key"
+  },
+  "C28": {
+   "status": "fixed",
+   "why": "database updated",
+   "title": "Laura ordered twice by mistake and needs one",
+   "spot": "Digging",
+   "area": "Customers and inbox",
+   "dollars": 30,
+   "graded_by": "Key"
+  },
+  "C29": {
+   "status": "fixed",
+   "why": "database updated",
+   "title": "Elena asked to move her pickup to Sunday",
+   "spot": "Digging",
+   "area": "Customers and inbox",
+   "dollars": 15,
+   "graded_by": "Key"
+  },
+  "C30": {
+   "status": "fixed",
+   "why": "database updated",
+   "title": "Kevin asked for his order to be under the name of the person collecting it",
+   "spot": "Digging",
+   "area": "Customers and inbox",
+   "dollars": 10,
+   "graded_by": "Key"
+  },
+  "L12": {
+   "status": "not fixed",
+   "why": "still missing the fix in signs/door_sign.txt",
+   "title": "We close on Christmas Day, but neither the door sign nor the listing says so",
+   "spot": "Digging",
+   "area": "Policies and legal",
+   "dollars": 150,
+   "graded_by": "Key"
+  },
+  "G04": {
+   "status": "fixed",
+   "why": "fixed",
+   "title": "No holiday hours are listed for Thanksgiving",
+   "spot": "Digging",
+   "area": "Online listing",
+   "dollars": 150,
+   "graded_by": "Key"
+  }
+ }
+}
