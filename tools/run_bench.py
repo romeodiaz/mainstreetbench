@@ -56,14 +56,24 @@ def need_playwright(install: bool) -> None:
         subprocess.run([sys.executable, "-m", "playwright", "install", "chromium"], check=True)
 
 
+def codex_auto_flag() -> str:
+    """Newer Codex versions renamed --full-auto to --approve-for-me; use whichever this one accepts."""
+    try:
+        help_text = subprocess.run(["codex", "exec", "--help"], capture_output=True, text=True, timeout=30).stdout
+    except (OSError, subprocess.TimeoutExpired):
+        return "--full-auto"
+    return "--approve-for-me" if "--approve-for-me" in help_text else "--full-auto"
+
+
 def agent_command(agent: str, model: str, workspace: Path, report_file: Path, template: str | None,
                   effort: str | None = None) -> list[str]:
     if agent == "claude":
         return ["claude", "-p", "--model", model, "--output-format", "stream-json", "--verbose", "--dangerously-skip-permissions",
                 "--disallowedTools", "WebFetch,WebSearch"] + (["--effort", effort] if effort else [])
     if agent == "codex":
-        return ["codex", "exec", "--json", "--model", model, "--cd", str(workspace), "--skip-git-repo-check", "--full-auto",
-                "--output-last-message", str(report_file)] + (["-c", f"model_reasoning_effort={effort}"] if effort else []) + ["-"]
+        return ["codex", "exec", "--json", "--model", model, "--cd", str(workspace), "--skip-git-repo-check", codex_auto_flag(),
+                "--output-last-message", str(report_file), "-c", "web_search=disabled"] + \
+               (["-c", f"model_reasoning_effort={effort}"] if effort else []) + ["-"]
     if not template:
         raise SystemExit("--agent custom needs --command")
     if effort and "{effort}" not in template:

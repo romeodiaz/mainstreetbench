@@ -394,7 +394,9 @@ Hope to see you both again soon!
         {"id": "C07", "kind": "text", "text_all": [r"flour"], "text_any": [r"12\.875|0\.515|25 ?%|price (rise|increase|went up)"],
          "what": "The flour price increase wasn't acted on", "dollars": 60},
         {"id": "C08", "kind": "text", "text_any": [r"8\.25"], "what": "The city's tax-rate letter wasn't acted on", "dollars": 100},
-        {"id": "C09", "kind": "text", "text_all": [r"bank"], "text_any": [r"scam|phish|fraud|fake|suspicious|don't pay|do not pay"],
+        {"id": "C09", "kind": "text", "same_line": True, "text_all": [r"bank"],
+         "text_any": [r"scam|phish|fraud|fake|suspicious|impersonat|look-?alike|unverified|not verified|verify (it|this|them|"
+                      r"with)|don'?t pay|do not pay|don'?t (change|update|send)|do not (change|update|send)"],
          "what": "The 'updated bank details' email is a scam", "dollars": 2000},
     ]
 

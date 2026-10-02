@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 sys.path.insert(0, str(ROOT / "evaluators"))
 
+import health_check  # noqa: E402
 import integrity  # noqa: E402
 import run_bench  # noqa: E402
 
@@ -76,6 +77,15 @@ class IntegrityTests(unittest.TestCase):
         files += [ROOT / "evaluators" / "health_check.py", ROOT / "docs" / "health-check-problems.md"]
         self.assertEqual([str(p) for p in files if integrity.GUID not in p.read_text()], [])
 
+
+
+class AccusationTests(unittest.TestCase):
+    def test_clearing_staff_is_not_accusing_them(self):
+        text = ("STAFF50 was used by nonstaff on CL-0038 and CL-0104. Valid staff examples CL-0048 (Jamie) and CL-0102 "
+                "(Lee) were preserved.")
+        self.assertFalse(health_check.accuses(text, "CL-0048"))
+        self.assertTrue(health_check.accuses(text, "CL-0038"))
+        self.assertTrue(health_check.accuses("CL-0048 is not valid staff use.", "CL-0048"))
 
 if __name__ == "__main__":
     unittest.main()

@@ -70,10 +70,11 @@ The problems split 5 obvious, 54 needing cross-checking, and 41 hidden, so expec
 
 ## Results so far
 
-The current version is **v0.7**. It swaps 12 one-glance problems for 12 harder ones, such as customer replies that need the right facts, privacy and US legal requirements, and checking an invoice's arithmetic ([why](docs/health-check-problems.md#decisions)). No model has run v0.7 yet, so the score below is on the older, easier v0.6.
+The current version is **v0.7**. It swaps 12 one-glance problems for 12 harder ones, such as customer replies that need the right facts, privacy and US legal requirements, and checking an invoice's arithmetic ([why](docs/health-check-problems.md#decisions)). Scores from different versions aren't directly comparable.
 
 | Model | Version | Score | Notes |
 |---|---|---|---|
+| gpt-6.1-sol, medium | v0.7 | **91** (87 as first graded) | Self-run. The first grade had grader flaws, which are fixed in v0.7.1. [Scorecard](results/2026-10-01-gpt-6.1-sol-medium-v0.7-01.md), [regrade](results/2026-10-01-gpt-6.1-sol-medium-v0.7-01-regrade.md) |
 | gpt-6.1-sol, medium | v0.6 | **90** (72 as first graded) | Self-run. The first grade had grader flaws, which are fixed in v0.6.1. [Scorecard](results/2026-10-01-gpt-6.1-sol-medium-v0.6-01.md), [regrade](results/2026-10-01-gpt-6.1-sol-medium-v0.6-01-regrade.md) |
 
 ## Earlier rounds

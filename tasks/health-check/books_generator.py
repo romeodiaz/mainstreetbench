@@ -239,8 +239,9 @@ def generate(seed: int = 20261008) -> tuple[dict[str, str], list[dict]]:
         drawer.append({"date": day, "expected_cash": f"{expected:.2f}", "counted_cash": f"{counted:.2f}",
                        "closed_by": closers[weekday]})
         bank.append({"date": day, "description": "CASH DEPOSIT", "amount": f"{counted:.2f}"})
+    days = [str(int(d[8:])) for d in tuesday_short]
     flag("M18", tuesday_short, "The cash drawer is $20 short every Tuesday", 20.0 * len(tuesday_short),
-         match="text", text_any=["Tuesday"])
+         match="text", text_any=["Tuesday", r"\b" + r"(st|nd|rd|th)?,?\s*(and\s*)?".join(days) + r"\b"])
 
     # Supplier bills (M13 double payment, M14 flour increase), subscription (M16)
     invoices = [
