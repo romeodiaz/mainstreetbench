@@ -1,0 +1,7 @@
+{
+  "run": "2026-10-01-claude-opus-5-5-medium-v0.9.1-02",
+  "model": "claude-opus-5-5 medium",
+  "version": "v0.9.1",
+  "source_commit": "fd20a18f946b913c88010dad636daa28d83f72db",
+  "created": "2026-10-01T20:12:29"
+}

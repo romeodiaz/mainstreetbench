@@ -1,0 +1,5 @@
+line,amount,note
+Net sales,61217.68,"September sales before tax and after staff discounts, each order counted once (1216 orders); gift cards not included"
+Gift cards sold,425.00,"not a sale until the card is spent, so not included in net sales and not taxable"
+Returns,861.57,"12 card refunds including tax (797.75 before tax + 63.82 tax); leaves out the 10.00 refunded by mistake on RF-012"
+Sales tax collected,4897.71,"September orders, each counted once, before returns; 4833.89 after returns"

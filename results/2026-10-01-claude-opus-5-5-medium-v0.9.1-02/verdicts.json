@@ -1,0 +1,45 @@
+{
+ "problems": {
+  "M15": {
+   "verdict": "not fixed",
+   "evidence": "The report gives the $132 cost against the $120 price. It never says each tray loses money. The only advice is 'check the price first' in the Westside draft, with no recommendation to raise the price or cut cost."
+  },
+  "M28": {
+   "verdict": "not fixed",
+   "evidence": "It notes the drawer was $20 short on every one of Lee Chen's closes (Sept 1, 8, 15, 22, 29). It recommends no safeguard, such as two-person counts or a count at shift change."
+  },
+  "L04": {
+   "verdict": "not fixed",
+   "evidence": "The report says the cancellation policy conflicts with the website and tells the owner to 'Pick one'. It left the policy file alone, so it still says online cancelling is not possible."
+  },
+  "L10": {
+   "verdict": "fixed",
+   "evidence": "policies/gift_cards.md now says an unused card can be refunded within 14 days of purchase. policies/refunds.md says the same."
+  },
+  "C11": {
+   "verdict": "fixed",
+   "evidence": "The draft to Maria says the cookies are made on the same mixer and bench as almond flour, so they may contain tree nuts. It says they are not safe for the children with tree nut allergies. It offers to cancel or change order #27 at no charge, and it never says the cookies are nut-free."
+  },
+  "C01": {
+   "verdict": "fixed",
+   "evidence": "The draft to Rosa apologises and says the duplicate $25.92 on CL-0045 will be refunded. It says the refund 'usually shows up within a few business days'."
+  },
+  "C03": {
+   "verdict": "fixed",
+   "evidence": "The draft to Hannah apologises. It blames the website confirmation page for showing the day before the real pickup day."
+  },
+  "C04": {
+   "verdict": "fixed",
+   "evidence": "The draft to Westside Dental quotes three trays at $120 plus $29.70 tax, $389.70 in total. It confirms Friday October 16 at 11:30 pickup and asks for a phone number."
+  },
+  "C05": {
+   "verdict": "fixed",
+   "evidence": "The report says RF-010 on CL-0228 failed after Jamie said it was done. It lists $89.64 as still owed to the customer."
+  },
+  "C06": {
+   "verdict": "fixed",
+   "evidence": "drafts/reply-review-coupon-tax.md replies to the 2-star review. It says the tax-on-coupon fault has been fixed."
+  }
+ },
+ "false_claims": []
+}
