@@ -1,0 +1,18 @@
+priority,issue,references,amount_at_issue,next_step
+High,Missing payouts,PO-0927; PO-0929,4361.55,"2006.23 and 2355.32 sent to closed account ...1170; neither appears at ...4821. Ask processor/bank to trace and reissue, and verify payout destination."
+High,Duplicate card charge,CL-0045; PAY-00031; PAY-00944,25.92,"Two captured charges for one order, no matching refund. Match Rosa Delgado message to processor identity (register email differs) and refund one verified duplicate."
+High,Failed promised refund,CL-0228; RF-010,89.64,"Status failed despite staff saying completed. Confirm current processor status, then retry safely and send receipt."
+High,Short promised full refund,CL-0261; RF-013,27.00,Promised 96.12; only 69.12 succeeded. Match Marcus Webb to processor (register email differs) and refund remaining 27.00 after checking no later refund.
+High,Dispute response,DP-2209; CL-0203,83.04,"68.04 disputed plus 15 fee if lost; response due Oct 6. Reason says cake, register has croissants, baguettes and pie. Verify exact payment/customer and collection proof; do not invent evidence."
+Medium,Card charged more than order,CL-0806; PAY-00630,1.00,Captured 52.84 versus register total 51.84. Verify receipt and refund excess if confirmed.
+Medium,Excess processor fee,CL-0405; PAY-00315; PO-0910,3.00,"4.05 charge fee is 3.42, contract fee should be 0.42. Request fee credit."
+Medium,Possible over-refund,CL-0608; RF-012,10.00,20.80 succeeded versus original total 10.80. Investigate terminal entry and correct accounting after verifying; do not automatically recharge customer.
+Medium,Refund tender mismatch,CL-0716; RF-011,97.20,"Original sale cash, refund says succeeded to card. Verify destination/card and any cash refund to ensure no double payout."
+Medium,Excess tax,CL-0331,0.30,"15.00 sale taxed 1.50 instead of 1.20 at September 8%. Check receipt, refund excess and reconcile tax treatment."
+Medium,Coffee promotional overcharges,CL-0792; CL-0794,3.24,Each charged 18.00 rather than 16.50 on Sept 20: 1.50 plus 0.12 tax excess each. Verify and refund 1.62 per order.
+Medium,Staff discount eligibility,CL-0372; CL-0651; CL-1150; CL-1184,134.88,"Discounts 41.88, 21.00, 37.50 and 34.50 to nonstaff or former Sam. Review authorization and restrict register permissions; do not automatically charge customers."
+Medium,Cash count pattern,"Sep 1, 8, 15, 22, 29; Sep 19",50.00,Five 20.00 short counts signed Lee (100.00 total) and one 50.00 over signed Priya (net 50.00 short). Bank deposits match counts. Review float/change/counting procedures; this does not establish theft.
+Medium,Duplicate bank row,PO-0910,1960.84,"Same Sept 10 bank row twice, only one processor payout. Confirm bank transaction IDs; do not count the copied row twice or assume two real deposits."
+Medium,Repeated supplier invoice ID,INV-DY-0917,318.60,ID appears for Sept 17 301.15 and Sept 29 318.60; both bank debits exist. Obtain both invoices/correct number before treating either as duplicate payment.
+Medium,Bank debit without invoice,INV-GB-0918,286.40,Sept 18 Global Bake Supply debit is absent from supplier invoice list. Obtain invoice and verify vendor/purpose.
+Medium,Potential supplier impersonation,Oct 5 bank-change email,,Sender prairie-flour-payments.example differs from original prairieflour.example. Do not adopt new banking details; call supplier using independently known contact. Future-dated relative to Oct 1.

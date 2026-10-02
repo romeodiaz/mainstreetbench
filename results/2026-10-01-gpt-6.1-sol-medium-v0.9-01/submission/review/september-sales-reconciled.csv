@@ -1,0 +1,14 @@
+line,amount,note
+September unique orders,1216,Six exact duplicate rows and one August transaction excluded
+Sales before discounts,61418.06,September register only; no gift-card sales included
+Discounts,200.38,Recorded discounts; staff eligibility exceptions require review
+Sales after discounts before returns,61217.68,61418.06 - 200.38
+Succeeded refunds incl tax,871.57,Recorded succeeded only; includes disputed over-refund and wrong-tender entries
+Refunds excl tax (provisional),807.01,"Each succeeded refund divided by 1.08, rounded half up"
+Net sales (provisional),60410.67,61217.68 - 807.01; not a finalized return
+Tax recorded on September sales,4897.71,Deduplicated recorded charges; includes CL-0331 excess 0.30
+Tax included in succeeded refunds (provisional),64.56,Refund gross less refund pretax
+Tax collected less succeeded refunds (provisional),4833.15,4897.71 - 64.56; accountant must resolve refund errors and excess tax
+Gift cards sold (separate liability),425.00,"From ledger, not income at sale; not found in register exports"
+Gift cards redeemed,180.00,Match underlying sales before any further revenue entry; avoid double counting
+Gift-card liability at September close,1485.00,1240 + 425 - 180

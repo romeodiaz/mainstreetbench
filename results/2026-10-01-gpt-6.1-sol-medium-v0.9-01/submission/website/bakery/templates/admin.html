@@ -1,0 +1,11 @@
+<h1>Orders</h1>
+<form method="get" action="/admin"><label>Pickup date <input type="date" name="date" value="$date"></label> <button>Show</button> <a href="/admin">All</a> · <a href="/admin/orders.csv">Download orders</a></form>
+<table class="admin">
+<thead><tr><th>Order</th><th>Pickup</th><th>Time</th><th>Customer</th><th>Items</th><th>Total</th><th>Gift card</th><th>Due at pickup</th><th>Status</th><th>Actions</th></tr></thead>
+<tbody>
+$rows
+</tbody>
+</table>
+
+<p id="admin-error" class="error" role="alert"></p>
+<script src="/static/admin.js"></script>

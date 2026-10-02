@@ -1,0 +1,6 @@
+# Promotions calendar
+
+- FALL15: 15% off, August 1–31. Ended.
+- Coffee beans: $16.50 instead of $18.00, September 20 – October 15.
+- Day-old bread: half price after 2pm, every day.
+- Thanksgiving promotion on hold: the bakery is closed Thursday, November 26. Owner to choose an open pickup date and confirm dinner roll availability before advertising.

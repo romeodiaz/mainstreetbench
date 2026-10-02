@@ -1,0 +1,10 @@
+17 HTTP regression tests passed on temporary databases.
+JavaScript syntax checks passed.
+Database integrity check: ok.
+orders unchanged
+order_items unchanged
+gift_cards unchanged
+payments_received unchanged
+promo_codes unchanged
+Existing-order copy: Nina/Tessa balances, Victor restoration once, Laura cancellation preserves both records
+Live order/customer/payment/gift records were not changed. Only catalog cinnamon-roll price was updated.

@@ -1,0 +1,8 @@
+order_id,issue,recorded,expected_or_detail
+CL-0331,tax,1.50,1.20
+CL-0372,staff coupon,customer155@example.com,2026-09-09
+CL-0651,staff coupon,customer142@example.com,2026-09-16
+CL-0792,coffee promo,18.00,1.50
+CL-0794,coffee promo,18.00,1.50
+CL-1150,staff coupon,sam.k@cornerloaf.example,2026-09-29
+CL-1184,staff coupon,customer058@example.com,2026-09-30

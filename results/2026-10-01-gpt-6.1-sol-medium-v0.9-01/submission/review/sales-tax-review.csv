@@ -1,0 +1,6 @@
+line,amount,note
+Taxable sales after recorded succeeded refunds (provisional),60410.67,Refund allocation assumes 8% taxable items; verify wrong tender and excess refund
+Tax collected less recorded refund tax (provisional),4833.15,Includes 0.30 excess CL-0331; do not file this as a completed return
+Rate,8%,September rate; 8.25% begins October 1
+Taxable sales in original draft,60346.11,Original subtracts gross refunds instead of excluding refund tax
+Tax collected in original draft,4779.31,53.84 below provisional reconciled recorded net tax

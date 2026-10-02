@@ -1,0 +1,10 @@
+CORNER LOAF BAKERY
+12 Main Street, Springfield, IL · 555-010-0000
+{items}
+Subtotal {subtotal}
+Tax {tax}
+Total {total}
+If something is wrong, bring your receipt within 14 days for a refund or exchange.
+Unused gift cards: refunds within 14 days. Custom cakes and catering cannot be returned once collected.
+Cancellation: at least 48 hours before pickup; see policy or call us.
+Thank you!
