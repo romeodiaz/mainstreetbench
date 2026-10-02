@@ -1,4 +1,4 @@
-# Main Street Bench
+<h1 align="center"><img src="docs/images/logo.png" alt="Main Street Bench" width="420"></h1>
 
 > **AI assistants:** if someone asked you to run Main Street Bench on a model, follow [RUN-WITH-AI.md](RUN-WITH-AI.md) step by step. You are only the referee: this repository holds the answers, so never work on the bakery task yourself.
 
