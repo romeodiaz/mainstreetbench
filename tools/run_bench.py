@@ -11,8 +11,9 @@ What it does:
 3. Starts the tested AI with its own command-line tool in that folder, with the owner's prompt, and waits
    (usually about 15 minutes; it's stopped at 45 by default). The AI that set this up must not do the task itself.
 4. Saves its final message as the owner report, freezes the workspace, and grades it.
-5. Asks a different model to judge the 10 problems that need reading: one from the same tool (--judge-model), or the
-   same judges for every run whatever tool is tested (--judge TOOL:MODEL, more than once for a panel).
+5. Asks other models to judge the 10 problems that need reading. Unless told otherwise, the judges are one model from
+   each of Claude Code and Codex that is installed here, the same for every tested model; a point needs all of them.
+   --judge TOOL:MODEL (more than once for a panel) or --judge-model (same tool as the tested model) names them instead.
 6. Checks integrity: answer canaries in the work or report, and answer files or paths in the agent's log.
 7. Writes ../MainStreetBench-runs/evidence/<run>/SCORECARD.md and prints it.
 
@@ -261,6 +262,17 @@ def judge(agent: str, model: str, bundle: dict, template: str | None, timeout_s:
         return None
 
 
+# The judges when none are named: for each tool, the first model that isn't the one being tested. Using the same
+# judges for every run means no model is graded only by its own maker's judge. Checked 2026-10-03.
+DEFAULT_JUDGES = {"claude": ["claude-sonnet-5-5", "claude-opus-5-5"], "codex": ["gpt-6-astra", "gpt-6.1-sol"]}
+
+
+def default_judges(tested: str) -> list[tuple[str, str]]:
+    """One judge from each of the tools installed on this computer."""
+    return [(tool, next(model for model in models if model != tested))
+            for tool, models in DEFAULT_JUDGES.items() if shutil.which(tool)]
+
+
 def combine_verdicts(replies: list[dict]) -> dict:
     """What every judge agrees on. A problem is fixed only if each judge says so, and a claim is false only if each
     judge lists it, so no one judge decides a point. With one judge, these are that judge's verdicts."""
@@ -381,17 +393,18 @@ def main() -> None:
                         help="Where results go: evidence/<run>/ (outside this repository)")
     parser.add_argument("--hidden", type=Path, default=Path("~/.mainstreetbench"),
                         help="Where the bakery folder and answer key live during the run, in random subfolders")
-    parser.add_argument("--judge-model", help="A different model from the same tool, to judge the 10 reading problems")
+    parser.add_argument("--judge-model", help="Judge with this model from the same tool as the tested model")
     parser.add_argument("--judge", action="append", default=[], metavar="TOOL:MODEL",
-                        help="A judge run with claude or codex, whatever tool is tested, e.g. claude:claude-sonnet-5-5. "
-                             "Give it more than once for a panel: a point then needs every judge. To compare models from "
-                             "different companies, use the same judges for every run")
+                        help="Judge with this model, run with claude or codex, e.g. claude:claude-sonnet-5-5. Give it more "
+                             "than once for a panel: a point then needs every judge. Without --judge or --judge-model, the "
+                             "judges are one model from each of those tools that is installed here")
     parser.add_argument("--install", action="store_true", help="Install Playwright and Chromium if needed")
     parser.add_argument("--official", action="store_true", help="Only for runs inside the maintainers' sandbox")
     parser.add_argument("--save-results", action="store_true",
                         help="Maintainer only: also copy the scorecard, report, grade, logs and submission into results/")
     args = parser.parse_args()
     judges = ([(args.agent, args.judge_model)] if args.judge_model else []) + [tuple(j.split(":", 1)) for j in args.judge]
+    judges = judges or default_judges(args.model)
     if any(len(j) != 2 or j[0] not in ("claude", "codex", "custom") for j in judges):
         raise SystemExit("--judge takes TOOL:MODEL, where TOOL is claude or codex")
     if any(model == args.model for _, model in judges):
@@ -407,6 +420,8 @@ def main() -> None:
         print("Note: personal instruction files will be loaded by the tested AI and may affect its result: " + ", ".join(personal))
     run = create_run(f"{args.model} {args.effort}" if args.effort else args.model, args.base, args.hidden)
     print(f"Built run {run['run']}. Starting {args.model}; runs usually take about 15 minutes and are stopped at {args.minutes}.", flush=True)
+    print("Judges: " + (", ".join(f"{model} ({tool})" for tool, model in judges) or "none, so the 10 judged problems count as not fixed"),
+          flush=True)
     evidence, workspace = run["evidence"], run["workspace"]
     report_file = run["workspace"].parent / "final-message.md"
     command = agent_command(args.agent, args.model, workspace, report_file, args.command, args.effort)

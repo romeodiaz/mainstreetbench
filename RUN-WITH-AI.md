@@ -18,17 +18,15 @@ Use the `claude` or `codex` preset; don't wrap the tool in your own script. The 
 From this repository's folder:
 
 ```sh
-python3 tools/run_bench.py --install --agent codex  --model MODEL_ID [--effort medium] --judge-model OTHER_MODEL_ID   # OpenAI models
-python3 tools/run_bench.py --install --agent claude --model MODEL_ID [--effort medium] --judge-model OTHER_MODEL_ID   # Claude models
+python3 tools/run_bench.py --install --agent codex  --model MODEL_ID [--effort medium]   # OpenAI models
+python3 tools/run_bench.py --install --agent claude --model MODEL_ID [--effort medium]   # Claude models
 ```
 
 **Reasoning effort:** if the person names one ("gpt-6.1-sol medium", "Opus on high"), add `--effort medium` (or whatever they said). Never drop it: the same model at a different effort is a different result. If the tool rejects the setting, tell the person rather than running without it. If they don't name one, leave it out and tell the person the tool's default effort was used.
 
-**Judge:** always add `--judge-model`. The judge grades the 10 problems that need reading, such as whether a customer got a sensible reply. It runs in the same tool as the tested model, so use the most capable **other** model that tool offers: e.g. `claude-sonnet-5-5` when testing `claude-opus-5-5`, `claude-opus-5-5` when testing any other Claude model, and likewise for GPT models in Codex. The script refuses the tested model itself. The scorecard names the judge and shows how many fixes it decided.
+**Judges:** add nothing; the script picks them. The judges grade the 10 problems that need reading, such as whether a customer got a sensible reply. They are one model from each of Claude Code and Codex that is installed on this computer: `claude-sonnet-5-5` and `gpt-6-astra`, or the next model down when that one is being tested. So every tested model gets the same judges, whichever company made it. With both tools installed, a point needs both judges; with one, there is one judge. The scorecard names them and shows how often they agreed. Don't judge the work yourself. Only if a judge's model isn't offered in the person's tool, name another with `--judge TOOL:MODEL` (for example `--judge claude:claude-opus-5-5`) and say so when you report.
 
-**Comparing models from different companies:** judge every run with the same judges, so no model is graded only by its own maker's judge. Replace `--judge-model` with `--judge claude:claude-sonnet-5-5 --judge codex:gpt-6-astra` (both tools must be installed and signed in; a judge still can't be the tested model). A point then needs both judges, and the scorecard shows how often they agreed.
-
-If the judge can't run, those 10 count as not fixed and the scorecard says so.
+If no judge can run, those 10 count as not fixed and the scorecard says so.
 
 The run usually takes about 15 minutes and is stopped at 45 (`--minutes` changes the limit). It builds a fresh copy of the bakery in a random hidden folder under `~/.mainstreetbench/`, away from this repository and the answer key. It starts the tested model there with the owner's message, waits, grades the result and prints a scorecard. Leave it alone while it runs, and don't open or list those folders yourself.
 
@@ -68,6 +66,7 @@ Show the person the scorecard (`../MainStreetBench-runs/evidence/RUN/SCORECARD.m
 - the dollars at risk caught, out of $100,000;
 - time and cost, if the tool reported cost;
 - what it was best and worst at, by area;
+- the judges, and whether there was one or two;
 - the Integrity row, and the model the tool reported if it differs from the one requested;
 - that it's a self-run, and the model's release date.
 

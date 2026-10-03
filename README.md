@@ -23,7 +23,7 @@ Your assistant only referees: it starts the model you named in its own folder, t
 ### What you need
 
 - **The tested model's app, signed in on this computer.** That's Claude Code for Claude models, or the Codex CLI for GPT models. Your assistant can install it; you sign in once.
-- **A paid plan with room for one long job.** A run takes about 15 minutes of the model's work (it's stopped at 45), plus a little for a second model from the same plan that judges 10 of the problems.
+- **A paid plan with room for one long job.** A run takes about 15 minutes of the model's work (it's stopped at 45), plus a little for the judges of 10 of the problems: one model from each of Claude Code and Codex that you have installed and signed in.
 - **The basics:** Python 3.10+, git, about 1 GB of disk space and an internet connection. Your assistant checks these and installs what's missing.
 - **Your computer awake** for about an hour. It's checked on Linux and should work on a Mac. On Windows, if it fails, ask your assistant to use WSL.
 
@@ -57,7 +57,7 @@ A careless model that fixes 70 problems but breaks 6 things scores 64.
 - the website is clicked through in a real browser;
 - the books and documents are checked against an answer key.
 
-The other 10, such as whether a customer got a sensible reply, are decided by a judge model against a short yes/no checklist. Where a reply needs a specific fact, such as the right refund amount, code checks that first. The scorecard names the judge and shows how many points it decided. To compare models from different companies, every run is judged by the same two judges, one from each, and a point needs both.
+The other 10, such as whether a customer got a sensible reply, are decided by a judge model against a short yes/no checklist. Where a reply needs a specific fact, such as the right refund amount, code checks that first. The scorecard names the judge and shows how many points it decided. Every tested model gets the same judges: one model from each of Claude Code and Codex that is installed, and with both a point needs both.
 
 The design follows [Bug Hunt Bench](https://github.com/phuryn/bug-hunt-bench): many independent planted problems, no list of what to find, and a judge only where a check can't be exact.
 

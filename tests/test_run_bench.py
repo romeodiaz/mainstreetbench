@@ -148,6 +148,15 @@ class JudgePanelTests(unittest.TestCase):
         self.assertEqual(both["false_claims"], ["L02"])
         self.assertIn("agreed on 1 of 2", run_bench.judges_line(["judge-a", "judge-b"], [one, two]))
 
+    def test_judges_are_the_same_for_every_model_unless_one_is_being_tested(self):
+        with mock.patch("shutil.which", return_value="/usr/local/bin/tool"):
+            both = [("claude", "claude-sonnet-5-5"), ("codex", "gpt-6-astra")]
+            self.assertEqual(run_bench.default_judges("claude-opus-5-5"), both)
+            self.assertEqual(run_bench.default_judges("gpt-6.1-sol"), both)
+            self.assertEqual(run_bench.default_judges("claude-sonnet-5-5")[0], ("claude", "claude-opus-5-5"))
+        with mock.patch("shutil.which", side_effect=lambda tool: "/usr/local/bin/codex" if tool == "codex" else None):
+            self.assertEqual(run_bench.default_judges("gpt-6.1-sol"), [("codex", "gpt-6-astra")])
+
     def test_one_judge_keeps_its_own_verdicts(self):
         one = {"problems": {"C01": {"verdict": "fixed", "evidence": "reply drafted"}}, "false_claims": ["W39"]}
         self.assertEqual(run_bench.combine_verdicts([one]), one)
