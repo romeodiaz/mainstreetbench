@@ -18,6 +18,7 @@ What it does:
 Agents:
   claude   Claude Code CLI:  claude -p --model MODEL [--effort EFFORT] (web tools disabled)
   codex    Codex CLI:        codex exec --model MODEL [-c model_reasoning_effort=EFFORT] --full-auto
+           Codex reports tokens but no cost, so the scorecard prices its tokens at OpenAI's public API prices.
   custom   --command TEMPLATE, run inside the workspace with the prompt on stdin. Placeholders:
            {model} {effort} {workspace} {prompt_file} {report_file}. Its stdout, or {report_file} if written, is the report.
 
@@ -96,7 +97,8 @@ def clean_codex_home() -> Path | None:
 def run_agent(command: list[str], workspace: Path, prompt: str, timeout_s: int, log: Path) -> tuple[str, dict]:
     """Run an agent; return (its stdout, extra usage info). The run is stopped at the time limit.
 
-    Codex runs with a clean temporary profile; the session record it writes there tells us the model and effort used."""
+    Codex runs with a clean temporary profile; the session record it writes there tells us the model and effort used,
+    and the tokens each model request used, which are added to the log."""
     if shutil.which(command[0]) is None:
         raise SystemExit(f"'{command[0]}' isn't installed or isn't on PATH")
     codex_home = clean_codex_home() if command[0] == "codex" else None
@@ -113,8 +115,10 @@ def run_agent(command: list[str], workspace: Path, prompt: str, timeout_s: int, 
     if codex_home:
         session = "\n".join(p.read_text(errors="ignore") for p in sorted((codex_home / "sessions").rglob("*.jsonl")))
         shutil.rmtree(codex_home, ignore_errors=True)   # holds a copy of the sign-in
+    requests = "".join(json.dumps(r) + "\n" for r in codex_requests(session))
     log.write_text(f"$ {' '.join(command)}\nexit: {code}\nclean Codex profile: {bool(codex_home)}\n\n"
-                   f"--- stdout ---\n{out}\n--- stderr ---\n{err}\n")
+                   f"--- stdout ---\n{out}\n--- stderr ---\n{err}\n"
+                   + (f"--- tokens per model request, from Codex's session record ---\n{requests}" if requests else ""))
     return out + ("\n" + session if session else ""), {"seconds": round(time.time() - started), "exit": code,
                                                         "clean_profile": bool(codex_home)}
 
@@ -164,6 +168,65 @@ def report_from(agent: str, stdout: str, report_file: Path) -> tuple[str, dict]:
     return stdout, usage
 
 
+# OpenAI's public API prices in USD per million tokens, for Codex runs, which report tokens but no cost. Checked
+# 2026-10-02 at https://developers.openai.com/api/docs/models/<model>. A request with more than 272K input tokens
+# costs 2x for its input (cache reads and writes too) and 1.5x for its output.
+API_PRICES = {"gpt-6.1-sol": {"input": 2.00, "cached_input": 0.10, "cache_write_input": 2.50, "output": 10.00}}
+PRICES_CHECKED = "2026-10-02"
+LONG_CONTEXT_TOKENS = 272_000
+
+
+def codex_requests(session: str) -> list[dict]:
+    """The model and token counts of each model request in Codex's session records (one file per session).
+
+    With --approve-for-me, Codex's codex-auto-review model checks commands in a session of its own."""
+    requests, model = [], None
+    for event in events(session):
+        payload = event.get("payload") or {}
+        if event.get("type") in ("session_meta", "turn_context"):
+            model = payload.get("model")
+        elif event.get("type") == "token_usage_record" and payload.get("usage"):
+            requests.append({"type": "request_usage", "model": model, **payload["usage"]})
+    return requests
+
+
+def api_cost(price: dict, tokens: dict, one_request: bool = True) -> float:
+    """Dollars for a request's tokens at a model's API prices. Input counts include cache reads and writes.
+
+    With one_request=False the tokens are a whole run's totals, priced at standard rates."""
+    cached, written = tokens.get("cached_input_tokens", 0), tokens.get("cache_write_input_tokens", 0)
+    long = one_request and tokens["input_tokens"] > LONG_CONTEXT_TOKENS
+    dollars_in = (tokens["input_tokens"] - cached - written) * price["input"] + cached * price["cached_input"] \
+        + written * price["cache_write_input"]
+    return (dollars_in * (2 if long else 1) + tokens["output_tokens"] * price["output"] * (1.5 if long else 1)) / 1e6
+
+
+def codex_usage(log: str, model: str) -> dict:
+    """Codex's token totals from a run's log, and what they'd cost at OpenAI's public API prices.
+
+    Each request that run_agent saved in the log is priced on its own, so long ones get the long-context rate.
+    A log without them is priced from the run's totals at standard rates."""
+    found = events(log)
+    totals = [e["usage"] for e in found if e.get("type") == "turn.completed" and e.get("usage")]
+    requests = [e for e in found if e.get("type") == "request_usage"]
+    result = {"usage": {k: sum(t.get(k, 0) for t in totals) for k in totals[0]}} if totals else {}
+    priced = [r for r in requests if r["model"] in API_PRICES]
+    if priced:
+        unpriced = sorted({str(r["model"]) for r in requests} - set(API_PRICES))
+        long = sum(r["input_tokens"] > LONG_CONTEXT_TOKENS for r in priced)
+        cost = sum(api_cost(API_PRICES[r["model"]], r) for r in priced)
+        basis = (f"{len(priced)} requests priced one by one, {long} of them over {LONG_CONTEXT_TOKENS // 1000}K input tokens"
+                 + (f"; requests to {', '.join(unpriced)} aren't counted (no public price)" if unpriced else ""))
+    elif totals and not requests and model in API_PRICES:
+        cost = api_cost(API_PRICES[model], result["usage"], one_request=False)
+        basis = ("the run's token totals at standard rates. This log has no per-request counts, so requests over "
+                 f"{LONG_CONTEXT_TOKENS // 1000}K input tokens can't be priced at the higher rate")
+    else:
+        return result
+    return {**result, "cost_usd": round(cost, 6),
+            "cost_basis": f"Estimated at OpenAI's public API prices, checked {PRICES_CHECKED}: {basis}."}
+
+
 def judge(agent: str, model: str, bundle: dict, template: str | None, timeout_s: int, log: Path) -> dict | None:
     prompt = ("Grade this work. Use only what is below. Reply with only the JSON object described in "
               "'instructions'.\n\n" + json.dumps(bundle, indent=1))
@@ -198,6 +261,9 @@ def integrity_line(checked: dict) -> str:
 def scorecard(run: dict, graded: dict, timing: dict, usage: dict, official: bool, judge_name: str | None = None,
               checked: dict | None = None) -> str:
     broke = graded["broke_something"]
+    cost = "not reported by the tool" if usage.get("cost_usd") is None else f"${usage['cost_usd']:.2f}"
+    if usage.get("cost_basis"):
+        cost += ", estimated from token counts at public API prices"
     lines = [
         f"# Main Street Bench {run['version']} — {run['model']}",
         "",
@@ -215,7 +281,7 @@ def scorecard(run: dict, graded: dict, timing: dict, usage: dict, official: bool
         f"| Model the tool reported | {', '.join(usage.get('models_reported') or []) or 'not reported'} |",
         f"| Integrity | {integrity_line(checked) if checked else 'not checked'} |",
         f"| Time | {timing.get('seconds', 0) // 60} min {timing.get('seconds', 0) % 60} s |",
-        f"| Cost | {'$%.2f' % usage['cost_usd'] if usage.get('cost_usd') is not None else 'not reported by the tool'} |",
+        f"| Cost | {cost} |",
         "", "| Area | Fixed |", "|---|---|",
     ]
     lines += [f"| {area} | {value} |" for area, value in graded["by_area"].items()]
@@ -280,6 +346,8 @@ def main() -> None:
     stdout, timing = run_agent(command, workspace, run["prompt"].read_text(), args.minutes * 60, evidence / "agent-log.txt")
     report, usage = report_from(args.agent, stdout, report_file)
     usage["models_reported"] = models_reported(stdout)
+    if args.agent == "codex":
+        usage.update(codex_usage((evidence / "agent-log.txt").read_text(), args.model))
     (evidence / "owner-report.md").write_text(report)
     shutil.copytree(workspace, evidence / "frozen", ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
     shutil.rmtree(workspace.parent, ignore_errors=True)

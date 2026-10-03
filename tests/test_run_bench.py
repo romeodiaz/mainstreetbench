@@ -40,6 +40,27 @@ class OutputParsingTests(unittest.TestCase):
         report, usage = run_bench.report_from("custom", "Plain report.", Path("/nonexistent"))
         self.assertEqual((report, usage), ("Plain report.", {}))
 
+    def test_codex_requests_are_priced_one_by_one_at_public_api_prices(self):
+        def record(given, cached, out):
+            return {"type": "token_usage_record", "payload": {"usage": {
+                "input_tokens": given, "cached_input_tokens": cached, "cache_write_input_tokens": 0, "output_tokens": out}}}
+        session = [{"type": "session_meta", "payload": {}}, {"type": "turn_context", "payload": {"model": "gpt-6.1-sol"}},
+                   record(100_000, 80_000, 1_000), record(300_000, 0, 1_000),
+                   {"type": "session_meta", "payload": {}}, {"type": "turn_context", "payload": {"model": "codex-auto-review"}},
+                   record(9_000, 0, 100)]
+        log = "".join(json.dumps(r) + "\n" for r in run_bench.codex_requests("\n".join(json.dumps(e) for e in session)))
+        usage = run_bench.codex_usage(log, "gpt-6.1-sol")
+        # 20K uncached at $2/M, 80K cached at $0.10/M and 1K out at $10/M; then a long request at 2x input, 1.5x output
+        self.assertAlmostEqual(usage["cost_usd"], 0.058 + 1.215)
+        self.assertIn("1 of them over 272K", usage["cost_basis"])
+        self.assertIn("codex-auto-review aren't counted", usage["cost_basis"])
+
+    def test_codex_log_without_requests_is_priced_from_its_totals_at_standard_rates(self):
+        totals = {"input_tokens": 1_000_000, "cached_input_tokens": 900_000, "cache_write_input_tokens": 0, "output_tokens": 20_000}
+        log = json.dumps({"type": "turn.completed", "usage": totals})
+        self.assertAlmostEqual(run_bench.codex_usage(log, "gpt-6.1-sol")["cost_usd"], 0.2 + 0.09 + 0.2)
+        self.assertEqual(run_bench.codex_usage(log, "unpriced-model"), {"usage": totals})
+
 
 class IntegrityTests(unittest.TestCase):
     def setUp(self):

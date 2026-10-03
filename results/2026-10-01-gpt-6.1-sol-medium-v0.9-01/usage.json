@@ -2,6 +2,15 @@
   "seconds": 861,
   "exit": 0,
   "clean_profile": true,
+  "cost_usd": 0.534875,
+  "cost_basis": "Estimated at OpenAI's public API prices, checked 2026-10-02, from the run's token totals in agent-log.txt (added after the run). Standard rates apply: the log has no per-request counts, but only 83,546 input tokens in the whole run were uncached, and each request mostly re-reads the one before it from cache, so none came near the 272K-token long-context threshold.",
+  "usage": {
+    "input_tokens": 1219674,
+    "cached_input_tokens": 1136128,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 25417,
+    "reasoning_output_tokens": 3378
+  },
   "models_reported": [
     "gpt-6.1-sol",
     "gpt-6.1-sol (medium)",
