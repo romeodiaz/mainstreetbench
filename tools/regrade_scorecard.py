@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Rewrite results/<run>.md from a saved regrade (maintainer only).
 
-    python3 tools/regrade_scorecard.py --grader v0.9.2 results/<run> [results/<run> ...]
+    python3 tools/regrade_scorecard.py --grader v0.9.3 results/<run> [results/<run> ...]
 
 A regrade re-checks a saved submission with a corrected grader and writes
 results/<run>/regrade.json beside the original grade.json. This rebuilds the
@@ -26,7 +26,7 @@ import integrity  # noqa: E402
 from run_bench import scorecard  # noqa: E402
 
 parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-parser.add_argument("--grader", required=True, help="Version of the grader that produced regrade.json, e.g. v0.9.2")
+parser.add_argument("--grader", required=True, help="Version of the grader that produced regrade.json, e.g. v0.9.3")
 parser.add_argument("runs", nargs="+", type=Path, help="results/<run> folders holding regrade.json")
 args = parser.parse_args()
 

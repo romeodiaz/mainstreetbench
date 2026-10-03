@@ -52,6 +52,13 @@ class HealthCheckTests(unittest.TestCase):
         self.assertEqual(len(ids), 100)
         self.assertEqual(sorted(ids), sorted(build.catalog()))
 
+    def test_dollars_at_risk_add_up_to_100000(self):
+        listed = {pid: row["at_risk"] for pid, row in build.catalog().items()}
+        self.assertEqual(listed, health_check.AT_RISK)   # the catalog and the grader show the same figures
+        self.assertEqual(sum(listed.values()), 100_000)
+        graded = health_check.grade(self.shipped, self.key, "", None, site=NO_SITE)
+        self.assertEqual((graded["dollars_at_risk_caught"], graded["dollars_at_risk_total"]), (0, 100_000))
+
     def test_site_problems_apply_alone_and_together(self):
         site_problems.check_patches()
         self.assertEqual(len(site_problems.SITE_PROBLEMS), 31)
@@ -148,6 +155,7 @@ class HealthCheckTests(unittest.TestCase):
         verdicts = {"problems": {p: {"verdict": "fixed"} for p in reference_fix.JUDGE_IDS}, "false_claims": []}
         graded = health_check.grade(fixed, self.key, report, verdicts)
         self.assertEqual(graded["score"], 100, {p: v["why"] for p, v in graded["problems"].items() if v["status"] != "fixed"})
+        self.assertEqual(graded["dollars_at_risk_caught"], 100_000)
         self.assertEqual(sum(len(v) for v in graded["broke_something"].values()), 0)
 
 

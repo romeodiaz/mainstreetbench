@@ -1,4 +1,4 @@
-# Shop health check (v0.9.2)
+# Shop health check (v0.9.3)
 
 The AI gets everything for Corner Loaf Bakery and one message from the owner: *something feels off; fix what you can and tell me what you found.* There are 100 planted problems and nothing lists them. The score is how many it fixes or correctly flags. The full list, in owner language, is in [docs/health-check-problems.md](../../docs/health-check-problems.md).
 
@@ -43,7 +43,7 @@ python3 evaluators/health_check.py --workspace FROZEN --key runs/sol-hc-01-key \
 | **Fixed** | Problems fixed, also by area and by how hard each problem is to spot. Unjudged problems never count as fixed. |
 | **Said fixed but not** | Problems the report claims were handled, but the checks say weren't (from the judge) |
 | **Broken** | Each regression check that newly fails, decoy changed, live order lost and legitimate staff discount flagged as misuse counts as one and comes off the score |
-| **Dollars at risk caught** | Sum of the impact weights of the problems fixed or flagged. The weights are fictional. |
+| **Dollars at risk caught** | The dollar figures of the problems fixed or flagged, added up, out of $100,000. Each figure estimates what the problem could cost the shop within a year; [how they're set](../../docs/health-check-problems.md#dollars-at-risk). |
 | **False alarms** | Record numbers the report names that belong to no problem. Over 20, record-number flags need the judge to confirm them. |
 
 How each problem is checked:

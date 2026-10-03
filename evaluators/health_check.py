@@ -28,12 +28,25 @@ AREAS = {"W": "Website and ordering", "M": "Money and books", "P": "Menu, prices
          "L": "Policies and legal", "C": "Customers and inbox", "G": "Online listing"}
 RECORD_ID = re.compile(r"\b(?:CL-\d{4}(?:-\d{4})?|PAY-\d{5}|RF-\d{3}|PO-\d{4}|INV-[A-Z]{2}-\d{4}|DP-\d{4})\b")
 MAX_UNRELATED_RECORDS = 20     # more than this, and record-number flags need the judge to confirm them
-SITE_DOLLARS = {"W01": 500, "W02": 500, "W03": 100, "W04": 60, "W05": 200, "W06": 100, "W07": 20, "W08": 50, "W09": 50,
-                "W10": 150, "W15": 300, "W17": 300, "W18": 1000,
-                "W19": 150, "W22": 100, "W23": 1000, "W26": 100,
-                "W28": 100, "W29": 50, "W30": 100, "W31": 1000, "W32": 500, "W33": 150, "W34": 300, "W36": 1000, "W37": 300, "W38": 300, "W39": 2000, "W40": 100, "W41": 200,
-                "W42": 100, "W43": 200, "W44": 200, "W45": 100, "W46": 50, "W47": 100, "W48": 1000, "W49": 50,
-                "L06": 250, "L09": 100, "P14": 1000}
+# What each problem could cost the shop within a year if nobody caught it. The 100 figures add up to $100,000.
+# docs/health-check-problems.md lists the same figures and says how they were set.
+AT_RISK = {
+    "W01": 1500, "W02": 1500, "W03": 250, "W05": 250, "W15": 1000, "W18": 2500, "W19": 2000, "W23": 2000, "W28": 500,
+    "W30": 250, "W31": 1500, "W32": 3000, "W33": 500, "W34": 750, "W36": 1500, "W37": 750, "W38": 500, "W39": 2500,
+    "W40": 250, "W41": 500, "W42": 100, "W43": 500, "W44": 500, "W45": 500, "W46": 100, "W47": 250, "W48": 750,
+    "W49": 100,
+    "M01": 100, "M04": 250, "M11": 500, "M12": 250, "M14": 750, "M15": 500, "M17": 1000, "M18": 1000, "M19": 250,
+    "M20": 250, "M21": 100, "M23": 4500, "M24": 100, "M25": 100, "M26": 100, "M28": 750, "M29": 100, "M30": 100,
+    "M31": 100, "M32": 1000, "M33": 100, "M34": 100, "M35": 100, "M36": 2000, "M37": 250, "M38": 250, "M39": 500,
+    "M40": 100, "M41": 250,
+    "P01": 7500, "P03": 4000, "P04": 500, "P05": 2500, "P12": 250, "P13": 3000, "P14": 2000, "P16": 250, "P17": 500,
+    "P18": 2000, "P19": 1000,
+    "L02": 500, "L03": 1000, "L04": 250, "L06": 750, "L09": 250, "L10": 250, "L11": 1000, "L12": 250, "L13": 250,
+    "L15": 500, "L16": 750, "L17": 500, "L18": 1000, "L19": 4000,
+    "C01": 250, "C02": 7500, "C03": 250, "C04": 500, "C05": 250, "C06": 250, "C09": 2500, "C11": 6000, "C12": 1500,
+    "C13": 500, "C14": 100, "C15": 100, "C18": 3000, "C23": 100, "C25": 100, "C27": 250, "C28": 100,
+    "G04": 250,
+}
 
 
 def normalize(text: str) -> str:
@@ -349,9 +362,8 @@ def grade(workspace: Path, key_dir: Path, report_text: str, verdicts: dict | Non
                 status = "fixed" if verdict and verdict.get("verdict") == "fixed" else \
                          "not fixed" if verdict else "unjudged"
                 why = "report lists many record numbers; " + (verdict or {}).get("evidence", "awaiting judge")
-        dollars = entry.get("dollars", SITE_DOLLARS.get(pid, 0))
         problems[pid] = {"status": status, "why": why, "title": catalog[pid]["title"], "spot": catalog[pid]["spot"],
-                         "area": AREAS[pid[0]], "dollars": dollars, "graded_by": catalog[pid]["graded"]}
+                         "area": AREAS[pid[0]], "dollars": AT_RISK[pid], "graded_by": catalog[pid]["graded"]}
 
     regressions = {k: v for k, v in site.items() if k.startswith("R")}
     decoys = {k: v for k, v in site.items() if k.startswith("D")}

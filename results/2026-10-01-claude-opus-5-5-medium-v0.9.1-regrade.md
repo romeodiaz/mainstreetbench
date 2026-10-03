@@ -7,7 +7,7 @@
 | Fixed | 76 | 87 |
 | Broken | 0 | 0 |
 
-The bakery folder is unchanged, and so is the model's work. Three grading flaws were corrected:
+The bakery folder is unchanged, and so is the model's work. Both runs score the same under the later v0.9.3 grader, which is what their scorecards now show; it changed only the dollars at risk (now out of $100,000). Three grading flaws were corrected:
 
 | Flaw | Effect | Fix |
 |---|---|---|

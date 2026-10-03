@@ -2,13 +2,13 @@
 
 ## Score: 87 / 100
 
-Regraded with the v0.9.2 grader; first graded 86. The model's work is unchanged. The scorecard from the first grading is kept in [2026-10-01-claude-opus-5-5-medium-v0.9.1-02/SCORECARD.md](2026-10-01-claude-opus-5-5-medium-v0.9.1-02/SCORECARD.md).
+Regraded with the v0.9.3 grader; first graded 86. The model's work is unchanged. The scorecard from the first grading is kept in [2026-10-01-claude-opus-5-5-medium-v0.9.1-02/SCORECARD.md](2026-10-01-claude-opus-5-5-medium-v0.9.1-02/SCORECARD.md).
 
 Fixed 87 problems (80 checked by code, 7 by the judge), broke 0 things that worked.
 
 | | |
 |---|---|
-| Dollars at risk caught | $53,192 of $58,498 |
+| Dollars at risk caught | $91,200 of $100,000 |
 | What it broke | nothing |
 | Said it fixed something, but didn't | 0 |
 | Judge | claude-sonnet-5-5 |

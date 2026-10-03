@@ -63,7 +63,7 @@ The repository's owner saves runs while calibrating. Do this only when the perso
 Show the person the scorecard (`../MainStreetBench-runs/evidence/RUN/SCORECARD.md`) in plain English:
 
 - the score out of 100 (problems fixed minus things broken), and what it fixed and broke;
-- the dollars at risk caught;
+- the dollars at risk caught, out of $100,000;
 - time and cost, if the tool reported cost;
 - what it was best and worst at, by area;
 - the Integrity row, and the model the tool reported if it differs from the one requested;

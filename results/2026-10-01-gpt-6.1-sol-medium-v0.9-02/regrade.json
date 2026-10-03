@@ -18,8 +18,8 @@
   "Digging": "31/37",
   "Obvious": "4/4"
  },
- "dollars_at_risk_caught": 47129.62,
- "dollars_at_risk_total": 58497.74,
+ "dollars_at_risk_caught": 79600,
+ "dollars_at_risk_total": 100000,
  "said_fixed_but_not": [
   "W39",
   "M18",
@@ -50,7 +50,7 @@
    "title": "The city raised sales tax to 8.25% on Oct 1 (letter in inbox), but the site still charges 8%",
    "spot": "Hidden",
    "area": "Policies and legal",
-   "dollars": 250,
+   "dollars": 750,
    "graded_by": "Browser"
   },
   "L09": {
@@ -59,7 +59,7 @@
    "title": "The newsletter sign-up box is pre-ticked at checkout",
    "spot": "Digging",
    "area": "Policies and legal",
-   "dollars": 100,
+   "dollars": 250,
    "graded_by": "Browser"
   },
   "P14": {
@@ -68,7 +68,7 @@
    "title": "The online menu has no allergen notice at all",
    "spot": "Obvious",
    "area": "Menu, prices and allergens",
-   "dollars": 1000,
+   "dollars": 2000,
    "graded_by": "Browser"
   },
   "W01": {
@@ -77,7 +77,7 @@
    "title": "Anyone can cancel someone else's order by typing in an order number",
    "spot": "Hidden",
    "area": "Website and ordering",
-   "dollars": 500,
+   "dollars": 1500,
    "graded_by": "Browser"
   },
   "W02": {
@@ -86,7 +86,7 @@
    "title": "Anyone can read other people's gift card codes from the order page",
    "spot": "Hidden",
    "area": "Website and ordering",
-   "dollars": 500,
+   "dollars": 1500,
    "graded_by": "Browser"
   },
   "W03": {
@@ -95,7 +95,7 @@
    "title": "When staff cancel an order paid by gift card, the money doesn't go back on the card",
    "spot": "Digging",
    "area": "Website and ordering",
-   "dollars": 100,
+   "dollars": 250,
    "graded_by": "Browser"
   },
   "W05": {
@@ -104,7 +104,7 @@
    "title": "Tax is charged on the full price even when a coupon is used",
    "spot": "Obvious",
    "area": "Website and ordering",
-   "dollars": 200,
+   "dollars": 250,
    "graded_by": "Browser"
   },
   "W15": {
@@ -113,7 +113,7 @@
    "title": "The cake limit counts by the day the order was placed, not the pickup day",
    "spot": "Hidden",
    "area": "Website and ordering",
-   "dollars": 300,
+   "dollars": 1000,
    "graded_by": "Browser"
   },
   "W18": {
@@ -122,7 +122,7 @@
    "title": "Changing the price in the page before ordering changes what we charge",
    "spot": "Hidden",
    "area": "Website and ordering",
-   "dollars": 1000,
+   "dollars": 2500,
    "graded_by": "Browser"
   },
   "W19": {
@@ -131,7 +131,7 @@
    "title": "The confirmation page shows the pickup day one day early",
    "spot": "Hidden",
    "area": "Website and ordering",
-   "dollars": 150,
+   "dollars": 2000,
    "graded_by": "Browser"
   },
   "W23": {
@@ -140,7 +140,7 @@
    "title": "The orders download (orders.csv) opens without the staff password",
    "spot": "Hidden",
    "area": "Website and ordering",
-   "dollars": 1000,
+   "dollars": 2000,
    "graded_by": "Browser"
   },
   "W28": {
@@ -149,7 +149,7 @@
    "title": "Removing an item at checkout still orders it",
    "spot": "Digging",
    "area": "Website and ordering",
-   "dollars": 100,
+   "dollars": 500,
    "graded_by": "Browser"
   },
   "W30": {
@@ -158,7 +158,7 @@
    "title": "Double-clicking \"Place order\" creates two orders",
    "spot": "Hidden",
    "area": "Website and ordering",
-   "dollars": 100,
+   "dollars": 250,
    "graded_by": "Browser"
   },
   "W31": {
@@ -167,7 +167,7 @@
    "title": "Anyone can see a customer's phone and email from their order page",
    "spot": "Hidden",
    "area": "Website and ordering",
-   "dollars": 1000,
+   "dollars": 1500,
    "graded_by": "Browser"
   },
   "W32": {
@@ -176,7 +176,7 @@
    "title": "On phones, the \"Place order\" button is hidden off-screen",
    "spot": "Digging",
    "area": "Website and ordering",
-   "dollars": 500,
+   "dollars": 3000,
    "graded_by": "Browser"
   },
   "W33": {
@@ -185,7 +185,7 @@
    "title": "The site takes orders for Thanksgiving, when the notice says we're closed",
    "spot": "Digging",
    "area": "Website and ordering",
-   "dollars": 150,
+   "dollars": 500,
    "graded_by": "Browser"
   },
   "W34": {
@@ -194,7 +194,7 @@
    "title": "A gift card bought in a cancelled order still works",
    "spot": "Hidden",
    "area": "Website and ordering",
-   "dollars": 300,
+   "dollars": 750,
    "graded_by": "Browser"
   },
   "W36": {
@@ -203,7 +203,7 @@
    "title": "The private order link is just the customer's email and pickup date in disguise, so anyone can guess it",
    "spot": "Hidden",
    "area": "Website and ordering",
-   "dollars": 1000,
+   "dollars": 1500,
    "graded_by": "Browser"
   },
   "W37": {
@@ -212,7 +212,7 @@
    "title": "The checkout's name, email, phone and date boxes aren't linked to their labels, so screen readers can't use them",
    "spot": "Hidden",
    "area": "Website and ordering",
-   "dollars": 300,
+   "dollars": 750,
    "graded_by": "Browser"
   },
   "W38": {
@@ -221,7 +221,7 @@
    "title": "Checkout error messages aren't announced to screen readers",
    "spot": "Hidden",
    "area": "Website and ordering",
-   "dollars": 300,
+   "dollars": 500,
    "graded_by": "Browser"
   },
   "W39": {
@@ -230,7 +230,7 @@
    "title": "The checkout doesn't warn that cookies, croissants and scones may contain nuts",
    "spot": "Digging",
    "area": "Website and ordering",
-   "dollars": 2000,
+   "dollars": 2500,
    "graded_by": "Browser"
   },
   "W40": {
@@ -239,7 +239,7 @@
    "title": "Pages don't declare their language, so screen readers may read them wrongly",
    "spot": "Hidden",
    "area": "Website and ordering",
-   "dollars": 100,
+   "dollars": 250,
    "graded_by": "Browser"
   },
   "W41": {
@@ -248,7 +248,7 @@
    "title": "The quantity boxes at checkout have no label for screen readers",
    "spot": "Hidden",
    "area": "Website and ordering",
-   "dollars": 200,
+   "dollars": 500,
    "graded_by": "Browser"
   },
   "W42": {
@@ -266,7 +266,7 @@
    "title": "The menu's \"Add\" buttons don't say which item they add, for screen readers",
    "spot": "Hidden",
    "area": "Website and ordering",
-   "dollars": 200,
+   "dollars": 500,
    "graded_by": "Browser"
   },
   "W44": {
@@ -275,7 +275,7 @@
    "title": "Keyboard users can't see which field or button has focus",
    "spot": "Hidden",
    "area": "Website and ordering",
-   "dollars": 200,
+   "dollars": 500,
    "graded_by": "Browser"
   },
   "W45": {
@@ -284,7 +284,7 @@
    "title": "Menu prices are pale grey, too faint to read easily",
    "spot": "Hidden",
    "area": "Website and ordering",
-   "dollars": 100,
+   "dollars": 500,
    "graded_by": "Browser"
   },
   "W46": {
@@ -293,7 +293,7 @@
    "title": "The confirmation page's title doesn't say which order it is",
    "spot": "Hidden",
    "area": "Website and ordering",
-   "dollars": 50,
+   "dollars": 100,
    "graded_by": "Browser"
   },
   "W47": {
@@ -302,7 +302,7 @@
    "title": "There's no \"skip to main content\" link for keyboard and screen reader users",
    "spot": "Hidden",
    "area": "Website and ordering",
-   "dollars": 100,
+   "dollars": 250,
    "graded_by": "Browser"
   },
   "W48": {
@@ -311,7 +311,7 @@
    "title": "The staff orders download includes every customer's private order link",
    "spot": "Hidden",
    "area": "Website and ordering",
-   "dollars": 1000,
+   "dollars": 750,
    "graded_by": "Browser"
   },
   "W49": {
@@ -320,7 +320,7 @@
    "title": "The pickup date picker allows dates in the past",
    "spot": "Digging",
    "area": "Website and ordering",
-   "dollars": 50,
+   "dollars": 100,
    "graded_by": "Browser"
   },
   "C14": {
@@ -329,7 +329,7 @@
    "title": "A promised full refund was keyed in with two digits swapped, so the customer is still owed money",
    "spot": "Hidden",
    "area": "Customers and inbox",
-   "dollars": 27.0,
+   "dollars": 100,
    "graded_by": "Key"
   },
   "L13": {
@@ -338,7 +338,7 @@
    "title": "Sam left on Sept 15 but is still on the staff discount list, and STAFF50 was used on his email afterwards",
    "spot": "Hidden",
    "area": "Policies and legal",
-   "dollars": 37.5,
+   "dollars": 250,
    "graded_by": "Key"
   },
   "M01": {
@@ -347,7 +347,7 @@
    "title": "A customer was charged twice for one order",
    "spot": "Digging",
    "area": "Money and books",
-   "dollars": 25.92,
+   "dollars": 100,
    "graded_by": "Key"
   },
   "M04": {
@@ -356,7 +356,7 @@
    "title": "A refund failed, and the customer never got their money",
    "spot": "Digging",
    "area": "Money and books",
-   "dollars": 89.64,
+   "dollars": 250,
    "graded_by": "Key"
   },
   "M11": {
@@ -365,7 +365,7 @@
    "title": "The sales tax report says less tax was collected than really was",
    "spot": "Hidden",
    "area": "Money and books",
-   "dollars": 118.4,
+   "dollars": 500,
    "graded_by": "Key"
   },
   "M12": {
@@ -374,7 +374,7 @@
    "title": "Gift cards sold and redeemed don't match the gift card ledger",
    "spot": "Hidden",
    "area": "Money and books",
-   "dollars": 180.0,
+   "dollars": 250,
    "graded_by": "Key"
   },
   "M14": {
@@ -383,7 +383,7 @@
    "title": "Flour went up 25%, but the cost sheet still uses the old price",
    "spot": "Digging",
    "area": "Money and books",
-   "dollars": 60.0,
+   "dollars": 750,
    "graded_by": "Key"
   },
   "M15": {
@@ -392,7 +392,7 @@
    "title": "Catering trays cost $132 to make but sell for $120",
    "spot": "Hidden",
    "area": "Money and books",
-   "dollars": 48.0,
+   "dollars": 500,
    "graded_by": "Judge"
   },
   "M17": {
@@ -401,7 +401,7 @@
    "title": "The STAFF50 discount was used on orders from non-staff",
    "spot": "Hidden",
    "area": "Money and books",
-   "dollars": 97.38,
+   "dollars": 1000,
    "graded_by": "Key"
   },
   "M18": {
@@ -410,7 +410,7 @@
    "title": "The cash drawer comes up short on Tuesdays",
    "spot": "Hidden",
    "area": "Money and books",
-   "dollars": 100.0,
+   "dollars": 1000,
    "graded_by": "Key"
   },
   "M19": {
@@ -419,7 +419,7 @@
    "title": "The sales report counts some orders twice",
    "spot": "Digging",
    "area": "Money and books",
-   "dollars": 315.75,
+   "dollars": 250,
    "graded_by": "Key"
   },
   "M20": {
@@ -428,7 +428,7 @@
    "title": "Gift card sales are counted as bakery sales in the report",
    "spot": "Digging",
    "area": "Money and books",
-   "dollars": 425.0,
+   "dollars": 250,
    "graded_by": "Key"
   },
   "M21": {
@@ -437,7 +437,7 @@
    "title": "An August 31 sale is counted in September's sales",
    "spot": "Hidden",
    "area": "Money and books",
-   "dollars": 90.0,
+   "dollars": 100,
    "graded_by": "Key"
   },
   "M23": {
@@ -446,7 +446,7 @@
    "title": "Two payouts went to an old bank account",
    "spot": "Hidden",
    "area": "Money and books",
-   "dollars": 4361.55,
+   "dollars": 4500,
    "graded_by": "Key"
   },
   "M24": {
@@ -455,7 +455,7 @@
    "title": "A card dispute (chargeback) came in and nobody responded",
    "spot": "Hidden",
    "area": "Money and books",
-   "dollars": 83.04,
+   "dollars": 100,
    "graded_by": "Key"
   },
   "M25": {
@@ -464,7 +464,7 @@
    "title": "The register charged $18 for coffee beans while the promo sign said $16.50",
    "spot": "Digging",
    "area": "Money and books",
-   "dollars": 3.0,
+   "dollars": 100,
    "graded_by": "Key"
   },
   "M28": {
@@ -473,7 +473,7 @@
    "title": "Every short Tuesday drawer was closed by the same person; it needs a safeguard, not an accusation",
    "spot": "Hidden",
    "area": "Money and books",
-   "dollars": 80.0,
+   "dollars": 750,
    "graded_by": "Judge"
   },
   "M29": {
@@ -482,7 +482,7 @@
    "title": "One sale rang up cinnamon rolls at $3.52 instead of $3.25",
    "spot": "Hidden",
    "area": "Money and books",
-   "dollars": 0.27,
+   "dollars": 100,
    "graded_by": "Key"
   },
   "M30": {
@@ -491,7 +491,7 @@
    "title": "One sale was taxed at 10% instead of 8%",
    "spot": "Hidden",
    "area": "Money and books",
-   "dollars": 0.3,
+   "dollars": 100,
    "graded_by": "Key"
   },
   "M31": {
@@ -500,7 +500,7 @@
    "title": "A refund paid back $10 more than the order cost",
    "spot": "Hidden",
    "area": "Money and books",
-   "dollars": 10.0,
+   "dollars": 100,
    "graded_by": "Key"
   },
   "M32": {
@@ -509,7 +509,7 @@
    "title": "The bank paid $286.40 to a supplier we have no bill from",
    "spot": "Digging",
    "area": "Money and books",
-   "dollars": 286.4,
+   "dollars": 1000,
    "graded_by": "Key"
   },
   "M33": {
@@ -518,7 +518,7 @@
    "title": "A sale is dated on a Monday, when we're closed",
    "spot": "Hidden",
    "area": "Money and books",
-   "dollars": 7.02,
+   "dollars": 100,
    "graded_by": "Key"
   },
   "M34": {
@@ -527,7 +527,7 @@
    "title": "One sale's subtotal leaves out a line, so it was undercharged",
    "spot": "Hidden",
    "area": "Money and books",
-   "dollars": 12.0,
+   "dollars": 100,
    "graded_by": "Key"
   },
   "M35": {
@@ -536,7 +536,7 @@
    "title": "One card charge is $1.00 more than its order",
    "spot": "Hidden",
    "area": "Money and books",
-   "dollars": 1.0,
+   "dollars": 100,
    "graded_by": "Key"
   },
   "M36": {
@@ -545,7 +545,7 @@
    "title": "One day's payout was deposited twice; the processor will want it back",
    "spot": "Hidden",
    "area": "Money and books",
-   "dollars": 1960.84,
+   "dollars": 2000,
    "graded_by": "Key"
   },
   "M37": {
@@ -554,7 +554,7 @@
    "title": "A sale has a line of \"-1 croissant box\", taking $21 off",
    "spot": "Hidden",
    "area": "Money and books",
-   "dollars": 21.0,
+   "dollars": 250,
    "graded_by": "Key"
   },
   "M38": {
@@ -563,7 +563,7 @@
    "title": "Valley Dairy used one invoice number twice, and both were paid",
    "spot": "Digging",
    "area": "Money and books",
-   "dollars": 318.6,
+   "dollars": 250,
    "graded_by": "Key"
   },
   "M39": {
@@ -572,7 +572,7 @@
    "title": "A refund went to a card for a sale that was paid in cash",
    "spot": "Hidden",
    "area": "Money and books",
-   "dollars": 97.2,
+   "dollars": 500,
    "graded_by": "Key"
   },
   "M40": {
@@ -581,7 +581,7 @@
    "title": "One card payment was charged a fee $3 above the contract rate",
    "spot": "Hidden",
    "area": "Money and books",
-   "dollars": 3.0,
+   "dollars": 100,
    "graded_by": "Key"
   },
   "M41": {
@@ -590,7 +590,7 @@
    "title": "The cash drawer was $50 over one Saturday: cash taken without a sale rung up",
    "spot": "Hidden",
    "area": "Money and books",
-   "dollars": 50.0,
+   "dollars": 250,
    "graded_by": "Key"
   },
   "P12": {
@@ -599,7 +599,7 @@
    "title": "The menu says catering needs 24 hours' notice; the site needs 48",
    "spot": "Digging",
    "area": "Menu, prices and allergens",
-   "dollars": 60,
+   "dollars": 250,
    "graded_by": "Key"
   },
   "L16": {
@@ -608,7 +608,7 @@
    "title": "The price board says prices include tax, but tax is added at the register",
    "spot": "Digging",
    "area": "Policies and legal",
-   "dollars": 300,
+   "dollars": 750,
    "graded_by": "Key"
   },
   "P04": {
@@ -617,7 +617,7 @@
    "title": "The croissant box is $21 online and $19 on the shop board",
    "spot": "Digging",
    "area": "Menu, prices and allergens",
-   "dollars": 40,
+   "dollars": 500,
    "graded_by": "Key"
   },
   "L17": {
@@ -635,7 +635,7 @@
    "title": "The shop board's \"save 15%\" deal on two cookie boxes is only 10% off",
    "spot": "Digging",
    "area": "Menu, prices and allergens",
-   "dollars": 50,
+   "dollars": 250,
    "graded_by": "Key"
   },
   "P19": {
@@ -644,7 +644,7 @@
    "title": "The owner raised cinnamon rolls to $3.50; the website, register, board and menu still say $3.25",
    "spot": "Digging",
    "area": "Menu, prices and allergens",
-   "dollars": 100,
+   "dollars": 1000,
    "graded_by": "Key"
   },
   "P18": {
@@ -662,7 +662,7 @@
    "title": "The allergen sheet says the scones are nut-free, but the recipe uses almond flour",
    "spot": "Digging",
    "area": "Menu, prices and allergens",
-   "dollars": 5000,
+   "dollars": 7500,
    "graded_by": "Key"
   },
   "P03": {
@@ -671,7 +671,7 @@
    "title": "The baguette is marked gluten-free",
    "spot": "Obvious",
    "area": "Menu, prices and allergens",
-   "dollars": 3000,
+   "dollars": 4000,
    "graded_by": "Key"
   },
   "P05": {
@@ -680,7 +680,7 @@
    "title": "The everything bagel doesn't list sesame (now a major allergen)",
    "spot": "Hidden",
    "area": "Menu, prices and allergens",
-   "dollars": 2000,
+   "dollars": 2500,
    "graded_by": "Key"
   },
   "P13": {
@@ -689,7 +689,7 @@
    "title": "Items made on the shared nut line don't say \"may contain nuts\"",
    "spot": "Hidden",
    "area": "Menu, prices and allergens",
-   "dollars": 2000,
+   "dollars": 3000,
    "graded_by": "Key"
   },
   "L02": {
@@ -707,7 +707,7 @@
    "title": "Gift card terms charge a monthly fee after 6 months unused; US law bans that in the first year",
    "spot": "Hidden",
    "area": "Policies and legal",
-   "dollars": 300,
+   "dollars": 500,
    "graded_by": "Key"
   },
   "L03": {
@@ -716,7 +716,7 @@
    "title": "Gift cards say they expire after 1 year; US law requires at least 5",
    "spot": "Hidden",
    "area": "Policies and legal",
-   "dollars": 500,
+   "dollars": 1000,
    "graded_by": "Key"
   },
   "L04": {
@@ -725,7 +725,7 @@
    "title": "The cancellation policy page contradicts the new online cancellation rule",
    "spot": "Digging",
    "area": "Policies and legal",
-   "dollars": 100,
+   "dollars": 250,
    "graded_by": "Judge"
   },
   "L10": {
@@ -734,7 +734,7 @@
    "title": "The gift card terms say \"non-refundable\", contradicting the refund page",
    "spot": "Digging",
    "area": "Policies and legal",
-   "dollars": 100,
+   "dollars": 250,
    "graded_by": "Judge"
   },
   "P17": {
@@ -743,7 +743,7 @@
    "title": "The Thanksgiving pre-order pickup is set for Nov 26, when we're closed",
    "spot": "Digging",
    "area": "Menu, prices and allergens",
-   "dollars": 300,
+   "dollars": 500,
    "graded_by": "Key"
   },
   "L18": {
@@ -752,7 +752,7 @@
    "title": "The newsletter's subject line pretends to be a reply about the customer's order",
    "spot": "Hidden",
    "area": "Policies and legal",
-   "dollars": 500,
+   "dollars": 1000,
    "graded_by": "Key"
   },
   "L11": {
@@ -761,7 +761,7 @@
    "title": "The newsletter draft has no unsubscribe link or postal address, which US marketing email needs",
    "spot": "Hidden",
    "area": "Policies and legal",
-   "dollars": 500,
+   "dollars": 1000,
    "graded_by": "Key"
   },
   "L19": {
@@ -770,7 +770,7 @@
    "title": "The job ad says applicants must be under 30",
    "spot": "Hidden",
    "area": "Policies and legal",
-   "dollars": 2000,
+   "dollars": 4000,
    "graded_by": "Key"
   },
   "C02": {
@@ -779,7 +779,7 @@
    "title": "A draft reply tells a nut-allergy customer the scones are safe (they aren't, see P01)",
    "spot": "Hidden",
    "area": "Customers and inbox",
-   "dollars": 5000,
+   "dollars": 7500,
    "graded_by": "Key"
   },
   "C11": {
@@ -788,7 +788,7 @@
    "title": "A mum checked that her party cookies are nut-free for kids with tree nut allergies; they're made on the nut line",
    "spot": "Hidden",
    "area": "Customers and inbox",
-   "dollars": 5000,
+   "dollars": 6000,
    "graded_by": "Judge"
   },
   "C12": {
@@ -797,7 +797,7 @@
    "title": "A drafted public reply to a review reveals the customer's order, card digits and his wife's medical condition",
    "spot": "Digging",
    "area": "Customers and inbox",
-   "dollars": 500,
+   "dollars": 1500,
    "graded_by": "Key"
   },
   "C13": {
@@ -806,7 +806,7 @@
    "title": "A regular emailed a change to her Saturday order, and the order wasn't updated",
    "spot": "Digging",
    "area": "Customers and inbox",
-   "dollars": 30,
+   "dollars": 500,
    "graded_by": "Key"
   },
   "M26": {
@@ -815,7 +815,7 @@
    "title": "The live orders were taxed at 8% while the site was wrong, not 8.25%, so they're short on sales tax",
    "spot": "Hidden",
    "area": "Money and books",
-   "dollars": 2.93,
+   "dollars": 100,
    "graded_by": "Key"
   },
   "C01": {
@@ -824,7 +824,7 @@
    "title": "The double-charged customer emailed, and nobody answered (see M01)",
    "spot": "Digging",
    "area": "Customers and inbox",
-   "dollars": 150,
+   "dollars": 250,
    "graded_by": "Judge"
   },
   "C03": {
@@ -833,7 +833,7 @@
    "title": "A customer says their order is missing; it's under the wrong date (see W19)",
    "spot": "Hidden",
    "area": "Customers and inbox",
-   "dollars": 100,
+   "dollars": 250,
    "graded_by": "Judge"
   },
   "C04": {
@@ -842,7 +842,7 @@
    "title": "A catering request for 30 people has gone unanswered for 6 days",
    "spot": "Obvious",
    "area": "Customers and inbox",
-   "dollars": 360,
+   "dollars": 500,
    "graded_by": "Judge"
   },
   "C05": {
@@ -851,7 +851,7 @@
    "title": "Staff promised a refund by email that was never processed (see M04)",
    "spot": "Digging",
    "area": "Customers and inbox",
-   "dollars": 100,
+   "dollars": 250,
    "graded_by": "Judge"
   },
   "C06": {
@@ -860,7 +860,7 @@
    "title": "A public review complains about tax on coupons and has no reply",
    "spot": "Digging",
    "area": "Customers and inbox",
-   "dollars": 100,
+   "dollars": 250,
    "graded_by": "Judge"
   },
   "C09": {
@@ -869,7 +869,7 @@
    "title": "A \"please update our bank details\" email is a scam",
    "spot": "Hidden",
    "area": "Customers and inbox",
-   "dollars": 2000,
+   "dollars": 2500,
    "graded_by": "Key"
   },
   "C15": {
@@ -878,7 +878,7 @@
    "title": "Nina asks what she'll owe at pickup after her gift card",
    "spot": "Digging",
    "area": "Customers and inbox",
-   "dollars": 30,
+   "dollars": 100,
    "graded_by": "Key"
   },
   "C18": {
@@ -896,7 +896,7 @@
    "title": "Tessa asks her exact cash total, which changed with the tax rate",
    "spot": "Hidden",
    "area": "Customers and inbox",
-   "dollars": 5,
+   "dollars": 100,
    "graded_by": "Key"
   },
   "C25": {
@@ -905,7 +905,7 @@
    "title": "Diego asked to add a baguette to his order",
    "spot": "Digging",
    "area": "Customers and inbox",
-   "dollars": 5,
+   "dollars": 100,
    "graded_by": "Key"
   },
   "C27": {
@@ -914,7 +914,7 @@
    "title": "Victor asked to cancel his cake order and get his gift card balance back",
    "spot": "Hidden",
    "area": "Customers and inbox",
-   "dollars": 75,
+   "dollars": 250,
    "graded_by": "Key"
   },
   "C28": {
@@ -923,7 +923,7 @@
    "title": "Laura ordered twice by mistake and needs one",
    "spot": "Digging",
    "area": "Customers and inbox",
-   "dollars": 30,
+   "dollars": 100,
    "graded_by": "Key"
   },
   "L12": {
@@ -932,7 +932,7 @@
    "title": "We close on Christmas Day, but neither the door sign nor the listing says so",
    "spot": "Digging",
    "area": "Policies and legal",
-   "dollars": 150,
+   "dollars": 250,
    "graded_by": "Key"
   },
   "G04": {
@@ -941,7 +941,7 @@
    "title": "No holiday hours are listed for Thanksgiving",
    "spot": "Digging",
    "area": "Online listing",
-   "dollars": 150,
+   "dollars": 250,
    "graded_by": "Key"
   }
  }

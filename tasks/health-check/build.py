@@ -45,10 +45,11 @@ def catalog() -> dict:
     rows = {}
     text = (ROOT / "docs" / "health-check-problems.md").read_text(encoding="utf-8")
     for line in text.splitlines():
-        match = re.match(r"\| ([WMPLCG]\d\d) \| (.*?) \| (\w+) \| (\w+) \| (\w+) \| (.*?) \|$", line)
+        match = re.match(r"\| ([WMPLCG]\d\d) \| (.*?) \| (\w+) \| (\w+) \| (\w+) \| \$([\d,]+) \| (.*?) \|$", line)
         if match:
-            pid, title, win, graded, spot, impact = match.groups()
-            rows[pid] = {"title": title, "win": win, "graded": graded, "spot": spot, "impact": impact}
+            pid, title, win, graded, spot, at_risk, impact = match.groups()
+            rows[pid] = {"title": title, "win": win, "graded": graded, "spot": spot,
+                         "at_risk": int(at_risk.replace(",", "")), "impact": impact}
     assert len(rows) == 100, len(rows)
     return rows
 
