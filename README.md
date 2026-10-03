@@ -70,7 +70,7 @@ The problems split 4 obvious, 37 needing cross-checking, and 59 hidden, so expec
 
 ## Results so far
 
-The current version is **v0.9**: the bakery and its 100 problems are the v0.9 ones, graded with the v0.9.2 grader. v0.9.1 and v0.9.2 corrected grading flaws only, so the four v0.9 rows below compare directly (the Opus run names say v0.9.1 because that grader was current when they ran). Charts of these scores, beside three public indexes for the same models, are at [workwithguava.com/mainstreetbench](https://workwithguava.com/mainstreetbench).
+The current version is **v0.9**: the bakery and its 100 problems are the v0.9 ones, graded with the v0.9.2 grader. v0.9.1 and v0.9.2 corrected grading flaws only, so the four v0.9 rows below compare directly (the Opus run names say v0.9.1 because that grader was current when they ran). Charts of these scores, beside five public indexes for the same models, are at [workwithguava.com/mainstreetbench](https://workwithguava.com/mainstreetbench).
 
 v0.9 is calibrated so a cheap model has room to fall short: problems that GPT-6.1 Sol solved every time were swapped for the kinds it kept missing, such as accessibility and safeguards on the website, single wrong rows in a large set of books, and complete legal and policy fixes ([why](docs/health-check-problems.md#decisions)). Scores from different versions aren't directly comparable, so runs on earlier versions are kept in [results/](results/) but not listed here.
 
