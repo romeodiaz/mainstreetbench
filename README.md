@@ -72,7 +72,7 @@ The problems split 4 obvious, 37 needing cross-checking, and 59 hidden, so expec
 
 The current version is **v0.9**: the bakery and its 100 problems are the v0.9 ones, graded with the v0.9.2 grader. v0.9.1 and v0.9.2 corrected grading flaws only, so the four v0.9 rows below compare directly (the Opus run names say v0.9.1 because that grader was current when they ran). Charts of these scores, beside three public indexes for the same models, are at [workwithguava.com/mainstreetbench](https://workwithguava.com/mainstreetbench).
 
-v0.9 is calibrated so a cheap model has room to fall short: problems that GPT-6.1 Sol solved every time were swapped for the kinds it kept missing, such as accessibility and safeguards on the website, single wrong rows in a large set of books, and complete legal and policy fixes ([why](docs/health-check-problems.md#decisions)). Scores from different versions aren't directly comparable.
+v0.9 is calibrated so a cheap model has room to fall short: problems that GPT-6.1 Sol solved every time were swapped for the kinds it kept missing, such as accessibility and safeguards on the website, single wrong rows in a large set of books, and complete legal and policy fixes ([why](docs/health-check-problems.md#decisions)). Scores from different versions aren't directly comparable, so runs on earlier versions are kept in [results/](results/) but not listed here.
 
 | Model | Version | Score | Notes |
 |---|---|---|---|
@@ -80,22 +80,6 @@ v0.9 is calibrated so a cheap model has room to fall short: problems that GPT-6.
 | claude-opus-5-5, medium | v0.9 | **76** (run 1; 73 as first graded) | Self-run, Claude Code. $2.29, 7 min. [Scorecard](results/2026-10-01-claude-opus-5-5-medium-v0.9.1-01.md) |
 | gpt-6.1-sol, medium | v0.9 | **72** (run 2; 69 as first graded) | Self-run, Codex. $0.61 (estimated), 15 min. [Scorecard](results/2026-10-01-gpt-6.1-sol-medium-v0.9-02.md), [regrade of both runs](results/2026-10-01-gpt-6.1-sol-medium-v0.9-regrade.md) |
 | gpt-6.1-sol, medium | v0.9 | **71** (run 1; 67 as first graded) | Self-run, Codex. $0.53 (estimated), 14 min. Crashed the online menu (counted as broken). [Scorecard](results/2026-10-01-gpt-6.1-sol-medium-v0.9-01.md) |
-| gpt-6.1-sol, medium | v0.8 | **86** (77 as first graded) | Self-run. The first grade had grader flaws, which are fixed in v0.8.1. [Scorecard](results/2026-10-01-gpt-6.1-sol-medium-v0.8-01.md), [regrade](results/2026-10-01-gpt-6.1-sol-medium-v0.8-01-regrade.md) |
-| gpt-6.1-sol, medium | v0.7 | **91** (87 as first graded) | Self-run. The first grade had grader flaws, which are fixed in v0.7.1. [Scorecard](results/2026-10-01-gpt-6.1-sol-medium-v0.7-01.md), [regrade](results/2026-10-01-gpt-6.1-sol-medium-v0.7-01-regrade.md) |
-| gpt-6.1-sol, medium | v0.6 | **90** (72 as first graded) | Self-run. The first grade had grader flaws, which are fixed in v0.6.1. [Scorecard](results/2026-10-01-gpt-6.1-sol-medium-v0.6-01.md), [regrade](results/2026-10-01-gpt-6.1-sol-medium-v0.6-01-regrade.md) |
-
-## Earlier rounds
-
-Each earlier task told the AI what to do, and Sol solo did nearly all of it:
-
-| Round | Task | Result |
-|---|---|---|
-| v0.2 | [Reconcile September's books](tasks/retail-reconciliation/) | Sol passed every business check and planted case ([run](results/sol-medium-v0.2-01.md)) |
-| v0.3 | [Three ordering-site tickets with interface notes](tasks/ordering-site/) | Sol 100 ([run](results/sol-medium-v0.3-01.md)) |
-| v0.4 | Five tickets, owner's words only | 0 from an inherited starter bug; about 100 once fixed ([run](results/sol-medium-v0.4-01.md)) |
-| v0.5 | Eight tickets | 1.3 raw from a grader flaw; **97.2** regraded, missing only one security mistake ([run](results/sol-medium-v0.5-01.md), [regrade](results/sol-medium-v0.5-01-regrade.md)) |
-
-What they taught: Sol does what it's told, and its one real miss was something nobody asked about. The health check is built around that gap.
 
 ## Check the benchmark
 
