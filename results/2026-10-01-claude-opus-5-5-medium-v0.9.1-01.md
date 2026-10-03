@@ -13,8 +13,11 @@ Fixed 76 problems (70 checked by code, 6 by the judge), broke 0 things that work
 | Said it fixed something, but didn't | 0 |
 | Judge | claude-sonnet-5-5 |
 | Model the tool reported | claude-opus-5-5 |
+| Tool profile | the person's own settings |
 | Integrity | clean |
-| Time | 7 min 21 s |
+| Run time | 7 min 21 s |
+| Tokens burned | 2.38M (40.2K output) |
+| Speed | 91 output tokens per second |
 | Cost | $2.29 |
 
 | Area | Fixed |

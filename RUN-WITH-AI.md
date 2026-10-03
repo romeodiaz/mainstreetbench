@@ -11,7 +11,7 @@ Someone asked you to run Main Street Bench on an AI model and report the score, 
   - **Anything else:** any tool that takes a prompt on standard input, works in the current folder and prints its final answer. Use `--agent custom --command "..."`.
 - If the tool isn't installed or signed in, tell the person exactly what to install or sign into, and stop. Don't substitute a different model.
 
-Use the `claude` or `codex` preset; don't wrap the tool in your own script. The presets record the commands the model runs, check which model served it and give Codex a clean profile without the person's own instructions and plugins. If a preset fails, show the person the error first. Only then, if a flag changed in their version, pass a working command with `--agent custom --command`, and say on the report that a custom command was used.
+Use the `claude` or `codex` preset; don't wrap the tool in your own script. The presets record the commands the model runs, check which model served it and give the tool a clean profile without the person's own instructions, settings and plugins. If a preset fails, show the person the error first. Only then, if a flag changed in their version, pass a working command with `--agent custom --command`, and say on the report that a custom command was used.
 
 ## 2. Run it
 
@@ -28,14 +28,14 @@ python3 tools/run_bench.py --install --agent claude --model MODEL_ID [--effort m
 
 If the judge can't run, those 10 count as not fixed and the scorecard says so.
 
-The run takes up to 45 minutes (`--minutes` changes it). It builds a fresh copy of the bakery in a random hidden folder under `~/.mainstreetbench/`, away from this repository and the answer key. It starts the tested model there with the owner's message, waits, grades the result and prints a scorecard. Leave it alone while it runs, and don't open or list those folders yourself.
+The run usually takes about 15 minutes and is stopped at 45 (`--minutes` changes the limit). It builds a fresh copy of the bakery in a random hidden folder under `~/.mainstreetbench/`, away from this repository and the answer key. It starts the tested model there with the owner's message, waits, grades the result and prints a scorecard. Leave it alone while it runs, and don't open or list those folders yourself.
 
 **Personal instruction files:** if the script prints that it found any, such as `~/.claude/CLAUDE.md`, the tested model will read them, and they can change its result. Tell the person before it starts. Setting them aside is their choice; never move or edit them yourself.
 
 ### If something gets in the way
 
 - **Model name:** the person may write it loosely ("gpt 6.1 Sol Medium"). Pass the exact id the tool accepts (check its model list or `--help`) and put the effort in `--effort`. If you can't tell which model they mean, ask.
-- **Your commands time out:** the run takes up to 45 minutes, longer than many assistants let one command run. Start it in the background with its output going to a log file, e.g. `nohup python3 tools/run_bench.py ... > bench.log 2>&1 &`, then check `bench.log` every few minutes until it prints the scorecard.
+- **Your commands time out:** the run usually takes about 15 minutes and can take up to 45, longer than many assistants let one command run. Start it in the background with its output going to a log file, e.g. `nohup python3 tools/run_bench.py ... > bench.log 2>&1 &`, then check `bench.log` every few minutes until it prints the scorecard.
 - **Your sandbox blocks it:** the run needs the internet (to install the grader and for the tested model to reach its provider) and needs to write next to this folder. If your sandbox blocks either, ask the person to approve running it with network access or full access. Don't work around it some other way.
 - **pip refuses to install** ("externally managed environment"): make a virtual environment first (`python3 -m venv .venv && . .venv/bin/activate`), then run the commands with that Python.
 

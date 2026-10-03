@@ -23,7 +23,7 @@ Your assistant only referees: it starts the model you named in its own folder, t
 ### What you need
 
 - **The tested model's app, signed in on this computer.** That's Claude Code for Claude models, or the Codex CLI for GPT models. Your assistant can install it; you sign in once.
-- **A paid plan with room for one long job.** A run uses up to 45 minutes of the model's work, plus a little for a second model from the same plan that judges 10 of the problems.
+- **A paid plan with room for one long job.** A run takes about 15 minutes of the model's work (it's stopped at 45), plus a little for a second model from the same plan that judges 10 of the problems.
 - **The basics:** Python 3.10+, git, about 1 GB of disk space and an internet connection. Your assistant checks these and installs what's missing.
 - **Your computer awake** for about an hour. It's checked on Linux and should work on a Mac. On Windows, if it fails, ask your assistant to use WSL.
 
@@ -74,12 +74,14 @@ The current version is **v0.9**: the bakery and its 100 problems are the v0.9 on
 
 v0.9 is calibrated so a cheap model has room to fall short: problems that GPT-6.1 Sol solved every time were swapped for the kinds it kept missing, such as accessibility and safeguards on the website, single wrong rows in a large set of books, and complete legal and policy fixes ([why](docs/health-check-problems.md#decisions)). Scores from different versions aren't directly comparable, so runs on earlier versions are kept in [results/](results/) but not listed here.
 
-| Model | Version | Score | Notes |
-|---|---|---|---|
-| claude-opus-5-5, medium | v0.9 | **87** (run 2; 86 as first graded) | Self-run, Claude Code. $3.94, 15 min. [Scorecard](results/2026-10-01-claude-opus-5-5-medium-v0.9.1-02.md), [regrade of both runs](results/2026-10-01-claude-opus-5-5-medium-v0.9.1-regrade.md), [comparison](results/v0.9-comparison.md) |
-| claude-opus-5-5, medium | v0.9 | **76** (run 1; 73 as first graded) | Self-run, Claude Code. $2.29, 7 min. [Scorecard](results/2026-10-01-claude-opus-5-5-medium-v0.9.1-01.md) |
-| gpt-6.1-sol, medium | v0.9 | **72** (run 2; 69 as first graded) | Self-run, Codex. $0.61 (estimated), 15 min. [Scorecard](results/2026-10-01-gpt-6.1-sol-medium-v0.9-02.md), [regrade of both runs](results/2026-10-01-gpt-6.1-sol-medium-v0.9-regrade.md) |
-| gpt-6.1-sol, medium | v0.9 | **71** (run 1; 67 as first graded) | Self-run, Codex. $0.53 (estimated), 14 min. Crashed the online menu (counted as broken). [Scorecard](results/2026-10-01-gpt-6.1-sol-medium-v0.9-01.md) |
+| Model | Version | Score | Run time | Tokens burned | Speed (output tokens/s) | Notes |
+|---|---|---|---|---|---|---|
+| claude-opus-5-5, medium | v0.9 | **87** (run 2; 86 as first graded) | 14 min 46 s | 3.82M | 95 | Self-run, Claude Code. $3.94. [Scorecard](results/2026-10-01-claude-opus-5-5-medium-v0.9.1-02.md), [regrade of both runs](results/2026-10-01-claude-opus-5-5-medium-v0.9.1-regrade.md), [comparison](results/v0.9-comparison.md) |
+| claude-opus-5-5, medium | v0.9 | **76** (run 1; 73 as first graded) | 7 min 21 s | 2.38M | 91 | Self-run, Claude Code. $2.29. [Scorecard](results/2026-10-01-claude-opus-5-5-medium-v0.9.1-01.md) |
+| gpt-6.1-sol, medium | v0.9 | **72** (run 2; 69 as first graded) | 14 min 53 s | 1.73M | 28 | Self-run, Codex. $0.61 (estimated). [Scorecard](results/2026-10-01-gpt-6.1-sol-medium-v0.9-02.md), [regrade of both runs](results/2026-10-01-gpt-6.1-sol-medium-v0.9-regrade.md) |
+| gpt-6.1-sol, medium | v0.9 | **71** (run 1; 67 as first graded) | 14 min 21 s | 1.25M | 30 | Self-run, Codex. $0.53 (estimated). Crashed the online menu (counted as broken). [Scorecard](results/2026-10-01-gpt-6.1-sol-medium-v0.9-01.md) |
+
+Tokens burned counts everything the model read and wrote, most of it cached input it re-reads at each step. Speed is output tokens per second of run time, so time spent running commands counts against it.
 
 ## Check the benchmark
 

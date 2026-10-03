@@ -1,10 +1,12 @@
 """The self-run tools: reading each CLI's output, and the integrity check."""
 
 import json
+import os
 import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
@@ -55,11 +57,37 @@ class OutputParsingTests(unittest.TestCase):
         self.assertIn("1 of them over 272K", usage["cost_basis"])
         self.assertIn("codex-auto-review aren't counted", usage["cost_basis"])
 
+    def test_tokens_burned_adds_claudes_cache_counts_and_counts_codexs_cached_input_once(self):
+        claude = {"usage": {"input_tokens": 56, "cache_creation_input_tokens": 192_613, "cache_read_input_tokens": 3_542_289,
+                            "output_tokens": 84_602}}
+        codex = {"usage": {"input_tokens": 1_219_674, "cached_input_tokens": 1_136_128, "output_tokens": 25_417}}
+        self.assertEqual(run_bench.tokens_burned(claude), (3_819_560, 84_602))
+        self.assertEqual(run_bench.tokens_burned(codex), (1_245_091, 25_417))
+        self.assertIsNone(run_bench.tokens_burned({}))
+
     def test_codex_log_without_requests_is_priced_from_its_totals_at_standard_rates(self):
         totals = {"input_tokens": 1_000_000, "cached_input_tokens": 900_000, "cache_write_input_tokens": 0, "output_tokens": 20_000}
         log = json.dumps({"type": "turn.completed", "usage": totals})
         self.assertAlmostEqual(run_bench.codex_usage(log, "gpt-6.1-sol")["cost_usd"], 0.2 + 0.09 + 0.2)
         self.assertEqual(run_bench.codex_usage(log, "unpriced-model"), {"usage": totals})
+
+
+class CleanProfileTests(unittest.TestCase):
+    def test_claude_runs_without_the_persons_settings_or_the_starting_sessions_variables(self):
+        command = run_bench.agent_command("claude", "claude-opus-5-5", Path("."), Path("report.md"), None)
+        self.assertEqual(command[command.index("--setting-sources") + 1], "project,local")
+        self.assertIn("--strict-mcp-config", command)
+        with tempfile.TemporaryDirectory() as folder:
+            folder = Path(folder)
+            fake = folder / "claude"   # prints the variables it was given
+            fake.write_text('#!/bin/sh\necho "$CLAUDECODE|$CLAUDE_CODE_ENTRYPOINT|$CLAUDE_CONFIG_DIR"\n')
+            fake.chmod(0o755)
+            session_that_started_it = {"PATH": f"{folder}:{os.environ['PATH']}", "CLAUDECODE": "1",
+                                       "CLAUDE_CODE_ENTRYPOINT": "desktop", "CLAUDE_CONFIG_DIR": "/where/the/sign-in/is"}
+            with mock.patch.dict(os.environ, session_that_started_it):
+                stdout, timing = run_bench.run_agent(["claude", "-p"], folder, "", 30, folder / "agent-log.txt")
+        self.assertEqual(stdout.strip(), "||/where/the/sign-in/is")
+        self.assertTrue(timing["clean_profile"])
 
 
 class IntegrityTests(unittest.TestCase):

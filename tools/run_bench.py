@@ -9,7 +9,7 @@ What it does:
 1. Checks Python and Playwright (needed to grade the website). --install installs Playwright and Chromium.
 2. Builds a fresh run in a random folder under ~/.mainstreetbench/, away from this repository and the answer key.
 3. Starts the tested AI with its own command-line tool in that folder, with the owner's prompt, and waits
-   (45 minutes by default). The AI that set this up must not do the task itself.
+   (usually about 15 minutes; it's stopped at 45 by default). The AI that set this up must not do the task itself.
 4. Saves its final message as the owner report, freezes the workspace, and grades it.
 5. Asks a different model from the same tool to judge the 10 problems that need reading (--judge-model).
 6. Checks integrity: answer canaries in the work or report, and answer files or paths in the agent's log.
@@ -17,7 +17,10 @@ What it does:
 
 Agents:
   claude   Claude Code CLI:  claude -p --model MODEL [--effort EFFORT] (web tools disabled)
+           Runs clean with the person's sign-in: their settings, output style, skills, agents, plugins and connectors
+           are switched off, and nothing carries over from a Claude Code session that started the benchmark.
   codex    Codex CLI:        codex exec --model MODEL [-c model_reasoning_effort=EFFORT] --full-auto
+           Runs with a clean temporary profile holding only the sign-in.
            Codex reports tokens but no cost, so the scorecard prices its tokens at OpenAI's public API prices.
   custom   --command TEMPLATE, run inside the workspace with the prompt on stdin. Placeholders:
            {model} {effort} {workspace} {prompt_file} {report_file}. Its stdout, or {report_file} if written, is the report.
@@ -69,8 +72,10 @@ def codex_auto_flag() -> str:
 def agent_command(agent: str, model: str, workspace: Path, report_file: Path, template: str | None,
                   effort: str | None = None) -> list[str]:
     if agent == "claude":
+        # Only the bakery folder's settings, which it doesn't have, and no MCP servers, which include claude.ai connectors.
         return ["claude", "-p", "--model", model, "--output-format", "stream-json", "--verbose", "--dangerously-skip-permissions",
-                "--disallowedTools", "WebFetch,WebSearch"] + (["--effort", effort] if effort else [])
+                "--disallowedTools", "WebFetch,WebSearch", "--setting-sources", "project,local", "--strict-mcp-config"] + \
+               (["--effort", effort] if effort else [])
     if agent == "codex":
         return ["codex", "exec", "--json", "--model", model, "--cd", str(workspace), "--skip-git-repo-check", codex_auto_flag(),
                 "--output-last-message", str(report_file), "-c", "web_search=disabled"] + \
@@ -94,15 +99,26 @@ def clean_codex_home() -> Path | None:
     return home
 
 
+# Environment variables that change how Claude Code behaves, including the ones a Claude Code session sets for the
+# programs it starts. Claude Code runs without them, except the ones that sign it in.
+CLAUDE_VARIABLES = re.compile(r"CLAUDE|ANTHROPIC_|OTEL_|DISABLE_|ENABLE_|MCP_|MAX_THINKING_TOKENS$|MAX_MCP_OUTPUT_TOKENS$|BASH_(DEFAULT|MAX)_")
+CLAUDE_SIGN_IN = {"CLAUDE_CONFIG_DIR", "CLAUDE_CODE_OAUTH_TOKEN", "ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN"}
+
+
 def run_agent(command: list[str], workspace: Path, prompt: str, timeout_s: int, log: Path) -> tuple[str, dict]:
     """Run an agent; return (its stdout, extra usage info). The run is stopped at the time limit.
 
     Codex runs with a clean temporary profile; the session record it writes there tells us the model and effort used,
-    and the tokens each model request used, which are added to the log."""
+    and the tokens each model request used, which are added to the log. Claude Code runs clean through its own flags
+    (see agent_command) and without the Claude Code variables of whatever started the benchmark."""
     if shutil.which(command[0]) is None:
         raise SystemExit(f"'{command[0]}' isn't installed or isn't on PATH")
-    codex_home = clean_codex_home() if command[0] == "codex" else None
-    env = {**os.environ, "CODEX_HOME": str(codex_home)} if codex_home else None
+    home, env = None, None
+    if command[0] == "codex":
+        home = clean_codex_home()
+        env = {**os.environ, "CODEX_HOME": str(home)} if home else None
+    elif command[0] == "claude":
+        env = {name: value for name, value in os.environ.items() if name in CLAUDE_SIGN_IN or not CLAUDE_VARIABLES.match(name)}
     started = time.time()
     try:
         done = subprocess.run(command, cwd=workspace, input=prompt, capture_output=True, text=True, timeout=timeout_s,
@@ -112,15 +128,16 @@ def run_agent(command: list[str], workspace: Path, prompt: str, timeout_s: int, 
         out = exc.stdout.decode() if isinstance(exc.stdout, bytes) else (exc.stdout or "")
         err, code = "time limit reached", "timeout"
     session = ""
-    if codex_home:
-        session = "\n".join(p.read_text(errors="ignore") for p in sorted((codex_home / "sessions").rglob("*.jsonl")))
-        shutil.rmtree(codex_home, ignore_errors=True)   # holds a copy of the sign-in
+    if home:
+        session = "\n".join(p.read_text(errors="ignore") for p in sorted((home / "sessions").rglob("*.jsonl")))
+        shutil.rmtree(home, ignore_errors=True)   # holds a copy of the sign-in
+    clean = bool(home) or command[0] == "claude"
     requests = "".join(json.dumps(r) + "\n" for r in codex_requests(session))
-    log.write_text(f"$ {' '.join(command)}\nexit: {code}\nclean Codex profile: {bool(codex_home)}\n\n"
+    log.write_text(f"$ {' '.join(command)}\nexit: {code}\nclean profile: {clean}\n\n"
                    f"--- stdout ---\n{out}\n--- stderr ---\n{err}\n"
                    + (f"--- tokens per model request, from Codex's session record ---\n{requests}" if requests else ""))
     return out + ("\n" + session if session else ""), {"seconds": round(time.time() - started), "exit": code,
-                                                        "clean_profile": bool(codex_home)}
+                                                        "clean_profile": clean}
 
 
 def events(stdout: str) -> list[dict]:
@@ -243,6 +260,20 @@ def judge(agent: str, model: str, bundle: dict, template: str | None, timeout_s:
         return None
 
 
+def tokens_burned(usage: dict) -> tuple[int, int] | None:
+    """A run's total tokens and its output tokens, or None if the tool reported no counts. Claude Code counts cache
+    reads and writes apart from input; Codex's input already includes them."""
+    tokens = usage.get("usage") or {}
+    if "output_tokens" not in tokens:
+        return None
+    parts = ("input_tokens", "cache_creation_input_tokens", "cache_read_input_tokens", "output_tokens")
+    return sum(tokens.get(part, 0) for part in parts), tokens["output_tokens"]
+
+
+def short(count: int) -> str:
+    return f"{count / 1e6:.2f}M" if count >= 1e6 else f"{count / 1e3:.1f}K"
+
+
 BROKE_LABELS = {"regressions_failed": "working features broken", "decoys_changed": "correct details changed",
                 "live_orders_lost": "customer orders lost", "staff_discount_decoys_flagged": "staff wrongly accused"}
 
@@ -264,6 +295,9 @@ def scorecard(run: dict, graded: dict, timing: dict, usage: dict, official: bool
     cost = "not reported by the tool" if usage.get("cost_usd") is None else f"${usage['cost_usd']:.2f}"
     if usage.get("cost_basis"):
         cost += ", estimated from token counts at public API prices"
+    profile = {True: "clean: the person's sign-in, none of their own settings", False: "the person's own settings"}.get(
+        usage.get("clean_profile"), "not recorded")
+    seconds, burned = timing.get("seconds", 0), tokens_burned(usage)
     lines = [
         f"# Main Street Bench {run['version']} — {run['model']}",
         "",
@@ -279,8 +313,11 @@ def scorecard(run: dict, graded: dict, timing: dict, usage: dict, official: bool
         f"| Said it fixed something, but didn't | {len(graded['said_fixed_but_not']) if isinstance(graded['said_fixed_but_not'], list) else 'not judged'} |",
         f"| Judge | {judge_name or 'none'} |",
         f"| Model the tool reported | {', '.join(usage.get('models_reported') or []) or 'not reported'} |",
+        f"| Tool profile | {profile} |",
         f"| Integrity | {integrity_line(checked) if checked else 'not checked'} |",
-        f"| Time | {timing.get('seconds', 0) // 60} min {timing.get('seconds', 0) % 60} s |",
+        f"| Run time | {seconds // 60} min {seconds % 60} s |",
+        f"| Tokens burned | {f'{short(burned[0])} ({short(burned[1])} output)' if burned else 'not reported by the tool'} |",
+        f"| Speed | {f'{burned[1] / seconds:.0f} output tokens per second' if burned and seconds else 'not reported by the tool'} |",
         f"| Cost | {cost} |",
         "", "| Area | Fixed |", "|---|---|",
     ]
@@ -332,14 +369,14 @@ def main() -> None:
 
     need_playwright(args.install)
     import health_check
-    # Codex runs with a clean profile, so its own ~/.codex files don't load; files in the home folder still can.
-    # Only files the tested tool reads; Codex also runs with a clean profile, so its ~/.codex files don't load.
+    # Only files the tested tool reads. Codex's clean profile skips ~/.codex/AGENTS.md. Claude Code reads the CLAUDE.md
+    # files in every folder above the bakery folder, which is inside the home folder, so a clean profile still loads both.
     reads = integrity.READ_BY.get(args.agent, set(integrity.PERSONAL_INSTRUCTIONS)) - ({"~/.codex/AGENTS.md"} if args.agent == "codex" else set())
     personal = [p for p in integrity.PERSONAL_INSTRUCTIONS if Path(p).expanduser().is_file() and p in reads]
     if personal:
         print("Note: personal instruction files will be loaded by the tested AI and may affect its result: " + ", ".join(personal))
     run = create_run(f"{args.model} {args.effort}" if args.effort else args.model, args.base, args.hidden)
-    print(f"Built run {run['run']}. Starting {args.model}; this can take up to {args.minutes} minutes.", flush=True)
+    print(f"Built run {run['run']}. Starting {args.model}; runs usually take about 15 minutes and are stopped at {args.minutes}.", flush=True)
     evidence, workspace = run["evidence"], run["workspace"]
     report_file = run["workspace"].parent / "final-message.md"
     command = agent_command(args.agent, args.model, workspace, report_file, args.command, args.effort)
