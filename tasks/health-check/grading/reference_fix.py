@@ -157,7 +157,7 @@ def fix(workspace: Path, key_dir: Path) -> str:
     writer.writeheader()
     writer.writerows(cost)
     (books / "cost_sheet.csv").write_text(out.getvalue())
-    sub(books / "gift_card_ledger.csv", ",1305.00,", ",1485.00,")
+    sub(books / "gift_card_ledger.csv", ",2305.00,", ",2485.00,")
 
     report = ["# Corner Loaf health check — what I found", ""]
     for pid in ("M11", "M19", "M20"):

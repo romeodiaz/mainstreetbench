@@ -199,7 +199,7 @@ def build(out: Path) -> dict:
     # No answer value may already appear in the shipped workspace, or it could match by accident.
     shipped = "\n".join(p.read_text(encoding="utf-8", errors="ignore") for p in out.rglob("*")
                         if p.is_file() and p.suffix not in {".db"})
-    shipped = re.sub(r"(?<=\d),(?=\d{3}\b)", "", shipped)   # 1,485.00 -> 1485.00, but keep CSV commas
+    shipped = re.sub(r"(?<=\d),(?=\d{3}\b)", "", shipped)   # 2,485.00 -> 2485.00, but keep CSV commas
     for entry in key:
         for value in entry.get("values", []):
             assert not re.search(rf"(?<![\d.]){re.escape(value)}(?!\d)", shipped), f"{entry['id']} value {value} already in the packet"
