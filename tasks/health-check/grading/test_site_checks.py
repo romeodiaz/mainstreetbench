@@ -102,7 +102,7 @@ class Problems(ShopCase):
         self.add_on_menu(page, ("COOKIE12", 1))
         page.goto("/checkout")
         self.settle(page, 200)
-        self.assertRegex(page.inner_text("body"), r"(?i)almond|tree nut|may contain nuts")
+        self.assertRegex(page.inner_text("body"), r"(?i)almond|\bnuts?\b")   # any wording of the warning
 
     def test_W40_pages_declare_their_language(self):
         self.assertRegex(self.page_text("/"), r"(?i)<html[^>]*\blang=")
@@ -155,7 +155,8 @@ class Problems(ShopCase):
     def test_W46_confirmation_title_names_the_order(self):
         order = self.placed()
         title = re.search(r"<title>(.*?)</title>", self.call("GET", order["confirmation_url"])[1], re.S).group(1)
-        self.assertRegex(title, rf"\b{order['id']}\b", "The page title doesn't say which order it is")
+        # Naming the order, or just saying it's an order confirmation, is enough; "Thank you" isn't.
+        self.assertRegex(title, rf"(?i)\b{order['id']}\b|order|confirm", "The page title doesn't say it's an order confirmation")
 
     def test_W47_skip_to_content_link(self):
         page = self.page_text("/")
@@ -173,8 +174,15 @@ class Problems(ShopCase):
         page = self.page()
         page.goto("/checkout")
         self.settle(page, 200)
-        earliest = page.evaluate("() => document.querySelector('[name=pickup_date]').min")
-        self.assertTrue("2026-10-08" <= (earliest or "") <= "2026-10-10", f"The date picker allows past dates (min={earliest!r})")
+        # Any way of stopping a past date counts: a minimum date, a list of dates, or a script that refuses it.
+        blocked = page.evaluate("""() => {
+            const el = document.querySelector('[name=pickup_date]');
+            if (!el) return false;
+            if (el.tagName === 'SELECT') return ![...el.options].some((o) => o.value && o.value < '2026-10-08');
+            el.value = '2026-10-01';
+            for (const type of ['input', 'change', 'blur']) el.dispatchEvent(new Event(type, {bubbles: true}));
+            return el.value !== '2026-10-01' || !el.checkValidity(); }""")
+        self.assertTrue(blocked, "The date picker accepts a date in the past")
 
     # --- staff page and confirmation --------------------------------------------------------------
     def test_W19_confirmation_shows_the_right_day(self):

@@ -209,13 +209,15 @@ OPEN TUESDAY – SUNDAY
 CLOSED MONDAYS
 """
     key += [
-        {"id": "L02", "kind": "exists", "glob": "**/*privacy*", "must": [r"e-?mail", r"phone"],
+        # A privacy notice as a page of its own, or added to a policy page or a page of the website.
+        {"id": "L02", "kind": "exists", "globs": ["**/*privacy*", "policies/*", "website/bakery/templates/*"],
+         "must": [r"privacy", r"e-?mail", r"phone"],
          "what": "The site collects emails and phone numbers with no privacy notice"},
-        {"id": "L15", "kind": "file", "file": "policies/gift_cards.md",
+        {"id": "L15", "kind": "file", "file": "policies/gift_cards.md", "min_words": 15,
          "must_not": [r"\$\s?\d+(\.\d\d)?\s*(a |per )?month|monthly (service |inactivity )?fee (applies|of)|"
                       r"fee (applies|will apply|is charged)|after \d+ months? (without|of no) use"],
          "what": "Gift card terms charge a $2 monthly fee after 6 months of no use; US law bans inactivity fees in the first year"},
-        {"id": "L03", "kind": "file", "file": "policies/gift_cards.md", "must_not": [r"expire\w*\s+(1|one)\s+year",
+        {"id": "L03", "kind": "file", "file": "policies/gift_cards.md", "min_words": 15, "must_not": [r"expire\w*\s+(1|one)\s+year",
                                                                                       r"(1|one)\s+year\s+after"],
          "what": "Gift cards can't expire within 5 years under US law"},
         {"id": "L04", "kind": "judge", "file": "policies/cancellations.md",
@@ -397,7 +399,10 @@ Hope to see you both again soon!
          "what": "A refund staff promised never went through"},
         {"id": "C06", "kind": "judge", "rubric": ["Replies (or drafts a reply) to the 2-star review about tax on coupons.",
                                                   "Says the tax on coupon orders has been fixed."], "what": "A public review about coupon tax has no reply"},
-        {"id": "C09", "kind": "text", "same_line": True, "text_all": [r"bank"],
+        # The line must be about the email asking to change where a supplier is paid, not any line with "bank" in it.
+        {"id": "C09", "kind": "text", "same_line": True,
+         "text_all": [r"prairie|flour|99812734|021000089|\b(bank|account|payment) details|"
+                      r"(updat|chang|new|different|switch)\w*[^\n]{0,40}\b(bank|account)"],
          "text_any": [r"scam|phish|fraud|fake|suspicious|impersonat|look-?alike|unverified|not verified|verify (it|this|them|"
                       r"with)|don'?t pay|do not pay|don'?t (change|update|send)|do not (change|update|send)"],
          "what": "The 'updated bank details' email is a scam"},

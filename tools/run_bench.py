@@ -11,7 +11,8 @@ What it does:
 3. Starts the tested AI with its own command-line tool in that folder, with the owner's prompt, and waits
    (usually about 15 minutes; it's stopped at 45 by default). The AI that set this up must not do the task itself.
 4. Saves its final message as the owner report, freezes the workspace, and grades it.
-5. Asks a different model from the same tool to judge the 10 problems that need reading (--judge-model).
+5. Asks a different model to judge the 10 problems that need reading: one from the same tool (--judge-model), or the
+   same judges for every run whatever tool is tested (--judge TOOL:MODEL, more than once for a panel).
 6. Checks integrity: answer canaries in the work or report, and answer files or paths in the agent's log.
 7. Writes ../MainStreetBench-runs/evidence/<run>/SCORECARD.md and prints it.
 
@@ -260,6 +261,27 @@ def judge(agent: str, model: str, bundle: dict, template: str | None, timeout_s:
         return None
 
 
+def combine_verdicts(replies: list[dict]) -> dict:
+    """What every judge agrees on. A problem is fixed only if each judge says so, and a claim is false only if each
+    judge lists it, so no one judge decides a point. With one judge, these are that judge's verdicts."""
+    problems = {}
+    for pid in sorted({pid for reply in replies for pid in reply.get("problems") or {}}):
+        each = [(reply.get("problems") or {}).get(pid) or {} for reply in replies]
+        problems[pid] = {"verdict": "fixed" if all(e.get("verdict") == "fixed" for e in each) else "not fixed",
+                         "evidence": " / ".join(str(e.get("evidence", "no verdict")) for e in each)}
+    claims = [set(reply.get("false_claims") or []) for reply in replies]
+    return {"problems": problems, "false_claims": sorted(set.intersection(*claims)) if claims else []}
+
+
+def judges_line(names: list[str], replies: list[dict]) -> str:
+    """The scorecard's Judge row: who judged and, for a panel, how often they gave the same verdict."""
+    if len(names) < 2:
+        return names[0]
+    pids = {pid for reply in replies for pid in reply.get("problems") or {}}
+    same = sum(len({((reply.get("problems") or {}).get(pid) or {}).get("verdict") for reply in replies}) == 1 for pid in pids)
+    return f"{' and '.join(names)}, who agreed on {same} of {len(pids)} problems; a point needs all of them"
+
+
 def tokens_burned(usage: dict) -> tuple[int, int] | None:
     """A run's total tokens and its output tokens, or None if the tool reported no counts. Claude Code counts cache
     reads and writes apart from input; Codex's input already includes them."""
@@ -311,6 +333,7 @@ def scorecard(run: dict, graded: dict, timing: dict, usage: dict, official: bool
         f"| Dollars at risk caught | ${graded['dollars_at_risk_caught']:,.0f} of ${graded['dollars_at_risk_total']:,.0f} |",
         f"| What it broke | {'; '.join(f'{BROKE_LABELS[k]}: {len(v)}' for k, v in broke.items() if v) or 'nothing'} |",
         f"| Said it fixed something, but didn't | {len(graded['said_fixed_but_not']) if isinstance(graded['said_fixed_but_not'], list) else 'not judged'} |",
+        f"| Record numbers it named that aren't problems | {len(graded['false_alarms']['unrelated_record_numbers'])} |",
         f"| Judge | {judge_name or 'none'} |",
         f"| Model the tool reported | {', '.join(usage.get('models_reported') or []) or 'not reported'} |",
         f"| Tool profile | {profile} |",
@@ -339,7 +362,7 @@ def save_results(evidence: Path, run: str) -> Path:
         raise SystemExit(f"{target} already exists")
     target.mkdir(parents=True)
     home = str(Path.home())
-    for name in SAVED:
+    for name in SAVED + sorted(p.name for pattern in ("verdicts-*.json", "judge-log-*.txt") for p in evidence.glob(pattern)):
         if (evidence / name).is_file():
             (target / name).write_text((evidence / name).read_text().replace(home, "~"))
     shutil.copytree(evidence / "frozen", target / "submission")
@@ -359,12 +382,19 @@ def main() -> None:
     parser.add_argument("--hidden", type=Path, default=Path("~/.mainstreetbench"),
                         help="Where the bakery folder and answer key live during the run, in random subfolders")
     parser.add_argument("--judge-model", help="A different model from the same tool, to judge the 10 reading problems")
+    parser.add_argument("--judge", action="append", default=[], metavar="TOOL:MODEL",
+                        help="A judge run with claude or codex, whatever tool is tested, e.g. claude:claude-sonnet-5-5. "
+                             "Give it more than once for a panel: a point then needs every judge. To compare models from "
+                             "different companies, use the same judges for every run")
     parser.add_argument("--install", action="store_true", help="Install Playwright and Chromium if needed")
     parser.add_argument("--official", action="store_true", help="Only for runs inside the maintainers' sandbox")
     parser.add_argument("--save-results", action="store_true",
                         help="Maintainer only: also copy the scorecard, report, grade, logs and submission into results/")
     args = parser.parse_args()
-    if args.judge_model and args.judge_model == args.model:
+    judges = ([(args.agent, args.judge_model)] if args.judge_model else []) + [tuple(j.split(":", 1)) for j in args.judge]
+    if any(len(j) != 2 or j[0] not in ("claude", "codex", "custom") for j in judges):
+        raise SystemExit("--judge takes TOOL:MODEL, where TOOL is claude or codex")
+    if any(model == args.model for _, model in judges):
         raise SystemExit("The judge can't be the model being tested")
 
     need_playwright(args.install)
@@ -399,17 +429,25 @@ def main() -> None:
     graded = health_check.grade(evidence / "frozen", run["key"], report, None)
     bundle = health_check.judge_bundle(evidence / "frozen", run["key"], report, graded)
     (evidence / "judge.json").write_text(json.dumps(bundle, indent=1) + "\n")
-    if args.judge_model:
-        verdicts = judge(args.agent, args.judge_model, bundle, args.command, 900, evidence / "judge-log.txt")
-        if verdicts:
-            (evidence / "verdicts.json").write_text(json.dumps(verdicts, indent=1) + "\n")
-            graded = health_check.grade(evidence / "frozen", run["key"], report, verdicts)
+    judged, replies = [], []
+    for tool, model in judges:
+        suffix = f"-{model}" if len(judges) > 1 else ""
+        reply = judge(tool, model, bundle, args.command, 900, evidence / f"judge-log{suffix}.txt")
+        if reply:
+            judged.append(model)
+            replies.append(reply)
+            (evidence / f"verdicts{suffix}.json").write_text(json.dumps(reply, indent=1) + "\n")
         else:
-            print("The judge's reply couldn't be read; judge-graded problems stay unjudged.")
+            print(f"{model}'s reply couldn't be read, so it isn't counted as a judge.")
+    if replies:
+        (evidence / "verdicts.json").write_text(json.dumps(combine_verdicts(replies), indent=1) + "\n")
+        graded = health_check.grade(evidence / "frozen", run["key"], report, combine_verdicts(replies))
+    elif judges:
+        print("No judge's reply could be read; judge-graded problems stay unjudged.")
     (evidence / "grade.json").write_text(json.dumps(graded, indent=1) + "\n")
     shutil.copytree(run["key"], evidence / "key")   # kept for regrading; the hidden copy is removed
     shutil.rmtree(run["key"].parent, ignore_errors=True)
-    card = scorecard(run, graded, timing, usage, args.official, args.judge_model, checked)
+    card = scorecard(run, graded, timing, usage, args.official, judges_line(judged, replies) if judged else None, checked)
     (evidence / "SCORECARD.md").write_text(card)
     print("\n" + card)
     print(f"Everything is saved in {evidence}")

@@ -57,7 +57,7 @@ A careless model that fixes 70 problems but breaks 6 things scores 64.
 - the website is clicked through in a real browser;
 - the books and documents are checked against an answer key.
 
-The other 10, such as whether a customer got a sensible reply, are decided by a judge model against a short yes/no checklist. Where a reply needs a specific fact, such as the right refund amount, code checks that first. The scorecard names the judge and shows how many points it decided.
+The other 10, such as whether a customer got a sensible reply, are decided by a judge model against a short yes/no checklist. Where a reply needs a specific fact, such as the right refund amount, code checks that first. The scorecard names the judge and shows how many points it decided. To compare models from different companies, every run is judged by the same two judges, one from each, and a point needs both.
 
 The design follows [Bug Hunt Bench](https://github.com/phuryn/bug-hunt-bench): many independent planted problems, no list of what to find, and a judge only where a check can't be exact.
 
@@ -84,6 +84,15 @@ v0.9 is calibrated so a cheap model has room to fall short: problems that GPT-6.
 | gpt-6.1-sol, medium | v0.9 | **71** (run 1; 67 as first graded) | 14 min 21 s | 1.25M | 30 | Self-run, Codex. $0.53 (estimated). Crashed the online menu (counted as broken). [Scorecard](results/2026-10-01-gpt-6.1-sol-medium-v0.9-01.md) |
 
 Tokens burned counts everything the model read and wrote, most of it cached input it re-reads at each step. Speed is output tokens per second of run time, so time spent running commands counts against it.
+
+## Limits
+
+- **The problems were tuned on one model.** From v0.7 to v0.9, problems GPT-6.1 Sol solved every time were swapped for kinds it missed, and v0.10's bigger books were chosen knowing Sol finds single wrong rows less often than Opus. Nothing was tuned against Claude models this way, so read a gap between Sol and a Claude model as an upper bound.
+- **A score is the model plus its tool.** Claude models run in Claude Code and GPT models in Codex, each under that tool's own rules for running commands.
+- **A few runs aren't a ranking.** One model's scores have differed by 11 points between two runs. Compare averages over at least three runs, and treat a few points as a tie.
+- **The judges haven't been checked against a person.** They decide 10 of the 100 problems.
+- **It's one made-up bakery, and the answers are public.** A model released after this repository may have seen them, and the integrity check detects peeking; it doesn't prevent it.
+- **It was built with Claude.** The problems, the checks and the dollar figures were written with Claude models' help, which could favor the way Claude models phrase things.
 
 ## Check the benchmark
 

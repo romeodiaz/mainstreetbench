@@ -120,6 +120,35 @@ class HealthCheckTests(unittest.TestCase):
         self.assertEqual(graded["score"], 0)
         self.assertTrue(graded["false_alarms"]["flags_need_judge"])
 
+    def test_naming_records_without_saying_whats_wrong_earns_nothing(self):
+        key = {entry["id"]: entry for entry in json.loads((self.key / "answer_key.json").read_text())["problems"]}
+        planted = ", ".join(key[pid]["record_ids"][0] for pid in ("M29", "M33", "M34", "M37"))
+        report = "\n".join([
+            "You're open Tuesday to Sunday, as the door sign says. I reviewed the books from 2026-09-01 to 2026-09-30.",
+            "I checked refunds " + ", ".join(f"RF-{n:03d}" for n in range(1, 14)) + " and they all look fine.",
+            "\n".join(f"| RF-{n:03d} | succeeded |" for n in range(1, 14)),
+            "Dispute DP-2209 is on file; nothing to do. The flyer went out on 9/19.",
+            f"I spot-checked {planted} and found nothing wrong with them.",
+            "Payouts " + ", ".join(f"PO-09{day:02d}" for day in range(1, 13)) + " all reached the bank.",
+            "Two card payouts went to your old bank account. That isn't fraud, but chase it.",
+        ])
+        graded = health_check.grade(self.shipped, self.key, report, None, site=NO_SITE)
+        self.assertEqual([pid for pid, v in graded["problems"].items() if v["status"] == "fixed"], [])
+
+    def test_emptying_a_page_does_not_fix_it(self):
+        emptied = self.copy("emptied")
+        (emptied / "policies" / "gift_cards.md").write_text("TBD\n")
+        graded = health_check.grade(emptied, self.key, "", None, site=NO_SITE)
+        for pid in ("L03", "L15"):
+            self.assertEqual(graded["problems"][pid]["status"], "not fixed", pid)
+
+    def test_a_figure_inside_a_longer_number_does_not_count(self):
+        figure = health_check.normalize
+        self.assertTrue(health_check.has_figure(figure("The closing balance should be $2,485.00."), "2485.00"))
+        self.assertTrue(health_check.has_figure(figure("2026-09,2240.00,425.00,180.00,2485.00,note"), "2485.00"))
+        for text in ("payment PAY-02485", "a deposit of $12,485.00", "a payout of $2,485.37"):
+            self.assertFalse(health_check.has_figure(figure(text), "2485"), text)
+
     def test_breaking_decoys_and_losing_orders_is_counted(self):
         broken = self.copy("broken")
         price_list = broken / "menu" / "price_list.csv"

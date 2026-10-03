@@ -50,7 +50,9 @@ AT_RISK = {
 
 
 def normalize(text: str) -> str:
-    return text.replace(",", "").replace("$", "").lower()
+    """Lower case, without "$" or the commas inside numbers: "$2,485.00" becomes "2485.00". Commas between the
+    fields of a CSV row stay, so neighbouring figures don't run together."""
+    return re.sub(r"(?<!\.\d)(?<!\.\d\d)(?<=\d),(?=\d{3}(?!\d))", "", text.replace("$", "")).lower()
 
 
 # --- website ------------------------------------------------------------------------------------
@@ -166,21 +168,46 @@ def lines_matching(text: str, pattern: str) -> list[str]:
     return [line for line in text.splitlines() if re.search(pattern, line, re.I)]
 
 
+ALL_CLEAR = re.compile(r"\b(looks? (fine|ok(ay)?|good|right|correct|normal)|(is|are|was|were|all|both|seems?) "
+                       r"(fine|ok(ay)?|correct|in order|normal|legitimate)|(found )?nothing (wrong|to do|unusual|needed|amiss)|"
+                       r"no (issues?|problems?|errors?|action|discrepanc(y|ies)|concerns?)|as expected|check(s|ed)? out|"
+                       r"found nothing)\b", re.I)
+PROBLEM_SIGN = re.compile(r"\$\s?\d|\d\.\d\d|\d\s?%|wrong|incorrect|error|mistake|should|instead|owe[ds]?\b|\bover|under|short|"
+                          r"twice|double|duplicat|missing|never|fail|n't\b|\bnot\b|extra|excess|more than|less than|"
+                          r"too (much|little|high|low|many)|negative|minus|respond|\bask\b|contact|recover|flag|investigat|"
+                          r"verify|query|suspicious|fraud|theft|unexplained|unknown|closed", re.I)
+
+
+def says_something(line: str) -> bool:
+    """False for a line that only gives the all-clear, such as "RF-003 and RF-004 look fine"."""
+    return not ALL_CLEAR.search(line) or PROBLEM_SIGN.search(ALL_CLEAR.sub("", line)) is not None
+
+
+def has_figure(text: str, value: str) -> bool:
+    """The figure as a number of its own, not as part of a longer one: "2485" isn't in "12485" or "2485.37"."""
+    return re.search(rf"(?<![\d.]){re.escape(normalize(value))}(?!\d|\.\d)", text) is not None
+
+
 def check_entry(entry: dict, ws: Workspace) -> tuple[bool, str]:
     kind = entry["kind"]
     if kind == "flag":
-        haystack = ws.report
-        if any(mentions(haystack, rid) for rid in entry.get("record_ids", [])):
-            return True, "report names the records"
-        if any(re.search(p, haystack, re.I) for p in entry.get("text_any", [])):
-            return True, "report describes it"
+        # A record is flagged where the report says something about it, not where it lists it as fine. Records that
+        # are few enough to list wholesale (13 refunds, one dispute) also need the line to say what's wrong ("evidence").
+        for line in ws.report.splitlines():
+            if not says_something(line):
+                continue
+            if any(mentions(line, rid) for rid in entry.get("record_ids", [])) and \
+                    (not entry.get("evidence") or any(re.search(p, line, re.I) for p in entry["evidence"])):
+                return True, "report names the records"
+            if any(re.search(p, line, re.I) for p in entry.get("text_any", [])):
+                return True, "report describes it"
         changed = normalize(ws.changed_text())
-        if any(normalize(v) in changed for v in entry.get("values", [])):
+        if any(has_figure(changed, v) for v in entry.get("values", [])):
             return True, "corrected figure given"
         return False, "not in the report"
     if kind == "value":
         changed = normalize(ws.changed_text())
-        hit = [v for v in entry["values"] if normalize(v) in changed]
+        hit = [v for v in entry["values"] if has_figure(changed, v)]
         return bool(hit), f"corrected figure {hit[0]}" if hit else "corrected figure not found"
     if kind == "text" and entry.get("same_line"):
         ok = any(all(re.search(p, s, re.I) for p in entry.get("text_all", [])) and
@@ -195,6 +222,8 @@ def check_entry(entry: dict, ws: Workspace) -> tuple[bool, str]:
         text = ws.read(entry["file"])
         if text is None:
             return False, f"{entry['file']} is missing"
+        if len(re.findall(r"\w+", text)) < entry.get("min_words", 0):   # emptying a page doesn't fix it
+            return False, f"{entry['file']} was emptied"
         if "column" in entry:
             rows = list(csv.DictReader(io.StringIO(text)))
             first = next(iter(rows[0])) if rows else None
@@ -226,9 +255,9 @@ def check_entry(entry: dict, ws: Workspace) -> tuple[bool, str]:
         ok = all(sets) and all(s == sets[0] for s in sets)
         return ok, "consistent" if ok else f"still differ: {sets}"
     if kind == "exists":
-        for path in ws.root.glob(entry["glob"]):
+        for path in (p for pattern in entry["globs"] for p in ws.root.glob(pattern)):
             if path.is_file() and path.suffix != ".db":
-                text = path.read_text(encoding="utf-8", errors="ignore")
+                text = path.name + "\n" + path.read_text(encoding="utf-8", errors="ignore")
                 if all(re.search(p, text, re.I) for p in entry.get("must", [])):
                     return True, f"added {path.relative_to(ws.root)}"
         return False, "not added"

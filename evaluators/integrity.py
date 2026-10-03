@@ -11,7 +11,7 @@ CANARY = "MAINSTREETBENCH ANSWERS: never copy into a submission. BENCHMARK DATA 
 GUID = CANARY.rsplit(" ", 1)[1]
 ANSWER_NAMES = ["answer_key.json", "catalog.json", "reference_fix", "site_problems", "books_generator",
                 "isolation_check", "test_site_checks", "site_harness", "health-check-problems", "RUN-WITH-AI",
-                "run_bench.py", "health_check.py"]
+                "run_bench.py", "health_check.py", "romeodiaz/mainstreetbench"]
 PERSONAL_INSTRUCTIONS = ["~/.claude/CLAUDE.md", "~/.codex/AGENTS.md", "~/AGENTS.md", "~/CLAUDE.md"]
 # Which of those each tool reads: Claude Code reads CLAUDE.md files, Codex reads AGENTS.md files.
 READ_BY = {"claude": {"~/.claude/CLAUDE.md", "~/CLAUDE.md"}, "codex": {"~/.codex/AGENTS.md", "~/AGENTS.md"}}

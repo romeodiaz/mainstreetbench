@@ -181,17 +181,21 @@ def generate(seed: int = 20261008) -> tuple[dict[str, str], list[dict]]:
         s = pick(lambda d: d < f"{MONTH}-26")
         refund(s, "succeeded", s["date"], s["date"])
     failed = refund(pick(lambda d: d < f"{MONTH}-20"), "failed", f"{MONTH}-12")
-    flag("M04", [failed["refund_id"], failed["order_id"]], f"Refund {failed['refund_id']} failed; the customer was never paid")
+    flag("M04", [failed["refund_id"], failed["order_id"]], f"Refund {failed['refund_id']} failed; the customer was never paid",
+         evidence=[r"fail|never|unpaid|unsuccessful|declin|bounc|did(n't| not)|not (been |yet )?(paid|received|processed|refunded|"
+                   r"completed|gone|go)|still (owed?|waiting|due|needs?|outstanding)"])
     # M39 a card refund on a sale that was paid in cash
     cash_sale = pick(lambda d: d < f"{MONTH}-22", tender="cash")
     card_refund = refund(cash_sale, "succeeded", f"{MONTH}-23", f"{MONTH}-23")
     flag("M39", [card_refund["refund_id"], cash_sale["order_id"]],
-         f"{card_refund['refund_id']} refunded ${card_refund['amount']} to a card for {cash_sale['order_id']}, which was paid in cash")
+         f"{card_refund['refund_id']} refunded ${card_refund['amount']} to a card for {cash_sale['order_id']}, which was paid in cash",
+         evidence=[r"cash"])
     # M31 a refund bigger than the order it refunds
     over = pick(lambda d: d < f"{MONTH}-24")
     over_refund = refund(over, "succeeded", f"{MONTH}-24", f"{MONTH}-24", amount=f"{Decimal(over['total']) + 10:.2f}")
     flag("M31", [over_refund["refund_id"], over["order_id"]],
-         f"{over_refund['refund_id']} refunded ${over_refund['amount']} on a ${over['total']} order ($10.00 too much)")
+         f"{over_refund['refund_id']} refunded ${over_refund['amount']} on a ${over['total']} order ($10.00 too much)",
+         evidence=[r"\$\s?10(\.00)?\b|too much|more than|exceed|excess|\bover|higher than|greater than|larger than|above (the|its)"])
     # C14 a promised full refund was keyed in with two digits swapped
     swappable = [s for s in sales if s["tender"] == "card" and not s.get("_used") and s["date"] < f"{MONTH}-20"
                  and 10 <= Decimal(s["total"]) < 100 and s["total"][0] > s["total"][1]]
@@ -248,8 +252,12 @@ def generate(seed: int = 20261008) -> tuple[dict[str, str], list[dict]]:
         if p is twice_paid:
             bank.append({"date": p["date"], "description": f"CARD PROCESSOR PAYOUT {p['payout_id']}", "amount": f"{amount:.2f}"})
     flag("M36", [twice_paid["payout_id"]], f"Payout {twice_paid['payout_id']} (${twice_paid['amount']}) was deposited twice; "
-         "the processor will want it back")
-    flag("M23", [o["payout_id"] for o in old], "Two payouts went to the old account ending 1170")
+         "the processor will want it back",
+         evidence=[r"twice|double|duplicat|two (deposits|credits|times)|both|again|\b2x\b|second|repeat|extra"])
+    flag("M23", [o["payout_id"] for o in old], "Two payouts went to the old account ending 1170",
+         evidence=[r"1170|old|closed|wrong account|different account|other account|missing|unmatched|never|"
+                   r"not (in|on|at|been|found|deposited|received|reached|arrived|shown|showing|matched)|"
+                   r"did(n't| not)|no (matching |bank |such )?deposit|isn't|aren't|wasn't|weren't"])
 
     # Cash deposits; Tuesdays short (M18), and every short Tuesday was closed by the same person (M28)
     closers = {1: "Lee Chen", 2: "Priya Raman", 3: "Sam Kowalski", 4: "Jamie Ortiz", 5: "Priya Raman", 6: "Sam Kowalski"}
@@ -266,12 +274,15 @@ def generate(seed: int = 20261008) -> tuple[dict[str, str], list[dict]]:
         drawer.append({"date": day, "expected_cash": f"{expected:.2f}", "counted_cash": f"{counted:.2f}",
                        "closed_by": closer})
         bank.append({"date": day, "description": "CASH DEPOSIT", "amount": f"{counted:.2f}"})
-    flag("M41", [], "The cash drawer was $50.00 over on Saturday Sept 19: cash taken without a sale rung up",
-         text_any=[r"Sep(t(ember)?)?\.?\s*19\b[^\n]{0,80}(over|\+\s*\$?50|extra|surplus)|"
-                   r"(over|surplus|extra)[^\n]{0,80}Sep(t(ember)?)?\.?\s*19\b|9/19"])
+    # Both need the day and what was wrong with the drawer on one line; the day alone could be about anything.
+    key.append({"id": "M41", "kind": "text", "same_line": True,
+                "what": "The cash drawer was $50.00 over on Saturday Sept 19: cash taken without a sale rung up",
+                "text_all": [r"Sep(t(ember)?)?\.?\s*19\b|\b9/19\b|2026-09-19|\b19(th)?\s+(of\s+)?Sep"],
+                "text_any": [r"\bover|\+\s*\$?50|\$\s?50\b|extra|surplus|excess|more (cash )?than|too much|unrecorded|not rung"]})
     days = [str(int(d[8:])) for d in tuesday_short]
-    flag("M18", tuesday_short, "The cash drawer is $20 short every Tuesday",
-         match="text", text_any=["Tuesday", r"\b" + r"(st|nd|rd|th)?,?\s*(and\s*)?".join(days) + r"\b"])
+    key.append({"id": "M18", "kind": "text", "same_line": True, "what": "The cash drawer is $20 short every Tuesday",
+                "text_all": [r"short|missing|\$\s?20\b|less than|deficit|variance|discrepanc|off by|out by"],
+                "text_any": ["Tuesday", r"\b" + r"(st|nd|rd|th)?,?\s*(and\s*)?".join(days) + r"\b"]})
 
     # Supplier bills (M14 flour increase, M38 an invoice number used twice)
     invoices = [
@@ -309,7 +320,9 @@ def generate(seed: int = 20261008) -> tuple[dict[str, str], list[dict]]:
     disputes = [{"dispute_id": "DP-2209", "payment_order": disputed["order_id"], "opened": f"{MONTH}-22",
                  "amount": disputed["total"], "reason": "Customer says the cake was never collected",
                  "respond_by": "2026-10-06", "status": "needs response"}]
-    flag("M24", ["DP-2209", disputed["order_id"]], "Card dispute DP-2209 needed a response by Oct 6 and got none")
+    flag("M24", ["DP-2209", disputed["order_id"]], "Card dispute DP-2209 needed a response by Oct 6 and got none",
+         evidence=[r"respon|repl(y|ied)|answer|deadline|overdue|late|missed|expired|lost|evidence|contest|appeal|urgent|"
+                   r"\$\s?15\b|fee|Oct(ober)?\.?\s*6|10/6"])
 
     # Reports with planted errors (M11, M12, M19, M20, M21) and the cost sheet (M14, M15)
     real_tax = sum(Decimal(s["tax"]) for s in sales)

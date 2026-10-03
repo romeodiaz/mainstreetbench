@@ -136,5 +136,22 @@ class AccusationTests(unittest.TestCase):
         self.assertTrue(health_check.accuses(text, "CL-0038"))
         self.assertTrue(health_check.accuses("CL-0048 is not valid staff use.", "CL-0048"))
 
+
+class JudgePanelTests(unittest.TestCase):
+    def test_a_point_needs_every_judge(self):
+        one = {"problems": {"C01": {"verdict": "fixed", "evidence": "reply drafted"}, "M28": {"verdict": "fixed"}},
+               "false_claims": ["W39", "L02"]}
+        two = {"problems": {"C01": {"verdict": "fixed", "evidence": "names the refund"}, "M28": {"verdict": "not fixed"}},
+               "false_claims": ["L02"]}
+        both = run_bench.combine_verdicts([one, two])
+        self.assertEqual({p: v["verdict"] for p, v in both["problems"].items()}, {"C01": "fixed", "M28": "not fixed"})
+        self.assertEqual(both["false_claims"], ["L02"])
+        self.assertIn("agreed on 1 of 2", run_bench.judges_line(["judge-a", "judge-b"], [one, two]))
+
+    def test_one_judge_keeps_its_own_verdicts(self):
+        one = {"problems": {"C01": {"verdict": "fixed", "evidence": "reply drafted"}}, "false_claims": ["W39"]}
+        self.assertEqual(run_bench.combine_verdicts([one]), one)
+        self.assertEqual(run_bench.judges_line(["judge-a"], [one]), "judge-a")
+
 if __name__ == "__main__":
     unittest.main()
